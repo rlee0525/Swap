@@ -10,8 +10,16 @@
 #  updated_at    :datetime         not null
 #
 
-class Course < ApplicationRecord
-  validates :university, :course_name, :course_number, presence: true
-  has_many :posts
-  belongs_to :university
+require 'rails_helper'
+
+RSpec.describe Course, type: :model do
+  describe "validations" do
+    it { should validate_presence_of(:university) }
+    it { should validate_presence_of(:course_name) }
+  end
+
+  describe "associations" do
+    it { should have_many(:posts) }
+    it { should belong_to(:university) }
+  end
 end

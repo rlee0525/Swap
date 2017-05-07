@@ -11,9 +11,10 @@
 #  updated_at       :datetime         not null
 #
 
-class User < ApplicationRecord
-  validates :fb_id, :edu_email, :university, :marketing_opt_in, presence: true
-  validates :edu_email, :fb_id, uniqueness: true
-  has_many :posts
-  belongs_to :university
+FactoryGirl.define do
+  factory :user do
+    fb_id 123
+    edu_email '123@berkeley.edu'
+    university
+  end
 end

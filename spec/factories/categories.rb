@@ -8,7 +8,8 @@
 #  updated_at :datetime         not null
 #
 
-class Category < ApplicationRecord
-  validates :name, presence: true
-  has_many :posts
+FactoryGirl.define do
+  factory :category do
+    
+  end
 end
