@@ -7,8 +7,7 @@ import Root from './core/root';
 document.addEventListener('DOMContentLoaded', () => {
   const root: HTMLElement = document.getElementById('root');
 
-  let preloadedState:object = {
-  };
+  const preloadedState: object = {};
 
   const store: Store<any> = configureStore(preloadedState);
 

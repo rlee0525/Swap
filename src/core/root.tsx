@@ -4,12 +4,12 @@ import { Store } from 'redux';
 import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 // import routes from './routes';
 
-interface RootProps {
-  store: Store<any>
+interface IRootProps {
+  store: Store<any>;
 }
 
-const Root:React.SFC<RootProps> = ({ store }) => (
-  <Provider store={ store }>
+const Root: React.SFC<IRootProps> = ({ store }) => (
+  <Provider store={store}>
     <div>Swap</div>
   </Provider>
 );
