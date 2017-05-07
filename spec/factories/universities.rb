@@ -9,8 +9,9 @@
 #  updated_at      :datetime         not null
 #
 
-class University < ApplicationRecord
-  validates :name, :email_extension, presence: true
-  has_many :courses
-  has_many :users
+FactoryGirl.define do
+  factory :university do
+    name "Berkeley"
+    email_extension "berkeley.edu"
+  end
 end

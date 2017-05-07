@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170507010115) do
+ActiveRecord::Schema.define(version: 20170507190812) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,7 +41,9 @@ ActiveRecord::Schema.define(version: 20170507010115) do
     t.string   "zip_code"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.index ["user_id", "category_id", "course_id"], name: "index_posts_on_user_id_and_category_id_and_course_id", using: :btree
+    t.string   "title",       null: false
+    t.index ["course_id"], name: "index_posts_on_course_id", using: :btree
+    t.index ["user_id"], name: "index_posts_on_user_id", using: :btree
   end
 
   create_table "universities", force: :cascade do |t|
@@ -58,7 +60,9 @@ ActiveRecord::Schema.define(version: 20170507010115) do
     t.boolean  "marketing_opt_in", default: true, null: false
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
-    t.index ["fb_id", "university_id"], name: "index_users_on_fb_id_and_university_id", using: :btree
+    t.index ["edu_email"], name: "index_users_on_edu_email", using: :btree
+    t.index ["fb_id"], name: "index_users_on_fb_id", unique: true, using: :btree
+    t.index ["university_id"], name: "index_users_on_university_id", using: :btree
   end
 
 end
