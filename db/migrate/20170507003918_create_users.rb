@@ -7,6 +7,6 @@ class CreateUsers < ActiveRecord::Migration[5.0]
       t.boolean :marketing_opt_in, null: false, default: true
       t.timestamps
     end
-    add_index :users, :fb_id, :university_id
+    add_index :users, [:fb_id, :university_id]
   end
 end

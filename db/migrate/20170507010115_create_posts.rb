@@ -11,6 +11,6 @@ class CreatePosts < ActiveRecord::Migration[5.0]
       t.string :zip_code
       t.timestamps
     end
-    add_index :posts, :user_id, :category_id, :course_id
+    add_index :posts, [:user_id, :category_id, :course_id]
   end
 end
