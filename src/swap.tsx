@@ -5,11 +5,11 @@ import configureStore from './core/store';
 import Root from './core/root';
 
 document.addEventListener('DOMContentLoaded', () => {
-  const root = document.getElementById('root');
+  const root: HTMLElement = document.getElementById('root');
 
-  let preloadedState = {
-    user: JSON.parse(localStorage.getItem('google-user'))
+  let preloadedState:object = {
   };
+
   const store: Store<any> = configureStore(preloadedState);
 
   ReactDOM.render(<Root store={store}/>, root);

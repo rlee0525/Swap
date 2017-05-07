@@ -10,7 +10,7 @@ interface RootProps {
 
 const Root:React.SFC<RootProps> = ({ store }) => (
   <Provider store={ store }>
-    <div>Hi</div>
+    <div>Swap</div>
   </Provider>
 );
 

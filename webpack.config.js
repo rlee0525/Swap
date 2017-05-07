@@ -10,7 +10,7 @@ module.exports = {
     },
     devtool: "source-map",
     resolve: {
-        extensions: [".ts", ".tsx", ".js", ".json"],
+        extensions: [".ts", ".tsx", ".js", ".jsx"],
         modules: [
           path.resolve(__dirname, 'src'),
           path.resolve(__dirname, 'node_modules')
@@ -21,9 +21,5 @@ module.exports = {
             { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
             { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
         ]
-    },
-    externals: {
-        "react": "React",
-        "react-dom": "ReactDOM"
-    },
+    }
 };
