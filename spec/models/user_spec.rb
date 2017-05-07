@@ -19,6 +19,7 @@ RSpec.describe User, type: :model do
     it { should validate_presence_of(:edu_email) }
     it { should validate_presence_of(:marketing_opt_in) }
     it { should validate_uniqueness_of(:fb_id) }
+    it { should validate_uniqueness_of(:edu_email) }
   end
 
   describe "associations" do
