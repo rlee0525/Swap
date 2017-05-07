@@ -13,6 +13,8 @@
 
 FactoryGirl.define do
   factory :user do
-    
+    fb_id 123
+    edu_email '123@berkeley.edu'
+    university
   end
 end
