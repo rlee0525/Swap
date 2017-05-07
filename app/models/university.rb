@@ -10,4 +10,7 @@
 #
 
 class University < ApplicationRecord
+  validates :name, :email_extension, presence: true
+  has_many :courses
+  has_many :users
 end

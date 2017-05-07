@@ -16,4 +16,10 @@
 #
 
 class Post < ApplicationRecord
+  validates :user, :description,
+            :price, :img_url1, :img_url2,
+            :category, :course, :zip_code, presence: true
+  belongs_to :category
+  belongs_to :course
+  belongs_to :user
 end
