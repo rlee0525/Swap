@@ -15,7 +15,11 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   describe "validations" do
-    let (:user) { User.create!(fb_id: 123, edu_email: '123@berkeley.edu', university_id: 123) }
+    let (:university) { University.create!(name: "Berkeley",
+                                           email_extension: "berekely.edu") }
+    let! (:user) { User.create!(fb_id: 123,
+                                edu_email: '123@berkeley.edu',
+                                university: university) }
     it { should validate_presence_of(:fb_id) }
     it { should validate_presence_of(:edu_email) }
     it { should validate_presence_of(:marketing_opt_in) }
