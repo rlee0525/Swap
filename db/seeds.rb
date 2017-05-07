@@ -1,5 +1,5 @@
-categories = %w(Textbooks Male Clothing Female
-                Clothing Furniture Electronics Kitchenware Games)
+categories = ['Textbooks', 'Male Clothing', 'Female Clothing',
+              'Furniture', 'Electronics', 'Kitchenware', 'Games']
 universities = [['Berkeley', 'berkeley.edu']]
 
 courses = [['Public Speaking', 'ENG1A']]
