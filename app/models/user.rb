@@ -12,7 +12,6 @@
 #
 
 class User < ApplicationRecord
-  User.create!(fb_id: 123, edu_email: '123@berkeley.edu', university_id: 123)
   validates :fb_id, :edu_email, :university, :marketing_opt_in, presence: true
   validates :edu_email, :fb_id, uniqueness: true
   has_many :posts
