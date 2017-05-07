@@ -6,7 +6,7 @@ module.exports = {
     entry: "./src/swap.tsx",
     output: {
         filename: "bundle.js",
-        path: __dirname + "/dist"
+        path: __dirname + "/app/assets/javascripts"
     },
     devtool: "source-map",
     resolve: {
