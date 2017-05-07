@@ -12,7 +12,7 @@
 
 FactoryGirl.define do
   factory :course do
-    university_id 1
+    university
     course_name "Math 101"
     course_number "MATH1A"
   end

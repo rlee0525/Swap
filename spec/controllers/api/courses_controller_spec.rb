@@ -3,8 +3,7 @@ require 'rails_helper'
 RSpec.describe Api::CoursesController, type: :controller do
   describe "GET #show when VALID" do
     render_views
-    let! (:university) { create(:university) }
-    let! (:course) { create(:course, university: university) }
+    let! (:course) { create(:course) }
 
     before(:each) do
       get :show, params: { id: course.id }
@@ -27,8 +26,7 @@ RSpec.describe Api::CoursesController, type: :controller do
 
   describe "GET #index when VALID" do
     render_views
-    let! (:university) { create(:university) }
-    let! (:course) { create(:course, university: university) }
+    let! (:course) { create(:course) }
 
     before(:each) do
       get :index

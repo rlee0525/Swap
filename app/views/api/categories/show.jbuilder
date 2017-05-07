@@ -1,5 +1,3 @@
-json.extract! @course,
+json.extract! @category,
               :id,
-              :university_id,
-              :course_name,
-              :course_number
+              :name
