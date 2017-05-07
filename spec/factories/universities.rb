@@ -12,6 +12,6 @@
 FactoryGirl.define do
   factory :university do
     name "Berkeley"
-    email_extension "berekely.edu"
+    email_extension "berkeley.edu"
   end
 end
