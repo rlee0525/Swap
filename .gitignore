@@ -21,3 +21,5 @@ bundle.js
 bundle.js.map
 
 app/assets/javascripts
+
+config/api_key.ts
