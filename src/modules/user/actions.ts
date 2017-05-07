@@ -8,5 +8,5 @@ export const receiveUser = user => ({
 });
 
 export const loginUser = () => dispatch => {
-  UserAPI.authenticateUser(dispatch);
+  // UserAPI.authenticateUser(dispatch);
 };

@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Provider } from 'react-redux';
 import { Store } from 'redux';
 import { Router, Route, IndexRoute, hashHistory } from 'react-router';
-// import routes from './routes';
 
 interface IRootProps {
   store: Store<any>;
