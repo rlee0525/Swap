@@ -1,19 +1,17 @@
-
 import * as React from 'react';
 import { Provider } from 'react-redux';
+import { Store } from 'redux';
 import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 // import routes from './routes';
 
-/*const Root = ({ store }) => (
-  <Provider store={ store }>
-    <Router history={ hashHistory } routes={routes} />
-  </Provider>
-);*/
+interface RootProps {
+  store: Store<any>
+}
 
-const Root = () => (
-  <div>
-    Swap
-  </div>
+const Root:React.SFC<RootProps> = ({ store }) => (
+  <Provider store={ store }>
+    <div>Hi</div>
+  </Provider>
 );
 
 export default Root;
