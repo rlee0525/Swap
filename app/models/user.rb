@@ -13,6 +13,7 @@
 
 class User < ApplicationRecord
   validates :fb_id, :edu_email, :university, :marketing_opt_in, presence: true
+  validates :fb_id, uniqueness: true
   has_many :posts
   belongs_to :university
 end
