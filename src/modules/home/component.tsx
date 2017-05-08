@@ -77,6 +77,7 @@ class Home extends React.Component<any, any> {
       <div>
         Hi
         <a href="#" onClick={this.handleClick}>Login</a>
+        <div id="status"></div>
         <div
           className="fb-login-button"
           data-max-rows="1"
