@@ -2,7 +2,8 @@
 
 export interface Action<T> {
   type: string,
-  payload: T
+  user: object,
+  payload: T,
 };
 //
 // interface ActionCreator<T> {
@@ -17,7 +18,7 @@ export interface Action<T> {
 
 export const RECEIVE_USER = 'RECEIVE_USER';
 
-export const receiveUser = (user: any) => ({
+export const receiveUser = (user: object) => ({
   type: RECEIVE_USER,
   user
 });

@@ -1,9 +1,9 @@
 import { merge } from 'lodash';
-import { RECEIVE_USER } from "./actions";
+import { Action, RECEIVE_USER } from "./actions";
 
 let _defaultState = {};
 
-const userReducer = (state = _defaultState, action) => {
+const userReducer = (state = _defaultState, action: Action<any>) => {
   Object.freeze(state);
   switch(action.type) {
     case RECEIVE_USER:
