@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170507190812) do
+ActiveRecord::Schema.define(version: 20170508051040) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,11 +55,12 @@ ActiveRecord::Schema.define(version: 20170507190812) do
 
   create_table "users", force: :cascade do |t|
     t.integer  "fb_id",                           null: false
-    t.string   "edu_email",                       null: false
+    t.string   "edu_email"
     t.integer  "university_id",                   null: false
     t.boolean  "marketing_opt_in", default: true, null: false
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
+    t.string   "reg_email"
     t.index ["edu_email"], name: "index_users_on_edu_email", using: :btree
     t.index ["fb_id"], name: "index_users_on_fb_id", unique: true, using: :btree
     t.index ["university_id"], name: "index_users_on_university_id", using: :btree
