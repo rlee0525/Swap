@@ -38,7 +38,7 @@ class Home extends React.Component<any, any> {
     });
   }
 
-  public statusChangeCallback(respose) {
+  public statusChangeCallback(response) {
     console.log('statusChangeCallback');
     console.log(response);
     // The response object is returned with a status field that lets the
@@ -66,12 +66,17 @@ class Home extends React.Component<any, any> {
     }.bind(this));
   }
 
+  public handleClick() {
+    FB.login(this.checkLoginState());
+  }
+
   public render() {
     console.log(this.props);
 
     return (
       <div>
         Hi
+        <a href="#" onClick={this.handleClick}>Login</a>
         <div
           className="fb-login-button"
           data-max-rows="1"
