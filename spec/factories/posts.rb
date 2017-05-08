@@ -13,10 +13,19 @@
 #  zip_code    :string
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  title       :string           not null
 #
 
 FactoryGirl.define do
   factory :post do
-    
+    title "My Post Title"
+    user
+    description "Some description"
+    price 12
+    img_url1 "some_url"
+    img_url2 "some_url"
+    category
+    course
+    zip_code "99999"
   end
 end
