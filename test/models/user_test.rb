@@ -9,7 +9,7 @@
 #  marketing_opt_in :boolean          default("true"), not null
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
-#  reg_email        :string
+#  fb_email         :string
 #
 
 require 'test_helper'
