@@ -1,4 +1,3 @@
-
 module Links
   @links = [
     'http://guide.berkeley.edu/courses/aerospc/',
@@ -185,6 +184,7 @@ module Links
     'http://guide.berkeley.edu/courses/vis_std/',
     'http://guide.berkeley.edu/courses/yiddish/'
   ]
+
   def self.links
     @links
   end
