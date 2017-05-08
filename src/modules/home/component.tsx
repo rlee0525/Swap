@@ -98,18 +98,7 @@ class Home extends React.Component<any, any> {
                   <a href="#">Who are we?</a>
                 </li>
                 <li >
-                  <a href="#">
-                    <div id="status"></div>
-                    <div
-                      className="fb-login-button"
-                      data-max-rows="1"
-                      data-size="medium"
-                      data-button-type="login_with"
-                      data-show-faces="false"
-                      data-auto-logout-link="true"
-                      data-use-continue-as="false"
-                    />
-                  </a>
+                  <a href='/signup'>Sign Up</a>
                 </li>
               </ul>
             </div>
@@ -119,7 +108,7 @@ class Home extends React.Component<any, any> {
         <div className="block app-block-intro">
           <div className="container text-center">
             <h1 className="block-title m-b-sm text-uppercase app-myphone-brand">Swap</h1>
-            <p className="lead m-b-lg p-b-md">Best marketplace for students, exclusively.</p>
+            <p className="lead m-b-lg p-b-md letter-spacing">Best marketplace. For students, exclusively.</p>
             <img src="../assets/img/iphone-to-iphone-sized.jpg"/>
           </div>
         </div>
@@ -414,13 +403,6 @@ class Home extends React.Component<any, any> {
             </div>
           </div>
         </div>
-
-
-        <script src="../assets/js/jquery.min.js"></script>
-        <script src="../assets/js/toolkit.js"></script>
-        <script src="../assets/js/application.js"></script>
-
->>>>>>> 80b04d6087565b860a015c14bcc5ef74d44acf15
       </div>
     );
   }

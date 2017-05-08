@@ -8917,3 +8917,6 @@ h6,
   color: #bbbbbb;
   text-transform: uppercase;
 }
+.letter-spacing {
+  letter-spacing: 1px;
+}
