@@ -30,8 +30,9 @@ class Home extends React.Component<any, any> {
                   <a href="#">Who are we?</a>
                 </li>
                 <li >
-                    <div id="status"></div>
-                    <div className="fb-login-button" data-scope="email" data-max-rows="1" data-size="large" data-button-type="continue_with" data-auto-logout-link="true" data-use-continue-as="true" data-onlogin="checkLoginState();"></div>
+                  <a href='/#/signup'>Sign Up</a>
+                  <div id="status"></div>
+                  <div className="fb-login-button" data-scope="email" data-max-rows="1" data-size="large" data-button-type="continue_with" data-auto-logout-link="true" data-use-continue-as="true" data-onlogin="checkLoginState();"></div>
                 </li>
               </ul>
             </div>
@@ -41,7 +42,7 @@ class Home extends React.Component<any, any> {
         <div className="block app-block-intro">
           <div className="container text-center">
             <h1 className="block-title m-b-sm text-uppercase app-myphone-brand">Swap</h1>
-            <p className="lead m-b-lg p-b-md">Best marketplace for students, exclusively.</p>
+            <p className="lead m-b-lg p-b-md letter-spacing">Best marketplace. For students, exclusively.</p>
             <img src="https://robohash.org/asdf"/>
           </div>
         </div>

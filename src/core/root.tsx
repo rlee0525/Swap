@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import { Store } from 'redux';
 import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import App from './app';
+import SignUp from 'modules/signup'
 
 interface RootProps {
   store: Store<any>;
@@ -20,6 +21,7 @@ const Root: React.SFC<RootProps> = ({ store }) => {
     <Provider store={store}>
       <Router history={hashHistory}>
         <Route path="/" component={App} />
+        <Route path="/signup" component={SignUp} />
       </Router>
     </Provider>
   );
