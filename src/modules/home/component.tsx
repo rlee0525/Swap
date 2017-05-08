@@ -42,7 +42,7 @@ class Home extends React.Component<any, any> {
           <div className="container text-center">
             <h1 className="block-title m-b-sm text-uppercase app-myphone-brand">Swap</h1>
             <p className="lead m-b-lg p-b-md">Best marketplace for students, exclusively.</p>
-            <img src="../assets/img/iphone-to-iphone-sized.jpg"/>
+            <img src="https://robohash.org/asdf"/>
           </div>
         </div>
 
@@ -69,7 +69,7 @@ class Home extends React.Component<any, any> {
         <div className="block block-bordered-lg">
           <div className="container text-center app-translate-15" data-transition="entrance">
             <blockquote className="pull-quote">
-              <img className="img-circle" src="../assets/img/avatar-mdo.png"/>
+              <img className="img-circle" src="https://robohash.org/asdf"/>
               <p>
                 “Task management. Calendars. Email. They all have one thing in common&hellip;literally no one enjoys managing them. Thanks to years of research, we can now predict every single thing you'll ever have to do or go to. Yeah, we're that good.”
               </p>
@@ -83,7 +83,7 @@ class Home extends React.Component<any, any> {
             <div className="row">
               <div className="col-md-7 col-sm-6">
                 <img
-                  src="../assets/img/iphone-perspective-sized.jpg"
+                  src="https://robohash.org/asdf"
                   className="app-translate-5"
                   data-transition="entrance"/>
                 <hr className="m-t-0 m-b-lg m-x-auto visible-xs"/>
@@ -203,7 +203,7 @@ class Home extends React.Component<any, any> {
                         </p>
                       </div>
                     </div>
-                    <img className="img-responsive m-t-lg app-block-game-img" src="../assets/img/iphone-flat-sized.jpg"/>
+                    <img className="img-responsive m-t-lg app-block-game-img" src="https://robohash.org/asdf"/>
                   </div>
                 </div>
               </div>
@@ -217,7 +217,7 @@ class Home extends React.Component<any, any> {
                         </p>
                       </div>
                     </div>
-                    <img className="img-responsive m-t-lg app-block-game-img" src="../assets/img/iphone-flat-sized.jpg"/>
+                    <img className="img-responsive m-t-lg app-block-game-img" src="https://robohash.org/asdf"/>
                   </div>
                 </div>
               </div>
@@ -231,7 +231,7 @@ class Home extends React.Component<any, any> {
                         </p>
                       </div>
                     </div>
-                    <img className="img-responsive m-t-lg app-block-game-img" src="../assets/img/iphone-flat-sized.jpg"/>
+                    <img className="img-responsive m-t-lg app-block-game-img" src="https://robohash.org/asdf"/>
                   </div>
                 </div>
               </div>
@@ -278,7 +278,7 @@ class Home extends React.Component<any, any> {
             </div>
           </div>
           <div className="text-right app-block-design-img">
-            <img src="../assets/img/iphone-reverse-perspective-sized.jpg" className="app-translate-50" data-transition="entrance"/>
+            <img src="https://robohash.org/asdf" className="app-translate-50" data-transition="entrance"/>
           </div>
         </div>
 
