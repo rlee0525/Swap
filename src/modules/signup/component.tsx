@@ -7,6 +7,7 @@ class SignUp extends React.Component<any, any> {
 
   public componentDidMount() {
     this.threeStepForm();
+
     window.fbAsyncInit = function() {
       FB.init({
         appId: '1843174039341965',
@@ -71,7 +72,6 @@ class SignUp extends React.Component<any, any> {
   public handleClick() {
     FB.login(this.checkLoginState());
   }
-
 
   public threeStepForm() {
     var current_fs, next_fs, previous_fs;
@@ -141,6 +141,10 @@ class SignUp extends React.Component<any, any> {
     })
   }
 
+  public clickNext() {
+
+  }
+
   public render() {
     console.log(this.props);
 
@@ -165,7 +169,7 @@ class SignUp extends React.Component<any, any> {
                data-auto-logout-link="true"
                data-use-continue-as="true"
              />
-            <input type="button" name="next" className="next action-button" value="Next" />
+            <input type="button" name="next" className="next action-button" value="Next" onClick={this.clickNext} />
           </fieldset>
           <fieldset>
             <h2 className="fs-title">Link to your university email</h2>
