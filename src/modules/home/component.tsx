@@ -7,6 +7,19 @@ class Home extends React.Component<any, any> {
   }
 
   public componentDidMount() {
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId: '1843174039341965',
+        cookie: true,
+        xfbml: true,
+        version: 'v2.1'
+      });
+
+      FB.getLoginStatus(function(response) {
+        this.statusChangeCallback(response);
+      }.bind(this));
+    }.bind(this);
+
     ((d, s, id) => {
       let js, fjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) return;
@@ -14,6 +27,43 @@ class Home extends React.Component<any, any> {
       js.setAttribute('src', "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.9&appId=1843174039341965");
       fjs.parentNode.insertBefore(js, fjs);
     })(document, 'script', 'facebook-jssdk');
+  }
+
+  public testAPI() {
+    console.log('Welcome!  Fetching your information.... ');
+    FB.api('/me', function(response) {
+    console.log('Successful login for: ' + response.name);
+    document.getElementById('status').innerHTML =
+      'Thanks for logging in, ' + response.name + '!';
+    });
+  }
+
+  public statusChangeCallback(respose) {
+    console.log('statusChangeCallback');
+    console.log(response);
+    // The response object is returned with a status field that lets the
+    // app know the current login status of the person.
+    // Full docs on the response object can be found in the documentation
+    // for FB.getLoginStatus().
+    if (response.status === 'connected') {
+      // Logged into your app and Facebook.
+      this.testAPI();
+    } else if (response.status === 'not_authorized') {
+      // The person is logged into Facebook, but not your app.
+      document.getElementById('status').innerHTML = 'Please log ' +
+        'into this app.';
+    } else {
+      // The person is not logged into Facebook, so we're not sure if
+      // they are logged into this app or not.
+      document.getElementById('status').innerHTML = 'Please log ' +
+      'into Facebook.';
+    }
+  }
+
+  public checkLoginState() {
+    FB.getLoginStatus(function(response) {
+      this.statusChangeCallback(response);
+    }.bind(this));
   }
 
   public render() {
@@ -27,7 +77,7 @@ class Home extends React.Component<any, any> {
           data-max-rows="1"
           data-size="large"
           data-button-type="continue_with"
-          data-show-faces="false"
+          data-show-faces="true"
           data-auto-logout-link="false"
           data-use-continue-as="false"
         />
