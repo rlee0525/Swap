@@ -1,17 +1,14 @@
 import * as React from 'react';
 import HomeContainer from 'modules/home';
 
-
-interface IRootProps {
+interface IAppProps {
   children?: any;
 }
 
-const App: React.SFC<IRootProps> = ({ children }) => (
+const App: React.SFC<IAppProps> = ({ children }) => (
   <div className="home">
-    <div className="home-overlay">
-      <HomeContainer />
-      { children }
-    </div>
+    <HomeContainer />
+    { children }
   </div>
 );
 
