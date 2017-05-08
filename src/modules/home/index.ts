@@ -2,19 +2,19 @@ import { connect } from 'react-redux';
 import Home from './component';
 
 interface StateProps {
-  user: any
+  user: any;
 }
 
 interface DispatchProps {
-  onClick1: Function
+  onClick1: () => void;
 }
 
-const mapStateToProps = (state: any, ownProp? :any):StateProps => ({
+const mapStateToProps = (state: any, ownProp?: any): StateProps => ({
   user: state.user
 });
 
-const mapDispatchToProps = (dispatch: any):DispatchProps => ({
-  onClick1: () => { console.log("hi") }
+const mapDispatchToProps = (dispatch: any): DispatchProps => ({
+  onClick1: () => { console.log("hi"); }
 });
 
 export default connect(

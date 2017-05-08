@@ -1,14 +1,14 @@
 import * as React from 'react';
 import HomeContainer from 'modules/home';
 
-interface IAppProps {
+interface AppProps {
   children?: any;
 }
 
-const App: React.SFC<IAppProps> = ({ children }) => (
-  <div className="home">
+const App: React.SFC<AppProps> = ({ children }) => (
+  <div className='home'>
     <HomeContainer />
-    { children }
+    {children}
   </div>
 );
 
