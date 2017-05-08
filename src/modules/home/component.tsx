@@ -98,7 +98,7 @@ class Home extends React.Component<any, any> {
                   <a href="#">Who are we?</a>
                 </li>
                 <li >
-                  <a href='/signup'>Sign Up</a>
+                  <a href='/#/signup'>Sign Up</a>
                 </li>
               </ul>
             </div>
@@ -403,6 +403,10 @@ class Home extends React.Component<any, any> {
             </div>
           </div>
         </div>
+
+        <script src="../assets/js/jquery.min.js"></script>
+        <script src="../assets/js/toolkit.js"></script>
+        <script src="../assets/js/application.js"></script>
       </div>
     );
   }
