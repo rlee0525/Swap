@@ -1,22 +1,13 @@
-/*basic reset*/
-* {margin: 0; padding: 0;}
-
-html {
-	height: 100%;
-	/*Image only BG fallback*/
-
-	/*background = gradient + image pattern combo*/
-	background:
-		linear-gradient(rgba(196, 102, 0, 0.6), rgba(155, 89, 182, 0.6));
+.signup-form-container {
+	height: 100vh;
+	background: rgba(0, 0, 0, 0.2);
 }
 
-body {
-	font-family: montserrat, arial, verdana;
-}
 /*form styles*/
 #msform {
 	width: 400px;
-	margin: 50px auto;
+	margin: auto;
+	padding-top: 50px;
 	text-align: center;
 	position: relative;
 }
