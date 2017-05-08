@@ -1,17 +1,17 @@
 .signup-form-container {
 	height: 100vh;
-	background: rgba(0, 0, 0, 0.2);
+	background: linear-gradient(rgba(86, 127, 192, 0.6), rgba(254, 193, 18, 0.4));
 }
 
 /*form styles*/
-#msform {
+#signup-form {
 	width: 400px;
 	margin: auto;
-	padding-top: 50px;
+	padding-top: 100px;
 	text-align: center;
 	position: relative;
 }
-#msform fieldset {
+#signup-form div {
 	background: white;
 	border: 0 none;
 	border-radius: 3px;
@@ -19,29 +19,29 @@
 	padding: 20px 30px;
 	box-sizing: border-box;
 	width: 80%;
+	height: 250px;
 	margin: 0 10%;
 
 	/*stacking fieldsets above each other*/
 	position: relative;
 }
-/*Hide all except first fieldset*/
-#msform fieldset:not(:first-of-type) {
+/*Hide all except first div*/
+#signup-form div:not(:first-of-type) {
 	display: none;
 }
 /*inputs*/
-#msform input, #msform textarea {
+#signup-form input {
 	padding: 15px;
 	border: 1px solid #ccc;
 	border-radius: 3px;
 	margin-bottom: 10px;
 	width: 100%;
 	box-sizing: border-box;
-	font-family: montserrat;
 	color: #2C3E50;
 	font-size: 13px;
 }
 /*buttons*/
-#msform .action-button {
+#signup-form .action-button {
 	width: 100px;
 	background: #27AE60;
 	font-weight: bold;
@@ -52,21 +52,15 @@
 	padding: 10px 5px;
 	margin: 10px 5px;
 }
-#msform .action-button:hover, #msform .action-button:focus {
+/*#signup-form .action-button:hover, #signup-form .action-button:focus {
 	box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;
-}
+}*/
 /*headings*/
-.fs-title {
+.sf-title {
 	font-size: 15px;
 	text-transform: uppercase;
 	color: #2C3E50;
 	margin-bottom: 10px;
-}
-.fs-subtitle {
-	font-weight: normal;
-	font-size: 13px;
-	color: #666;
-	margin-bottom: 20px;
 }
 /*progressbar*/
 #progressbar {
@@ -74,6 +68,7 @@
 	overflow: hidden;
 	/*CSS counters to number the steps*/
 	counter-reset: step;
+	padding-left: 0px;
 }
 #progressbar li {
 	list-style-type: none;
@@ -99,13 +94,13 @@
 /*progressbar connectors*/
 #progressbar li:after {
 	content: '';
-	width: 100%;
+	width: 84%;
 	height: 2px;
 	background: white;
 	position: absolute;
-	left: -50%;
+	left: -42%;
 	top: 9px;
-	z-index: -1; /*put it behind the numbers*/
+	/*put it behind the numbers*/
 }
 #progressbar li:first-child:after {
 	/*connector not needed before the first step*/
@@ -114,6 +109,6 @@
 /*marking active/completed steps green*/
 /*The number of the step and the connector before it = green*/
 #progressbar li.active:before,  #progressbar li.active:after{
-	background: #27AE60;
+	background: #567FC0;
 	color: white;
 }
