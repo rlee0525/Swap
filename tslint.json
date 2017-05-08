@@ -9,6 +9,8 @@
       "options": [120]
     },
     "curly": [true, "ignore-same-line"],
+    "jsx-wrap-multiline": true,
+    "jsx-self-close": true,
     "ordered-imports": false,
     "no-console": false,
     "no-conditional-assignment": true,
@@ -19,11 +21,10 @@
     "no-misused-new": true,
     "no-sparse-arrays": true,
     "no-switch-case-fall-through": true,
-    "restrict-plus-operands": true,
     "triple-equals": true,
     "typeof-compare": true,
     "cyclomatic-complexity": true,
-    "prefer-const": [true, {
+    "prefer-const": [false, {
       "destructuring": "all"
     }],
     "trailing-comma": false,
@@ -34,13 +35,12 @@
       "ignore-words": ["TODO", "HACK"]
     }],
     "import-spacing": true,
-    "interface-name": [true, "always-prefix"],
+    "interface-name": [false, "always-prefix"],
     "interface-over-type-literal": true,
-    "match-default-export-name": true,
     "newline-before-return": true,
-    "no-boolean-literal-compare": true,
     "no-consecutive-blank-lines": [true, 2],
-    "quotemark": [true, "single", "avoid-escape"],
+    "one-variable-per-declaration": false,
+    "quotemark": [false, "single", "avoid-escape"],
     "variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore", "allow-pascal-case"]
   },
   "rulesDirectory": []
