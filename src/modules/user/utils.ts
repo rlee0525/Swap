@@ -1,3 +1,9 @@
+import { appId } from '../../../config/api_key';
+
+export const authenticateUser = dispatch => {
+  
+}
+
 // import YT_API_KEY from '../../../config/api_key';
 // import { createUrlParams, errorChecker } from 'helpers';
 // import { channels } from 'core/youtube_api.js';

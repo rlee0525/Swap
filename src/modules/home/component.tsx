@@ -3,7 +3,6 @@ import React from 'react';
 class Home extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
-
   }
 
   public componentDidMount() {
@@ -16,6 +15,7 @@ class Home extends React.Component<any, any> {
       });
 
       FB.getLoginStatus(function(response) {
+        console.log(response);
         this.statusChangeCallback(response);
       }.bind(this));
     }.bind(this);
@@ -62,6 +62,7 @@ class Home extends React.Component<any, any> {
 
   public checkLoginState() {
     FB.getLoginStatus(function(response) {
+      console.log(response)
       this.statusChangeCallback(response);
     }.bind(this));
   }
@@ -84,8 +85,8 @@ class Home extends React.Component<any, any> {
           data-size="large"
           data-button-type="continue_with"
           data-show-faces="true"
-          data-auto-logout-link="false"
-          data-use-continue-as="false"
+          data-auto-logout-link="true"
+          data-use-continue-as="true"
         />
       </div>
     );
