@@ -5,75 +5,7 @@ class Home extends React.Component<any, any> {
     super(props);
   }
 
-  public componentDidMount() {
-    window.fbAsyncInit = function() {
-      FB.init({
-        appId: '1843174039341965',
-        cookie: true,
-        xfbml: true,
-        version: 'v2.1'
-      });
-
-      FB.getLoginStatus(function(response) {
-        console.log(response);
-        this.statusChangeCallback(response);
-      }.bind(this));
-    }.bind(this);
-
-    ((d, s, id) => {
-      let js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
-      js.setAttribute('src', "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.9&appId=1843174039341965");
-      fjs.parentNode.insertBefore(js, fjs);
-    })(document, 'script', 'facebook-jssdk');
-  }
-
-  public testAPI() {
-    console.log('Welcome!  Fetching your information.... ');
-    FB.api('/me', function(response) {
-    console.log('Successful login for: ' + response.name);
-    document.getElementById('status').innerHTML =
-      'Thanks for logging in, ' + response.name + '!';
-    });
-  }
-
-  public statusChangeCallback(response) {
-    console.log('statusChangeCallback');
-    console.log(response);
-    // The response object is returned with a status field that lets the
-    // app know the current login status of the person.
-    // Full docs on the response object can be found in the documentation
-    // for FB.getLoginStatus().
-    if (response.status === 'connected') {
-      // Logged into your app and Facebook.
-      this.testAPI();
-    } else if (response.status === 'not_authorized') {
-      // The person is logged into Facebook, but not your app.
-      document.getElementById('status').innerHTML = 'Please log ' +
-        'into this app.';
-    } else {
-      // The person is not logged into Facebook, so we're not sure if
-      // they are logged into this app or not.
-      document.getElementById('status').innerHTML = 'Please log ' +
-      'into Facebook.';
-    }
-  }
-
-  public checkLoginState() {
-    FB.getLoginStatus(function(response) {
-      console.log(response)
-      this.statusChangeCallback(response);
-    }.bind(this));
-  }
-
-  public handleClick() {
-    FB.login(this.checkLoginState());
-  }
-
   public render() {
-    console.log(this.props);
-
     return (
       <div>
         <nav className="navbar navbar-default navbar-static-top navbar-padded text-uppercase app-navbar">
@@ -98,18 +30,8 @@ class Home extends React.Component<any, any> {
                   <a href="#">Who are we?</a>
                 </li>
                 <li >
-                  <a href="#">
                     <div id="status"></div>
-                    <div
-                      className="fb-login-button"
-                      data-max-rows="1"
-                      data-size="medium"
-                      data-button-type="login_with"
-                      data-show-faces="false"
-                      data-auto-logout-link="true"
-                      data-use-continue-as="false"
-                    />
-                  </a>
+                    <div className="fb-login-button" data-scope="email" data-max-rows="1" data-size="large" data-button-type="continue_with" data-auto-logout-link="true" data-use-continue-as="true" data-onlogin="checkLoginState();"></div>
                 </li>
               </ul>
             </div>
@@ -120,7 +42,7 @@ class Home extends React.Component<any, any> {
           <div className="container text-center">
             <h1 className="block-title m-b-sm text-uppercase app-myphone-brand">Swap</h1>
             <p className="lead m-b-lg p-b-md">Best marketplace for students, exclusively.</p>
-            <img src="../assets/img/iphone-to-iphone-sized.jpg"/>
+            <img src="https://robohash.org/asdf"/>
           </div>
         </div>
 
@@ -147,7 +69,7 @@ class Home extends React.Component<any, any> {
         <div className="block block-bordered-lg">
           <div className="container text-center app-translate-15" data-transition="entrance">
             <blockquote className="pull-quote">
-              <img className="img-circle" src="../assets/img/avatar-mdo.png"/>
+              <img className="img-circle" src="https://robohash.org/asdf"/>
               <p>
                 “Task management. Calendars. Email. They all have one thing in common&hellip;literally no one enjoys managing them. Thanks to years of research, we can now predict every single thing you'll ever have to do or go to. Yeah, we're that good.”
               </p>
@@ -161,7 +83,7 @@ class Home extends React.Component<any, any> {
             <div className="row">
               <div className="col-md-7 col-sm-6">
                 <img
-                  src="../assets/img/iphone-perspective-sized.jpg"
+                  src="https://robohash.org/asdf"
                   className="app-translate-5"
                   data-transition="entrance"/>
                 <hr className="m-t-0 m-b-lg m-x-auto visible-xs"/>
@@ -281,7 +203,7 @@ class Home extends React.Component<any, any> {
                         </p>
                       </div>
                     </div>
-                    <img className="img-responsive m-t-lg app-block-game-img" src="../assets/img/iphone-flat-sized.jpg"/>
+                    <img className="img-responsive m-t-lg app-block-game-img" src="https://robohash.org/asdf"/>
                   </div>
                 </div>
               </div>
@@ -295,7 +217,7 @@ class Home extends React.Component<any, any> {
                         </p>
                       </div>
                     </div>
-                    <img className="img-responsive m-t-lg app-block-game-img" src="../assets/img/iphone-flat-sized.jpg"/>
+                    <img className="img-responsive m-t-lg app-block-game-img" src="https://robohash.org/asdf"/>
                   </div>
                 </div>
               </div>
@@ -309,7 +231,7 @@ class Home extends React.Component<any, any> {
                         </p>
                       </div>
                     </div>
-                    <img className="img-responsive m-t-lg app-block-game-img" src="../assets/img/iphone-flat-sized.jpg"/>
+                    <img className="img-responsive m-t-lg app-block-game-img" src="https://robohash.org/asdf"/>
                   </div>
                 </div>
               </div>
@@ -356,7 +278,7 @@ class Home extends React.Component<any, any> {
             </div>
           </div>
           <div className="text-right app-block-design-img">
-            <img src="../assets/img/iphone-reverse-perspective-sized.jpg" className="app-translate-50" data-transition="entrance"/>
+            <img src="https://robohash.org/asdf" className="app-translate-50" data-transition="entrance"/>
           </div>
         </div>
 
@@ -414,13 +336,6 @@ class Home extends React.Component<any, any> {
             </div>
           </div>
         </div>
-
-
-        <script src="../assets/js/jquery.min.js"></script>
-        <script src="../assets/js/toolkit.js"></script>
-        <script src="../assets/js/application.js"></script>
-
->>>>>>> 80b04d6087565b860a015c14bcc5ef74d44acf15
       </div>
     );
   }
