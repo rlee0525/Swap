@@ -1,8 +1,8 @@
+require("CSV")
+
 categories = ['Textbooks', 'Male Clothing', 'Female Clothing',
               'Furniture', 'Electronics', 'Kitchenware', 'Games']
 universities = [['Berkeley', 'berkeley.edu']]
-
-courses = [['Public Speaking', 'ENG1A']]
 
 descriptions = [
   'Take your game sessions up a notch with the Nintendo Switch Pro Controller. Includes motion controls, HD rumble, built-in amiibo functionality, and more.',
@@ -29,11 +29,14 @@ universities.each do |name, email_extension|
   )
 end
 
-courses.each do |course_name, course_number|
+data = CSV.read("scraper/data.csv", encoding: "UTF-8", headers: true, header_converters: :symbol, converters: :all)
+course_objects = data.map(&:to_hash)
+
+course_objects.each do |course_object|
   Course.create!(
     university: University.first,
-    course_name: course_name,
-    course_number: course_number
+    course_name: course_object[:course_title],
+    course_number: course_object[:course_number]
   )
 end
 
@@ -51,8 +54,8 @@ User.create!(
     price: rand(100) + 1,
     img_url1: "https://robohash.org/#{rand(1000)}",
     img_url2: "https://robohash.org/#{rand(1000)}",
-    category: Category.find(rand(Category.count) + 1),
-    course: Course.find(rand(Course.count) + 1),
-    zip_code: rand(9999) + 1
+    category: Category.find(rand(1..Category.count)),
+    course: Course.find(rand(1..Course.count)),
+    zip_code: rand(0..9999).to_s
   )
 end
