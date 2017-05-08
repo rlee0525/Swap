@@ -76,20 +76,6 @@ class Home extends React.Component<any, any> {
 
     return (
       <div>
-<<<<<<< HEAD
-        Hi
-        <a href="#" onClick={this.handleClick}>Login</a>
-        <div id="status"></div>
-        <div
-          className="fb-login-button"
-          data-max-rows="1"
-          data-size="large"
-          data-button-type="continue_with"
-          data-show-faces="true"
-          data-auto-logout-link="true"
-          data-use-continue-as="true"
-        />
-=======
         <nav className="navbar navbar-default navbar-static-top navbar-padded text-uppercase app-navbar">
           <div className="container">
             <div className="navbar-header">
@@ -112,12 +98,32 @@ class Home extends React.Component<any, any> {
                   <a href="#">Who are we?</a>
                 </li>
                 <li >
-                  <a href="#">Login</a>
+                  <a href="#">
+                    <div id="status"></div>
+                    <div
+                      className="fb-login-button"
+                      data-max-rows="1"
+                      data-size="medium"
+                      data-button-type="login_with"
+                      data-show-faces="false"
+                      data-auto-logout-link="true"
+                      data-use-continue-as="false"
+                    />
+                  </a>
                 </li>
               </ul>
             </div>
           </div>
         </nav>
+
+        <div className="block app-block-intro">
+          <div className="container text-center">
+            <h1 className="block-title m-b-sm text-uppercase app-myphone-brand">Swap</h1>
+            <p className="lead m-b-lg p-b-md">Best marketplace for students, exclusively.</p>
+            <img src="../assets/img/iphone-to-iphone-sized.jpg"/>
+          </div>
+        </div>
+
         <div className="container container-fluid">
           <div className="row justify-content-md-center">
             <div className="col-xs-6 col-md-4">
@@ -135,15 +141,6 @@ class Home extends React.Component<any, any> {
                 <img className="img-circle img-responsive" src="https://robohash.org/asdf" alt="..."/>
               </a>
             </div>
-          </div>
-        </div>
-
-
-        <div className="block app-block-intro">
-          <div className="container text-center">
-            <h1 className="block-title m-b-sm text-uppercase app-myphone-brand">Mochi</h1>
-            <p className="lead m-b-lg p-b-md">Task management and a calendar for all</p>
-            <img src="../assets/img/iphone-to-iphone-sized.jpg"/>
           </div>
         </div>
 
