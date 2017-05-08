@@ -10,4 +10,6 @@ Rails.application.routes.draw do
       resources :categories, only: [:index, :show]
     end
   end
+
+  match 'email_confirmation/:token' => 'emails#confirm_email', :via => :get
 end
