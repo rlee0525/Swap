@@ -8,9 +8,56 @@
     <%= javascript_include_tag 'application' %>
     <link href="http://fonts.googleapis.com/css?family=Roboto:100,300,400,700" rel="stylesheet"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script type="text/javascript">
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '641565912703327',
+          cookie     : true,
+          xfbml      : true,
+          version    : 'v2.8'
+        });
+        FB.AppEvents.logPageView();
+      };
+
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.9";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
   </head>
 
   <body>
+
     <%= yield %>
+
+    <script type="text/javascript">
+      function testAPI() {
+        FB.api('/me?fields=email,name', function(response) {
+          console.log(response)
+          document.getElementById('status').innerHTML = response.name;
+        });
+      }
+
+      function statusChangeCallback(response) {
+        if (response.status === 'connected') {
+          // Logged into your app and Facebook.
+          testAPI();
+        } else {
+          // The person is not logged into your app or we are unable to tell.
+          document.getElementById('status').innerHTML = 'Please log ' +
+            'into this app.';
+        }
+      }
+
+      function checkLoginState() {
+        console.log("check")
+        FB.getLoginStatus(function(response) {
+          statusChangeCallback(response);
+        });
+      }
+    </script>
   </body>
 </html>
