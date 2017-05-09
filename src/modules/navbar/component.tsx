@@ -1,5 +1,6 @@
 import React from 'react';
 import Modal from 'react-modal';
+import { ModalAuth } from './subcomponents';
 
 class NavBar extends React.Component<any, any> {
   constructor(props: any) {
@@ -58,9 +59,15 @@ class NavBar extends React.Component<any, any> {
                   <a href="#">Who are we?</a>
                 </li>
                 <li >
-                  <p>Sign Up</p>
-                  <div id="status"></div>
-                  <div className="fb-login-button" data-scope="email" data-max-rows="1" data-size="large" data-button-type="continue_with" data-auto-logout-link="true" data-use-continue-as="true" data-onlogin="checkLoginState();"></div>
+                  <a onClick={this.openModal}>Sign Up</a>
+
+                  <Modal
+                    className="signup-modal"
+                    isOpen={this.state.modalOpen}
+                    onRequestClose={this.closeModal}
+                    contentLabel="signup-modal">
+                    <ModalAuth />
+                  </Modal>
                 </li>
               </ul>
             </div>
