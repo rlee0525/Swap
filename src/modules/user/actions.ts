@@ -1,4 +1,4 @@
-// import * as UserAPI from './utils';
+import * as UserAPI from './utils';
 
 export interface Action<T> {
   type: string;
@@ -21,3 +21,9 @@ export const receiveUser = (user: object) => ({
 export const loginUser = () => (dispatch: any) => {
   // u UserAPI.authenticateUser(dispatch);
 };
+
+export const signup = user => dispatch => (
+  UserAPI.signup(user)
+    .then(currentUser => dispatch(receiveUser(currentUser)))
+    .fail(err => console.log(err))
+);

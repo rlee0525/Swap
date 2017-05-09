@@ -5,11 +5,16 @@ class NavBar extends React.Component<any, any> {
     super(props);
 
     this.state = {
-      modalTitle: "Sign up with Facebook"
+      modalTitle: "Sign up with Facebook",
+      userInfo: null,
+      userFB: null,
+      status
     };
   }
 
   public componentDidMount() {
+    let that = this;
+
     window.fbAsyncInit = function() {
       FB.init({
         appId      : '641565912703327',
@@ -20,14 +25,17 @@ class NavBar extends React.Component<any, any> {
       FB.AppEvents.logPageView();
 
       FB.getLoginStatus(function(response) {
-        console.log(response)
+        that.setState({ userInfo: response.authResponse, status: response.status });
+
         if (response.status === 'connected') {
-          // Logged into your app and Facebook.
-          testAPI();
+          that.props.signup({
+            fb_id: that.state.userInfo.userID,
+            marketing_opt_in: true,
+          });
+          
+          getUserInfo();
         } else {
-          // The person is not logged into your app or we are unable to tell.
-          document.getElementById('status').innerHTML = 'Please log ' +
-            'into this app.';
+          console.log(response)
         }
       }, true);
     };
@@ -40,14 +48,54 @@ class NavBar extends React.Component<any, any> {
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 
-    function testAPI() {
+    function getUserInfo() {
       FB.api('/me?fields=email,name', function(response) {
-        console.log(response)
+        that.setState({ userFB: response });
       });
     }
   }
 
+  public checkUserStatus() {
+    if (this.state.userFB) {
+      return (
+        <div className="navbar-collapse collapse" id="navbar-collapse">
+          <ul className="nav navbar-nav navbar-right">
+            <li >
+              <a href="#">Browse</a>
+            </li>
+            <li className="active">
+              <a href="#">Who are we?</a>
+            </li>
+            <li >
+              <a data-toggle="modal" data-target="#authModal">{this.state.userFB.name}</a>
+            </li>
+          </ul>
+        </div>
+      );
+    } else {
+      return (
+        <div className="navbar-collapse collapse" id="navbar-collapse">
+          <ul className="nav navbar-nav navbar-right">
+            <li >
+              <a href="#">Browse</a>
+            </li>
+            <li className="active">
+              <a href="#">Who are we?</a>
+            </li>
+            <li >
+              <a data-toggle="modal" data-target="#authModal">Sign Up</a>
+            </li>
+            <li >
+              <a data-toggle="modal" data-target="#authModal">Log In</a>
+            </li>
+          </ul>
+        </div>
+      );
+    }
+  }
+
   public render() {
+    console.log(this.state);
     return (
       <div>
         <nav className="navbar navbar-default navbar-static-top navbar-padded text-uppercase app-navbar">
@@ -63,19 +111,7 @@ class NavBar extends React.Component<any, any> {
                 <span>Swap</span>
               </a>
             </div>
-            <div className="navbar-collapse collapse" id="navbar-collapse">
-              <ul className="nav navbar-nav navbar-right">
-                <li >
-                  <a href="#">Browse</a>
-                </li>
-                <li className="active">
-                  <a href="#">Who are we?</a>
-                </li>
-                <li >
-                  <a data-toggle="modal" data-target="#authModal">Sign Up</a>
-                </li>
-              </ul>
-            </div>
+            {this.checkUserStatus()}
           </div>
         </nav>
 
