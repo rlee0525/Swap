@@ -4,6 +4,8 @@ categories = ['Textbooks', 'Male Clothing', 'Female Clothing',
               'Furniture', 'Electronics', 'Kitchenware', 'Games']
 universities = [['Berkeley', 'berkeley.edu']]
 
+conditions = ["Brand New", "Like New", "Used"]
+
 descriptions = [
   'Take your game sessions up a notch with the Nintendo Switch Pro Controller. Includes motion controls, HD rumble, built-in amiibo functionality, and more.',
   'Throw an impromptu party anywhere with anyone thanks to a new play style in which players look at each other-not the screen! Bring the action and fun into the real world as you face off in wild-west duels, cow-milking competitions, a copycat dance-off. While the action unfolds off- screen, the audience watches the players themselves instead of the screen. That makes it as hilarious to watch as it is to play - an instant party amplifier!',
@@ -54,8 +56,10 @@ User.create!(
     price: rand(100) + 1,
     img_url1: "https://robohash.org/#{rand(1000)}",
     img_url2: "https://robohash.org/#{rand(1000)}",
+    img_url3: "https://robohash.org/#{rand(1000)}",
     category: Category.find(rand(1..Category.count)),
     course: Course.find(rand(1..Course.count)),
-    zip_code: rand(0..9999).to_s
+    zip_code: rand(0..9999).to_s,
+    condition: conditions.sample     
   )
 end
