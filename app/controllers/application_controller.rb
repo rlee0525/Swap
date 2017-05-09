@@ -1,6 +1,14 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
+  def fb_id(access_token)
+    graph = Koala::Facebook::API.new(access_token)
+    profile = graph.get_object("me")
+    return profile["id"]
+  rescue
+    return nil
+  end
+
   def fb_authenticated(access_token)
     begin
       graph = Koala::Facebook::API.new(access_token)

@@ -1,7 +1,7 @@
 #  id                      :integer          not null, primary key
 #  fb_id                   :integer          not null
 #  edu_email               :string
-#  university_id           :integer          not null
+#  university_id           :integer
 #  marketing_opt_in        :boolean          default("true"), not null
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
@@ -11,29 +11,43 @@
 
 class Api::UsersController < ApplicationController
   def create
-    # TODO
-    @user = User.new(
-      fb_id: 123,
-      edu_email: "something@edu.edu",
-      university_id: 123,
-      fb_email: "something"
-    )
+    edu_email = params[:edu_email]
+    access_token = params[:access_token]
+    fb_id = fb_id(access_token)
+
+    @user = User.new(fb_id: fb_id)
     if @user.save
-      UserMailer.registration_confirmation(@user).deliver
-      # TODO
+      return render "api/users/show", status: 200
     else
-      # TODO something else
+      return render "invalid token", status: 401
     end
   end
 
+  def update
+    edu_email = params[:edu_email]
+    access_token = params[:access_token]
+    fb_id = fb_id(access_token)
+
+    if fb_id && edu_email
+      @user = User.find_by(fb_id: fb_id)
+      if @user.update(edu_email: edu_email)
+        UserMailer.registration_confirmation(@user).deliver
+        return render "api/users/show", status: 200
+      else
+        return render "couldn't update edu email", status: 500
+      end
+    end
+    render "invalid fb_id / edu_email", status: 500
+  end
+
   def show
-    @user = User.find_by(id: params[:id])
+    access_token = params[:access_token]
+    fb_id = fb_id(access_token)
+    @user = User.find_by(fb_id: fb_id)
     if @user
       render "api/users/show", status: 200
     else
       render json: ["not found"], status: 404
     end
   end
-
-  def update; end
 end
