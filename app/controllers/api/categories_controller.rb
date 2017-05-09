@@ -1,3 +1,5 @@
+require 'koala'
+
 class Api::CategoriesController < ApplicationController
   def index
     @categories = Category.all
