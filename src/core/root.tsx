@@ -24,9 +24,8 @@ const Root: React.SFC<RootProps> = ({ store }) => {
       <Router history={hashHistory}>
         <Route path="/" component={App}>
         <IndexRoute component={Home} />
-          <Route path="/" component={App} />
           <Route path="/post" component={Post} />
-          <Route path="/search" component={Search} />\
+          <Route path="/search" component={Search} />
         </Route>
       </Router>
     </Provider>

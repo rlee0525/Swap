@@ -1,37 +1,13 @@
 import React from 'react';
-import Modal from 'react-modal';
-import { ModalAuth } from './subcomponents';
 
 class NavBar extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
 
-    this.state = {
-      modalOpen: false
-    };
-
-    this.openModal = this.openModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
   }
 
   public componentDidMount() {
 
-  }
-
-  public openModal() {
-    this.setState({ modalOpen: true });
-  }
-
-  public closeModal() {
-    this.setState({ modalOpen: false });
-  }
-
-  public componentWillUnmount() {
-    this.closeModal();
-  }
-
-  public componentWillMount() {
-    Modal.setAppElement('body');
   }
 
   public render() {
@@ -59,20 +35,32 @@ class NavBar extends React.Component<any, any> {
                   <a href="#">Who are we?</a>
                 </li>
                 <li >
-                  <a onClick={this.openModal}>Sign Up</a>
-
-                  <Modal
-                    className="signup-modal"
-                    isOpen={this.state.modalOpen}
-                    onRequestClose={this.closeModal}
-                    contentLabel="signup-modal">
-                    <ModalAuth />
-                  </Modal>
+                  <a data-toggle="modal" data-target="#authModal">Sign Up</a>
                 </li>
               </ul>
             </div>
           </div>
         </nav>
+
+        <div className="modal fade" id="authModal" tabIndex="-1" role="dialog"
+             aria-labelledby="authModalLabel" aria-hidden="true">
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header" id="auth-modal-header">
+                <h3 className="modal-title" id="authModalLabel">Sign up with Facebook</h3>
+              </div>
+              <div className="modal-body text-center" id="fb-modal-body">
+                <div className="fb-login-button" data-scope="email" data-max-rows="1" data-size="large" data-button-type="continue_with" data-auto-logout-link="true" data-use-continue-as="true" data-onlogin="checkLoginState();"></div>
+
+                <div className="modal-body text-center">
+                  By signing up, I agree to Swap's <a id="legal-links">Terms of Service</a>, <a id="legal-links">Nondiscrimination Policy</a>, <a id="legal-links">Payments Terms of Service</a>, and <a id="legal-links">Privacy Policy</a>.
+                </div>
+              </div>
+              <div className="modal-footer">
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
