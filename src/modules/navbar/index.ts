@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import NavBar from './component';
-import { signup } from 'modules/user/actions';
+import { signup, getUser } from 'modules/user/actions';
 
 interface StateProps {
   user: any;
@@ -17,7 +17,8 @@ const mapStateToProps = (state: any, ownProp?: any): StateProps => ({
 
 const mapDispatchToProps = (dispatch: any): DispatchProps => ({
   // onClick1: () => { console.log("hi"); }
-  signup: user => dispatch(signup(user))
+  signup: user => dispatch(signup(user)),
+  getUser: user => dispatch(getUser(user))
 });
 
 export default connect(

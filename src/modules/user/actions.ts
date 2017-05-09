@@ -27,3 +27,9 @@ export const signup = user => dispatch => (
     .then(currentUser => dispatch(receiveUser(currentUser)))
     .fail(err => console.log(err))
 );
+
+export const getUser = user => dispatch => (
+  UserAPI.checkUser(user)
+    .then(currentUser => dispatch(receiveUser(currentUser)))
+    .fail(err => console.log(err))
+);

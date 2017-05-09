@@ -11,3 +11,11 @@ export const signup = (user) => (
     data: { user }
   })
 );
+
+export const checkUser = (user) => (
+  $.ajax({
+    method: 'GET',
+    url: 'api/users',
+    data: { user }
+  })
+);
