@@ -1,0 +1,14 @@
+#auth-modal-header {
+  padding: 25px 20px 20px 20px !important;
+}
+
+#fb-modal-body {
+  padding: 20px 15px 0 15px !important;
+  letter-spacing: 0.2px;
+  font-size: 12px;
+}
+
+#legal-links {
+  cursor: pointer;
+  color: #1A9F59;
+}

@@ -12,41 +12,10 @@ class Home extends React.Component<any, any> {
   public render() {
     return (
       <div>
-        <nav className="navbar navbar-default navbar-static-top navbar-padded text-uppercase app-navbar">
-          <div className="container">
-            <div className="navbar-header">
-              <button type="button" className="navbar-toggle collapsed p-x-0" data-toggle="collapse" data-target="#navbar-collapse">
-                <span className="sr-only">Toggle navigation</span>
-                <span className="icon-bar"></span>
-                <span className="icon-bar"></span>
-                <span className="icon-bar"></span>
-              </button>
-              <a className="navbar-brand" href="../">
-                <span>Swap</span>
-              </a>
-            </div>
-            <div className="navbar-collapse collapse" id="navbar-collapse">
-              <ul className="nav navbar-nav navbar-right">
-                <li >
-                  <a href="#">Browse</a>
-                </li>
-                <li className="active">
-                  <a href="#">Who are we?</a>
-                </li>
-                <li >
-                  <a href='/#/signup'>Sign Up</a>
-                  <div id="status"></div>
-                  <div className="fb-login-button" data-scope="email" data-max-rows="1" data-size="large" data-button-type="continue_with" data-auto-logout-link="true" data-use-continue-as="true" data-onlogin="checkLoginState();"></div>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
-
         <div className="block app-block-intro">
           <div className="container text-center">
             <h1 className="block-title m-b-sm text-uppercase app-myphone-brand">Swap</h1>
-            <p className="lead m-b-lg p-b-md">Best marketplace for students, exclusively.</p>
+            <p className="lead m-b-lg p-b-md">Best marketplace. For students, exclusively.</p>
             <img src="http://pre15.deviantart.net/7b1e/th/pre/i/2014/180/7/1/natalie_portman___keira_knightley_by_thatnordicguy-d7og2jx.jpg"/>
           </div>
         </div>

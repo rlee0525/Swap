@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import SignUp from './component';
+import NavBar from './component';
 
 interface StateProps {
   user: any;
@@ -20,4 +20,4 @@ const mapDispatchToProps = (dispatch: any): DispatchProps => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SignUp);
+)(NavBar);
