@@ -62,6 +62,10 @@ class Search extends React.Component<any, any> {
               <br/>
             </div>
             <div className="col-md-10">
+              <div className="search-icons">
+                <button className="btn btn-link"><span className="glyphicon glyphicon-th-large"></span> Grid View</button>
+                <button className="btn btn-link"><span className="glyphicon glyphicon-th-list"></span> List View</button>
+              </div>
               <table className="table table-hover hidden">
                 <thead>
                   <tr>
