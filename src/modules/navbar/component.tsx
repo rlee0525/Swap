@@ -10,11 +10,12 @@ class NavBar extends React.Component<any, any> {
       userFB: null,
       status
     };
-  }
 
-  public componentDidMount() {
+    this.login = this.login.bind(this);
+    this.logout = this.logout.bind(this);
+    this.checkFbStatus = this.checkFbStatus.bind(this);
+
     let that = this;
-
     window.fbAsyncInit = function() {
       FB.init({
         appId      : '641565912703327',
@@ -22,42 +23,11 @@ class NavBar extends React.Component<any, any> {
         xfbml      : true,
         version    : 'v2.8'
       });
-      FB.AppEvents.logPageView();
 
-      FB.getLoginStatus(function(response) {
-        console.log(response);
-        that.setState({ userInfo: response.authResponse, status: response.status });
-
-        if (response.status === 'connected') {
-          console.log(that.state.userInfo.accessToken);
-
-          let user = {
-            access_token: that.state.userInfo.accessToken
-          };
-
-          that.props.getUser(user).then(res => {
-            console.log(res)
-            // TODO: check is res exists. if it doesn't go through signup process, if it does check for edu email. if it does just login the user otherwise go to email page.
-
-            // if !res {
-            //   that.props.signup({
-            //     access_token: that.state.userInfo.accessToken
-            //   });
-            // } else {
-            //   if res.user.edu_email {
-            //
-            //   } else {
-            //
-            //   }
-            // }
-          });
-
-          // TODO: if user 1) not connceted to fb, 2) connected to facebook 3) exist in db, 3) has edu email
-          getUserInfo();
-        } else {
-          console.log(response)
-        }
-      }, true);
+      FB.Event.subscribe('auth.logout', that.logout)
+      FB.Event.subscribe('auth.login', that.login)
+      FB.Event.subscribe('auth.statusChange ', that.checkFbStatus)
+      that.checkFbStatus();
     };
 
     (function(d, s, id) {
@@ -67,12 +37,30 @@ class NavBar extends React.Component<any, any> {
       js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.9";
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
+  }
 
-    function getUserInfo() {
-      FB.api('/me?fields=email,name', function(response) {
-        that.setState({ userFB: response });
-      });
-    }
+  public checkFbStatus() {
+    let that = this;
+    FB.getLoginStatus(function(response) {
+      if (response.status === "connected") {
+        FB.api('/me?fields=email,name', function(response) {
+          that.setState({ userFB: response });
+        });
+      } else {
+        that.setState({ userInfo: null, userFB: null, status });
+      }
+    });
+  }
+
+  public logout(response) {
+    this.setState({ userInfo: null, userFB: null, status });
+    window.location.replace("/");
+  }
+
+  public login(response) {
+    FB.api('/me?fields=email,name', response => {
+      this.setState({ userFB: response });
+    });
   }
 
   public checkUserStatus() {
@@ -87,7 +75,7 @@ class NavBar extends React.Component<any, any> {
               <a href="#">Who are we?</a>
             </li>
             <li >
-              <a data-toggle="modal" data-target="#authModal">{this.state.userFB.name}</a>
+              <a data-toggle="modal" data-target="#logInModal">{this.state.userFB.name}</a>
             </li>
           </ul>
         </div>
@@ -142,7 +130,7 @@ class NavBar extends React.Component<any, any> {
                 <h3 className="modal-title" id="authModalLabel">Sign up with Facebook</h3>
               </div>
               <div className="modal-body text-center" id="fb-modal-body">
-                <div className="fb-login-button" data-scope="email" data-max-rows="1" data-size="large" data-button-type="continue_with" data-auto-logout-link="true" data-use-continue-as="true" data-onlogin="FB.getLoginStatus();"></div>
+                <div className="fb-login-button" data-scope="email" data-max-rows="1" data-size="large" data-button-type="login_with" data-auto-logout-link="true" data-use-continue-as="true" data-onlogin=""></div>
 
                 <div className="modal-body text-center">
                   By signing up, I agree to Swap's <a id="legal-links">Terms of Service</a>, <a id="legal-links">Nondiscrimination Policy</a>, <a id="legal-links">Payments Terms of Service</a>, and <a id="legal-links">Privacy Policy</a>.
@@ -162,7 +150,7 @@ class NavBar extends React.Component<any, any> {
                 <h3 className="modal-title" id="authModalLabel">Log in with Facebook</h3>
               </div>
               <div className="modal-body text-center" id="fb-modal-body">
-                <div className="fb-login-button" data-scope="email" data-max-rows="1" data-size="large" data-button-type="login_with" data-auto-logout-link="true" data-use-continue-as="true" data-onlogin="FB.getLoginStatus();"></div>
+                <div className="fb-login-button" data-scope="email" data-max-rows="1" data-size="large" data-button-type="login_with" data-auto-logout-link="true" data-use-continue-as="true" data-onlogin=""></div>
 
                 <div className="modal-body text-center">
                   By signing up, I agree to Swap's <a id="legal-links">Terms of Service</a>, <a id="legal-links">Nondiscrimination Policy</a>, <a id="legal-links">Payments Terms of Service</a>, and <a id="legal-links">Privacy Policy</a>.
