@@ -61,14 +61,16 @@ class SignUp extends React.Component<any, any> {
           </ul>
 
           <div id="sf-1">
-            <h2 className="sf-ti tle">Create your account</h2>
-            <button id="facebook-login" onClick={this.onClickFB}>Facebook</button>
+            <h2 className="sf-title">Create your account</h2>
+            <span id="facebook-login" onClick={this.onClickFB}>
+              <img src="http://res.cloudinary.com/rlee0525/image/upload/v1494285903/facebook-auth_daplwy.png" />
+            </span>
           </div>
 
           <div id="sf-2">
             <h2 className="sf-title">Enter university email</h2>
             <input type="text" name="edu-email" placeholder="example@berkeley.edu" />
-            <button onClick={this.onClickEmail}>Next</button>
+            <button id="facebook-login" onClick={this.onClickEmail}>Next</button>
           </div>
 
           <div id="sf-3">

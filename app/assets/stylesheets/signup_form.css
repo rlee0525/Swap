@@ -1,6 +1,6 @@
 .signup-form-container {
 	height: 100vh;
-	background: linear-gradient(rgba(86, 127, 192, 0.6), rgba(254, 193, 18, 0.4));
+	background: linear-gradient(rgba(86, 127, 192, 0.8), rgba(254, 193, 18, 0.6));
 }
 
 /*form styles*/
@@ -41,20 +41,28 @@
 	font-size: 13px;
 }
 /*buttons*/
-#signup-form .action-button {
-	width: 100px;
-	background: #27AE60;
+#signup-form button {
+	width: 110px;
+	background: #567FC0;
 	font-weight: bold;
 	color: white;
 	border: 0 none;
 	border-radius: 1px;
 	cursor: pointer;
-	padding: 10px 5px;
-	margin: 10px 5px;
+	padding: 10px 10px;
+	margin: 20px 5px;
 }
-/*#signup-form .action-button:hover, #signup-form .action-button:focus {
-	box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;
-}*/
+#signup-form button:hover,
+#signup-form button:focus,
+#facebook-login img:hover,
+#facebook-login img:focus {
+	box-shadow: 0 0 7px 1px rgba(0, 0, 0, 0.3);
+}
+#facebook-login img {
+	width: 250px;
+	margin-top: 50px;
+	cursor: pointer;
+}
 /*headings*/
 .sf-title {
 	font-size: 15px;
@@ -74,6 +82,7 @@
 	list-style-type: none;
 	color: white;
 	text-transform: uppercase;
+	letter-spacing: 1px;
 	font-size: 9px;
 	width: 33.33%;
 	float: left;
@@ -94,11 +103,11 @@
 /*progressbar connectors*/
 #progressbar li:after {
 	content: '';
-	width: 84%;
+	width: 90%;
 	height: 2px;
 	background: white;
 	position: absolute;
-	left: -42%;
+	left: -42.5%;
 	top: 9px;
 	/*put it behind the numbers*/
 }
