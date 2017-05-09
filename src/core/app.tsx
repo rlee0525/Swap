@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Home from 'modules/home';
+import NavBar from 'modules/navbar';
 
 interface AppProps {
   children?: any;
@@ -7,7 +7,7 @@ interface AppProps {
 
 const App: React.SFC<AppProps> = ({ children }) => (
   <div className='home'>
-    <Home />
+    <NavBar />
     {children}
   </div>
 );
