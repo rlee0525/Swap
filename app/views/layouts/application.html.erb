@@ -36,12 +36,13 @@
     <script type="text/javascript">
       function testAPI() {
         FB.api('/me?fields=email,name', function(response) {
-          console.log(response)
+          console.log("testAPI")
           document.getElementById('status').innerHTML = response.name;
         });
       }
 
       function statusChangeCallback(response) {
+        console.log(response)
         if (response.status === 'connected') {
           // Logged into your app and Facebook.
           testAPI();
@@ -53,7 +54,7 @@
       }
 
       function checkLoginState() {
-        console.log("check")
+        console.log("asdf")
         FB.getLoginStatus(function(response) {
           statusChangeCallback(response);
         });
