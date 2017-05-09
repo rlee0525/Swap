@@ -15,13 +15,15 @@
 #  updated_at  :datetime         not null
 #  title       :string           not null
 #  img_url3    :string
-#  condition   :string
+#  condition   :string           not null
 #
 
 class Post < ApplicationRecord
   validates :user, :description,
-            :price, :img_url1, :img_url2,
-            :category, :course, :zip_code, presence: true
+            :price, :img_url1, :category,
+            :condition, :course, :zip_code, presence: true
+  validates :condition, inclusion: { in: ["Brand New", "Like New", "Used"],
+            message: "%{value} is not a valid condition" }
   belongs_to :category
   belongs_to :course
   belongs_to :user

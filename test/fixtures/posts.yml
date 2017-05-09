@@ -15,7 +15,7 @@
 #  updated_at  :datetime         not null
 #  title       :string           not null
 #  img_url3    :string
-#  condition   :string
+#  condition   :string           not null
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

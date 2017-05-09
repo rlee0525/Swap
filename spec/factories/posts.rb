@@ -15,7 +15,7 @@
 #  updated_at  :datetime         not null
 #  title       :string           not null
 #  img_url3    :string
-#  condition   :string
+#  condition   :string           not null
 #
 
 FactoryGirl.define do
@@ -26,6 +26,8 @@ FactoryGirl.define do
     price 12
     img_url1 "some_url"
     img_url2 "some_url"
+    img_url3 "some_url"
+    condition "Brand New"
     category
     course
     zip_code "99999"
