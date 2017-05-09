@@ -2,12 +2,8 @@ require 'koala'
 
 class Api::CategoriesController < ApplicationController
   def index
-    if fb_authenticated(params[:access_token])
-      @categories = Category.all
-      render "api/categories/index", status: 200
-    else
-      render json: ["not authorized"], status: 401
-    end
+    @categories = Category.all
+    render "api/categories/index", status: 200
   end
 
   def show

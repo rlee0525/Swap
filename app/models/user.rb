@@ -5,7 +5,7 @@
 #  id                      :integer          not null, primary key
 #  fb_id                   :string           not null
 #  edu_email               :string
-#  university_id           :integer          not null
+#  university_id           :integer
 #  marketing_opt_in        :boolean          default("true"), not null
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
@@ -16,7 +16,8 @@
 
 class User < ApplicationRecord
   validates :fb_id, :edu_email, :university, :marketing_opt_in, presence: true
-  validates :edu_email, :fb_id, uniqueness: true
+  validates :edu_email, uniqueness: true
+  validates_uniqueness_of :fb_id, case_sensitive: false
   has_many :posts
   belongs_to :university
 
