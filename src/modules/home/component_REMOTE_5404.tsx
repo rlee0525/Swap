@@ -5,10 +5,6 @@ class Home extends React.Component<any, any> {
     super(props);
   }
 
-  public componentDidMount() {
-
-  }
-
   public render() {
     return (
       <div>
@@ -46,8 +42,8 @@ class Home extends React.Component<any, any> {
         <div className="block app-block-intro">
           <div className="container text-center">
             <h1 className="block-title m-b-sm text-uppercase app-myphone-brand">Swap</h1>
-            <p className="lead m-b-lg p-b-md">Best marketplace for students, exclusively.</p>
-            <img src="http://pre15.deviantart.net/7b1e/th/pre/i/2014/180/7/1/natalie_portman___keira_knightley_by_thatnordicguy-d7og2jx.jpg"/>
+            <p className="lead m-b-lg p-b-md letter-spacing">Best marketplace. For students, exclusively.</p>
+            <img src="https://robohash.org/asdf"/>
           </div>
         </div>
 
@@ -55,17 +51,17 @@ class Home extends React.Component<any, any> {
           <div className="row justify-content-md-center">
             <div className="col-xs-6 col-md-4">
               <a href="#" className="thumbnail">
-                <img className="img-circle img-responsive" src="http://pre15.deviantart.net/7b1e/th/pre/i/2014/180/7/1/natalie_portman___keira_knightley_by_thatnordicguy-d7og2jx.jpg" alt="..."/>
+                <img className="img-circle img-responsive" src="https://robohash.org/asdf" alt="..."/>
               </a>
             </div>
             <div className="col-xs-6 col-md-4">
               <a href="#" className="thumbnail">
-                <img className="img-circle img-responsive" src="http://pre15.deviantart.net/7b1e/th/pre/i/2014/180/7/1/natalie_portman___keira_knightley_by_thatnordicguy-d7og2jx.jpg" alt="..."/>
+                <img className="img-circle img-responsive" src="https://robohash.org/asdf" alt="..."/>
               </a>
             </div>
             <div className="col-xs-6 col-md-4">
               <a href="#" className="thumbnail">
-                <img className="img-circle img-responsive" src="http://pre15.deviantart.net/7b1e/th/pre/i/2014/180/7/1/natalie_portman___keira_knightley_by_thatnordicguy-d7og2jx.jpg" alt="..."/>
+                <img className="img-circle img-responsive" src="https://robohash.org/asdf" alt="..."/>
               </a>
             </div>
           </div>
@@ -74,7 +70,7 @@ class Home extends React.Component<any, any> {
         <div className="block block-bordered-lg">
           <div className="container text-center app-translate-15" data-transition="entrance">
             <blockquote className="pull-quote">
-              <img className="img-circle" src="http://pre15.deviantart.net/7b1e/th/pre/i/2014/180/7/1/natalie_portman___keira_knightley_by_thatnordicguy-d7og2jx.jpg"/>
+              <img className="img-circle" src="https://robohash.org/asdf"/>
               <p>
                 “Task management. Calendars. Email. They all have one thing in common&hellip;literally no one enjoys managing them. Thanks to years of research, we can now predict every single thing you'll ever have to do or go to. Yeah, we're that good.”
               </p>
@@ -88,7 +84,7 @@ class Home extends React.Component<any, any> {
             <div className="row">
               <div className="col-md-7 col-sm-6">
                 <img
-                  src="http://pre15.deviantart.net/7b1e/th/pre/i/2014/180/7/1/natalie_portman___keira_knightley_by_thatnordicguy-d7og2jx.jpg"
+                  src="https://robohash.org/asdf"
                   className="app-translate-5"
                   data-transition="entrance"/>
                 <hr className="m-t-0 m-b-lg m-x-auto visible-xs"/>
@@ -208,7 +204,7 @@ class Home extends React.Component<any, any> {
                         </p>
                       </div>
                     </div>
-                    <img className="img-responsive m-t-lg app-block-game-img" src="http://pre15.deviantart.net/7b1e/th/pre/i/2014/180/7/1/natalie_portman___keira_knightley_by_thatnordicguy-d7og2jx.jpg"/>
+                    <img className="img-responsive m-t-lg app-block-game-img" src="https://robohash.org/asdf"/>
                   </div>
                 </div>
               </div>
@@ -222,7 +218,7 @@ class Home extends React.Component<any, any> {
                         </p>
                       </div>
                     </div>
-                    <img className="img-responsive m-t-lg app-block-game-img" src="http://pre15.deviantart.net/7b1e/th/pre/i/2014/180/7/1/natalie_portman___keira_knightley_by_thatnordicguy-d7og2jx.jpg"/>
+                    <img className="img-responsive m-t-lg app-block-game-img" src="https://robohash.org/asdf"/>
                   </div>
                 </div>
               </div>
@@ -236,7 +232,7 @@ class Home extends React.Component<any, any> {
                         </p>
                       </div>
                     </div>
-                    <img className="img-responsive m-t-lg app-block-game-img" src="http://pre15.deviantart.net/7b1e/th/pre/i/2014/180/7/1/natalie_portman___keira_knightley_by_thatnordicguy-d7og2jx.jpg"/>
+                    <img className="img-responsive m-t-lg app-block-game-img" src="https://robohash.org/asdf"/>
                   </div>
                 </div>
               </div>
@@ -283,7 +279,7 @@ class Home extends React.Component<any, any> {
             </div>
           </div>
           <div className="text-right app-block-design-img">
-            <img src="http://pre15.deviantart.net/7b1e/th/pre/i/2014/180/7/1/natalie_portman___keira_knightley_by_thatnordicguy-d7og2jx.jpg" className="app-translate-50" data-transition="entrance"/>
+            <img src="https://robohash.org/asdf" className="app-translate-50" data-transition="entrance"/>
           </div>
         </div>
 

@@ -46,8 +46,13 @@ class Home extends React.Component<any, any> {
         <div className="block app-block-intro">
           <div className="container text-center">
             <h1 className="block-title m-b-sm text-uppercase app-myphone-brand">Swap</h1>
+<<<<<<< HEAD
             <p className="lead m-b-lg p-b-md">Best marketplace for students, exclusively.</p>
             <img src="http://pre15.deviantart.net/7b1e/th/pre/i/2014/180/7/1/natalie_portman___keira_knightley_by_thatnordicguy-d7og2jx.jpg"/>
+=======
+            <p className="lead m-b-lg p-b-md letter-spacing">Best marketplace. For students, exclusively.</p>
+            <img src="https://robohash.org/asdf"/>
+>>>>>>> 2c0ea3ab849c6e4d1a53c9aa0a6e9c9995bf7ad6
           </div>
         </div>
 
