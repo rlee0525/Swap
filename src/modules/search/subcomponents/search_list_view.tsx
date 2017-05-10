@@ -1,14 +1,12 @@
 import React from 'react';
 
 interface Props {
-  user: object
 }
 
 interface State {
-
 }
 
-class ListView extends React.Component<Props, State> {
+class SearchListView extends React.Component<Props, State> {
   render() {
     return (
       <table className="table table-hover">
@@ -63,10 +61,18 @@ class ListView extends React.Component<Props, State> {
             <td>10 minutes ago</td>
             <td>Brand New</td>
           </tr>
+          <tr>
+            <th scope="row">6</th>
+            <td>Econ 101</td>
+            <td>Economic Basics, barely used</td>
+            <td>$40</td>
+            <td>10 minutes ago</td>
+            <td>Brand New</td>
+          </tr>
         </tbody>
       </table>
     )
   }
 }
 
-export { ListView };
+export { SearchListView };

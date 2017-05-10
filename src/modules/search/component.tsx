@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { GridView, ListView, SearchNavbar, SearchSidebar } from './subcomponents';
+import { SearchGridView, SearchListView, SearchNavbar, SearchSidebar } from './subcomponents';
 
 interface Props {
   user: object
@@ -27,6 +27,14 @@ class Search extends React.Component<Props, State> {
     return () => this.setState({ viewType })
   }
 
+  private renderView() {
+    if (this.state.viewType === 'grid') {
+      return <SearchGridView />;
+    } else {
+      return <SearchListView />;
+    }
+  }
+
   public render() {
     return (
       <div>
@@ -38,18 +46,15 @@ class Search extends React.Component<Props, State> {
             <div className="col-md-10">
               <div className="search-icons">
                 <button className="btn btn-link" onClick={this.changeView('grid')}>
-                  <span className="glyphicon glyphicon-th-large"></span> 
-                  Grid View
+                  <span className="glyphicon glyphicon-th-large"></span> Grid View
                 </button>
                 <button className="btn btn-link" onClick={this.changeView('list')}>
-                  <span className="glyphicon glyphicon-th-list"></span> 
-                  List View
+                  <span className="glyphicon glyphicon-th-list"></span> List View
                 </button>
-              </div>            
+              </div>    
+              { this.renderView() }
             </div>
-
-            { this.state.viewType === 'grid' ? <GridView /> : <ListView /> }
-            
+   
           </div>
         </div>
 
