@@ -1,8 +1,10 @@
 import { connect } from 'react-redux';
 import Search from './component';
+import { search } from './actions';
 
 interface StateProps {
-  user: any;
+  user: object;
+  search: object [];
 }
 
 interface DispatchProps {
@@ -10,11 +12,12 @@ interface DispatchProps {
 }
 
 const mapStateToProps = (state: any, ownProp?: any): StateProps => ({
-  user: state.user
+  user: state.user,
+  search: state.search
 });
 
 const mapDispatchToProps = (dispatch: any): DispatchProps => ({
-  onClick1: () => { console.log("hi"); }
+  search: (query: string) => dispatch(search(query))
 });
 
 export default connect(
