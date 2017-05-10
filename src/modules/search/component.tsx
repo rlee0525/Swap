@@ -29,9 +29,9 @@ class Search extends React.Component<Props, State> {
 
   private renderView() {
     if (this.state.viewType === 'grid') {
-      return <SearchGridView />;
+      return <SearchGridView searchResult={this.props.searchResult} />;
     } else {
-      return <SearchListView />;
+      return <SearchListView searchResult={this.props.searchResult} />;
     }
   }
 
@@ -45,6 +45,7 @@ class Search extends React.Component<Props, State> {
             <SearchSidebar />
             <div className="col-md-10">
               <div className="search-icons">
+                <button onClick={this.props.search}>Yay</button>
                 <button className="btn btn-link" onClick={this.changeView('grid')}>
                   <span className="glyphicon glyphicon-th-large"></span> Grid View
                 </button>
