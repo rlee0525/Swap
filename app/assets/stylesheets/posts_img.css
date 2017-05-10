@@ -1,13 +1,9 @@
-#category-description {
-
-}
-
 .thumbnail-image {
-  filter: brightness(70%);
+  filter: brightness(60%);
 }
 
 .thumbnail-backdrop {
-  filter: brightness(40%);
+  filter: brightness(30%);
 }
 
 .carousel-caption {
@@ -17,6 +13,6 @@
   left: 0;
   right: 0;
   width: 50%;
-  height: 30%;
+  height: 40%;
   margin: auto;
 }
