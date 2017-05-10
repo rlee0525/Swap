@@ -8322,7 +8322,10 @@ h1.block-title {
 }
 @media screen and (min-width: 768px) {
   .block {
-    padding: 120px 0;
+    padding: 40px 0 0 0;
+
+    /* TODO:  */
+    /*padding: 120px 0;*/
   }
   .block:not(.block-secondary) .lead {
     font-size: 21px;

@@ -9,11 +9,7 @@ class Home extends React.Component<any, any> {
   }
 
   public componentDidMount() {
-    // FB.getLoginStatus(result => {
-    //   if (result.status === "connected") {
-    //
-    //   }
-    // });
+
   }
 
   public viewDescription(e) {
@@ -49,10 +45,8 @@ class Home extends React.Component<any, any> {
           <div className="container text-center">
             <h1 className="block-title m-b-sm text-uppercase app-myphone-brand">Swap</h1>
             <p className="lead m-b-lg p-b-md">Best marketplace. For students, exclusively.</p>
-            <img src="http://pre15.deviantart.net/7b1e/th/pre/i/2014/180/7/1/natalie_portman___keira_knightley_by_thatnordicguy-d7og2jx.jpg"/>
           </div>
         </div>
-
         <div>
           <div className="container">
             <div className="row">
@@ -110,26 +104,6 @@ class Home extends React.Component<any, any> {
                   </div>
                 </a>
               </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="container container-fluid">
-          <div className="row justify-content-md-center">
-            <div className="col-xs-6 col-md-4">
-              <a href="#" className="thumbnail">
-                <img className="img-circle img-responsive" src="http://pre15.deviantart.net/7b1e/th/pre/i/2014/180/7/1/natalie_portman___keira_knightley_by_thatnordicguy-d7og2jx.jpg" alt="..."/>
-              </a>
-            </div>
-            <div className="col-xs-6 col-md-4">
-              <a href="#" className="thumbnail">
-                <img className="img-circle img-responsive" src="http://pre15.deviantart.net/7b1e/th/pre/i/2014/180/7/1/natalie_portman___keira_knightley_by_thatnordicguy-d7og2jx.jpg" alt="..."/>
-              </a>
-            </div>
-            <div className="col-xs-6 col-md-4">
-              <a href="#" className="thumbnail">
-                <img className="img-circle img-responsive" src="http://pre15.deviantart.net/7b1e/th/pre/i/2014/180/7/1/natalie_portman___keira_knightley_by_thatnordicguy-d7og2jx.jpg" alt="..."/>
-              </a>
             </div>
           </div>
         </div>
