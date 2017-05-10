@@ -153,7 +153,7 @@ class NavBar extends React.Component<any, any> {
                 <div className="fb-login-button" data-scope="email" data-max-rows="1" data-size="large" data-button-type="login_with" data-auto-logout-link="true" data-use-continue-as="true" data-onlogin=""></div>
 
                 <div className="modal-body text-center">
-                  By signing up, I agree to Swap's <a id="legal-links">Terms of Service</a>, <a id="legal-links">Nondiscrimination Policy</a>, <a id="legal-links">Payments Terms of Service</a>, and <a id="legal-links">Privacy Policy</a>.
+                  By signing up, I agree to Swap's <a href="/#/terms" target="_blank" id="legal-links">Terms of Service</a>, <a href="/#/terms" target="_blank" id="legal-links">Nondiscrimination Policy</a>, <a href="/#/terms" target="_blank" id="legal-links">Payments Terms of Service</a>, and <a href="/#/terms" target="_blank" id="legal-links">Privacy Policy</a>.
                 </div>
               </div>
               <div className="modal-footer">
