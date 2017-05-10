@@ -1,0 +1,23 @@
+.thumbnail-image {
+  filter: brightness(60%);
+}
+
+.thumbnail-backdrop {
+  filter: brightness(30%);
+}
+
+.carousel-caption {
+  position: absolute !important;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 50%;
+  height: 40%;
+  margin: auto;
+}
+
+.category-description {
+  letter-spacing: 1px !important;
+  font-size: 12px !important;
+}
