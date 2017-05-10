@@ -1,8 +1,10 @@
 import { connect } from 'react-redux';
 import Post from './component';
+import
 
 interface StateProps {
   user: any;
+  post: object [];
 }
 
 interface DispatchProps {
@@ -14,7 +16,7 @@ const mapStateToProps = (state: any, ownProp?: any): StateProps => ({
 });
 
 const mapDispatchToProps = (dispatch: any): DispatchProps => ({
-  onClick1: () => { console.log("hi"); }
+  getPost: (id: number) => dispatch(getPost(id))
 });
 
 export default connect(

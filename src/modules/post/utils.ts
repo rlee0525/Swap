@@ -1,9 +1,8 @@
 /* global $ */
 
-export const search = (query: string) => (
+export const fetchPost = (id: number) => (
   $.ajax({
     method: 'GET',
-    url: 'api/search',
-    data: { query: '' }
-  })
+    url: `api/posts/${id}`,
+  });
 );

@@ -1,25 +1,19 @@
-import * as SearchAPI from './utils';
+import * as PostAPI from './utils';
 
 export interface Action<T> {
   type: string;
-  user: object;
   payload: T;
 }
-//
-// interface ActionCreator<T> {
-//   type: string,
-//   (payload: T): Action<T>
-// };
 
-export const RECEIVE_SEARCH: string = 'RECEIVE_SEARCH';
+export const RECEIVE_POST: string = 'RECEIVE_POST';
 
-export const receiveSearch = (result: object []) => ({
-  type: RECEIVE_SEARCH,
-  result
+export const receivePost = (post: object []) => ({
+  type: RECEIVE_POST,
+  post
 });
 
-export const search = (query: string) => dispatch => {
-  return SearchAPI.search(query).then(
-    res => dispatch(receiveSearch(res))
+export const getPost = (id: number) => dispatch => {
+  return PostAPI.fetchPost(id).then(
+    res => dispatch(receivePost(res))
   );
 }
