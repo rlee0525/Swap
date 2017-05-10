@@ -1,5 +1,5 @@
 import * as React from 'react';
-import NavBar from 'modules/navbar';
+import NavBar from 'core/navbar';
 
 interface AppProps {
   children?: any;
