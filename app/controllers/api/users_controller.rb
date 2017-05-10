@@ -11,26 +11,30 @@
 
 class Api::UsersController < ApplicationController
   def create
-    edu_email = params[:edu_email]
-    access_token = params[:access_token]
+    access_token = params[:accessToken]
     fb_id = fb_id(access_token)
-
-    @user = User.new(fb_id: fb_id)
-    if @user.save
+    user = User.find_by(fb_id: fb_id)
+    if user
+      @user = user
       return render "api/users/show", status: 200
     else
-      return render "invalid token", status: 401
+      @user = User.new(fb_id: fb_id)
+      if @user.save
+        return render "api/users/show", status: 200
+      else
+        return render "invalid token", status: 401
+      end
     end
   end
 
   def update
     edu_email = params[:edu_email]
-    access_token = params[:access_token]
+    access_token = params[:id]
     fb_id = fb_id(access_token)
 
     if fb_id && edu_email
       @user = User.find_by(fb_id: fb_id)
-      if @user.update(edu_email: edu_email)
+      if @user.update(edu_email: "#{edu_email}@berkeley.edu")
         UserMailer.registration_confirmation(@user).deliver
         return render "api/users/show", status: 200
       else
@@ -41,7 +45,7 @@ class Api::UsersController < ApplicationController
   end
 
   def show
-    access_token = params[:access_token]
+    access_token = params[:id]
     fb_id = fb_id(access_token)
     @user = User.find_by(fb_id: fb_id)
     if @user

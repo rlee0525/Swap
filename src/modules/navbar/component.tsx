@@ -8,12 +8,15 @@ class NavBar extends React.Component<any, any> {
       modalTitle: "Sign up with Facebook",
       userInfo: null,
       userFB: null,
+      accessToken: null,
       status
     };
 
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
     this.checkFbStatus = this.checkFbStatus.bind(this);
+    this.sendEmail = this.sendEmail.bind(this);
+    this.chooseModal = this.chooseModal.bind(this);
 
     let that = this;
     window.fbAsyncInit = function() {
@@ -39,6 +42,26 @@ class NavBar extends React.Component<any, any> {
     }(document, 'script', 'facebook-jssdk'));
   }
 
+  public sendEmail(e) {
+    e.preventDefault();
+    let accessToken;
+    const edu_email = $('input.form-control')[0].value
+    let that = this;
+    FB.getLoginStatus(function(response) {
+      accessToken = response.authResponse.accessToken
+      $.ajax({
+        method: "PATCH",
+        url: `http://localhost:3000/api/users/${accessToken}`,
+        data: { edu_email }
+      }).then(obj => {
+        $('#signUpModal').modal('hide');
+        $('#logInModal').modal('hide');
+        $('#emailInputModal').modal('hide');
+        $('#emailVerificationModal').modal('show');
+      })
+    })
+  }
+
   public checkFbStatus() {
     let that = this;
     FB.getLoginStatus(function(response) {
@@ -53,14 +76,67 @@ class NavBar extends React.Component<any, any> {
   }
 
   public logout(response) {
-    this.setState({ userInfo: null, userFB: null, status });
+    this.setState({ userInfo: null, userFB: null, accessToken: null, status });
     window.location.replace("/");
   }
 
   public login(response) {
+    let that = this;
+    const accessToken = response.authResponse.accessToken;
+
+    this.setState({ accessToken });
     FB.api('/me?fields=email,name', response => {
       this.setState({ userFB: response });
     });
+
+    $.ajax({
+      method: "POST",
+      url: 'http://localhost:3000/api/users/',
+      data: { accessToken }
+    }).then(obj => {
+      if (obj.edu_email === null) {
+        $('#signUpModal').modal('hide')
+        $('#logInModal').modal('hide')
+        $('#emailInputModal').modal('show')
+      } else if (obj.edu_email_confirmed === false) {
+        $('#signUpModal').modal('hide')
+        $('#logInModal').modal('hide')
+        $('#emailInputModal').modal('hide')
+        $('#emailVerificationModal').modal('show')
+      } else {
+        $('#signUpModal').modal('hide')
+        $('#logInModal').modal('hide')
+      }
+    })
+  }
+
+  public resendVerificationEmail() {
+    $('#signUpModal').modal('hide')
+    $('#logInModal').modal('hide')
+    $('#emailInputModal').modal('show')
+    $('#emailVerificationModal').modal('hide')
+  }
+
+  public chooseModal() {
+    FB.getLoginStatus(function(response) {
+      if (response.status === "connected") {
+        const accessToken = response.authResponse.accessToken
+        $.ajax({
+          method: "GET",
+          url: `http://localhost:3000/api/users/${accessToken}`
+        }).then(obj => {
+          if (obj.edu_email_confirmed) {
+            $('#logInModal').modal('show');
+          } else if (obj.edu_email === null) {
+            $('#emailInputModal').modal('show');
+          } else {
+            $('#emailVerificationModal').modal('show');
+          }
+        }).fail(() => FB.logout())
+      } else {
+        $('#logInModal').modal('show');
+      }
+    }
   }
 
   public checkUserStatus() {
@@ -75,7 +151,7 @@ class NavBar extends React.Component<any, any> {
               <a href="#">Who are we?</a>
             </li>
             <li >
-              <a data-toggle="modal" data-target="#logInModal">{this.state.userFB.name}</a>
+              <a onClick={ this.chooseModal }>{this.state.userFB.name}</a>
             </li>
           </ul>
         </div>
@@ -91,10 +167,10 @@ class NavBar extends React.Component<any, any> {
               <a href="#">Who are we?</a>
             </li>
             <li >
-              <a data-toggle="modal" data-target="#signUpModal">Sign Up</a>
+              <a onClick={ this.chooseModal }>Sign Up</a>
             </li>
             <li >
-              <a data-toggle="modal" data-target="#logInModal">Log In</a>
+              <a onClick={ this.chooseModal }>Log In</a>
             </li>
           </ul>
         </div>
@@ -122,6 +198,7 @@ class NavBar extends React.Component<any, any> {
           </div>
         </nav>
 
+        <a id="signUpModalTrigger" className="hidden" data-toggle="modal" data-target="#signUpModal">Login Modal Trigger</a>
         <div className="modal fade" id="signUpModal" tabIndex="-1" role="dialog"
              aria-labelledby="authModalLabel" aria-hidden="true">
           <div className="modal-dialog" role="document">
@@ -142,6 +219,7 @@ class NavBar extends React.Component<any, any> {
           </div>
         </div>
 
+        <a id="logInModalTrigger" className="hidden" data-toggle="modal" data-target="#logInModal">Login Modal Trigger</a>
         <div className="modal fade" id="logInModal" tabIndex="-1" role="dialog"
              aria-labelledby="authModalLabel" aria-hidden="true">
           <div className="modal-dialog" role="document">
@@ -161,6 +239,54 @@ class NavBar extends React.Component<any, any> {
             </div>
           </div>
         </div>
+
+        <a id="emailInputModalTrigger" className="hidden" data-toggle="modal" data-target="#emailInputModal">Email Input Modal Trigger</a>
+        <div className="modal fade" id="emailInputModal" tabIndex="-1" role="dialog"
+             aria-labelledby="authModalLabel" aria-hidden="true">
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header" id="auth-modal-header">
+                <h3 className="modal-title" id="authModalLabel">Enter Your Berkeley.edu Email Address</h3>
+              </div>
+              <div className="modal-body text-center" id="fb-modal-body">
+                <form onSubmit={ this.sendEmail }>
+                  <div className="form-group input-group">
+                    <input type="text" className="form-control" placeholder="Your email" aria-describedby="basic-addon2"/>
+                    <span className="input-group-addon" id="basic-addon2">@berkeley.edu</span>
+                  </div>
+                  <button type="button" className="btn btn-success btn-lg btn-block" onClick={ this.sendEmail }>Submit</button>
+                </form>
+              </div>
+              <br/>
+              <div className="modal-footer">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <a id="emailVerificationModalTrigger" className="hidden" data-toggle="modal" data-target="#emailVerificationModal">Email Verification Modal Trigger</a>
+        <div className="modal fade" id="emailVerificationModal" tabIndex="-1" role="dialog"
+             aria-labelledby="authModalLabel" aria-hidden="true">
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header" id="auth-modal-header">
+                <h3 className="modal-title" id="authModalLabel">Thank you!</h3>
+              </div>
+              <div className="modal-body text-center" id="fb-modal-body">
+                <h4>
+                  Please check your email for the verification link!
+                </h4>
+                <br/>
+                <button type="button" className="btn btn-danger btn-lg btn-block" onClick={ this.resendVerificationEmail }>Re-send Verification Email</button>
+                <button type="button" className="btn btn-success btn-lg btn-block" onClick={ () => $('#emailVerificationModal').modal('hide') }>CLOSE</button>
+              </div>
+              <br/>
+              <div className="modal-footer">
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     );
   }
