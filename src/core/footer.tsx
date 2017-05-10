@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 const Footer = () => (
   <div className="block app-block-footer">
     <div className="container">

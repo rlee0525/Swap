@@ -132,7 +132,7 @@ class NavBar extends React.Component<any, any> {
         $('#logInModal').modal('show');
       }
     }
-  }
+  },
 
   public checkUserStatus() {
     if (this.state.userFB) {
