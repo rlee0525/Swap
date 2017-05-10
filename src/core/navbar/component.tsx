@@ -5,16 +5,11 @@ class NavBar extends React.Component<any, any> {
     super(props);
 
     this.state = {
-      modalTitle: "Sign up with Facebook",
-      userInfo: null,
       userFB: null,
       accessToken: null,
       status
     };
 
-    this.login = this.login.bind(this);
-    this.logout = this.logout.bind(this);
-    this.checkFbStatus = this.checkFbStatus.bind(this);
     this.sendEmail = this.sendEmail.bind(this);
     this.chooseModal = this.chooseModal.bind(this);
 
@@ -69,13 +64,13 @@ class NavBar extends React.Component<any, any> {
           that.setState({ userFB: response });
         });
       } else {
-        that.setState({ userInfo: null, userFB: null, status });
+        that.setState({ userFB: null, status });
       }
     });
   }
 
   public logout(response) {
-    this.setState({ userInfo: null, userFB: null, accessToken: null, status });
+    this.setState({ userFB: null, accessToken: null, status });
     window.location.replace("/");
   }
 
