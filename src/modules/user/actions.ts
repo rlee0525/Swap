@@ -11,7 +11,7 @@ export interface Action<T> {
 //   (payload: T): Action<T>
 // };
 
-export const RECEIVE_USER = 'RECEIVE_USER';
+export const RECEIVE_USER: string = 'RECEIVE_USER';
 
 export const receiveUser = (user: object) => ({
   type: RECEIVE_USER,
@@ -25,11 +25,11 @@ export const loginUser = () => (dispatch: any) => {
 export const signup = user => dispatch => (
   UserAPI.signup(user)
     .then(currentUser => dispatch(receiveUser(currentUser)))
-    .fail(err => console.log(err))
+    .fail((err: string) => console.log(err))
 );
 
 export const getUser = user => dispatch => (
   UserAPI.checkUser(user)
     .then(currentUser => dispatch(receiveUser(currentUser)))
-    .fail(err => console.log(err))
+    .fail((err: string) => console.log(err))
 );
