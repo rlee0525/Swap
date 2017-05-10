@@ -248,11 +248,11 @@ class NavBar extends React.Component<any, any> {
               </div>
               <div className="modal-body text-center" id="fb-modal-body">
                 <h4>
-                  Please check your email for the verification link!
+                  Please check your email for the verification link
                 </h4>
                 <br/>
-                <button type="button" className="btn btn-danger btn-lg btn-block" onClick={ this.resendVerificationEmail }>Re-send Verification Email</button>
-                <button type="button" className="btn btn-success btn-lg btn-block" onClick={ () => $('#emailVerificationModal').modal('hide') }>CLOSE</button>
+                <button type="button" className="btn btn-warning btn-lg btn-block" onClick={ this.resendVerificationEmail }>Re-send verification email</button>
+                <button type="button" className="btn btn-primary btn-lg btn-block" onClick={ () => $('#emailVerificationModal').modal('hide') }>Close</button>
               </div>
               <br/>
               <div className="modal-footer">
