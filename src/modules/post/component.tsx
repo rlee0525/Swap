@@ -3,10 +3,39 @@ import React from 'react';
 class Post extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
+
+    this.viewDescription = this.viewDescription.bind(this);
+    this.hideDescription = this.hideDescription.bind(this);
   }
 
   public componentDidMount() {
 
+  }
+
+  public viewDescription(e) {
+    e.currentTarget.querySelectorAll('img')[0].classList.add("thumbnail-backdrop");
+    let title = e.currentTarget.querySelectorAll('h3')[0];
+    let description = e.currentTarget.querySelectorAll('p')[0];
+
+    description.classList.remove("hide");
+    description.classList.add("animated");
+    description.classList.add("zoomIn");
+
+    title.classList.add("animated");
+    title.classList.add("slideInDown");
+  }
+
+  public hideDescription(e) {
+    e.currentTarget.querySelectorAll('img')[0].classList.remove("thumbnail-backdrop");
+    let title = e.currentTarget.querySelectorAll('h3')[0];
+    let description = e.currentTarget.querySelectorAll('p')[0];
+
+    description.classList.add("hide");
+    description.classList.remove("animated");
+    description.classList.remove("zoomIn");
+
+    title.classList.remove("animated");
+    title.classList.remove("slideInDown");
   }
 
   public render() {
@@ -15,56 +44,56 @@ class Post extends React.Component<any, any> {
         <div className="container">
           <div className="row">
             <div className="col-xs-6 col-md-4">
-              <a href="#" className="thumbnail">
-                <img src="http://pre15.deviantart.net/7b1e/th/pre/i/2014/180/7/1/natalie_portman___keira_knightley_by_thatnordicguy-d7og2jx.jpg" alt="..."/>
+              <a href="#" className="thumbnail" onMouseOver={(e) => this.viewDescription(e)} onMouseOut={(e) => this.hideDescription(e)}>
+                <img className="thumbnail-image" src="http://pre15.deviantart.net/7b1e/th/pre/i/2014/180/7/1/natalie_portman___keira_knightley_by_thatnordicguy-d7og2jx.jpg" alt="..."/>
                 <div className="carousel-caption">
-                  <h3>Category A</h3>
-                  <p>Cool things here</p>
+                  <h3 className="category-title">Category A</h3>
+                  <p className="category-description hide">My description</p>
                 </div>
               </a>
             </div>
             <div className="col-xs-6 col-md-4">
-              <a href="#" className="thumbnail">
-                <img src="http://pre15.deviantart.net/7b1e/th/pre/i/2014/180/7/1/natalie_portman___keira_knightley_by_thatnordicguy-d7og2jx.jpg" alt="..."/>
+              <a href="#" className="thumbnail" onMouseOver={(e) => this.viewDescription(e)} onMouseOut={(e) => this.hideDescription(e)}>
+                <img className="thumbnail-image" src="http://pre15.deviantart.net/7b1e/th/pre/i/2014/180/7/1/natalie_portman___keira_knightley_by_thatnordicguy-d7og2jx.jpg" alt="..."/>
                 <div className="carousel-caption">
-                  <h3>Category A</h3>
-                  <p>Cool things here</p>
+                  <h3 className="category-title">Category A</h3>
+                  <p className="category-description hide">My description</p>
                 </div>
               </a>
             </div>
             <div className="col-xs-6 col-md-4">
-              <a href="#" className="thumbnail">
-                <img src="http://pre15.deviantart.net/7b1e/th/pre/i/2014/180/7/1/natalie_portman___keira_knightley_by_thatnordicguy-d7og2jx.jpg" alt="..."/>
+              <a href="#" className="thumbnail" onMouseOver={(e) => this.viewDescription(e)} onMouseOut={(e) => this.hideDescription(e)}>
+                <img className="thumbnail-image" src="http://pre15.deviantart.net/7b1e/th/pre/i/2014/180/7/1/natalie_portman___keira_knightley_by_thatnordicguy-d7og2jx.jpg" alt="..."/>
                 <div className="carousel-caption">
-                  <h3>Category A</h3>
-                  <p>Cool things here</p>
+                  <h3 className="category-title">Category A</h3>
+                  <p className="category-description hide">My description</p>
                 </div>
               </a>
             </div>
             <div className="col-xs-6 col-md-4">
-              <a href="#" className="thumbnail">
-                <img src="http://pre15.deviantart.net/7b1e/th/pre/i/2014/180/7/1/natalie_portman___keira_knightley_by_thatnordicguy-d7og2jx.jpg" alt="..."/>
+              <a href="#" className="thumbnail" onMouseOver={(e) => this.viewDescription(e)} onMouseOut={(e) => this.hideDescription(e)}>
+                <img className="thumbnail-image" src="http://pre15.deviantart.net/7b1e/th/pre/i/2014/180/7/1/natalie_portman___keira_knightley_by_thatnordicguy-d7og2jx.jpg" alt="..."/>
                 <div className="carousel-caption">
-                  <h3>Category A</h3>
-                  <p>Cool things here</p>
+                  <h3 className="category-title">Category A</h3>
+                  <p className="category-description hide">My description</p>
                 </div>
               </a>
             </div>
             <div className="col-xs-6 col-md-4">
-              <a href="#" className="thumbnail">
-                <img src="http://pre15.deviantart.net/7b1e/th/pre/i/2014/180/7/1/natalie_portman___keira_knightley_by_thatnordicguy-d7og2jx.jpg" alt="..."/>
+              <a href="#" className="thumbnail" onMouseOver={(e) => this.viewDescription(e)} onMouseOut={(e) => this.hideDescription(e)}>
+                <img className="thumbnail-image" src="http://pre15.deviantart.net/7b1e/th/pre/i/2014/180/7/1/natalie_portman___keira_knightley_by_thatnordicguy-d7og2jx.jpg" alt="..."/>
                 <div className="carousel-caption">
-                  <h3>Category A</h3>
-                  <p>Cool things here</p>
+                  <h3 className="category-title">Category A</h3>
+                  <p className="category-description hide">My description</p>
                 </div>
               </a>
             </div>
             <div className="col-xs-6 col-md-4">
-              <a href="#" className="thumbnail">
-                <img src="http://pre15.deviantart.net/7b1e/th/pre/i/2014/180/7/1/natalie_portman___keira_knightley_by_thatnordicguy-d7og2jx.jpg" alt="..."/>
+              <a href="#" className="thumbnail" onMouseOver={(e) => this.viewDescription(e)} onMouseOut={(e) => this.hideDescription(e)}>
+                <img className="thumbnail-image" src="http://pre15.deviantart.net/7b1e/th/pre/i/2014/180/7/1/natalie_portman___keira_knightley_by_thatnordicguy-d7og2jx.jpg" alt="..."/>
                 <div className="carousel-caption">
-                  <h3>Category A</h3>
-                  <p>Cool things here</p>
+                  <h3 className="category-title">Category A</h3>
+                  <p className="category-description hide">My description</p>
                 </div>
               </a>
             </div>
