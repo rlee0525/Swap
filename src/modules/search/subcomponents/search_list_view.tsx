@@ -11,7 +11,6 @@ class SearchListView extends React.Component<Props, State> {
   renderListItem(post, idx) {
     return (
       <tr key={idx}>
-        <th scope="row">${idx}</th>
         <td>{post.title}</td>
         <td>{shortenString(post.description, 30)}</td>
         <td>${Number(post.price).toLocaleString()}</td>
@@ -26,7 +25,6 @@ class SearchListView extends React.Component<Props, State> {
       <table className="table table-hover">
         <thead>
           <tr>
-            <th>#</th>
             <th>Title</th>
             <th>Description</th>
             <th>Price</th>
