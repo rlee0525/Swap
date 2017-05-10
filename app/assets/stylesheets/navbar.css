@@ -4,8 +4,10 @@
   box-sizing: border-box;
 }
 
-.navbar-nav a:hover {
-  color: black;
-  padding: 12px 0 6px 0 !important;
-  border-bottom: 2px solid #707070;
+@media screen and (min-width: 768px) {
+  .navbar-nav a:hover {
+    color: black;
+    padding: 12px 0 6px 0 !important;
+    border-bottom: 2px solid #707070;
+  }
 }
