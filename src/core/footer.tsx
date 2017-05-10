@@ -6,7 +6,7 @@ const Footer = () => (
       <div className="flex-row">
         <a href="/#/about"><h6 className="text-uppercase">About</h6></a>
         <a href="/#/careers"><h6 className="text-uppercase">Careers</h6></a>
-        <h6 className="text-uppercase">Help</h6>
+        <a href="/#/faq"><h6 className="text-uppercase">FAQ</h6></a>
         <h6 className="text-uppercase">Contact</h6>
       </div>
     </div>
