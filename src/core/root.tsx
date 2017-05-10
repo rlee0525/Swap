@@ -4,7 +4,6 @@ import { Store } from 'redux';
 import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import App from './app';
 import Home from 'modules/home';
-import Post from 'modules/post';
 import Search from 'modules/search';
 
 interface RootProps {
@@ -24,7 +23,6 @@ const Root: React.SFC<RootProps> = ({ store }) => {
       <Router history={hashHistory}>
         <Route path="/" component={App}>
         <IndexRoute component={Home} />
-          <Route path="/post" component={Post} />
           <Route path="/search" component={Search} />
         </Route>
       </Router>
