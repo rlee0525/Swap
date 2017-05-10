@@ -3,7 +3,7 @@ import { Action, RECEIVE_POST } from "./actions";
 
 let _defaultState = [];
 
-const searchResultReducer = (state = _defaultState, action: Action<any>) => {
+const postReducer = (state = _defaultState, action: Action<any>) => {
   Object.freeze(state);
   switch (action.type) {
     case RECEIVE_POST:
@@ -13,4 +13,4 @@ const searchResultReducer = (state = _defaultState, action: Action<any>) => {
   }
 };
 
-export default PostReducer;
+export default postReducer;

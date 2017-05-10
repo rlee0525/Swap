@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
 import Post from './component';
-import
+import { getPost } from './actions';
 
 interface StateProps {
   user: any;
-  post: object [];
+  post: object;
 }
 
 interface DispatchProps {
@@ -12,7 +12,8 @@ interface DispatchProps {
 }
 
 const mapStateToProps = (state: any, ownProp?: any): StateProps => ({
-  user: state.user
+  user: state.user,
+  post: state.post
 });
 
 const mapDispatchToProps = (dispatch: any): DispatchProps => ({

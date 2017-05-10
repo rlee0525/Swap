@@ -7,12 +7,25 @@ class Post extends React.Component<any, any> {
 
     //TODO: just for testing.
     this.state = {
-      current: "post_detail"
+      current: "post_detail",
+      post: null
     };
 
     this.clickDetail = this.clickDetail.bind(this);
     this.clickForm = this.clickForm.bind(this);
     this.renderSub = this.renderSub.bind(this);
+  }
+
+  public componentDidMount() {
+    this.props.getPost(1)
+  }
+
+  public componentWillReceiveProps(newProps) {
+    if (newProps.post !== this.state.post) {
+      this.setState({
+        post: newProps.post
+      });
+    }
   }
 
   public clickDetail() {
@@ -36,6 +49,8 @@ class Post extends React.Component<any, any> {
   }
 
   public render() {
+    console.log(this.state);
+
     return (
       <div className="container">
         <div className="row">
