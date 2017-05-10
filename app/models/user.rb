@@ -15,11 +15,11 @@
 #
 
 class User < ApplicationRecord
-  validates :fb_id, :edu_email, :university, :marketing_opt_in, presence: true
+  validates :fb_id, :marketing_opt_in, presence: true
   validates :edu_email, uniqueness: true
   validates_uniqueness_of :fb_id, case_sensitive: false
   has_many :posts
-  belongs_to :university
+  belongs_to :university, optional: true
 
   before_create :confirmation_token
 
