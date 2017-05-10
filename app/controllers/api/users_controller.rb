@@ -34,7 +34,10 @@ class Api::UsersController < ApplicationController
 
     if fb_id && edu_email
       @user = User.find_by(fb_id: fb_id)
-      if @user.update(edu_email: "#{edu_email}@berkeley.edu")
+      if @user.edu_email_confirmed
+        return render "api/users/show", status: 200
+      elsif
+        @user.update(edu_email: "#{edu_email}@berkeley.edu")
         UserMailer.registration_confirmation(@user).deliver
         return render "api/users/show", status: 200
       else
