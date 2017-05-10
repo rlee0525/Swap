@@ -5,8 +5,16 @@ class Api::PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(params[:post])
-    course = Course.find_by(course_number: params[:post][:course])
+    @post = Post.new(post_params)
+    course = Course.find_by(course_number: params[:course][:course])
+    category = Category.find_by(name: params[:category][:category])
+    @post.category = category
+
+    # // TODO
+    @post.user = User.first
+    @post.zip_code = "99999"
+    # // TODO
+
     if @post.save
       if course
         @post.update(course: course)
@@ -27,4 +35,10 @@ class Api::PostsController < ApplicationController
   end
 
   def update; end
+
+  private
+
+  def post_params
+    params.require(:post).permit(:title, :condition, :price, :description, :img_url1, :img_url2, :img_url3)
+  end
 end
