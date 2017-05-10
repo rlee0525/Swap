@@ -1,0 +1,19 @@
+#add-margin-bottom {
+  margin-bottom: 30px;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-bottom: 30px;
+}
+
+h6.text-uppercase {
+  color: #707070;
+  font-weight: 400;
+}
+
+#footer-block {
+  padding: 20px 0 0 0 !important;
+}
