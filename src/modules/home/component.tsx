@@ -48,7 +48,7 @@ class Home extends React.Component<any, any> {
           </div>
         </div>
         <div>
-          <div className="container">
+          <div className="container" id="add-margin-bottom">
             <div className="row">
               <div className="col-xs-6 col-md-4">
                 <a href="#" className="thumbnail" onMouseOver={(e) => this.viewDescription(e)} onMouseOut={(e) => this.hideDescription(e)}>
