@@ -5,6 +5,7 @@ import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import App from './app';
 import Home from 'modules/home';
 import Search from 'modules/search';
+import Post from 'modules/post';
 
 interface RootProps {
   store: Store<any>;
@@ -24,6 +25,7 @@ const Root: React.SFC<RootProps> = ({ store }) => {
         <Route path="/" component={App}>
         <IndexRoute component={Home} />
           <Route path="/search" component={Search} />
+          <Route path="/post" component={Post} />
         </Route>
       </Router>
     </Provider>
