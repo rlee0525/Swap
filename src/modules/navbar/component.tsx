@@ -54,7 +54,6 @@ class NavBar extends React.Component<any, any> {
         url: `http://localhost:3000/api/users/${accessToken}`,
         data: { edu_email }
       }).then(obj => {
-        $('#signUpModal').modal('hide');
         $('#logInModal').modal('hide');
         $('#emailInputModal').modal('hide');
         $('#emailVerificationModal').modal('show');
@@ -95,23 +94,19 @@ class NavBar extends React.Component<any, any> {
       data: { accessToken }
     }).then(obj => {
       if (obj.edu_email === null) {
-        $('#signUpModal').modal('hide')
         $('#logInModal').modal('hide')
         $('#emailInputModal').modal('show')
       } else if (obj.edu_email_confirmed === false) {
-        $('#signUpModal').modal('hide')
         $('#logInModal').modal('hide')
         $('#emailInputModal').modal('hide')
         $('#emailVerificationModal').modal('show')
       } else {
-        $('#signUpModal').modal('hide')
         $('#logInModal').modal('hide')
       }
     })
   }
 
   public resendVerificationEmail() {
-    $('#signUpModal').modal('hide')
     $('#logInModal').modal('hide')
     $('#emailInputModal').modal('show')
     $('#emailVerificationModal').modal('hide')
@@ -198,8 +193,8 @@ class NavBar extends React.Component<any, any> {
           </div>
         </nav>
 
-        <a id="signUpModalTrigger" className="hidden" data-toggle="modal" data-target="#signUpModal">Login Modal Trigger</a>
-        <div className="modal fade" id="signUpModal" tabIndex="-1" role="dialog"
+        <a id="logInModalTrigger" className="hidden" data-toggle="modal" data-target="#logInModal">Login Modal Trigger</a>
+        <div className="modal fade" id="logInModal" tabIndex="-1" role="dialog"
              aria-labelledby="authModalLabel" aria-hidden="true">
           <div className="modal-dialog" role="document">
             <div className="modal-content">
