@@ -21,7 +21,6 @@ RSpec.describe User, type: :model do
     let (:university) { create(:university) }
     let! (:user) { create(:user) }
     it { should validate_presence_of(:fb_id) }
-    it { should validate_presence_of(:edu_email) }
     it { should validate_presence_of(:marketing_opt_in) }
     it { should validate_uniqueness_of(:fb_id).case_insensitive }
     it { should validate_uniqueness_of(:edu_email) }
