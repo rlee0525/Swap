@@ -7,6 +7,7 @@ import Home from 'modules/home';
 import Search from 'modules/search';
 import About from 'modules/about';
 import Post from 'modules/post';
+import Careers from 'modules/careers';
 
 interface RootProps {
   store: Store<any>;
@@ -28,6 +29,7 @@ const Root: React.SFC<RootProps> = ({ store }) => {
           <Route path="/search" component={Search} />
           <Route path="/about" component={About} />
           <Route path="/post" component={Post} />
+          <Route path="/careers" component={Careers} />
         </Route>
       </Router>
     </Provider>
