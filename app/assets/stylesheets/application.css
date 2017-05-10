@@ -828,3 +828,10 @@
  .search-icons button:hover {
    text-decoration: none;
  }
+
+ .dropzone-upload {
+   min-height: 150px;
+   height: auto;
+   margin-bottom: 20px;
+   border-style: dashed;
+ }

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 const Footer = () => (
   <div className="block block-bordered-lg" id="footer-block">
