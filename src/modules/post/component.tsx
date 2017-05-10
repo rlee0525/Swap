@@ -6,7 +6,6 @@ class Post extends React.Component<any, any> {
     super(props);
 
     //TODO: just for testing.
-
     this.state = {
       current: "post_detail"
     };

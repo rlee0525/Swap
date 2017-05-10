@@ -10,7 +10,7 @@ class PostDetail extends React.Component {
   }
 
   public componentDidMount() {
-    console.log("hi");
+    
   }
 
   public render() {
@@ -31,42 +31,27 @@ class PostDetail extends React.Component {
                <div className="item active">
                  <div className="block">
                    <div className="container">
-                     <div className="row">
-                       <div className="col-sm-8 col-sm-offset-2">
-                         <p className="lead m-x-auto text-center">
-                           Instead of guessing how much time you spend on each of your tasks, why not have automagically record everything and have easy reporting without lifting a finger? <span className="hidden-xs">Well now you can with ease.</span>
-                         </p>
-                       </div>
+                     <div className="col-sm-8">
+                        <img className="img-responsive m-t-lg app-block-game-img" src="http://res.cloudinary.com/rlee0525/image/upload/c_pad,h_500,w_500/v1494382616/textbooks_cgpwt3.jpg"/>
                      </div>
-                     <img className="img-responsive m-t-lg app-block-game-img" src="../assets/img/iphone-flat-sized.jpg"/>
                    </div>
                  </div>
                </div>
                <div className="item">
                  <div className="block">
                    <div className="container">
-                     <div className="row">
-                       <div className="col-sm-8 col-sm-offset-2">
-                         <p className="lead m-x-auto text-center">
-                           Instead of guessing how much time you spend on each of your tasks, why not have automagically record everything and have easy reporting without lifting a finger? <span className="hidden-xs">Well now you can with ease.</span>
-                         </p>
-                       </div>
+                     <div className="col-sm-8">
+                        <img className="img-responsive m-t-lg app-block-game-img" src="http://res.cloudinary.com/rlee0525/image/upload/c_pad,h_500,w_500/v1494382616/textbooks_cgpwt3.jpg"/>
                      </div>
-                     <img className="img-responsive m-t-lg app-block-game-img" src="../assets/img/iphone-flat-sized.jpg"/>
                    </div>
                  </div>
                </div>
                <div className="item">
                  <div className="block">
                    <div className="container">
-                     <div className="row">
-                       <div className="col-sm-8 col-sm-offset-2">
-                         <p className="lead m-x-auto text-center">
-                           Instead of guessing how much time you spend on each of your tasks, why not have automagically record everything and have easy reporting without lifting a finger? <span className="hidden-xs">Well now you can with ease.</span>
-                         </p>
-                       </div>
+                     <div className="col-sm-8">
+                        <img className="img-responsive m-t-lg app-block-game-img" src="http://res.cloudinary.com/rlee0525/image/upload/c_pad,h_500,w_500/v1494382616/textbooks_cgpwt3.jpg"/>
                      </div>
-                     <img className="img-responsive m-t-lg app-block-game-img" src="../assets/img/iphone-flat-sized.jpg"/>
                    </div>
                  </div>
                </div>
