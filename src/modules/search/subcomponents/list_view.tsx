@@ -11,7 +11,7 @@ interface State {
 class ListView extends React.Component<Props, State> {
   render() {
     return (
-      <table className="table table-hover hidden">
+      <table className="table table-hover">
         <thead>
           <tr>
             <th>#</th>
