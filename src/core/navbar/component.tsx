@@ -5,11 +5,14 @@ class NavBar extends React.Component<any, any> {
     super(props);
 
     this.state = {
-      userFB: null,
+      serFB: null,
       accessToken: null,
       status
     };
 
+    this.login = this.login.bind(this);
+    this.logout = this.logout.bind(this);
+    this.checkFbStatus = this.checkFbStatus.bind(this);
     this.sendEmail = this.sendEmail.bind(this);
     this.chooseModal = this.chooseModal.bind(this);
 
