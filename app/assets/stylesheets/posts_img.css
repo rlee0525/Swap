@@ -16,3 +16,8 @@
   height: 40%;
   margin: auto;
 }
+
+.category-description {
+  letter-spacing: 1px !important;
+  font-size: 12px !important;
+}

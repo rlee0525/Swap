@@ -48,7 +48,7 @@ class Post extends React.Component<any, any> {
                 <img className="thumbnail-image" src="http://res.cloudinary.com/rlee0525/image/upload/c_pad,h_500,w_500/v1494382616/textbooks_cgpwt3.jpg" alt="..."/>
                 <div className="carousel-caption">
                   <h3 className="category-title">Textbooks</h3>
-                  <p className="category-description hide">My description</p>
+                  <p className="category-description hide">Buy all your textbooks at a much cheaper price</p>
                 </div>
               </a>
             </div>
@@ -57,7 +57,7 @@ class Post extends React.Component<any, any> {
                 <img className="thumbnail-image" src="http://res.cloudinary.com/rlee0525/image/upload/c_pad,h_500,w_500/v1494383271/furniture_crbpql.jpg" alt="..."/>
                 <div className="carousel-caption">
                   <h3 className="category-title">Furniture</h3>
-                  <p className="category-description hide">My description</p>
+                  <p className="category-description hide">Buy all your furniture at a much cheaper price</p>
                 </div>
               </a>
             </div>
