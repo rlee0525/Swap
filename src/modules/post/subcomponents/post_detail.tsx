@@ -10,10 +10,16 @@ class PostDetail extends React.Component {
   }
 
   public componentDidMount() {
-    
+
   }
 
   public render() {
+    let img_url1;
+
+    if (this.props.post) {
+      img_url1 = this.props.post.img_url1;
+    }
+
     console.log(this.props);
 
     return (
@@ -32,7 +38,7 @@ class PostDetail extends React.Component {
                  <div className="block">
                    <div className="container">
                      <div className="col-sm-8">
-                        <img className="img-responsive m-t-lg app-block-game-img" src="http://res.cloudinary.com/rlee0525/image/upload/c_pad,h_500,w_500/v1494382616/textbooks_cgpwt3.jpg"/>
+                        <img className="img-responsive m-t-lg app-block-game-img" src={img_url1} />
                      </div>
                    </div>
                  </div>

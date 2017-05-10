@@ -39,7 +39,7 @@ class Post extends React.Component<any, any> {
   public renderSub() {
     if (this.state.current === "post_detail") {
       return (
-        <PostDetail />
+        <PostDetail post={this.state.post} />
       );
     } else {
       return (
