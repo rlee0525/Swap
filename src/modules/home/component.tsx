@@ -39,6 +39,14 @@ class Home extends React.Component<any, any> {
   }
 
   public render() {
+    // if (window.FB) {
+    //   window.FB.getLoginStatus(res => {
+    //     console.log(res)
+    //   }))
+    // } else {
+    //   console.log("hi")
+    // } TODO: Delete, this is for demonstration purposes that every component can now call window.FB methods to access user information.
+    
     return (
       <div>
         <div className="block app-block-intro">
