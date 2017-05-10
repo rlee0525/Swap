@@ -1,8 +1,22 @@
 import React from 'react';
 
-class Search extends React.Component<any, any> {
+import { GridView, ListView } from './subcomponents';
+
+interface Props {
+  user: object
+}
+
+interface State {
+  viewType: string
+}
+
+class Search extends React.Component<Props, State> {
   constructor(props: any) {
     super(props);
+
+    this.state = {
+      viewType: 'grid'
+    };
   }
 
   public componentDidMount() {
@@ -65,126 +79,9 @@ class Search extends React.Component<any, any> {
               <div className="search-icons">
                 <button className="btn btn-link"><span className="glyphicon glyphicon-th-large"></span> Grid View</button>
                 <button className="btn btn-link"><span className="glyphicon glyphicon-th-list"></span> List View</button>
-              </div>
-              <table className="table table-hover hidden">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Price</th>
-                    <th>Posting Date</th>
-                    <th>Condition</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Mattress for Sale</td>
-                    <td>Twin size mattress, 3 months old, no covers</td>
-                    <td>$34</td>
-                    <td>3 days ago</td>
-                    <td>Brand New</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>iPhone 6 32GB Black</td>
-                    <td>Brand New, unlocked</td>
-                    <td>$400</td>
-                    <td>4 hours ago</td>
-                    <td>Used</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Econ 101</td>
-                    <td>Economic Basics, barely used</td>
-                    <td>$40</td>
-                    <td>10 minutes ago</td>
-                    <td>Like New</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">4</th>
-                    <td>Econ 101</td>
-                    <td>Economic Basics, barely used</td>
-                    <td>$40</td>
-                    <td>10 minutes ago</td>
-                    <td>Like New</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">5</th>
-                    <td>Econ 101</td>
-                    <td>Economic Basics, barely used</td>
-                    <td>$40</td>
-                    <td>10 minutes ago</td>
-                    <td>Brand New</td>
-                  </tr>
-                </tbody>
-              </table>
+              </div>            
             </div>
-            <div className="col-md-10">
-              <div className="row">
-                <div className="thumbnail col-sm-6 col-md-4">
-                  <img src="http://pre15.deviantart.net/7b1e/th/pre/i/2014/180/7/1/natalie_portman___keira_knightley_by_thatnordicguy-d7og2jx.jpg" alt="..."/>
-                  <div className="caption">
-                    <span className="label label-primary">Like New</span>
-                    <h3>Item title fifty characters or less. Include more.</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    <h3>$34</h3>
-                    <button type="button" className="btn btn-success btn-lg btn-block">Go to Page</button>
-                  </div>
-                </div>
-                <div className="thumbnail col-sm-6 col-md-4">
-                  <img src="http://pre15.deviantart.net/7b1e/th/pre/i/2014/180/7/1/natalie_portman___keira_knightley_by_thatnordicguy-d7og2jx.jpg" alt="..."/>
-                  <div className="caption">
-                    <span className="label label-success">Brand New</span>
-                    <h3>Item title fifty characters or less. Include more.</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    <h3>$34</h3>
-                    <button type="button" className="btn btn-success btn-lg btn-block">Go to Page</button>
-                  </div>
-                </div>
-                <div className="thumbnail col-sm-6 col-md-4">
-                  <img src="http://pre15.deviantart.net/7b1e/th/pre/i/2014/180/7/1/natalie_portman___keira_knightley_by_thatnordicguy-d7og2jx.jpg" alt="..."/>
-                  <div className="caption">
-                    <span className="label label-info">Used</span>
-                    <h3>Item title fifty characters or less. Include more.</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    <h3>$34 </h3>
-                    <button type="button" className="btn btn-success btn-lg btn-block">Go to Page</button>
-                  </div>
-                </div>
-                <div className="thumbnail col-sm-6 col-md-4">
-                  <img src="http://pre15.deviantart.net/7b1e/th/pre/i/2014/180/7/1/natalie_portman___keira_knightley_by_thatnordicguy-d7og2jx.jpg" alt="..."/>
-                  <div className="caption">
-                    <span className="label label-info">Used</span>
-                    <h3>Item title fifty characters or less. Include more.</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    <h3>$34</h3>
-                    <button type="button" className="btn btn-success btn-lg btn-block">Go to Page</button>
-                  </div>
-                </div>
-                <div className="thumbnail col-sm-6 col-md-4">
-                  <img src="http://pre15.deviantart.net/7b1e/th/pre/i/2014/180/7/1/natalie_portman___keira_knightley_by_thatnordicguy-d7og2jx.jpg" alt="..."/>
-                  <div className="caption">
-                    <span className="label label-info">Used</span>
-                    <h3>Item title fifty characters or less. Include more.</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    <h3>$34</h3>
-                    <button type="button" className="btn btn-success btn-lg btn-block">Go to Page</button>
-                  </div>
-                </div>
-                <div className="thumbnail col-sm-6 col-md-4">
-                  <img src="http://pre15.deviantart.net/7b1e/th/pre/i/2014/180/7/1/natalie_portman___keira_knightley_by_thatnordicguy-d7og2jx.jpg" alt="..."/>
-                  <div className="caption">
-                    <span className="label label-info">Used</span>
-                    <h3>Item title fifty characters or less. Include more.</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    <h3>$34</h3>
-                    <button type="button" className="btn btn-success btn-lg btn-block">Go to Page</button>
-                  </div>
-                </div>
-              </div>
-            </div>
+            
           </div>
         </div>
 
