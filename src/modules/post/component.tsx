@@ -19,11 +19,11 @@ class Post extends React.Component<any, any> {
       description: "Description",
       category: "textbooks",
       condition: "brand new",
-      price: 0,
+      price: "",
       img_url1: "",
       img_url2: "",
       img_url3: "",
-      courseSearch: ""
+      course: ""
     }
   }
 
@@ -99,6 +99,12 @@ class Post extends React.Component<any, any> {
   }
 
   public submitForm(e) {
+    const { title, condition, course, price, description, category, img_url1, img_url2, img_url3 } = this.state;
+    $.ajax({
+      method: "POST",
+      url: "/api/posts",
+      data: { post: { title, condition, course, price, description, category, img_url1, img_url2, img_url3 } }
+    })
     e.preventDefault();
     console.log(this.state);
   }
@@ -127,7 +133,7 @@ class Post extends React.Component<any, any> {
             <div className="form-group">
               <label htmlFor="inputCourse3" className="col-sm-3 control-label">Course</label>
               <div className="col-sm-9 input-group" >
-                <input maxLength={50} value={this.state.courseSearch} onChange={ this.updateState } type="text" className="form-control" id="courseSearch" placeholder="Type to autocomplete"/>
+                <input maxLength={50} value={this.state.courseSearch} onChange={ this.updateState } type="text" className="form-control" id="course" placeholder="Type to autocomplete"/>
                 <span className="input-group-addon" id="basic-addon1"></span>
               </div>
             </div>
