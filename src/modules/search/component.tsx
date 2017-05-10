@@ -29,9 +29,9 @@ class Search extends React.Component<Props, State> {
 
   private renderView() {
     if (this.state.viewType === 'grid') {
-      return <SearchGridView search={this.props.search} />;
+      return <SearchGridView searchResult={this.props.searchResult} />;
     } else {
-      return <SearchListView search={this.props.search} />;
+      return <SearchListView searchResult={this.props.searchResult} />;
     }
   }
 

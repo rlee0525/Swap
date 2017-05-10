@@ -4,7 +4,7 @@ import { search } from './actions';
 
 interface StateProps {
   user: object;
-  search: object [];
+  searchResult: object [];
 }
 
 interface DispatchProps {
@@ -13,7 +13,7 @@ interface DispatchProps {
 
 const mapStateToProps = (state: any, ownProp?: any): StateProps => ({
   user: state.user,
-  search: state.search
+  searchResult: state.searchResult
 });
 
 const mapDispatchToProps = (dispatch: any): DispatchProps => ({

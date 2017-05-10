@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import userReducer from 'modules/user/reducer';
-import searchReducer from 'modules/search/reducer';
+import searchResultReducer from 'modules/search/reducer';
 
 const rootReducer = combineReducers({
   user: userReducer,
-  search: searchReducer
+  searchResult: searchResultReducer
 });
 
 export default rootReducer;
