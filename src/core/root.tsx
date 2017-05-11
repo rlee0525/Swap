@@ -12,6 +12,7 @@ import FAQ from 'modules/faq';
 import Contact from 'modules/contact';
 import Terms from 'modules/terms';
 import Bookmarks from 'modules/bookmarks';
+import {PostForm} from 'modules/post/subcomponents/post_form';
 
 interface RootProps {
   store: Store<any>;
@@ -43,6 +44,7 @@ const Root: React.SFC<RootProps> = ({ store }) => {
           <Route path="/faq" component={FAQ} />
           <Route path="/contact" component={Contact} />
           <Route path="/terms" component={Terms} />
+          <Route path="/posts/create" component={PostForm} />
           <Route path="/posts" >
             <Route path=":id" component={Post} />
           </Route>

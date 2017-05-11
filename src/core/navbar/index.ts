@@ -25,3 +25,6 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(NavBar);
+
+
+//TODO : delete all the useless state/actions
