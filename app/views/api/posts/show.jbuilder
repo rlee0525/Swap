@@ -9,4 +9,5 @@ json.extract! @post,
               :category_id,
               :course_id,
               :zip_code,
-              :created_at
+              :created_at,
+              :condition

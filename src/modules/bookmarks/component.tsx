@@ -32,8 +32,8 @@ class Bookmarks extends React.Component<any, any> {
   }
 
   public renderListItems() {
-    const listItems = this.state.bookmarkedPosts.map(bookmarkedPost => (
-      <tr key={bookmarkedPost.id}>
+    return this.state.bookmarkedPosts.map(bookmarkedPost => (
+      <tr key={`post${bookmarkedPost.id}`}>
         <td>{bookmarkedPost.created_at}</td>
         <td>{bookmarkedPost.title}</td>
         <td>{shortenString(bookmarkedPost.description, 30)}</td>
