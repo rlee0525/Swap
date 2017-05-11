@@ -6,7 +6,7 @@ class PostDetail extends React.Component {
   }
 
   public componentWillMount() {
-    const id = this.props.id
+    const id = this.props.id;
     this.props.getPost(id);
   }
 
