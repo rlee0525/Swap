@@ -5,7 +5,7 @@ import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import App from './app';
 import Home from 'modules/home';
 import Search from 'modules/search';
-import Browse from 'modules/search';
+import Browse from 'modules/browse';
 import About from 'modules/about';
 import Post from 'modules/post';
 import Careers from 'modules/careers';
