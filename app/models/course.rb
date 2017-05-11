@@ -12,6 +12,6 @@
 
 class Course < ApplicationRecord
   validates :university, :course_name, :course_number, presence: true
-  has_many :posts
+  has_many :posts, inverse_of: :course
   belongs_to :university
 end

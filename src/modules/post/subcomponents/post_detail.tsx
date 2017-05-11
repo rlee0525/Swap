@@ -3,19 +3,34 @@ import React from 'react';
 class PostDetail extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-
-    };
+    this.getPost = this.getPost.bind(this);
+    this.check = this.check.bind(this);
   }
 
   public componentDidMount() {
-    console.log("hi");
+    const id = this.props.id
+    this.getPost(id);
+  }
+
+  public componentWillReceiveProps(nextProps) {
+    const nextId = nextProps.id;
+    if (nextId !== this.props.id) {
+      this.getPost(nextId);
+    }
+  }
+
+  public getPost(id) {
+    $.ajax({
+      method: "GET",
+      url: `http://localhost:3000/api/posts/${id}`
+    }).then(data => { this.setState({ data }) });
+  }
+
+  public check() {
+    console.log(this.state);
   }
 
   public render() {
-    console.log(this.props);
-
     return (
       <div className="container">
         <div className="row">
@@ -38,7 +53,7 @@ class PostDetail extends React.Component {
                          </p>
                        </div>
                      </div>
-                     <img className="img-responsive m-t-lg app-block-game-img" src="../assets/img/iphone-flat-sized.jpg"/>
+                     <img className="img-responsive m-t-lg app-block-game-img" src="https://robohash.org/asdf"/>
                    </div>
                  </div>
                </div>
@@ -52,7 +67,7 @@ class PostDetail extends React.Component {
                          </p>
                        </div>
                      </div>
-                     <img className="img-responsive m-t-lg app-block-game-img" src="../assets/img/iphone-flat-sized.jpg"/>
+                     <img className="img-responsive m-t-lg app-block-game-img" src="https://robohash.org/asdf"/>
                    </div>
                  </div>
                </div>
@@ -66,7 +81,7 @@ class PostDetail extends React.Component {
                          </p>
                        </div>
                      </div>
-                     <img className="img-responsive m-t-lg app-block-game-img" src="../assets/img/iphone-flat-sized.jpg"/>
+                     <img className="img-responsive m-t-lg app-block-game-img" src="https://robohash.org/asdf"/>
                    </div>
                  </div>
                </div>
@@ -83,7 +98,7 @@ class PostDetail extends React.Component {
          </div>
           </div>
           <div className="col-lg-6 col-xs-12">
-            Hello
+            <button onClick={this.check}>Hello</button>
           </div>
         </div>
       </div>
