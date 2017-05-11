@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router';
 
 class NavBar extends React.Component<any, any> {
   constructor(props: any) {
@@ -12,6 +13,7 @@ class NavBar extends React.Component<any, any> {
 
     this.sendEmail = this.sendEmail.bind(this);
     this.chooseModal = this.chooseModal.bind(this);
+    this.checkVerified = this.checkVerified.bind(this);
   }
 
   public componentDidMount() {
@@ -80,20 +82,40 @@ class NavBar extends React.Component<any, any> {
         $('#logInModal').modal('show');
       }
     }
-  },
+  }
+
+  public checkVerified(e) {
+    let address = e.currentTarget.id;
+    const accessToken = FB.getAccessToken();
+    $.ajax({
+      method: "GET",
+      url: `http://localhost:3000/api/users/${accessToken}`
+    }).then(obj => {
+      if (obj.edu_email_confirmed) {
+        this.props.router.push(address);
+      } else if (obj.edu_email === null) {
+        $('#emailInputModal').modal('show');
+      } else {
+        $('#emailVerificationModal').modal('show');
+      }
+    }).fail(() => FB.logout())
+  }
 
   public checkUserStatus() {
     if (this.state.userFB) {
       return (
         <div className="navbar-collapse collapse" id="navbar-collapse">
           <ul className="nav navbar-nav navbar-right">
-            <li >
-              <a href="/#/search">Browse</a>
+            <li>
+              <a id="browse" onClick={(e) => this.checkVerified(e)}>Browse</a>
             </li>
-            <li >
-              <a href="/#/about">Who are we?</a>
+            <li>
+              <a id="create" onClick={(e) => this.checkVerified(e)}>Create a Post</a>
             </li>
-            <li >
+            <li>
+              <a id="bookmarks" onClick={(e) => this.checkVerified(e)}>Bookmarks</a>
+            </li>
+            <li>
               <a onClick={ this.chooseModal }>{this.state.userFB.name}</a>
             </li>
           </ul>
@@ -103,22 +125,23 @@ class NavBar extends React.Component<any, any> {
       return (
         <div className="navbar-collapse collapse" id="navbar-collapse">
           <ul className="nav navbar-nav navbar-right">
-            <li >
+            <li>
               <a href="/#/search">Browse</a>
             </li>
-            <li >
-              <a href="/#/about">Who are we?</a>
-            </li>
-            <li >
+            <li>
               <a onClick={ this.chooseModal }>Sign Up</a>
             </li>
-            <li >
+            <li>
               <a onClick={ this.chooseModal }>Log In</a>
             </li>
           </ul>
         </div>
       );
     }
+  }
+
+  public rendersomething(e) {
+    console.log(e.currentTarget.id);
   }
 
   public render() {
@@ -214,4 +237,4 @@ class NavBar extends React.Component<any, any> {
   }
 }
 
-export default NavBar;
+export default withRouter(NavBar);

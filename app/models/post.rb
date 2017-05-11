@@ -24,6 +24,7 @@ class Post < ApplicationRecord
             :condition, :zip_code, presence: true
   validates :condition, inclusion: { in: ["Brand New", "Like New", "Used"],
             message: "%{value} is not a valid condition" }
+  has_many :bookmarks          
   belongs_to :category
   belongs_to :course, inverse_of: :posts, optional: true
   belongs_to :user
