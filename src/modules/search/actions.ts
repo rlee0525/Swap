@@ -5,11 +5,6 @@ export interface Action<T> {
   user: object;
   payload: T;
 }
-//
-// interface ActionCreator<T> {
-//   type: string,
-//   (payload: T): Action<T>
-// };
 
 export const RECEIVE_SEARCH: string = 'RECEIVE_SEARCH';
 

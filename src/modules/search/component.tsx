@@ -61,7 +61,6 @@ class Search extends React.Component<Props, State> {
               </div>
               { this.renderView() }
             </div>
-
           </div>
         </div>
       </div>
