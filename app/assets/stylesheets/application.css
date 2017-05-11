@@ -13,8 +13,18 @@
  *= require_tree .
  *= require_self
  */
- 
+
  .img-thumbnail-size {
    height: 60px;
    width: auto;
  }
+
+.dropzone-upload {
+  display: flex;
+  align-items: center;
+}
+
+.FileUpload div {
+  width: 100%;
+  text-align: center;
+}
