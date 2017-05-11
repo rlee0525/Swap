@@ -1,17 +1,25 @@
 import React from 'react';
 
 interface Props {
+  search(query: string) : void;
 }
 
 interface State {
 }
 
 class SearchSidebar extends React.Component<Props, State> {
-  constructor(props) {
+  constructor(props : Props) {
     super(props);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
-  render() {
+  private handleKeyPress(e: any) {
+    if (e.key === 'Enter') {
+      this.props.search(e.target.value);
+    }
+  }
+
+  public render() {
     return (
       <div className="col-xs-12 col-md-2 menu">
         <dl>
@@ -26,7 +34,7 @@ class SearchSidebar extends React.Component<Props, State> {
         </dl>
         <div className="input-group">
           <label htmlFor="search-input">Search</label>
-          <input id="search-input" type="text" className="form-control" placeholder="Course Name" />
+          <input id="search-input" type="text" className="form-control" placeholder="Course Name" onKeyPress={this.handleKeyPress} />
         </div>
         <br/>
       </div>
