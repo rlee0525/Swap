@@ -28,3 +28,13 @@
   width: 100%;
   text-align: center;
 }
+
+.thumbnail-caption {
+  text-align: center;
+  color: white;
+  background-color: red;
+  padding: 0 5px 0 5px;
+  position: absolute !important;
+  top: 0;
+  right: 0;
+}
