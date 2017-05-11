@@ -20,6 +20,7 @@ class User < ApplicationRecord
   validates_uniqueness_of :fb_id, case_sensitive: false
   has_many :posts
   has_many :bookmarks
+  has_many :bookmarked_posts, through: :bookmarks, source: :post
   belongs_to :university, optional: true
 
   before_create :confirmation_token
