@@ -20,7 +20,15 @@ class Search extends React.Component<Props, State> {
   }
 
   public componentDidMount() {
+    const path = this.props.location.pathname.slice(1);
+    this.props.search(path);
+  }
 
+  public componentWillReceiveProps(nextProps){
+    const nextLocation = nextProps.location.pathname.slice(1)
+    if (nextLocation !== this.props.location.pathname.slice(1)) {
+        this.props.search(nextLocation);
+    }
   }
 
   private changeView(viewType: string) {
@@ -38,24 +46,22 @@ class Search extends React.Component<Props, State> {
   public render() {
     return (
       <div>
-        <SearchNavbar />
 
         <div className="container">
           <div className="row">
             <SearchSidebar />
             <div className="col-md-10">
               <div className="search-icons">
-                <button onClick={this.props.search}>Yay</button>
                 <button className="btn btn-link" onClick={this.changeView('grid')}>
                   <span className="glyphicon glyphicon-th-large"></span> Grid View
                 </button>
                 <button className="btn btn-link" onClick={this.changeView('list')}>
                   <span className="glyphicon glyphicon-th-list"></span> List View
                 </button>
-              </div>    
+              </div>
               { this.renderView() }
             </div>
-   
+
           </div>
         </div>
       </div>
