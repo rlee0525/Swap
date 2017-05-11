@@ -26,7 +26,7 @@ class Post extends React.Component<any, any> {
   public renderSub() {
     if (this.state.current === "post_detail") {
       return (
-        <PostDetail />
+        <PostDetail id={this.props.params.id} />
       );
     } else {
       return (
