@@ -64,3 +64,10 @@ User.create!(
     condition: conditions.sample
   )
 end
+
+100.times do
+  Bookmark.create!(
+    user: User.find(rand(1..User.count)),
+    post: Post.find(rand(1..Post.count))
+  )
+end
