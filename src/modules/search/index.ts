@@ -11,7 +11,7 @@ interface DispatchProps {
   search: (query: string) => void;
 }
 
-const mapStateToProps = (state: any, ownProp?: any): StateProps => ({
+const mapStateToProps = (state: StateProps, ownProp?: any): StateProps => ({
   user: state.user,
   searchResult: state.searchResult
 });

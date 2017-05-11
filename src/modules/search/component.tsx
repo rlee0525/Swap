@@ -64,7 +64,7 @@ class Search extends React.Component<Props, State> {
 
         <div className="container">
           <div className="row">
-            <SearchSidebar />
+            <SearchSidebar search={this.props.search} />
             <div className="col-md-10">
               <div className="search-icons">
                 <button className="btn btn-link" onClick={this.changeView('grid')}>
