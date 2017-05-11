@@ -8,7 +8,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  onClick1: () => void;
+  search: (query: string) => void;
 }
 
 const mapStateToProps = (state: any, ownProp?: any): StateProps => ({
@@ -17,7 +17,7 @@ const mapStateToProps = (state: any, ownProp?: any): StateProps => ({
 });
 
 const mapDispatchToProps = (dispatch: any): DispatchProps => ({
-  search: (query: string) => dispatch(search(query))
+  search: (query) => dispatch(search(query))
 });
 
 export default connect(

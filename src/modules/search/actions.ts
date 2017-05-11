@@ -2,7 +2,7 @@ import * as SearchAPI from './utils';
 
 export interface Action<T> {
   type: string;
-  user: object;
+  result: object;
   payload: T;
 }
 //
