@@ -26,7 +26,7 @@ class Api::SearchController < ApplicationController
   private 
 
   def calc_score(post, query)
-    categories = ['furniature', 'games', 'electronics', 'textbooks', 'clothing', 'kitchenware']
+    categories = ['Textbooks', 'Clothing', 'Furniture', 'Electronics', 'Kitchenware', 'Games']
 
     query = query.split(' ')
     score = 0
@@ -36,9 +36,14 @@ class Api::SearchController < ApplicationController
       max += word.length
       if post['title'].downcase.include? word.downcase
         score += word.length
-      elsif post['category'] && categories.include?(post['category'].downcase)
-        score += 5
+      elsif categories[post['category_id'] + 1] == word.capitalize
+        score += 10
       end
+    end
+
+    case post['condition']
+      when 'Like New' then score += 1
+      when 'Brand New' then score += 2
     end
 
     score
@@ -51,7 +56,7 @@ class Api::SearchController < ApplicationController
     matrix.each_with_index do |row, r_idx|
       next if r_idx.zero?
       
-      row.each_with_index do |el, c_idx|
+      row.each_with_index do |_el, c_idx|
         if c_idx.zero?
           matrix[r_idx][c_idx] = matrix[r_idx - 1][c_idx] + 1
           next
@@ -62,7 +67,7 @@ class Api::SearchController < ApplicationController
         
         min = [up, left, dia].min
         
-        if str1[r_idx - 1].downcase == str2[c_idx - 1].downcase
+        if str1[r_idx - 1].casecmp(str2[c_idx - 1].downcase).zero?
           matrix[r_idx][c_idx] = min
         else
           matrix[r_idx][c_idx] = min + 1
