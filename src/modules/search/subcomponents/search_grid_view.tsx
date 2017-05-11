@@ -41,12 +41,12 @@ class SearchGridView extends React.Component<Props, State> {
           <h3>{post.title}</h3>
           <p>{shortenString(post.description, 160)}</p>
           <h3>${Number(post.price).toLocaleString()}</h3>
-          <button type="button" className="btn btn-success btn-lg btn-block">Go to Page</button>
+          <a className="btn btn-success btn-lg btn-block" href={`/#/posts/${post.id}`}>Go to Page</a>
         </div>
       </div>
     )
   }
-  
+
   render() {
 
     return (
