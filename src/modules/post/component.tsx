@@ -4,7 +4,6 @@ import { PostDetail, PostForm } from './subcomponents';
 class Post extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
-
     //TODO: just for testing.
     this.state = {
       current: "post_detail",
@@ -39,7 +38,7 @@ class Post extends React.Component<any, any> {
   public renderSub() {
     if (this.state.current === "post_detail") {
       return (
-        <PostDetail post={this.state.post} />
+        <PostDetail id={this.props.params.id} />
       );
     } else {
       return (

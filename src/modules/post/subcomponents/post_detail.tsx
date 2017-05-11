@@ -3,14 +3,20 @@ import React from 'react';
 class PostDetail extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-
-    };
+    this.getPost = this.getPost.bind(this);
+    this.check = this.check.bind(this);
   }
 
   public componentDidMount() {
+    const id = this.props.id
+    this.props.getPost(id);
+  }
 
+  public componentWillReceiveProps(nextProps) {
+    const nextId = nextProps.id;
+    if (nextId !== this.props.id) {
+      this.props.getPost(nextId);
+    }
   }
 
   public render() {
@@ -21,7 +27,9 @@ class PostDetail extends React.Component {
     }
 
     console.log(this.props);
+  }
 
+  public render() {
     return (
       <div className="container">
         <div className="row">
@@ -74,7 +82,7 @@ class PostDetail extends React.Component {
          </div>
           </div>
           <div className="col-lg-6 col-xs-12">
-            Hello
+            <button onClick={this.check}>Hello</button>
           </div>
         </div>
       </div>

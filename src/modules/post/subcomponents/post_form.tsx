@@ -17,13 +17,14 @@ class PostForm extends React.Component<any, any> {
     this.state = {
       title: "",
       description: "Description",
-      category: "textbooks",
-      condition: "brand new",
+      category: "Textbooks",
+      condition: "Brand New",
+      course: "",
       price: 0,
       img_url1: "",
       img_url2: "",
       img_url3: "",
-      courseSearch: ""
+      courses: null
     }
   }
 
@@ -91,16 +92,25 @@ class PostForm extends React.Component<any, any> {
   }
 
   public categoryRadioUpdate(e) {
-    this.setState({ category: e.currentTarget.textContent.toLowerCase() })
+    this.setState({ category: e.currentTarget.textContent })
   }
 
   public conditionRadioUpdate(e) {
-    this.setState({ condition: e.currentTarget.textContent.toLowerCase() })
+    this.setState({ condition: e.currentTarget.textContent })
   }
 
   public submitForm(e) {
+    const { title, condition, course, price, description, category, img_url1, img_url2, img_url3 } = this.state;
     e.preventDefault();
-    console.log(this.state);
+    $.ajax({
+      method: "POST",
+      url: "/api/posts",
+      data: {
+        post: { title, condition, price, description, img_url1, img_url2, img_url3 },
+        course: { course },
+        category: { category }
+      }
+    })
   }
 
   public render() {
@@ -111,23 +121,23 @@ class PostForm extends React.Component<any, any> {
           <form className="form-horizontal">
             <div className="form-group radio-group">
               <label htmlFor="inputCategory3" className="col-sm-3 control-label">Category</label>
-                <div onClick={this.categoryRadioUpdate} className={`col-sm-1 radio-button ${this.state.category === "textbooks" ? "radio-active" : "" }`}>Textbooks</div>
-                <div onClick={this.categoryRadioUpdate} className={`col-sm-1 radio-button ${this.state.category === "clothing" ? "radio-active" : "" }`}>Clothing</div>
-                <div onClick={this.categoryRadioUpdate} className={`col-sm-1 radio-button ${this.state.category === "furniture" ? "radio-active" : "" }`}>Furniture</div>
-                <div onClick={this.categoryRadioUpdate} className={`col-sm-1 radio-button ${this.state.category === "electronics" ? "radio-active" : "" }`}>Electronics</div>
-                <div onClick={this.categoryRadioUpdate} className={`col-sm-1 radio-button ${this.state.category === "kitchenware" ? "radio-active" : "" }`}>Kitchenware</div>
-                <div onClick={this.categoryRadioUpdate} className={`col-sm-1 radio-button ${this.state.category === "games" ? "radio-active" : "" }`}>Games</div>
+                <div onClick={this.categoryRadioUpdate} className={`col-sm-1 radio-button ${this.state.category === "Textbooks" ? "radio-active" : "" }`}>Textbooks</div>
+                <div onClick={this.categoryRadioUpdate} className={`col-sm-1 radio-button ${this.state.category === "Clothing" ? "radio-active" : "" }`}>Clothing</div>
+                <div onClick={this.categoryRadioUpdate} className={`col-sm-1 radio-button ${this.state.category === "Furniture" ? "radio-active" : "" }`}>Furniture</div>
+                <div onClick={this.categoryRadioUpdate} className={`col-sm-1 radio-button ${this.state.category === "Electronics" ? "radio-active" : "" }`}>Electronics</div>
+                <div onClick={this.categoryRadioUpdate} className={`col-sm-1 radio-button ${this.state.category === "Kitchenware" ? "radio-active" : "" }`}>Kitchenware</div>
+                <div onClick={this.categoryRadioUpdate} className={`col-sm-1 radio-button ${this.state.category === "Games" ? "radio-active" : "" }`}>Games</div>
             </div>
             <div className="form-group radio-group">
               <label htmlFor="inputCondition3" className="col-sm-3 control-label">Condition</label>
-                <div onClick={this.conditionRadioUpdate} className={`col-sm-3 radio-button ${this.state.condition === "brand new" ? "radio-active" : "" }`}>Brand New</div>
-                <div onClick={this.conditionRadioUpdate} className={`col-sm-3 radio-button ${this.state.condition === "like new" ? "radio-active" : "" }`}>Like New</div>
-                <div onClick={this.conditionRadioUpdate} className={`col-sm-3 radio-button ${this.state.condition === "used" ? "radio-active" : "" }`}>Used</div>
+                <div onClick={this.conditionRadioUpdate} className={`col-sm-3 radio-button ${this.state.condition === "Brand New" ? "radio-active" : "" }`}>Brand New</div>
+                <div onClick={this.conditionRadioUpdate} className={`col-sm-3 radio-button ${this.state.condition === "Like New" ? "radio-active" : "" }`}>Like New</div>
+                <div onClick={this.conditionRadioUpdate} className={`col-sm-3 radio-button ${this.state.condition === "Used" ? "radio-active" : "" }`}>Used</div>
             </div>
             <div className="form-group">
               <label htmlFor="inputCourse3" className="col-sm-3 control-label">Course</label>
               <div className="col-sm-9 input-group" >
-                <input maxLength={50} value={this.state.courseSearch} onChange={ this.updateState } type="text" className="form-control" id="courseSearch" placeholder="Type to autocomplete"/>
+                <input maxLength={50} value={this.state.course} onChange={ this.updateState } type="text" className="form-control" id="course" placeholder="Type to autocomplete"/>
                 <span className="input-group-addon" id="basic-addon1"></span>
               </div>
             </div>

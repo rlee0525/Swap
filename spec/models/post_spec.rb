@@ -9,7 +9,7 @@
 #  img_url1    :string           not null
 #  img_url2    :string
 #  category_id :integer          not null
-#  course_id   :integer          not null
+#  course_id   :integer
 #  zip_code    :string
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
@@ -28,7 +28,6 @@ RSpec.describe Post, type: :model do
     it { should validate_presence_of(:img_url1) }
     it { should validate_presence_of(:condition) }
     it { should validate_presence_of(:category) }
-    it { should validate_presence_of(:course) }
     it { should validate_presence_of(:zip_code) }
     it { should validate_inclusion_of(:condition).in_array(["Brand New", "Like New", "Used"]) }
   end

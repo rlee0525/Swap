@@ -1,7 +1,8 @@
 require("CSV")
 
-categories = ['Textbooks', 'Male Clothing', 'Female Clothing',
-              'Furniture', 'Electronics', 'Kitchenware', 'Games']
+categories = ['Textbooks', 'Clothing', 'Furniture', 'Electronics',
+              'Kitchenware', 'Games']
+
 universities = [['Berkeley', 'berkeley.edu']]
 
 conditions = ["Brand New", "Like New", "Used"]
@@ -60,6 +61,6 @@ User.create!(
     category: Category.find(rand(1..Category.count)),
     course: Course.find(rand(1..Course.count)),
     zip_code: rand(0..9999).to_s,
-    condition: conditions.sample     
+    condition: conditions.sample
   )
 end

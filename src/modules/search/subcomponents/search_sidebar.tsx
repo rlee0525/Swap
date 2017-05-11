@@ -16,13 +16,12 @@ class SearchSidebar extends React.Component<Props, State> {
       <div className="col-xs-12 col-md-2 menu">
         <dl>
           <dt>Categories</dt>
-          <a href=""><dd>Textbooks</dd></a>
-          <a href=""><dd>Male Clothing</dd></a>
-          <a href=""><dd>Female Clothing</dd></a>
-          <a href=""><dd>Furniture</dd></a>
-          <a href=""><dd>Electronics</dd></a>
-          <a href=""><dd>Kitchenware</dd></a>
-          <a href=""><dd>Games</dd></a>
+          <a href="#/textbooks"><dd>Textbooks</dd></a>
+          <a href="#/clothing"><dd>Clothing</dd></a>
+          <a href="#/furniture"><dd>Furniture</dd></a>
+          <a href="#/electronics"><dd>Electronics</dd></a>
+          <a href="#/kitchenware"><dd>Kitchenware</dd></a>
+          <a href="#/games"><dd>Games</dd></a>
         </dl>
         <div className="input-group">
           <label htmlFor="search-input">Search</label>
