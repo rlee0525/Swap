@@ -15,4 +15,6 @@ class Post extends React.Component<any, any> {
   }
 }
 
+// TODO: this is a useless component. refactor it.
+
 export default Post;
