@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Search from './component';
-import { search } from './actions';
+import { search, getPosts } from './actions';
 
 interface StateProps {
   user: object;
@@ -17,7 +17,9 @@ const mapStateToProps = (state: StateProps, ownProp?: any): StateProps => ({
 });
 
 const mapDispatchToProps = (dispatch: any): DispatchProps => ({
-  search: (query) => dispatch(search(query))
+  search: (query: string) => dispatch(search(query)),
+  getPosts: () => dispatch(getPosts())
+
 });
 
 export default connect(

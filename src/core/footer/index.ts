@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
-import NavBar from './component';
-import { signup, getUser } from 'modules/user/actions';
+import Footer from './component';
 
 interface StateProps {
   user: any;
@@ -22,9 +21,9 @@ const mapDispatchToProps = (dispatch: any): DispatchProps => ({
 });
 
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(NavBar);
+  null,
+  null
+)(Footer);
 
 
 //TODO : delete all the useless state/actions

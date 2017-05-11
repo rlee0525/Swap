@@ -3,6 +3,7 @@ json.array! @posts do |post|
                 :id,
                 :title,
                 :user_id,
+                :title,
                 :description,
                 :price,
                 :img_url1,

@@ -39,9 +39,10 @@ class NavBar extends React.Component<any, any> {
 
   public sendEmail(e) {
     e.preventDefault();
+
     let accessToken;
-    const edu_email = $('input.form-control')[0].value
     let that = this;
+    const edu_email = $('input.form-control')[0].value
     FB.getLoginStatus(function(response) {
       accessToken = response.authResponse.accessToken
       $.ajax({
@@ -81,7 +82,7 @@ class NavBar extends React.Component<any, any> {
       } else {
         $('#logInModal').modal('show');
       }
-    }
+    });
   }
 
   public checkVerified(e) {
@@ -106,18 +107,10 @@ class NavBar extends React.Component<any, any> {
       return (
         <div className="navbar-collapse collapse" id="navbar-collapse">
           <ul className="nav navbar-nav navbar-right">
-            <li>
-              <a id="browse" onClick={(e) => this.checkVerified(e)}>Browse</a>
-            </li>
-            <li>
-              <a id="create" onClick={(e) => this.checkVerified(e)}>Create a Post</a>
-            </li>
-            <li>
-              <a id="bookmarks" onClick={(e) => this.checkVerified(e)}>Bookmarks</a>
-            </li>
-            <li>
-              <a onClick={ this.chooseModal }>{this.state.userFB.name}</a>
-            </li>
+            <li><a id="all" onClick={(e) => this.checkVerified(e)}>Browse</a></li>
+            <li><a id="posts/create" onClick={(e) => this.checkVerified(e)}>Create a Post</a></li>
+            <li><a id="bookmarks" onClick={(e) => this.checkVerified(e)}>Bookmarks</a></li>
+            <li><a onClick={this.chooseModal}>{this.state.userFB.name}</a></li>
           </ul>
         </div>
       );
@@ -125,23 +118,13 @@ class NavBar extends React.Component<any, any> {
       return (
         <div className="navbar-collapse collapse" id="navbar-collapse">
           <ul className="nav navbar-nav navbar-right">
-            <li>
-              <a href="/#/search">Browse</a>
-            </li>
-            <li>
-              <a onClick={ this.chooseModal }>Sign Up</a>
-            </li>
-            <li>
-              <a onClick={ this.chooseModal }>Log In</a>
-            </li>
+            <li><a href="/#/all">Browse</a></li>
+            <li><a onClick={this.chooseModal}>Sign Up</a></li>
+            <li><a onClick={this.chooseModal}>Log In</a></li>
           </ul>
         </div>
       );
     }
-  }
-
-  public rendersomething(e) {
-    console.log(e.currentTarget.id);
   }
 
   public render() {
@@ -174,13 +157,11 @@ class NavBar extends React.Component<any, any> {
               </div>
               <div className="modal-body text-center" id="fb-modal-body">
                 <div className="fb-login-button" data-scope="email" data-max-rows="1" data-size="large" data-button-type="login_with" data-auto-logout-link="true" data-use-continue-as="true" data-onlogin=""></div>
-
                 <div className="modal-body text-center">
                   By signing up, I agree to Swap's <a href="/#/terms" target="_blank" id="legal-links">Terms of Service</a>, <a href="/#/terms" target="_blank" id="legal-links">Nondiscrimination Policy</a>, <a href="/#/terms" target="_blank" id="legal-links">Payments Terms of Service</a>, and <a href="/#/terms" target="_blank" id="legal-links">Privacy Policy</a>.
                 </div>
               </div>
-              <div className="modal-footer">
-              </div>
+              <div className="modal-footer"></div>
             </div>
           </div>
         </div>
@@ -203,8 +184,7 @@ class NavBar extends React.Component<any, any> {
                 </form>
               </div>
               <br/>
-              <div className="modal-footer">
-              </div>
+              <div className="modal-footer"></div>
             </div>
           </div>
         </div>
@@ -218,20 +198,16 @@ class NavBar extends React.Component<any, any> {
                 <h3 className="modal-title" id="authModalLabel">Thank you!</h3>
               </div>
               <div className="modal-body text-center" id="fb-modal-body">
-                <h4>
-                  Please check your email for the verification link
-                </h4>
+                <h4>Please check your email for the verification link</h4>
                 <br/>
                 <button type="button" className="btn btn-warning btn-lg btn-block" onClick={ this.resendVerificationEmail }>Re-send verification email</button>
                 <button type="button" className="btn btn-primary btn-lg btn-block" onClick={ () => $('#emailVerificationModal').modal('hide') }>Close</button>
               </div>
               <br/>
-              <div className="modal-footer">
-              </div>
+              <div className="modal-footer"></div>
             </div>
           </div>
         </div>
-
       </div>
     );
   }

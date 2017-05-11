@@ -36,13 +36,21 @@ class Search extends React.Component<Props, State> {
 
   public componentDidMount() {
     const path = this.props.location.pathname.slice(1);
-    this.props.search(path);
+    if (path === "all") {
+      this.props.getPosts();
+    } else {
+      this.props.search(path);
+    }
   }
 
   public componentWillReceiveProps(nextProps: Props){
     const nextLocation = nextProps.location.pathname.slice(1)
     if (nextLocation !== this.props.location.pathname.slice(1)) {
+      if (nextLocation === "all") {
+        this.props.getPosts();
+      } else {
         this.props.search(nextLocation);
+      }
     }
   }
 
@@ -61,7 +69,6 @@ class Search extends React.Component<Props, State> {
   public render() {
     return (
       <div>
-
         <div className="container">
           <div className="row">
             <SearchSidebar search={this.props.search} />
@@ -76,7 +83,6 @@ class Search extends React.Component<Props, State> {
               </div>
               { this.renderView() }
             </div>
-
           </div>
         </div>
       </div>
