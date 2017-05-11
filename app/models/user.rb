@@ -19,6 +19,7 @@ class User < ApplicationRecord
   validates :edu_email, uniqueness: true
   validates_uniqueness_of :fb_id, case_sensitive: false
   has_many :posts
+  has_many :bookmarks
   belongs_to :university, optional: true
 
   before_create :confirmation_token
