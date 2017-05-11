@@ -1,6 +1,5 @@
 class Api::BookmarksController < ApplicationController
   def create
-    debugger
     @bookmarked_post = Bookmark.new(bookmark_params)
     if @bookmarked_post.save
       render "api/bookmarks/show", status: 200

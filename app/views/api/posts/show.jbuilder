@@ -1,5 +1,6 @@
 json.extract! @post,
               :id,
+              :title,
               :user_id,
               :description,
               :price,
@@ -7,4 +8,5 @@ json.extract! @post,
               :img_url2,
               :category_id,
               :course_id,
-              :zip_code
+              :zip_code,
+              :created_at
