@@ -5,6 +5,7 @@ import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import App from './app';
 import Home from 'modules/home';
 import Search from 'modules/search';
+import Browse from 'modules/search';
 import About from 'modules/about';
 import Post from 'modules/post';
 import Careers from 'modules/careers';
@@ -44,6 +45,8 @@ const Root: React.SFC<RootProps> = ({ store }) => {
           <Route path="/faq" component={FAQ} />
           <Route path="/contact" component={Contact} />
           <Route path="/terms" component={Terms} />
+          <Route path="/browse" component={Browse} />
+          <Route path="/search" component={Search} />
           <Route path="/posts/create" component={PostForm} />
           <Route path="/posts" >
             <Route path=":id" component={Post} />
