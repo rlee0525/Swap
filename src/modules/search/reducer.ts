@@ -1,5 +1,5 @@
 import { merge } from 'lodash';
-import { Action, RECEIVE_SEARCH } from "./actions";
+import { Action, RECEIVE_SEARCH, RECEIVE_POSTS } from "./actions";
 
 let _defaultState = [];
 
@@ -8,6 +8,8 @@ const searchResultReducer = (state = _defaultState, action: Action<any>) => {
   switch (action.type) {
     case RECEIVE_SEARCH:
       return action.result;
+    case RECEIVE_POSTS:
+      return action.posts;
     default:
       return state;
   }

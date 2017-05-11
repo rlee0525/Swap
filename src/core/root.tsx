@@ -33,6 +33,7 @@ const Root: React.SFC<RootProps> = ({ store }) => {
         <Route path="/" component={App}>
         <IndexRoute component={Home} />
           <Route path="/bookmarks" component={Bookmarks} />
+          <Route path="/all" component={Search} />
           <Route path="/textbooks" component={Search} />
           <Route path="/clothing" component={Search} />
           <Route path="/furniture" component={Search} />
@@ -45,7 +46,6 @@ const Root: React.SFC<RootProps> = ({ store }) => {
           <Route path="/faq" component={FAQ} />
           <Route path="/contact" component={Contact} />
           <Route path="/terms" component={Terms} />
-          <Route path="/browse" component={Browse} />
           <Route path="/search" component={Search} />
           <Route path="/posts/create" component={PostForm} />
           <Route path="/posts" >

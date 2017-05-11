@@ -18,3 +18,16 @@ export const search = (query: string) => dispatch => {
     res => dispatch(receiveSearch(res))
   );
 }
+
+export const RECEIVE_POSTS: string = 'RECEIVE_POSTS';
+
+export const receivePosts = (posts: object []) => ({
+  type: RECEIVE_POSTS,
+  posts
+});
+
+export const getPosts = (query: string) => dispatch => {
+  return SearchAPI.fetchPosts(query).then(
+    res => dispatch(receivePosts(res))
+  );
+}
