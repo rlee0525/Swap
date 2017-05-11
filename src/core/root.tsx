@@ -12,7 +12,7 @@ import FAQ from 'modules/faq';
 import Contact from 'modules/contact';
 import Terms from 'modules/terms';
 import Bookmarks from 'modules/bookmarks';
-import {PostForm} from 'modules/post/subcomponents/post_form';
+import { PostForm } from 'modules/post/subcomponents';
 
 interface RootProps {
   store: Store<any>;
