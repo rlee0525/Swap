@@ -22,7 +22,7 @@ class Api::UsersController < ApplicationController
       if @user.save
         return render "api/users/show", status: 200
       else
-        return render "invalid token", status: 401
+        return render json: ["invalid token"], status: 401
       end
     end
   end
@@ -41,10 +41,10 @@ class Api::UsersController < ApplicationController
         UserMailer.registration_confirmation(@user).deliver
         return render "api/users/show", status: 200
       else
-        return render "couldn't update edu email", status: 500
+        return render json: ["couldn't update edu email"], status: 500
       end
     end
-    render "invalid fb_id / edu_email", status: 500
+    render json: ["invalid fb_id / edu_email"], status: 500
   end
 
   def show

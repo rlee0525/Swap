@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       resources :courses, only: [:index, :show]
       resources :categories, only: [:index, :show]
       resources :search, only: [:index]
-      resources :bookmarks, only: [:index, :create]
+      resources :bookmarks, only: [:index, :create, :destroy]
     end
   end
 

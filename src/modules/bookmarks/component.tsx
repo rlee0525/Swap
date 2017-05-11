@@ -7,6 +7,7 @@ class Bookmarks extends React.Component<any, any> {
     super(props);
     this.initializeClipboard = this.initializeClipboard.bind(this);
     this.fetchBookmarkedPosts = this.fetchBookmarkedPosts.bind(this);
+    this.deleteBookmarkedPost = this.deleteBookmarkedPost.bind(this);
     this.state = { bookmarkedPosts: [] }
   }
 
@@ -15,6 +16,13 @@ class Bookmarks extends React.Component<any, any> {
       method: "GET",
       url: "http://localhost:3000/api/bookmarks"
     }).then(bookmarkedPosts => this.setState({ bookmarkedPosts }))
+  }
+
+  public deleteBookmarkedPost(postId) {
+    $.ajax({
+      type: "DELETE",
+      url: `http://localhost:3000/api/bookmarks/${postId}`
+    }).then(() => this.fetchBookmarkedPosts())
   }
 
   public componentDidMount() {
@@ -34,14 +42,14 @@ class Bookmarks extends React.Component<any, any> {
   public renderListItems() {
     return this.state.bookmarkedPosts.map(bookmarkedPost => (
       <tr key={`post${bookmarkedPost.id}`}>
-        <td>{bookmarkedPost.created_at}</td>
+        <td><img className="img img-responsive img-thumbnail-size" src={bookmarkedPost.img_url1}/></td>
         <td>{bookmarkedPost.title}</td>
         <td>{shortenString(bookmarkedPost.description, 30)}</td>
         <td>${Number(bookmarkedPost.price).toLocaleString()}</td>
         <td>{timeFromNow(bookmarkedPost.created_at)}</td>
         <td>{bookmarkedPost.condition}</td>
         <td><button type="button" className="btn btn-xs btn-success" data-clipboard-text={`http://localhost:3000/#/posts/${bookmarkedPost.id}`}>Copy Link</button></td>
-        <td><button type="button" className="btn btn-xs btn-danger">Delete</button></td>
+        <td><button type="button" className="btn btn-xs btn-danger" onClick={() => this.deleteBookmarkedPost(bookmarkedPost.id)}>Delete</button></td>
       </tr>
     ))
   }
@@ -58,7 +66,7 @@ class Bookmarks extends React.Component<any, any> {
               <table className="table table-hover">
                 <thead>
                   <tr>
-                    <th>Post Date</th>
+                    <th>Thumbnail</th>
                     <th>Title</th>
                     <th>Description</th>
                     <th>Price</th>
