@@ -27,4 +27,6 @@ class Post < ApplicationRecord
   belongs_to :category
   belongs_to :course, inverse_of: :posts, optional: true
   belongs_to :user
+
+  attr_accessor :relevance
 end

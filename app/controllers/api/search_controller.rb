@@ -8,14 +8,41 @@ class Api::SearchController < ApplicationController
 
     sql = 'title ILIKE ANY( array[?] ) OR categories.name ILIKE ANY ( array[?] )'
 
-    @posts = Post.joins(:category).where(sql, sql_query, sql_query)
+    posts = Post.joins(:category).where(sql, sql_query, sql_query)
 
-    
+    @posts = []
+
+    posts.each do |post|
+      post = post.as_json
+      post[:relevance] = calc_score(post, query)
+      @posts << post
+    end
+
+    @posts = @posts.sort_by { |post| post[:relevance] }.reverse!
 
     render 'api/search/index'
   end
 
   private 
+
+  def calc_score(post, query)
+    categories = ['furniature', 'games', 'electronics', 'textbooks', 'clothing', 'kitchenware']
+
+    query = query.split(' ')
+    score = 0
+    max = 0
+
+    query.each do |word|
+      max += word.length
+      if post['title'].downcase.include? word.downcase
+        score += word.length
+      elsif post['category'] && categories.include?(post['category'].downcase)
+        score += 5
+      end
+    end
+
+    score
+  end
 
   def match(str1, str2)
     matrix = Array.new(str1.length + 1) { Array.new(str2.length + 1, nil) }
