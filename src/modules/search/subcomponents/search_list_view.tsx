@@ -1,14 +1,26 @@
 import React from 'react';
 import { shortenString, timeFromNow } from 'helpers';
 
+interface Post {
+  title: string;
+  description: string;
+  price: number;
+  created_at: string;
+  condition: string;
+  img_url1: string;
+  img_url2: string;
+  img_url3: string;
+}
+
 interface Props {
+  searchResult: Post [];
 }
 
 interface State {
 }
 
 class SearchListView extends React.Component<Props, State> {
-  renderListItem(post, idx) {
+  renderListItem(post: Post, idx: number) {
     return (
       <tr key={idx}>
         <td>{post.title}</td>

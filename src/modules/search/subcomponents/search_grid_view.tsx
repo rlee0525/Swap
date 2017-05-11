@@ -1,8 +1,19 @@
 import React from 'react';
 import { shortenString } from 'helpers';
 
+interface Post {
+  title: string;
+  description: string;
+  price: number;
+  created_at: string;
+  condition: string;
+  img_url1: string;
+  img_url2: string;
+  img_url3: string;
+}
+
 interface Props {
-  search: object[];
+  searchResult: Post [];
 }
 
 interface State {
@@ -11,7 +22,7 @@ interface State {
 
 class SearchGridView extends React.Component<Props, State> {
 
-  buttonClass(condition) {
+  buttonClass(condition: string) {
     if (condition === 'New') {
       return 'success';
     } else if (condition === 'Like New') {
@@ -21,7 +32,7 @@ class SearchGridView extends React.Component<Props, State> {
     }
   }
 
-  renderGridItem(post) {
+  renderGridItem(post: Post) {
     return (
       <div className="thumbnail col-sm-6 col-md-4" key={Math.random() * post.id}>
         <img src={post.img_url1} alt={post.title} />
