@@ -11,6 +11,7 @@ import Careers from 'modules/careers';
 import FAQ from 'modules/faq';
 import Contact from 'modules/contact';
 import Terms from 'modules/terms';
+import Bookmarks from 'modules/bookmarks';
 
 interface RootProps {
   store: Store<any>;
@@ -29,6 +30,7 @@ const Root: React.SFC<RootProps> = ({ store }) => {
       <Router history={hashHistory}>
         <Route path="/" component={App}>
         <IndexRoute component={Home} />
+          <Route path="/bookmarks" component={Bookmarks} />
           <Route path="/textbooks" component={Search} />
           <Route path="/clothing" component={Search} />
           <Route path="/furniture" component={Search} />
