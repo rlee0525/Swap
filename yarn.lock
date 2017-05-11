@@ -6,6 +6,10 @@
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/@types/history/-/history-3.2.1.tgz#0039ab0e0be2a0cc22bac171d27a44588103d123"
 
+"@types/jquery@^2.0.43":
+  version "2.0.43"
+  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-2.0.43.tgz#e30d971d56dce22bf0d62e02bd4b28a7ffdba076"
+
 "@types/lodash@^4.14.64":
   version "4.14.64"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.64.tgz#979cf3a3d4a368670840bf9b3e448dc33ffe84ee"

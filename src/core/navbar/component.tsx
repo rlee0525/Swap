@@ -39,9 +39,10 @@ class NavBar extends React.Component<any, any> {
 
   public sendEmail(e) {
     e.preventDefault();
+
     let accessToken;
-    const edu_email = $('input.form-control')[0].value
     let that = this;
+    const edu_email = $('input.form-control')[0].value
     FB.getLoginStatus(function(response) {
       accessToken = response.authResponse.accessToken
       $.ajax({
@@ -81,7 +82,7 @@ class NavBar extends React.Component<any, any> {
       } else {
         $('#logInModal').modal('show');
       }
-    }
+    });
   }
 
   public checkVerified(e) {
@@ -106,18 +107,10 @@ class NavBar extends React.Component<any, any> {
       return (
         <div className="navbar-collapse collapse" id="navbar-collapse">
           <ul className="nav navbar-nav navbar-right">
-            <li>
-              <a id="browse" onClick={(e) => this.checkVerified(e)}>Browse</a>
-            </li>
-            <li>
-              <a id="create" onClick={(e) => this.checkVerified(e)}>Create a Post</a>
-            </li>
-            <li>
-              <a id="bookmarks" onClick={(e) => this.checkVerified(e)}>Bookmarks</a>
-            </li>
-            <li>
-              <a onClick={ this.chooseModal }>{this.state.userFB.name}</a>
-            </li>
+            <li><a id="browse" onClick={(e) => this.checkVerified(e)}>Browse</a></li>
+            <li><a id="create" onClick={(e) => this.checkVerified(e)}>Create a Post</a></li>
+            <li><a id="bookmarks" onClick={(e) => this.checkVerified(e)}>Bookmarks</a></li>
+            <li><a onClick={this.chooseModal}>{this.state.userFB.name}</a></li>
           </ul>
         </div>
       );
@@ -125,23 +118,13 @@ class NavBar extends React.Component<any, any> {
       return (
         <div className="navbar-collapse collapse" id="navbar-collapse">
           <ul className="nav navbar-nav navbar-right">
-            <li>
-              <a href="/#/search">Browse</a>
-            </li>
-            <li>
-              <a onClick={ this.chooseModal }>Sign Up</a>
-            </li>
-            <li>
-              <a onClick={ this.chooseModal }>Log In</a>
-            </li>
+            <li><a href="/#/browse">Browse</a></li>
+            <li><a onClick={this.chooseModal}>Sign Up</a></li>
+            <li><a onClick={this.chooseModal}>Log In</a></li>
           </ul>
         </div>
       );
     }
-  }
-
-  public rendersomething(e) {
-    console.log(e.currentTarget.id);
   }
 
   public render() {
@@ -231,7 +214,6 @@ class NavBar extends React.Component<any, any> {
             </div>
           </div>
         </div>
-
       </div>
     );
   }
