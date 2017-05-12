@@ -38,7 +38,6 @@ class Api::UsersController < ApplicationController
         return render "api/users/show", status: 200
       elsif
         @user.update(edu_email: "#{edu_email}@berkeley.edu")
-        UserMailer.registration_confirmation(@user).deliver
         return render "api/users/show", status: 200
       else
         return render json: ["couldn't update edu email"], status: 500
