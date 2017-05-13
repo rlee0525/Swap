@@ -1,5 +1,8 @@
 import React from 'react';
-import { SearchGridView, SearchListView, SearchNavbar, SearchSidebar } from './subcomponents';
+import { SearchGridView,
+         SearchListView,
+         SearchNavbar,
+         SearchSidebar } from './subcomponents';
 
 interface Post {
   title: string;
