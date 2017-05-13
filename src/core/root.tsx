@@ -13,6 +13,7 @@ import FAQ from 'modules/faq';
 import Contact from 'modules/contact';
 import Terms from 'modules/terms';
 import Bookmarks from 'modules/bookmarks';
+import Dashboard from 'modules/dashboard';
 import { PostForm } from 'modules/post/subcomponents';
 
 interface RootProps {
@@ -48,6 +49,7 @@ const Root: React.SFC<RootProps> = ({ store }) => {
           <Route path="/terms" component={Terms} />
           <Route path="/search" component={Search} />
           <Route path="/posts/create" component={PostForm} />
+          <Route path="/dashboard" component={Dashboard} />
           <Route path="/posts" >
             <Route path=":id" component={Post} />
           </Route>

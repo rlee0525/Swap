@@ -38,3 +38,7 @@
   top: 0;
   right: 0;
 }
+
+ul.nav-tabs {
+  border-bottom: 0;
+}

@@ -73,15 +73,15 @@ end
 end
 
 
-Post.create!( user: User.first, 
-title: "Nintendo",
-description: "sdf",
-price: rand(100) + 1,
-img_url1: "https://robohash.org/#{rand(1000)}",
-img_url2: "https://robohash.org/#{rand(1000)}",
-img_url3: "https://robohash.org/#{rand(1000)}",
-
-category: Category.find(rand(1..Category.count)),
-course: Course.find(rand(1..Course.count)),
-zip_code: rand(0..9999).to_s,
-condition: "Brand New" )
+# Post.create!( user: User.first, 
+# title: "Nintendo",
+# description: "sdf",
+# price: rand(100) + 1,
+# img_url1: "https://robohash.org/#{rand(1000)}",
+# img_url2: "https://robohash.org/#{rand(1000)}",
+# img_url3: "https://robohash.org/#{rand(1000)}",
+#
+# category: Category.find(rand(1..Category.count)),
+# course: Course.find(rand(1..Course.count)),
+# zip_code: rand(0..9999).to_s,
+# condition: "Brand New" )
