@@ -26,7 +26,7 @@ class SearchSidebar extends React.Component<Props, State> {
 
   public render() {
     return (
-      <div className="col-xs-12 col-md-2 menu">
+      <div className="col-md-2 menu">
         <dl>
           <dt>Categories</dt>
           <a href="#/all"><dd>What's New</dd></a>
