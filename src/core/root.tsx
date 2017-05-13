@@ -49,7 +49,7 @@ const Root: React.SFC<RootProps> = ({ store }) => {
           <Route path="/posts/create" component={PostForm} />
           <Route path="/dashboard" component={MyPosts} />
           <Route path="/myposts" component={MyPosts} />
-          <Route path="/bookmarks" component={Bookmarks} />
+          <Route path="/mybookmarks" component={Bookmarks} />
           <Route path="/posts" >
             <Route path=":id" component={Post} />
           </Route>
