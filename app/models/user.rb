@@ -21,15 +21,24 @@ class User < ApplicationRecord
   has_many :posts
   has_many :bookmarks
   has_many :bookmarked_posts, through: :bookmarks, source: :post
+  has_many :rfps
   belongs_to :university, optional: true
 
   before_create :confirmation_token
+  after_update :mail
 
   def email_activate
     self.edu_email_confirmed = true
     self.edu_email_confirm_token = nil
     save!(validate: false)
   end
+
+  def mail
+    UserMailer.registration_confirmation(self).deliver
+  end
+
+  handle_asynchronously :mail,
+                        run_at: Proc.new { 5.seconds.from_now }
 
   private
 

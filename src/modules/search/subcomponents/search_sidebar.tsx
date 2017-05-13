@@ -11,12 +11,17 @@ class SearchSidebar extends React.Component<Props, State> {
   constructor(props : Props) {
     super(props);
     this.handleKeyPress = this.handleKeyPress.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
   private handleKeyPress(e: any) {
     if (e.key === 'Enter') {
       this.props.search(e.target.value);
     }
+  }
+
+  private onChange(e: any) {
+    this.props.search(e.target.value);
   }
 
   public render() {
@@ -34,7 +39,7 @@ class SearchSidebar extends React.Component<Props, State> {
         </dl>
         <div className="input-group">
           <label htmlFor="search-input">Search</label>
-          <input id="search-input" type="text" className="form-control" placeholder="Course Name" onKeyPress={this.handleKeyPress} />
+          <input id="search-input" type="text" className="form-control" placeholder="Course Name" onChange={this.onChange} />
         </div>
         <br/>
       </div>

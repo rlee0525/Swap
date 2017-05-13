@@ -18,7 +18,6 @@ class PostDetail extends React.Component {
   }
 
   public render() {
-    console.log(this.props);
     let img_url1;
 
     if (this.props.post) {

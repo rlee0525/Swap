@@ -1,6 +1,7 @@
 json.array! @posts do |post|
   json.extract! post,
                 :id,
+                :title,
                 :user_id,
                 :title,
                 :description,

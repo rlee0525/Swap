@@ -4,7 +4,7 @@ class Api::BookmarksController < ApplicationController
     if @bookmarked_post.save
       render "api/bookmarks/show", status: 200
     else
-      render "invalid parameters", status: 500
+      render json: ["invalid parameters"], status: 500
     end
   end
 
@@ -13,6 +13,12 @@ class Api::BookmarksController < ApplicationController
     # for selecting user. right now uses first user
     @bookmarked_posts = User.first.bookmarked_posts
     render "api/bookmarks/index", status: 200
+  end
+
+  def destroy
+    @bookmarks = Bookmark.where(user: User.first).where(post: Post.find(params[:id]))
+    @bookmarks.each { |bookmark| bookmark.destroy }
+    render json: ["successfully deleted"], status: 200
   end
 
   private

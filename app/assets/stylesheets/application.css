@@ -13,3 +13,28 @@
  *= require_tree .
  *= require_self
  */
+
+ .img-thumbnail-size {
+   height: 60px;
+   width: auto;
+ }
+
+.dropzone-upload {
+  display: flex;
+  align-items: center;
+}
+
+.FileUpload div {
+  width: 100%;
+  text-align: center;
+}
+
+.thumbnail-caption {
+  text-align: center;
+  color: white;
+  background-color: red;
+  padding: 0 5px 0 5px;
+  position: absolute !important;
+  top: 0;
+  right: 0;
+}

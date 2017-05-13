@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170511014945) do
+ActiveRecord::Schema.define(version: 20170513052840) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,21 @@ ActiveRecord::Schema.define(version: 20170511014945) do
     t.index ["university_id"], name: "index_courses_on_university_id", using: :btree
   end
 
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.integer  "priority",   default: 0, null: false
+    t.integer  "attempts",   default: 0, null: false
+    t.text     "handler",                null: false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
+  end
+
   create_table "posts", force: :cascade do |t|
     t.integer  "user_id",     null: false
     t.text     "description", null: false
@@ -53,6 +68,14 @@ ActiveRecord::Schema.define(version: 20170511014945) do
     t.string   "condition",   null: false
     t.index ["course_id"], name: "index_posts_on_course_id", using: :btree
     t.index ["user_id"], name: "index_posts_on_user_id", using: :btree
+  end
+
+  create_table "rfps", force: :cascade do |t|
+    t.integer  "user_id",     null: false
+    t.string   "description", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["user_id"], name: "index_rfps_on_user_id", using: :btree
   end
 
   create_table "universities", force: :cascade do |t|

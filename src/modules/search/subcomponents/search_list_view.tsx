@@ -20,9 +20,17 @@ interface State {
 }
 
 class SearchListView extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+  }
+
+  public redirect(id) {
+    window.location.href = `#/posts/${id}`
+  }
+
   renderListItem(post: Post, idx: number) {
     return (
-      <tr key={idx}>
+      <tr key={idx} onClick={() => this.redirect(post.id)}>
         <td>{post.title}</td>
         <td>{shortenString(post.description, 30)}</td>
         <td>${Number(post.price).toLocaleString()}</td>

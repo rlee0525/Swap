@@ -43,7 +43,6 @@ group :development, :test do
   gem 'spring'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
-  gem 'koala'
 end
 
 group :development do
@@ -64,3 +63,7 @@ group :test do
   gem 'shoulda-matchers'
   gem 'rails-controller-testing'
 end
+
+gem 'delayed_job_active_record'
+gem 'koala'
+gem 'daemons'

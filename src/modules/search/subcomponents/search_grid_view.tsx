@@ -1,5 +1,5 @@
 import React from 'react';
-import { shortenString } from 'helpers';
+import { shortenString, timeFromNow } from 'helpers';
 
 interface Post {
   title: string;
@@ -35,7 +35,10 @@ class SearchGridView extends React.Component<Props, State> {
   renderGridItem(post: Post) {
     return (
       <div className="thumbnail col-sm-6 col-md-4" key={Math.random() * post.id}>
-        <img src={post.img_url1} alt={post.title} />
+        <a href={`/#/posts/${post.id}`}>
+          <img src={post.img_url1} alt={post.title} />
+          <div className="thumbnail-caption">{timeFromNow(post.created_at)}</div>
+        </a>
         <div className="caption">
           <span className={`label label-${this.buttonClass(post.condition)}`}>{post.condition}</span>
           <h3>{post.title}</h3>
