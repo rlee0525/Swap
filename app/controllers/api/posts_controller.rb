@@ -36,6 +36,15 @@ class Api::PostsController < ApplicationController
 
   def update; end
 
+  def delete
+    @post = Post.find_by(id: params[:id])
+    if @post && @post.destroy
+      render "api/posts/show", status: 200
+    else
+      render json: ["not found"], status: 404
+    end
+  end
+
   private
 
   def post_params
