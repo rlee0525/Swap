@@ -24,7 +24,7 @@ class Api::SearchController < ApplicationController
     end
 
     @posts = @posts.sort_by { |post| post[:relevance] }.reverse!
-    debugger
+
     render 'api/search/index'
   end
 
