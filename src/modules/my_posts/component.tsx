@@ -22,22 +22,40 @@ interface State {
 class MyPosts extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
+    this.state = {
+      myPosts: []
+    }
   }
 
-  public redirect(id) {
-    window.location.href = `#/posts/${id}`
+  public componentDidMount() {
+    $.ajax({
+      method: "GET",
+      url: "http://localhost:3000/api/posts"
+    }).then(myPosts => this.setState({myPosts: myPosts}))
   }
 
-  renderListItem(post: Post, idx: number) {
-    return (
-      <tr key={idx} onClick={() => this.redirect(post.id)}>
-        <td>{post.title}</td>
-        <td>{shortenString(post.description, 30)}</td>
-        <td>${Number(post.price).toLocaleString()}</td>
-        <td>{timeFromNow(post.created_at)}</td>
-        <td>{post.condition}</td>
+  public editPost(id) {
+    // TODO AJAX
+  }
+
+  public deletePost(id) {
+    // TODO AJAX
+  }
+
+  public renderListItem() {
+    return this.state.myPosts.map(myPost => (
+      <tr key={myPost.id}>
+        <td><img className="img img-responsive img-thumbnail-size" src={myPost.img_url1}/></td>
+        <td><a href={`#/posts/${myPost.id}`}>{myPost.title}</a></td>
+        <td>{shortenString(myPost.description, 30)}</td>
+        <td>${Number(myPost.price).toLocaleString()}</td>
+        <td>{myPost.course}</td>
+        <td>{timeFromNow(myPost.created_at)}</td>
+        <td>{myPost.condition}</td>
+        <td><button type="button" className="btn btn-xs btn-success" onClick={() => this.editPost(myPost.id)}>Edit</button></td>
+        <td><button type="button" className="btn btn-xs btn-danger" onClick={() => this.deletePost(myPost.id)}>Delete</button></td>
       </tr>
-    )
+    ))
   }
 
   render() {
@@ -54,15 +72,19 @@ class MyPosts extends React.Component<Props, State> {
                 <table className="table table-hover">
                   <thead>
                     <tr>
+                      <th>Thumbnail</th>
                       <th>Title</th>
                       <th>Description</th>
                       <th>Price</th>
+                      <th>Course</th>
                       <th>Posting Date</th>
                       <th>Condition</th>
+                      <th>Edit</th>
+                      <th>Delete</th>
                     </tr>
                   </thead>
                   <tbody>
-
+                    {this.renderListItem()}
                   </tbody>
                 </table>
               </div>
