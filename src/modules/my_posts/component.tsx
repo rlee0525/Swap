@@ -46,7 +46,7 @@ class MyPosts extends React.Component<Props, State> {
         <div className="container">
           <ul className="nav nav-tabs">
             <li role="presentation" className="active"><a href="#/myposts">Posts</a></li>
-            <li role="presentation"><a href="#/bookmarks">Bookmarks</a></li>
+            <li role="presentation"><a href="#/mybookmarks">Bookmarks</a></li>
           </ul>
           <div>
             <div className="panel panel-default">

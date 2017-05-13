@@ -60,7 +60,7 @@ class Bookmarks extends React.Component<any, any> {
         <div className="container">
           <ul className="nav nav-tabs">
             <li role="presentation"><a href="#/myposts">Posts</a></li>
-            <li role="presentation" className="active"><a href="#/bookmarks">Bookmarks</a></li>
+            <li role="presentation" className="active"><a href="#/mybookmarks">Bookmarks</a></li>
           </ul>
           <div>
             <div className="panel panel-default">
