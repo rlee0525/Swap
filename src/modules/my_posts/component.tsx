@@ -22,12 +22,19 @@ interface State {
 class MyPosts extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
+    this.getMyPosts = this.getMyPosts.bind(this);
+    this.editPost = this.editPost.bind(this);
+    this.deletePost = this.deletePost.bind(this);
     this.state = {
       myPosts: []
     }
   }
 
   public componentDidMount() {
+    this.getMyPosts();
+  }
+
+  public getMyPosts() {
     $.ajax({
       method: "GET",
       url: "http://localhost:3000/api/posts"
@@ -39,7 +46,10 @@ class MyPosts extends React.Component<Props, State> {
   }
 
   public deletePost(id) {
-    // TODO AJAX
+    $.ajax({
+      type: "DELETE",
+      url: `http://localhost:3000/api/posts/${id}`
+    }).then(() => this.getMyPosts();)
   }
 
   public renderListItem() {
