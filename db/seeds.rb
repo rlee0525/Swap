@@ -72,8 +72,14 @@ end
   )
 end
 
+User.all.each do |user|
+  Post.all.each do |post|
+    Bookmark.create(user: user, post: post)
+  end
+end
 
-# Post.create!( user: User.first, 
+
+# Post.create!( user: User.first,
 # title: "Nintendo",
 # description: "sdf",
 # price: rand(100) + 1,
