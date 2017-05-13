@@ -63,30 +63,27 @@ class Bookmarks extends React.Component<any, any> {
             <li role="presentation" className="active"><a href="#/bookmarks">Bookmarks</a></li>
           </ul>
           <div>
-              <div className="panel panel-default">
-                <div className="panel-heading">
-                  <h3 className="panel-title">My Bookmarks</h3>
-                </div>
-                <div className="panel-body">
-                  <table className="table table-hover">
-                    <thead>
-                      <tr>
-                        <th>Thumbnail</th>
-                        <th>Title</th>
-                        <th>Description</th>
-                        <th>Price</th>
-                        <th>Posting Date</th>
-                        <th>Condition</th>
-                        <th>Copy Link</th>
-                        <th>Delete</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {this.renderListItems()}
-                    </tbody>
-                  </table>
-                </div>
+            <div className="panel panel-default">
+              <div className="panel-body">
+                <table className="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Thumbnail</th>
+                      <th>Title</th>
+                      <th>Description</th>
+                      <th>Price</th>
+                      <th>Posting Date</th>
+                      <th>Condition</th>
+                      <th>Copy Link</th>
+                      <th>Delete</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {this.renderListItems()}
+                  </tbody>
+                </table>
               </div>
+            </div>
           </div>
         </div>
       </div>

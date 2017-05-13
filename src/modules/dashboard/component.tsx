@@ -1,5 +1,6 @@
 import React from 'react';
 import Bookmarks from 'modules/bookmarks';
+import { MyPosts } from 'modules/post/subcomponents';
 
 class Dashboard extends React.Component<any, any> {
   constructor(props: any) {

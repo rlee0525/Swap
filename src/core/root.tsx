@@ -5,7 +5,6 @@ import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import App from './app';
 import Home from 'modules/home';
 import Search from 'modules/search';
-import Browse from 'modules/browse';
 import About from 'modules/about';
 import Post from 'modules/post';
 import Careers from 'modules/careers';
@@ -13,6 +12,7 @@ import FAQ from 'modules/faq';
 import Contact from 'modules/contact';
 import Terms from 'modules/terms';
 import Bookmarks from 'modules/bookmarks';
+import MyPosts from 'modules/my_posts';
 import Dashboard from 'modules/dashboard';
 import { PostForm } from 'modules/post/subcomponents';
 
@@ -33,7 +33,6 @@ const Root: React.SFC<RootProps> = ({ store }) => {
       <Router history={hashHistory}>
         <Route path="/" component={App}>
         <IndexRoute component={Home} />
-          <Route path="/bookmarks" component={Bookmarks} />
           <Route path="/all" component={Search} />
           <Route path="/textbooks" component={Search} />
           <Route path="/clothing" component={Search} />
@@ -50,6 +49,8 @@ const Root: React.SFC<RootProps> = ({ store }) => {
           <Route path="/search" component={Search} />
           <Route path="/posts/create" component={PostForm} />
           <Route path="/dashboard" component={Dashboard} />
+          <Route path="/myposts" component={MyPosts} />
+          <Route path="/bookmarks" component={Bookmarks} />
           <Route path="/posts" >
             <Route path=":id" component={Post} />
           </Route>
