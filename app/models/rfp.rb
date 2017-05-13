@@ -1,0 +1,2 @@
+class Rfp < ApplicationRecord
+end
