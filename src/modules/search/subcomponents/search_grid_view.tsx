@@ -61,8 +61,8 @@ class SearchGridView extends React.Component<Props, State> {
 
   renderGridItem(post: Post) {
     return (
-      <div className="thumbnail col-sm-6 col-md-4" key={Math.random() * post.id}>
-        <a id={post.id} onClick={(e) => this.checkVerified(e)}>
+      <div className="thumbnail col-sm-6 col-md-4" key={Math.random() * post.id} onClick={() => this.checkVerified(post.id)}>
+        <a id={post.id}>
           <img src={post.img_url1} alt={post.title} />
           <div className="thumbnail-caption">{timeFromNow(post.created_at)}</div>
         </a>
@@ -71,7 +71,7 @@ class SearchGridView extends React.Component<Props, State> {
           <h3>{post.title}</h3>
           <p>{shortenString(post.description, 160)}</p>
           <h3>${Number(post.price).toLocaleString()}</h3>
-          <a className="btn btn-success btn-lg btn-block" onClick={() => this.checkVerified(post.id)}>Go to Page</a>
+          <a className="btn btn-success btn-lg btn-block">Go to Page</a>
         </div>
       </div>
     )

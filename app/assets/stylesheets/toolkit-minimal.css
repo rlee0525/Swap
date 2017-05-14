@@ -4195,6 +4195,7 @@ a.badge:focus {
   border: 1px solid #dddddd;
   border-radius: 4px;
   transition: border 0.2s ease-in-out;
+  cursor: pointer;
 }
 .thumbnail > img,
 .thumbnail a > img {
