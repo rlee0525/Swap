@@ -37,7 +37,6 @@ class Api::PostsController < ApplicationController
   def update; end
 
   def destroy
-    debugger
     @post = Post.find_by(id: params[:id])
     if @post && @post.destroy
       render "api/posts/show", status: 200
