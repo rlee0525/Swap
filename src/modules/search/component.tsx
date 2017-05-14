@@ -1,8 +1,7 @@
 import React from 'react';
 import { SearchGridView,
          SearchListView,
-         SearchNavbar,
-         SearchSidebar } from './subcomponents';
+         SearchNavbar } from './subcomponents';
 
 interface Post {
   title: string;
@@ -64,7 +63,6 @@ class Search extends React.Component<Props, State> {
   private renderView() {
     if (this.state.viewType === 'grid') {
       return <SearchGridView searchResult={this.props.searchResult} />;
-      )
     } else {
       return <SearchListView searchResult={this.props.searchResult} />;
     }
@@ -75,8 +73,8 @@ class Search extends React.Component<Props, State> {
       <div>
         <div className="container">
           <div className="row">
-            <SearchSidebar search={this.props.search} />
-            <div className="col-md-10">
+            <SearchNavbar search={this.props.search} />
+            <div className="col-md-12">
               <div className="search-icons">
                 <button className="btn btn-link" id="grid-type" onClick={this.changeView('grid')}>
                   <span className="glyphicon glyphicon-th-large"></span> Grid View
