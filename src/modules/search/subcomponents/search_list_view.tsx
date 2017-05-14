@@ -22,15 +22,35 @@ interface State {
 class SearchListView extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
+
+    this.checkVerified = this.checkVerified.bind(this);
   }
 
-  public redirect(id) {
-    window.location.href = `#/posts/${id}`
+  public checkVerified(id) {
+    FB.getLoginStatus(function(response) {
+      if (response.status === "connected") {
+        const accessToken = FB.getAccessToken();
+        $.ajax({
+          method: "GET",
+          url: `http://localhost:3000/api/users/${accessToken}`
+        }).then(obj => {
+          if (obj.edu_email_confirmed) {
+            window.location.href = `#/posts/${id}`
+          } else if (obj.edu_email === null) {
+            $('#emailInputModal').modal('show');
+          } else {
+            $('#emailVerificationModal').modal('show');
+          }
+        }).fail(() => FB.logout())
+      } else {
+        $('#logInModal').modal('show');
+      }
+    });
   }
 
   renderListItem(post: Post, idx: number) {
     return (
-      <tr key={idx} onClick={() => this.redirect(post.id)}>
+      <tr key={idx} onClick={() => this.checkVerified(post.id)}>
         <td>{post.title}</td>
         <td>{shortenString(post.description, 30)}</td>
         <td>${Number(post.price).toLocaleString()}</td>

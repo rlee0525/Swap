@@ -28,6 +28,7 @@ class Api::UsersController < ApplicationController
   end
 
   def update
+    # debugger
     edu_email = params[:edu_email]
     access_token = params[:id]
     fb_id = fb_id(access_token)
