@@ -36,7 +36,7 @@ class Api::PostsController < ApplicationController
 
   def update; end
 
-  def delete
+  def destroy
     debugger
     @post = Post.find_by(id: params[:id])
     if @post && @post.destroy
