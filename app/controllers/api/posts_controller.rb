@@ -34,7 +34,14 @@ class Api::PostsController < ApplicationController
     end
   end
 
-  def update; end
+  def update
+    @post = Post.find_by(id: params[:id])
+    if @post.update(post_params)
+      render "api/posts/show", status: 200
+    else
+      render json: ["internal error"], status: 500
+    end
+  end
 
   def destroy
     @post = Post.find_by(id: params[:id])

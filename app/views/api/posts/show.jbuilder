@@ -12,3 +12,5 @@ json.extract! @post,
               :zip_code,
               :created_at,
               :condition
+json.course @post.course.course_number
+json.category @post.category.name

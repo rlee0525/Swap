@@ -1,5 +1,6 @@
 import React from 'react';
 import { shortenString, timeFromNow } from 'helpers';
+import { PostForm } from 'modules/post/subcomponents';
 
 interface Post {
   title: string;
@@ -25,6 +26,7 @@ class MyPosts extends React.Component<Props, State> {
     this.getMyPosts = this.getMyPosts.bind(this);
     this.editPost = this.editPost.bind(this);
     this.deletePost = this.deletePost.bind(this);
+    this.renderMyPosts = this.renderMyPosts.bind(this);
     this.state = {
       myPosts: []
     }
@@ -38,11 +40,14 @@ class MyPosts extends React.Component<Props, State> {
     $.ajax({
       method: "GET",
       url: "http://localhost:3000/api/posts"
-    }).then(myPosts => this.setState({myPosts: myPosts}))
+    }).then(myPosts => this.setState({myPosts}))
   }
 
   public editPost(id) {
-    // TODO AJAX
+    $.ajax({
+      method: "GET",
+      url: `http://localhost:3000/api/posts/${id}`
+    }).then(myPost => this.setState({myPost}))
   }
 
   public deletePost(id) {
@@ -68,6 +73,35 @@ class MyPosts extends React.Component<Props, State> {
     ))
   }
 
+  public renderMyPosts() {
+    return (
+      <div>
+        <div className="panel panel-default">
+          <div className="panel-body">
+            <table className="table table-hover">
+              <thead>
+                <tr>
+                  <th>Thumbnail</th>
+                  <th>Title</th>
+                  <th>Description</th>
+                  <th>Price</th>
+                  <th>Course</th>
+                  <th>Posting Date</th>
+                  <th>Condition</th>
+                  <th>Edit</th>
+                  <th>Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                {this.renderListItem()}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   render() {
     return (
       <div>
@@ -76,30 +110,7 @@ class MyPosts extends React.Component<Props, State> {
             <li role="presentation" className="active"><a href="#/myposts">Posts</a></li>
             <li role="presentation"><a href="#/mybookmarks">Bookmarks</a></li>
           </ul>
-          <div>
-            <div className="panel panel-default">
-              <div className="panel-body">
-                <table className="table table-hover">
-                  <thead>
-                    <tr>
-                      <th>Thumbnail</th>
-                      <th>Title</th>
-                      <th>Description</th>
-                      <th>Price</th>
-                      <th>Course</th>
-                      <th>Posting Date</th>
-                      <th>Condition</th>
-                      <th>Edit</th>
-                      <th>Delete</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {this.renderListItem()}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
+          { typeof this.state.myPost === "undefined" ? this.renderMyPosts() : <PostForm state={this.state.myPost} /> }
         </div>
       </div>
     )
