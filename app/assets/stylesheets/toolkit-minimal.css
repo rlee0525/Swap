@@ -2183,6 +2183,7 @@ select[multiple].input-lg {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  outline: none;
 }
 .btn:focus,
 .btn:active:focus,
@@ -2190,9 +2191,9 @@ select[multiple].input-lg {
 .btn.focus,
 .btn:active.focus,
 .btn.active.focus {
-  outline: thin dotted;
+  /*outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
-  outline-offset: -2px;
+  outline-offset: -2px;*/
 }
 .btn:hover,
 .btn:focus,
@@ -2594,9 +2595,12 @@ fieldset[disabled] .btn-link {
 .btn-link:hover,
 .btn-link:focus {
   color: #48416f;
-  text-decoration: underline;
+  /*text-decoration: underline;*/
   background-color: transparent;
 }
+/*.btn-link:focus {
+  font-weight: bold;
+}*/
 .btn-link[disabled]:hover,
 fieldset[disabled] .btn-link:hover,
 .btn-link[disabled]:focus,
@@ -4191,6 +4195,7 @@ a.badge:focus {
   border: 1px solid #dddddd;
   border-radius: 4px;
   transition: border 0.2s ease-in-out;
+  cursor: pointer;
 }
 .thumbnail > img,
 .thumbnail a > img {

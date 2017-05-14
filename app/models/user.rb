@@ -36,10 +36,10 @@ class User < ApplicationRecord
   def mail
     UserMailer.registration_confirmation(self).deliver
   end
-
-  handle_asynchronously :mail,
-                        run_at: Proc.new { 5.seconds.from_now }
-
+  #
+  # TODO: testing delayed job
+  # handle_asynchronously :mail,
+  #                       run_at: Proc.new { 5.seconds.from_now }
   private
 
   def confirmation_token

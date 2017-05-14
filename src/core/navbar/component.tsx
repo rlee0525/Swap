@@ -107,7 +107,7 @@ class NavBar extends React.Component<any, any> {
       return (
         <div className="navbar-collapse collapse" id="navbar-collapse">
           <ul className="nav navbar-nav navbar-right">
-            <li><a id="all" onClick={(e) => this.checkVerified(e)}>Browse</a></li>
+            <li><a href="/#/all">Browse</a></li>
             <li><a id="posts/create" onClick={(e) => this.checkVerified(e)}>Create a Post</a></li>
             <li><a id="bookmarks" onClick={(e) => this.checkVerified(e)}>Bookmarks</a></li>
             <li><a onClick={this.chooseModal}>{this.state.userFB.name}</a></li>
