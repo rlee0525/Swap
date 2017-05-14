@@ -14,8 +14,8 @@ class PostForm extends React.Component<any, any> {
     this.categoryRadioUpdate = this.categoryRadioUpdate.bind(this);
     this.conditionRadioUpdate = this.conditionRadioUpdate.bind(this);
     this.fetchAllCategories = this.fetchAllCategories.bind(this);
-
-    if (typeof props.state === "undefined") {
+    console.log(props.postData)
+    if (typeof props.postData === "undefined") {
       this.state = {
         title: "",
         description: "Description",
@@ -29,7 +29,7 @@ class PostForm extends React.Component<any, any> {
         courses: null
       }
     } else {
-      this.state = props.state;
+      this.state = props.postData;
     }
   }
 
@@ -108,12 +108,12 @@ class PostForm extends React.Component<any, any> {
     const { title, condition, course, price, description, category, img_url1, img_url2, img_url3 } = this.state;
     e.preventDefault();
     const method, url;
-    if (typeof this.props.state === 'undefined') {
+    if (typeof this.props.postData === 'undefined') {
       method = "POST";
       url = "/api/posts";
     } else {
       method = "PATCH";
-      url = `/api/posts/${this.props.state.id}`
+      url = `/api/posts/${this.props.postData.id}`
     }
     $.ajax({
       method: method,
@@ -130,7 +130,7 @@ class PostForm extends React.Component<any, any> {
     return (
       <div>
         <div className="container">
-        <h1>{typeof this.props.state === "undefined" ? "Post a New Item" : `Edit Post ${this.props.state.id}`}</h1>
+        <h1>{typeof this.props.postData === "undefined" ? "Post a New Item" : `Edit Post ${this.props.postData.id}`}</h1>
           <form className="form-horizontal">
             <div className="form-group radio-group">
               <label htmlFor="inputCategory3" className="col-sm-3 control-label">Category</label>
@@ -213,7 +213,7 @@ class PostForm extends React.Component<any, any> {
             </div>
             <div className="form-group">
               <div className="col-sm-12">
-                <button onClick={ this.submitForm } type="button" className="btn btn-success btn-lg btn-block">{typeof this.props.state === "undefined" ? "Create" : "Update"}</button>
+                <button onClick={ this.submitForm } type="button" className="btn btn-success btn-lg btn-block">{typeof this.props.postData === "undefined" ? "Create" : "Update"}</button>
               </div>
             </div>
           </form>
