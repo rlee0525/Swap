@@ -14,5 +14,5 @@ json.array! @posts do |post|
                 :zip_code,
                 :created_at,
                 :condition
-  json.course post.course.course_number
+  json.course post.course.course_number if post.course
 end
