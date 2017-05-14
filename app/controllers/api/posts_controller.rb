@@ -35,8 +35,13 @@ class Api::PostsController < ApplicationController
   end
 
   def update
+    category_name = params[:category][:category]
+    course_number = params[:course][:course]
+    category = Category.find_by(name: category_name)
+    course = Course.find_by(course_number: course_number)
+    update_params = post_params.merge({category: category, course: course})
     @post = Post.find_by(id: params[:id])
-    if @post.update(post_params)
+    if @post.update(update_params)
       render "api/posts/show", status: 200
     else
       render json: ["internal error"], status: 500

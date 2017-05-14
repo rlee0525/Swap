@@ -110,7 +110,7 @@ class MyPosts extends React.Component<Props, State> {
             <li role="presentation" className="active"><a href="#/myposts">Posts</a></li>
             <li role="presentation"><a href="#/mybookmarks">Bookmarks</a></li>
           </ul>
-          { typeof this.state.myPost === "undefined" ? this.renderMyPosts() : <PostForm state={this.state.myPost} /> }
+          { typeof this.state.myPost === "undefined" ? this.renderMyPosts() : <PostForm props={this.props} state={this.state.myPost} /> }
         </div>
       </div>
     )

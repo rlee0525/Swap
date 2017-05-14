@@ -70,7 +70,6 @@ class PostForm extends React.Component<any, any> {
   }
 
   public componentDidMount() {
-    console.log(this.state);
     $('.dropzone-upload').on('dragenter', function() {
       $(this)
         .css({'background-color' : 'rgba(0,0,0,0.2)'})
@@ -124,7 +123,7 @@ class PostForm extends React.Component<any, any> {
         course: { course },
         category: { category }
       }
-    })
+    }).then(post => this.props.props.router.replace(`posts/${post.id}`))
   }
 
   public render() {
