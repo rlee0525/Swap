@@ -12,7 +12,7 @@ class SearchNavbar extends React.Component<Props, State> {
     super(props);
 
     this.state = {
-      label: "All"
+      label: "Recent"
     }
 
     this.handleKeyPress = this.handleKeyPress.bind(this);
@@ -35,6 +35,8 @@ class SearchNavbar extends React.Component<Props, State> {
   }
 
   public render() {
+
+    console.log(this.props);
     return (
       <div className="container" id="search-navbar-container">
         <div className="input-group col-md-10 col-sm-9 col-xs-9">
@@ -46,7 +48,7 @@ class SearchNavbar extends React.Component<Props, State> {
             <span className="caret"></span>
           </button>
           <ul className="dropdown-menu col-md-2" aria-labelledby="dropdownMenu1">
-            <li><a href="#/all" onClick={() => this.renderCateogryMenu("All")}>What's New</a></li>
+            <li><a href="#/all" onClick={() => this.renderCateogryMenu("Recent")}>What's New</a></li>
             <li><a href="#/textbooks" onClick={() => this.renderCateogryMenu("Textbooks")}>Textbooks</a></li>
             <li><a href="#/clothing" onClick={() => this.renderCateogryMenu("Clothing")}>Clothing</a></li>
             <li><a href="#/furniture" onClick={() => this.renderCateogryMenu("Furniture")}>Furniture</a></li>
