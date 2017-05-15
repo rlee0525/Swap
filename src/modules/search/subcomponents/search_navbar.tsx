@@ -20,6 +20,18 @@ class SearchNavbar extends React.Component<Props, State> {
     this.renderCateogryMenu = this.renderCateogryMenu.bind(this);
   }
 
+  public componentWillMount() {
+    let label = window.location.hash.slice(2);
+
+    if (!label.includes("/")) {
+      label = label.charAt(0).toUpperCase() + label.slice(1);
+
+      this.setState({
+        label
+      });
+    }
+  }
+
   private handleKeyPress(e: any) {
     if (e.key === 'Enter') {
       this.props.search(e.target.value);
