@@ -95,6 +95,12 @@ class PostDetail extends React.Component {
     return (
       <div className="container">
         <SearchNavbar search={this.props.search} />
+        <nav className="breadcrumb">
+          <a className="breadcrumb-item" href="#">Home</a>
+          <a className="breadcrumb-item" href="#">Library</a>
+          <a className="breadcrumb-item" href="#">Data</a>
+          <span className="breadcrumb-item active">Bootstrap</span>
+        </nav>
         <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
           <div className="block p-l-0 p-t-0 p-r-0">
             <div id="carousel-example-generic-2" className="carousel carousel-light slide" data-ride="carousel">
