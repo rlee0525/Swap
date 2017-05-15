@@ -109,6 +109,11 @@ class MyPosts extends React.Component<Props, State> {
           <ul className="nav nav-tabs">
             <li role="presentation" className="active"><a href="#/dashboard/posts">Posts</a></li>
             <li role="presentation"><a href="#/dashboard/bookmarks">Bookmarks</a></li>
+            <div>
+              <a href="#/posts/create" className="btn btn-success nav-button" >
+                Create a New Post
+              </a>
+            </div>
           </ul>
           {this.renderMyPosts()}
         </div>
