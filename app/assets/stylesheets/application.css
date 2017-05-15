@@ -50,3 +50,12 @@ div.caption {
 div.caption h3, div.caption a.btn {
   /*align-self: flex-end;*/
 }
+
+ul.nav {
+  position: relative;
+}
+
+.nav-button {
+  position: absolute;
+  right: 0;
+}

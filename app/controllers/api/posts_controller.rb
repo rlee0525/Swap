@@ -21,7 +21,7 @@ class Api::PostsController < ApplicationController
       end
       render "api/posts/show", status: 200
     else
-      render json: ["not found"], status: 500
+      render json: @post.errors.full_messages, status: 422
     end
   end
 

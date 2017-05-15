@@ -14,22 +14,43 @@ class PostForm extends React.Component<any, any> {
     this.categoryRadioUpdate = this.categoryRadioUpdate.bind(this);
     this.conditionRadioUpdate = this.conditionRadioUpdate.bind(this);
     this.fetchAllCategories = this.fetchAllCategories.bind(this);
-    console.log(props.postData)
-    if (typeof props.postData === "undefined") {
-      this.state = {
+    this.initializeDropzone = this.initializeDropzone.bind(this);
+    this.renderErrors = this.renderErrors.bind(this);
+
+    this.state = {
+      title: "",
+      description: "",
+      category: "Textbooks",
+      condition: "Brand New",
+      course: "",
+      price: "",
+      img_url1: "",
+      img_url2: "",
+      img_url3: "",
+      courses: null
+    }
+
+    if (typeof props.params.id !== "undefined") {
+      this.fetchPost(props.params.id)
+    }
+  }
+
+  public componentWillReceiveProps(nextProps) {
+    if (typeof nextProps.params.id !== "undefined") {
+      this.fetchPost(nextProps.params.id)
+    } else {
+      this.setState({
         title: "",
-        description: "Description",
+        description: "",
         category: "Textbooks",
         condition: "Brand New",
         course: "",
-        price: 0,
+        price: "",
         img_url1: "",
         img_url2: "",
         img_url3: "",
         courses: null
-      }
-    } else {
-      this.state = props.postData;
+      })
     }
   }
 
@@ -69,7 +90,7 @@ class PostForm extends React.Component<any, any> {
     });
   }
 
-  public componentDidMount() {
+  public initializeDropzone() {
     $('.dropzone-upload').on('dragenter', function() {
       $(this)
         .css({'background-color' : 'rgba(0,0,0,0.2)'})
@@ -78,8 +99,20 @@ class PostForm extends React.Component<any, any> {
       $(this)
         .css({'background-color' : 'rgba(0,0,0,0)'})
     });
+  }
 
+  public componentDidMount() {
+    this.initializeDropzone();
     this.fetchAllCategories();
+  }
+
+  public fetchPost(id) {
+    $.ajax({
+      method: "GET",
+      url: `http://localhost:3000/api/posts/${id}`
+    }).then(post => {
+      this.setState({ ...post })
+    })
   }
 
   public fetchAllCategories() {
@@ -89,6 +122,8 @@ class PostForm extends React.Component<any, any> {
     }).then(courses => {
       let coursesArray = courses.map(course => course.course_number)
       this.setState({ courses: coursesArray })
+    }).fail(errors => {
+      this.setState({ errors })
     })
   }
 
@@ -124,13 +159,31 @@ class PostForm extends React.Component<any, any> {
         category: { category }
       }
     }).then(post => this.props.props.router.replace(`posts/${post.id}`))
+      .fail(errors => {
+        this.setState({ errors })
+      })
+  }
+
+  public renderErrors() {
+    if (typeof this.state.errors === "undefined") {
+      return null
+    } else {
+      return this.state.errors.responseJSON.map((error, key) =>
+      (
+        <div key={key} className="alert alert-danger" role="alert">
+          <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+          <span className="sr-only">Error:</span> {error}
+        </div>
+      ))
+    }
   }
 
   public render() {
     return (
       <div>
         <div className="container">
-        <h1>{typeof this.props.postData === "undefined" ? "Post a New Item" : `Edit Post ${this.props.postData.id}`}</h1>
+        {this.renderErrors()}
+        <h1>{typeof this.props.params.id === "undefined" ? "Post a New Item" : `Edit Post ${this.state.id}`}</h1>
           <form className="form-horizontal">
             <div className="form-group radio-group">
               <label htmlFor="inputCategory3" className="col-sm-3 control-label">Category</label>
@@ -157,14 +210,14 @@ class PostForm extends React.Component<any, any> {
             <div className="form-group">
               <label htmlFor="inputTitle3" className="col-sm-3 control-label">Title</label>
               <div className="col-sm-9 input-group" >
-                <input maxLength={50} value={this.state.title} onChange={ this.updateState } type="text" className="form-control" id="title" placeholder="Title"/>
+                <input maxLength={50} value={this.state.title} onChange={this.updateState} type="text" className="form-control" id="title" placeholder="Title"/>
                 <span className="input-group-addon" id="basic-addon1">&nbsp;{50 - this.state.title.length} characters left</span>
               </div>
             </div>
             <div className="form-group">
               <label htmlFor="inputDescription3" className="col-sm-3 control-label">Description</label>
               <div className="col-sm-9 input-group">
-                <textarea maxLength={250} value={this.state.description} onChange={ this.updateState } className="form-control" id="description" rows="3"></textarea>
+                <textarea maxLength={250} value={this.state.description} onChange={this.updateState} className="form-control" id="description" rows="3"></textarea>
                 <span className="input-group-addon" id="basic-addon1">{250 - this.state.description.length} characters left</span>
               </div>
             </div>
@@ -213,7 +266,7 @@ class PostForm extends React.Component<any, any> {
             </div>
             <div className="form-group">
               <div className="col-sm-12">
-                <button onClick={ this.submitForm } type="button" className="btn btn-success btn-lg btn-block">{typeof this.props.postData === "undefined" ? "Create" : "Update"}</button>
+                <button onClick={this.submitForm} type="button" className="btn btn-success btn-lg btn-block">{typeof this.props.postData === "undefined" ? "Create" : "Update"}</button>
               </div>
             </div>
           </form>
