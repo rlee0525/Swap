@@ -72,7 +72,7 @@ class PostForm extends React.Component<any, any> {
         console.error(err);
       }
 
-      const transformationPrefix = "http://res.cloudinary.com/dkympkwdz/image/upload/ar_3,c_crop,g_auto,h_1000,q_80,w_1000/f_jpg/";
+      const transformationPrefix = "http://res.cloudinary.com/dkympkwdz/image/upload/ar_3,c_fill,g_auto,h_700,q_80,w_700/f_jpg/";
 
       if (response.body.secure_url !== '') {
         if (this.state.img_url1 !== "" && this.state.img_url2 !== "") {
