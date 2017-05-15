@@ -38,7 +38,7 @@ class Search extends React.Component<Props, State> {
 
   public componentDidMount() {
     const path = this.props.location.pathname.slice(1);
-    if (path === "all") {
+    if (path === "recent") {
       this.props.getPosts();
     } else {
       this.props.search(path);
@@ -48,7 +48,7 @@ class Search extends React.Component<Props, State> {
   public componentWillReceiveProps(nextProps: Props){
     const nextLocation = nextProps.location.pathname.slice(1)
     if (nextLocation !== this.props.location.pathname.slice(1)) {
-      if (nextLocation === "all") {
+      if (nextLocation === "recent") {
         this.props.getPosts();
       } else {
         this.props.search(nextLocation);
