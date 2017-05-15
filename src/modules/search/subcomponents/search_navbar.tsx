@@ -35,8 +35,6 @@ class SearchNavbar extends React.Component<Props, State> {
   }
 
   public render() {
-
-    console.log(this.props);
     return (
       <div className="container" id="search-navbar-container">
         <div className="input-group col-md-10 col-sm-9 col-xs-9">
