@@ -32,5 +32,6 @@
 }
 
 #dropdownMenu1 {
+  min-width: 128px !important;
   width: 100%;
 }

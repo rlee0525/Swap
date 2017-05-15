@@ -37,10 +37,10 @@ class SearchNavbar extends React.Component<Props, State> {
   public render() {
     return (
       <div className="container" id="search-navbar-container">
-        <div className="input-group col-md-10 col-sm-9 col-xs-9">
+        <div className="input-group col-md-10 col-sm-9 col-xs-8">
           <input id="search-input" type="text" className="form-control" placeholder="Search" onChange={this.onChange} />
         </div>
-        <div className="dropdown col-md-2 col-sm-3 col-xs-3">
+        <div className="dropdown col-md-2 col-sm-3 col-xs-4">
           <button className="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
             {this.state.label}
             <span className="caret"></span>
