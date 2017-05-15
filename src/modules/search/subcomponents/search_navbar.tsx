@@ -20,6 +20,18 @@ class SearchNavbar extends React.Component<Props, State> {
     this.renderCateogryMenu = this.renderCateogryMenu.bind(this);
   }
 
+  public componentWillMount() {
+    let label = window.location.hash.slice(2);
+
+    if (!label.includes("/")) {
+      label = label.charAt(0).toUpperCase() + label.slice(1);
+
+      this.setState({
+        label
+      });
+    }
+  }
+
   private handleKeyPress(e: any) {
     if (e.key === 'Enter') {
       this.props.search(e.target.value);
@@ -35,20 +47,18 @@ class SearchNavbar extends React.Component<Props, State> {
   }
 
   public render() {
-
-    console.log(this.props);
     return (
       <div className="container" id="search-navbar-container">
-        <div className="input-group col-md-10 col-sm-9 col-xs-9">
+        <div className="input-group col-md-10 col-sm-9 col-xs-8 full-width">
           <input id="search-input" type="text" className="form-control" placeholder="Search" onChange={this.onChange} />
         </div>
-        <div className="dropdown col-md-2 col-sm-3 col-xs-3">
+        <div className="dropdown">
           <button className="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
             {this.state.label}
             <span className="caret"></span>
           </button>
           <ul className="dropdown-menu col-md-2" aria-labelledby="dropdownMenu1">
-            <li><a href="#/all" onClick={() => this.renderCateogryMenu("Recent")}>What's New</a></li>
+            <li><a href="#/recent" onClick={() => this.renderCateogryMenu("Recent")}>Recent</a></li>
             <li><a href="#/textbooks" onClick={() => this.renderCateogryMenu("Textbooks")}>Textbooks</a></li>
             <li><a href="#/clothing" onClick={() => this.renderCateogryMenu("Clothing")}>Clothing</a></li>
             <li><a href="#/furniture" onClick={() => this.renderCateogryMenu("Furniture")}>Furniture</a></li>

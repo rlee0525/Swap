@@ -32,7 +32,7 @@ const Root: React.SFC<RootProps> = ({ store }) => {
       <Router history={hashHistory}>
         <Route path="/" component={App}>
         <IndexRoute component={Home} />
-          <Route path="/all" component={Search} />
+          <Route path="/recent" component={Search} />
           <Route path="/textbooks" component={Search} />
           <Route path="/clothing" component={Search} />
           <Route path="/furniture" component={Search} />
@@ -40,7 +40,6 @@ const Root: React.SFC<RootProps> = ({ store }) => {
           <Route path="/kitchenware" component={Search} />
           <Route path="/games" component={Search} />
           <Route path="/about" component={About} />
-          <Route path="/post" component={Post} />
           <Route path="/careers" component={Careers} />
           <Route path="/faq" component={FAQ} />
           <Route path="/contact" component={Contact} />
