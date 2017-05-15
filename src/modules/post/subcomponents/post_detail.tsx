@@ -18,7 +18,7 @@ class PostDetail extends React.Component {
     }
   }
 
-  public render() {
+  public renderCarousel() {
     let img_url1;
     let img_url2;
     let img_url3;
@@ -28,7 +28,42 @@ class PostDetail extends React.Component {
       img_url2 = this.props.post.img_url2;
       img_url3 = this.props.post.img_url3;
     }
+    // TODO: Refactor using iteration
+    
+    return (
+      <div className="carousel-inner" role="listbox">
+        <div className="item active">
+          <div className="block">
+            <div className="container">
+              <div className="col-sm-6">
+                 <img className="img-responsive center-block app-block-game-img" src={img_url1} />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="item">
+          <div className="block">
+            <div className="container">
+              <div className="col-sm-6">
+                 <img className="img-responsive center-block app-block-game-img" src={img_url2} />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="item">
+          <div className="block">
+            <div className="container">
+              <div className="col-sm-6">
+                 <img className="img-responsive center-block app-block-game-img" src={img_url3} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
+  public render() {
     return (
       <div className="container">
         <SearchNavbar search={this.props.search} />
@@ -40,35 +75,7 @@ class PostDetail extends React.Component {
                <li data-target="#carousel-example-generic-2" data-slide-to="1"></li>
                <li data-target="#carousel-example-generic-2" data-slide-to="2"></li>
              </ol>
-             <div className="carousel-inner" role="listbox">
-               <div className="item active">
-                 <div className="block">
-                   <div className="container">
-                     <div className="col-sm-6">
-                        <img className="img-responsive center-block app-block-game-img" src={img_url1} />
-                     </div>
-                   </div>
-                 </div>
-               </div>
-               <div className="item">
-                 <div className="block">
-                   <div className="container">
-                     <div className="col-sm-6">
-                        <img className="img-responsive center-block app-block-game-img" src={img_url2} />
-                     </div>
-                   </div>
-                 </div>
-               </div>
-               <div className="item">
-                 <div className="block">
-                   <div className="container">
-                     <div className="col-sm-6">
-                        <img className="img-responsive center-block app-block-game-img" src={img_url3} />
-                     </div>
-                   </div>
-                 </div>
-               </div>
-             </div>
+             {this.renderCarousel()}
              <a className="left carousel-control" href="#carousel-example-generic-2" role="button" data-slide="prev">
                <span className="icon icon-chevron-thin-left" aria-hidden="true"></span>
                <span className="sr-only">Previous</span>
