@@ -39,8 +39,7 @@ class PostDetail extends React.Component {
           <div className="block">
             <div className="container">
               <div className="col-sm-6">
-                 <img className="img-responsive center-block app-block-game-img" src={img_url1} />
-                 <div className="thumbnail-caption">{timeFromNow(created_at)}</div>
+                <img className="img-responsive center-block app-block-game-img" src={img_url1} />
               </div>
             </div>
           </div>
@@ -49,8 +48,7 @@ class PostDetail extends React.Component {
           <div className="block">
             <div className="container">
               <div className="col-sm-6">
-                 <img className="img-responsive center-block app-block-game-img" src={img_url2} />
-                 <div className="thumbnail-caption">{timeFromNow(created_at)}</div>
+                <img className="img-responsive center-block app-block-game-img" src={img_url2} />
               </div>
             </div>
           </div>
@@ -59,8 +57,7 @@ class PostDetail extends React.Component {
           <div className="block">
             <div className="container">
               <div className="col-sm-6">
-                 <img className="img-responsive center-block app-block-game-img" src={img_url3} />
-                 <div className="thumbnail-caption">{timeFromNow(created_at)}</div>
+                <img className="img-responsive center-block app-block-game-img" src={img_url3} />
               </div>
             </div>
           </div>
@@ -81,25 +78,27 @@ class PostDetail extends React.Component {
     }
 
     return (
-      <div className="col-lg-6">
+      <div className="col-lg-6 absolute-height">
         <h3>{title}</h3>
         <p>{description}</p>
         <h3>${Number(price).toLocaleString()}</h3>
-        <a className="btn btn-success btn-lg btn-block">Purchase</a>
+        <div className="row">
+          <a className="btn btn-warning btn-lg col-md-3">Bookmark</a>
+          <a className="col-md-1"></a>
+          <a className="btn btn-success btn-lg col-md-8">Contact</a>
+        </div>
       </div>
     )
   }
 
   public render() {
-    console.log(this.props)
     return (
       <div className="container">
         <SearchNavbar search={this.props.search} />
         <nav className="breadcrumb">
-          <a className="breadcrumb-item" href="#">Home</a>
-          <a className="breadcrumb-item" href="#">Library</a>
-          <a className="breadcrumb-item" href="#">Data</a>
-          <span className="breadcrumb-item active">Bootstrap</span>
+          <a className="breadcrumb-item" href="#/recent">All</a>
+          <a className="breadcrumb-item" href="#/textbooks">Textbooks</a>
+          <span className="breadcrumb-item active">{this.props.post.title}</span>
         </nav>
         <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
           <div className="block p-l-0 p-t-0 p-r-0">

@@ -45,6 +45,10 @@
 /*Radio button styling end*/
 
 /*Post Detail*/
+.margin-bottom-md {
+  margin-bottom: 25px;
+}
+
 .breadcrumb {
   padding: 0.75rem 1rem;
   margin-bottom: 1rem;
