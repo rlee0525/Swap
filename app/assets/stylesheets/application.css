@@ -42,3 +42,11 @@
 ul.nav-tabs {
   border-bottom: 0;
 }
+
+div.caption {
+  height: 296px;
+}
+
+div.caption h3, div.caption a.btn {
+  /*align-self: flex-end;*/
+}
