@@ -17,8 +17,29 @@ class PostForm extends React.Component<any, any> {
     this.initializeDropzone = this.initializeDropzone.bind(this);
     this.renderErrors = this.renderErrors.bind(this);
 
-    if (typeof props.postData === "undefined") {
-      this.state = {
+    this.state = {
+      title: "",
+      description: "",
+      category: "Textbooks",
+      condition: "Brand New",
+      course: "",
+      price: "",
+      img_url1: "",
+      img_url2: "",
+      img_url3: "",
+      courses: null
+    }
+
+    if (typeof props.params.id !== "undefined") {
+      this.fetchPost(props.params.id)
+    }
+  }
+
+  public componentWillReceiveProps(nextProps) {
+    if (typeof nextProps.params.id !== "undefined") {
+      this.fetchPost(nextProps.params.id)
+    } else {
+      this.setState({
         title: "",
         description: "",
         category: "Textbooks",
@@ -29,9 +50,7 @@ class PostForm extends React.Component<any, any> {
         img_url2: "",
         img_url3: "",
         courses: null
-      }
-    } else {
-      this.state = props.postData;
+      })
     }
   }
 
@@ -85,6 +104,15 @@ class PostForm extends React.Component<any, any> {
   public componentDidMount() {
     this.initializeDropzone();
     this.fetchAllCategories();
+  }
+
+  public fetchPost(id) {
+    $.ajax({
+      method: "GET",
+      url: `http://localhost:3000/api/posts/${id}`
+    }).then(post => {
+      this.setState({ ...post })
+    })
   }
 
   public fetchAllCategories() {
@@ -155,7 +183,7 @@ class PostForm extends React.Component<any, any> {
       <div>
         <div className="container">
         {this.renderErrors()}
-        <h1>{typeof this.props.postData === "undefined" ? "Post a New Item" : `Edit Post ${this.props.postData.id}`}</h1>
+        <h1>{typeof this.props.params.id === "undefined" ? "Post a New Item" : `Edit Post ${this.state.id}`}</h1>
           <form className="form-horizontal">
             <div className="form-group radio-group">
               <label htmlFor="inputCategory3" className="col-sm-3 control-label">Category</label>

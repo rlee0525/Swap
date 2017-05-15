@@ -67,7 +67,7 @@ class MyPosts extends React.Component<Props, State> {
         <td>{myPost.course}</td>
         <td>{timeFromNow(myPost.created_at)}</td>
         <td>{myPost.condition}</td>
-        <td><button type="button" className="btn btn-xs btn-success" onClick={() => this.editPost(myPost.id)}>Edit</button></td>
+        <td><a type="button" className="btn btn-xs btn-success" href={`#/posts/edit/${myPost.id}`}>Edit</a></td>
         <td><button type="button" className="btn btn-xs btn-danger" onClick={() => this.deletePost(myPost.id)}>Delete</button></td>
       </tr>
     ))
@@ -107,10 +107,10 @@ class MyPosts extends React.Component<Props, State> {
       <div>
         <div className="container">
           <ul className="nav nav-tabs">
-            <li role="presentation" className="active"><a href="#/myposts">Posts</a></li>
-            <li role="presentation"><a href="#/mybookmarks">Bookmarks</a></li>
+            <li role="presentation" className="active"><a href="#/dashboard/posts">Posts</a></li>
+            <li role="presentation"><a href="#/dashboard/bookmarks">Bookmarks</a></li>
           </ul>
-          { typeof this.state.myPost === "undefined" ? this.renderMyPosts() : <PostForm props={this.props} postData={this.state.myPost} /> }
+          {this.renderMyPosts()}
         </div>
       </div>
     )
