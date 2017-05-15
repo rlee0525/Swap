@@ -42,12 +42,12 @@ class Bookmarks extends React.Component<any, any> {
   public renderListItems() {
     return this.state.bookmarkedPosts.map(bookmarkedPost => (
       <tr key={`post${bookmarkedPost.id}`}>
-        <td><img className="img img-responsive img-thumbnail-size" src={bookmarkedPost.img_url1}/></td>
-        <td>{bookmarkedPost.title}</td>
-        <td>{shortenString(bookmarkedPost.description, 30)}</td>
-        <td>${Number(bookmarkedPost.price).toLocaleString()}</td>
-        <td>{timeFromNow(bookmarkedPost.created_at)}</td>
-        <td>{bookmarkedPost.condition}</td>
+        <td><a href={`#/posts/${bookmarkedPost.id}`} ><img className="img img-responsive img-thumbnail-size" src={bookmarkedPost.img_url1}/></a></td>
+        <td className="hidden-xs"><a href={`#/posts/${bookmarkedPost.id}`} >{bookmarkedPost.title}</a></td>
+        <td className="hidden-xs">{shortenString(bookmarkedPost.description, 30)}</td>
+        <td className="hidden-xs">${Number(bookmarkedPost.price).toLocaleString()}</td>
+        <td className="hidden-xs">{timeFromNow(bookmarkedPost.created_at)}</td>
+        <td className="hidden-xs">{bookmarkedPost.condition}</td>
         <td><button type="button" className="btn btn-xs btn-success" data-clipboard-text={`http://localhost:3000/#/posts/${bookmarkedPost.id}`}>Copy Link</button></td>
         <td><button type="button" className="btn btn-xs btn-danger" onClick={() => this.deleteBookmarkedPost(bookmarkedPost.id)}>Delete</button></td>
       </tr>
@@ -69,11 +69,11 @@ class Bookmarks extends React.Component<any, any> {
                   <thead>
                     <tr>
                       <th>Thumbnail</th>
-                      <th>Title</th>
-                      <th>Description</th>
-                      <th>Price</th>
-                      <th>Posting Date</th>
-                      <th>Condition</th>
+                      <th className="hidden-xs">Title</th>
+                      <th className="hidden-xs">Description</th>
+                      <th className="hidden-xs">Price</th>
+                      <th className="hidden-xs">Posting Date</th>
+                      <th className="hidden-xs">Condition</th>
                       <th>Copy Link</th>
                       <th>Delete</th>
                     </tr>

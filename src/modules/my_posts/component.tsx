@@ -60,13 +60,13 @@ class MyPosts extends React.Component<Props, State> {
   public renderListItem() {
     return this.state.myPosts.map(myPost => (
       <tr key={myPost.id}>
-        <td><img className="img img-responsive img-thumbnail-size" src={myPost.img_url1}/></td>
-        <td><a href={`#/posts/${myPost.id}`}>{myPost.title}</a></td>
-        <td>{shortenString(myPost.description, 30)}</td>
-        <td>${Number(myPost.price).toLocaleString()}</td>
-        <td>{myPost.course}</td>
-        <td>{timeFromNow(myPost.created_at)}</td>
-        <td>{myPost.condition}</td>
+        <td><a href={`#/posts/${myPost.id}`} ><img className="img img-responsive img-thumbnail-size" src={myPost.img_url1}/></a></td>
+        <td className="hidden-xs"><a href={`#/posts/${myPost.id}`}>{myPost.title}</a></td>
+        <td className="hidden-xs">{shortenString(myPost.description, 30)}</td>
+        <td className="hidden-xs">${Number(myPost.price).toLocaleString()}</td>
+        <td className="hidden-xs">{myPost.course}</td>
+        <td className="hidden-xs">{timeFromNow(myPost.created_at)}</td>
+        <td className="hidden-xs">{myPost.condition}</td>
         <td><a type="button" className="btn btn-xs btn-success" href={`#/posts/edit/${myPost.id}`}>Edit</a></td>
         <td><button type="button" className="btn btn-xs btn-danger" onClick={() => this.deletePost(myPost.id)}>Delete</button></td>
       </tr>
@@ -82,12 +82,12 @@ class MyPosts extends React.Component<Props, State> {
               <thead>
                 <tr>
                   <th>Thumbnail</th>
-                  <th>Title</th>
-                  <th>Description</th>
-                  <th>Price</th>
-                  <th>Course</th>
-                  <th>Posting Date</th>
-                  <th>Condition</th>
+                  <th className="hidden-xs">Title</th>
+                  <th className="hidden-xs">Description</th>
+                  <th className="hidden-xs">Price</th>
+                  <th className="hidden-xs">Course</th>
+                  <th className="hidden-xs">Posting Date</th>
+                  <th className="hidden-xs">Condition</th>
                   <th>Edit</th>
                   <th>Delete</th>
                 </tr>
@@ -110,9 +110,7 @@ class MyPosts extends React.Component<Props, State> {
             <li role="presentation" className="active"><a href="#/dashboard/posts">Posts</a></li>
             <li role="presentation"><a href="#/dashboard/bookmarks">Bookmarks</a></li>
             <div>
-              <a href="#/posts/create" className="btn btn-success nav-button" >
-                Create a New Post
-              </a>
+              <a href="#/posts/create" className="btn btn-success nav-button" >New Post</a>
             </div>
           </ul>
           {this.renderMyPosts()}
