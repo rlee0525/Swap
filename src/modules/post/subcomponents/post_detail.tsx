@@ -92,12 +92,18 @@ class PostDetail extends React.Component {
   }
 
   public render() {
+    let link;
+
+    if (this.props.post.category) {
+      link = this.props.post.category.toLowerCase();
+    }
+
     return (
       <div className="container">
         <SearchNavbar search={this.props.search} />
         <nav className="breadcrumb">
           <a className="breadcrumb-item" href="#/recent">All</a>
-          <a className="breadcrumb-item" href="#/textbooks">Textbooks</a>
+          <a className="breadcrumb-item" href={`#/${link}`}>{this.props.post.category}</a>
           <span className="breadcrumb-item active">{this.props.post.title}</span>
         </nav>
         <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
