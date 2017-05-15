@@ -64,3 +64,8 @@ ul.nav {
   position: absolute;
   bottom: 10px;
 }
+
+.thumbnail a img {
+  width: 100%;
+  height: auto;
+}
