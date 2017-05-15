@@ -4,7 +4,7 @@ class Api::SearchController < ApplicationController
     # @posts = Post.joins(:category).where('categories.name = ?', category)
     query = params[:query]
 
-    if query.empty?
+    if params[:query].nil? || query.empty?
       @posts = Post.all
       return render 'api/search/index'
     end
