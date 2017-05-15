@@ -40,7 +40,6 @@ class Post < ApplicationRecord
   def check_relevance(description, user)
     post = self.as_json
     relevance_score = calc_score(post, description)
-    debugger
     if relevance_score >= 10
       UserMailer.rfp_alert(user, post).deliver
     end
