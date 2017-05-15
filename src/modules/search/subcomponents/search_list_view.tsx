@@ -52,10 +52,10 @@ class SearchListView extends React.Component<Props, State> {
     return (
       <tr key={idx} onClick={() => this.checkVerified(post.id)}>
         <td>{post.title}</td>
-        <td>{shortenString(post.description, 30)}</td>
+        <td className="hidden-xs">{shortenString(post.description, 30)}</td>
         <td>${Number(post.price).toLocaleString()}</td>
-        <td>{timeFromNow(post.created_at)}</td>
-        <td>{post.condition}</td>
+        <td className="hidden-xs">{timeFromNow(post.created_at)}</td>
+        <td className="hidden-xs">{post.condition}</td>
       </tr>
     )
   }
@@ -66,10 +66,10 @@ class SearchListView extends React.Component<Props, State> {
         <thead>
           <tr>
             <th>Title</th>
-            <th>Description</th>
+            <th className="hidden-xs">Description</th>
             <th>Price</th>
-            <th>Posting Date</th>
-            <th>Condition</th>
+            <th className="hidden-xs">Posting Date</th>
+            <th className="hidden-xs">Condition</th>
           </tr>
         </thead>
         <tbody>
