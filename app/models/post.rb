@@ -21,7 +21,7 @@
 class Post < ApplicationRecord
   validates :user, :description,
             :price, :img_url1, :category,
-            :condition, :zip_code, presence: true
+            :condition, :zip_code, :title, presence: true
   validates :condition, inclusion: { in: ["Brand New", "Like New", "Used"],
             message: "%{value} is not a valid condition" }
   has_many :bookmarks
