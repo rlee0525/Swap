@@ -1,5 +1,6 @@
 import React from 'react';
 import { SearchNavbar } from 'modules/search/subcomponents';
+import { shortenString, timeFromNow } from 'helpers';
 
 class PostDetail extends React.Component {
   constructor(props) {
@@ -22,14 +23,16 @@ class PostDetail extends React.Component {
     let img_url1;
     let img_url2;
     let img_url3;
+    let created_at;
 
     if (this.props.post) {
       img_url1 = this.props.post.img_url1;
       img_url2 = this.props.post.img_url2;
       img_url3 = this.props.post.img_url3;
+      created_at = this.props.post.created_at;
     }
     // TODO: Refactor using iteration
-    
+
     return (
       <div className="carousel-inner" role="listbox">
         <div className="item active">
@@ -37,6 +40,7 @@ class PostDetail extends React.Component {
             <div className="container">
               <div className="col-sm-6">
                  <img className="img-responsive center-block app-block-game-img" src={img_url1} />
+                 <div className="thumbnail-caption">{timeFromNow(created_at)}</div>
               </div>
             </div>
           </div>
@@ -46,6 +50,7 @@ class PostDetail extends React.Component {
             <div className="container">
               <div className="col-sm-6">
                  <img className="img-responsive center-block app-block-game-img" src={img_url2} />
+                 <div className="thumbnail-caption">{timeFromNow(created_at)}</div>
               </div>
             </div>
           </div>
@@ -55,6 +60,7 @@ class PostDetail extends React.Component {
             <div className="container">
               <div className="col-sm-6">
                  <img className="img-responsive center-block app-block-game-img" src={img_url3} />
+                 <div className="thumbnail-caption">{timeFromNow(created_at)}</div>
               </div>
             </div>
           </div>
@@ -63,7 +69,29 @@ class PostDetail extends React.Component {
     )
   }
 
+  public renderDetail() {
+    let title;
+    let description;
+    let price;
+
+    if (this.props.post) {
+      title = this.props.post.title;
+      description = this.props.post.description;
+      price = this.props.post.price;
+    }
+
+    return (
+      <div className="col-lg-6">
+        <h3>{title}</h3>
+        <p>{description}</p>
+        <h3>${Number(price).toLocaleString()}</h3>
+        <a className="btn btn-success btn-lg btn-block">Purchase</a>
+      </div>
+    )
+  }
+
   public render() {
+    console.log(this.props)
     return (
       <div className="container">
         <SearchNavbar search={this.props.search} />
@@ -87,6 +115,7 @@ class PostDetail extends React.Component {
            </div>
           </div>
         </div>
+        {this.renderDetail()}
       </div>
     )
   }
