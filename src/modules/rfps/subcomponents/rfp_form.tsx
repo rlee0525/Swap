@@ -46,8 +46,8 @@ class RfpForm extends React.Component<any, any> {
       <div>
         <div className="container">
         {this.renderErrors()}
-        <h1>Create a new alert</h1>
-          <form className="form-horizontal">
+        <h1>Create a New Alert</h1>
+          <form className="form-horizontal" onSubmit={this.submitForm}>
             <div className="form-group">
               <label htmlFor="inputTitle3" className="col-sm-3 control-label">Description</label>
               <div className="col-sm-9 input-group" >

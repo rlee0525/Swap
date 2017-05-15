@@ -54,7 +54,7 @@ class Rfps extends React.Component<any, any> {
                   <thead>
                     <tr>
                       <th>Description</th>
-                      <th>Delete</th>
+                      <th className="col-xs-1">Delete</th>
                     </tr>
                   </thead>
                   <tbody>

@@ -33,28 +33,16 @@ class Post < ApplicationRecord
 
   def check_rfps
     Rfp.all.each do |rfp|
-      check_relevance(rfp.description)
+      check_relevance(rfp.description, rfp.user)
     end
   end
 
-  def check_relevance(description)
-    sql_query = description.split(' ').map { |word| "%#{word}%" }
-    sql = 'title ILIKE ANY( array[?] ) OR categories.name ILIKE ANY ( array[?] )'
-    posts = Post.joins(:category).where(sql, sql_query, sql_query)
-
-    @posts = []
-
-    posts.each do |post|
-      post = post.as_json
-      relevance_score = calc_score(post, description)
-      post["relevance"] = relevance_score
-      @posts << post if relevance_score >= 10
-    end
-
-    @posts = @posts.sort_by { |post| post["relevance"] }.reverse!
-
-    @posts.each do |post|
-      UserMailer.rfp_alert(User.first, post).deliver
+  def check_relevance(description, user)
+    post = self.as_json
+    relevance_score = calc_score(post, description)
+    debugger
+    if relevance_score >= 10
+      UserMailer.rfp_alert(user, post).deliver
     end
   end
 
