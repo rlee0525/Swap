@@ -111,7 +111,7 @@ class MyPosts extends React.Component<Props, State> {
             <li role="presentation"><a href="#/dashboard/bookmarks">Bookmarks</a></li>
             <li role="presentation"><a href="#/dashboard/rfps">Alerts</a></li>
             <div>
-              <a href="#/posts/create" className="btn btn-success nav-button" >New Post</a>
+              <a href="#/posts/create" className="btn btn-success nav-button" >Create Post</a>
             </div>
           </ul>
           {this.renderMyPosts()}

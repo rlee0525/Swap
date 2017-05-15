@@ -6,14 +6,17 @@ class Api::RfpsController < ApplicationController
   end
 
   def create
+    # TODO make it user specific
     @rfp = Rfp.new(
-      user: User.find_by(id: params[:user_id]),
+      # user: User.find_by(id: params[:user_id]),
+      user: User.first,
       description: params[:description]
     )
     if @rfp.save
       render "api/rfps/show", status: 200
     else
-      render json: ["unprocessable"], status: 422
+
+      render json: @rfp.errors.full_messages, status: 422
     end
   end
 

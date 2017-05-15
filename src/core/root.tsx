@@ -15,6 +15,7 @@ import Bookmarks from 'modules/bookmarks';
 import MyPosts from 'modules/my_posts';
 import Rfps from 'modules/rfps';
 import { PostForm } from 'modules/post/subcomponents';
+import { RfpForm } from 'modules/rfps/subcomponents';
 
 interface RootProps {
   store: Store<any>;
@@ -47,6 +48,7 @@ const Root: React.SFC<RootProps> = ({ store }) => {
           <Route path="/terms" component={Terms} />
           <Route path="/search" component={Search} />
           <Route path="/posts/create" component={PostForm} />
+          <Route path="/rfps/create" component={RfpForm} />
           <Route path="/posts/edit/" >
             <Route path=":id" component={PostForm} />
           </Route>
