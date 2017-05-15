@@ -14,17 +14,22 @@ class PostForm extends React.Component<any, any> {
     this.categoryRadioUpdate = this.categoryRadioUpdate.bind(this);
     this.conditionRadioUpdate = this.conditionRadioUpdate.bind(this);
     this.fetchAllCategories = this.fetchAllCategories.bind(this);
-    this.state = {
-      title: "",
-      description: "Description",
-      category: "Textbooks",
-      condition: "Brand New",
-      course: "",
-      price: 0,
-      img_url1: "",
-      img_url2: "",
-      img_url3: "",
-      courses: null
+    console.log(props.postData)
+    if (typeof props.postData === "undefined") {
+      this.state = {
+        title: "",
+        description: "Description",
+        category: "Textbooks",
+        condition: "Brand New",
+        course: "",
+        price: 0,
+        img_url1: "",
+        img_url2: "",
+        img_url3: "",
+        courses: null
+      }
+    } else {
+      this.state = props.postData;
     }
   }
 
@@ -102,22 +107,30 @@ class PostForm extends React.Component<any, any> {
   public submitForm(e) {
     const { title, condition, course, price, description, category, img_url1, img_url2, img_url3 } = this.state;
     e.preventDefault();
+    const method, url;
+    if (typeof this.props.postData === 'undefined') {
+      method = "POST";
+      url = "/api/posts";
+    } else {
+      method = "PATCH";
+      url = `/api/posts/${this.props.postData.id}`
+    }
     $.ajax({
-      method: "POST",
-      url: "/api/posts",
+      method: method,
+      url: url,
       data: {
         post: { title, condition, price, description, img_url1, img_url2, img_url3 },
         course: { course },
         category: { category }
       }
-    })
+    }).then(post => this.props.props.router.replace(`posts/${post.id}`))
   }
 
   public render() {
     return (
       <div>
         <div className="container">
-        <h1>Post a New Item</h1>
+        <h1>{typeof this.props.postData === "undefined" ? "Post a New Item" : `Edit Post ${this.props.postData.id}`}</h1>
           <form className="form-horizontal">
             <div className="form-group radio-group">
               <label htmlFor="inputCategory3" className="col-sm-3 control-label">Category</label>
@@ -200,7 +213,7 @@ class PostForm extends React.Component<any, any> {
             </div>
             <div className="form-group">
               <div className="col-sm-12">
-                <button onClick={ this.submitForm } type="button" className="btn btn-success btn-lg btn-block">Create</button>
+                <button onClick={ this.submitForm } type="button" className="btn btn-success btn-lg btn-block">{typeof this.props.postData === "undefined" ? "Create" : "Update"}</button>
               </div>
             </div>
           </form>
