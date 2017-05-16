@@ -1,15 +1,15 @@
 import React from 'react';
 import _ from 'lodash';
 
-interface Props {
-}
-
-interface State {
-}
-
-export class Pagination extends React.Component<Props, State> {
-  constructor(props : Props) {
+class Pagination extends React.Component<any, any> {
+  constructor(props) {
     super(props);
+
+    this.state = {
+      currentPage: 1,
+      maxPages: 1
+    }
+
     this.setCurrentPage = this.setCurrentPage.bind(this)
     this.goPrevious = this.goPrevious.bind(this)
     this.goNext = this.goNext.bind(this)
@@ -62,3 +62,5 @@ export class Pagination extends React.Component<Props, State> {
     )
   }
 }
+
+export { Pagination };
