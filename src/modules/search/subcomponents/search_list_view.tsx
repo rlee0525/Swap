@@ -1,7 +1,6 @@
-/* global FB */
-
 import React from 'react';
 import { shortenString, timeFromNow } from 'helpers';
+import { Pagination } from './';
 
 interface Post {
   title: string;
@@ -38,10 +37,17 @@ class SearchListView extends React.Component<Props, State> {
       price: -1,
       created_at: -1,
       condition: -1,
-      results
+      results,
+      maxPages: 1,
+      currentPage: 1
     };
 
     this.checkVerified = this.checkVerified.bind(this);
+  }
+
+  public componentWillMount() {
+    let maxPages = Math.ceil(this.state.results.length / 10);
+    this.setState({maxPages});
   }
 
   public checkVerified(id:number) {
@@ -93,21 +99,27 @@ class SearchListView extends React.Component<Props, State> {
   }
 
   render() {
+    let pageStart = (this.state.currentPage - 1) * 10;
+    let pageEnd = this.state.currentPage * 10;
+
     return (
-      <table className="table table-hover">
-        <thead>
-          <tr>
-            <th>Title<a onClick={() => this.sortBy("title")} className="btn btn-xs" ><span className="caret" /></a></th>
-            <th className="hidden-xs">Description<a onClick={() => this.sortBy("description")} className="btn btn-xs" ><span className="caret" /></a></th>
-            <th>Price<a onClick={() => this.sortBy("price")} className="btn btn-xs" ><span className="caret" /></a></th>
-            <th className="hidden-xs">Posting Date<a onClick={() => this.sortBy("created_at")} className="btn btn-xs" ><span className="caret" /></a></th>
-            <th className="hidden-xs">Condition<a onClick={() => this.sortBy("condition")} className="btn btn-xs" ><span className="caret" /></a></th>
-          </tr>
-        </thead>
-        <tbody>
-          { this.state.results ? this.state.results.map((post,idx) => this.renderListItem(post, idx)) : null }
-        </tbody>
-      </table>
+      <div>
+        <table className="table table-hover">
+          <thead>
+            <tr>
+              <th>Title<a onClick={() => this.sortBy("title")} className="btn btn-xs" ><span className="caret" /></a></th>
+              <th className="hidden-xs">Description<a onClick={() => this.sortBy("description")} className="btn btn-xs" ><span className="caret" /></a></th>
+              <th>Price<a onClick={() => this.sortBy("price")} className="btn btn-xs" ><span className="caret" /></a></th>
+              <th className="hidden-xs">Posting Date<a onClick={() => this.sortBy("created_at")} className="btn btn-xs" ><span className="caret" /></a></th>
+              <th className="hidden-xs">Condition<a onClick={() => this.sortBy("condition")} className="btn btn-xs" ><span className="caret" /></a></th>
+            </tr>
+          </thead>
+          <tbody>
+            { this.state.results ? this.state.results.slice(pageStart, pageEnd).map((post,idx) => this.renderListItem(post, idx)) : null }
+          </tbody>
+        </table>
+        <Pagination that={this} maxPages={this.state.maxPages} currentPage={this.state.currentPage} />
+      </div>
     )
   }
 }

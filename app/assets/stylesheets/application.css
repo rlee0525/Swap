@@ -88,3 +88,11 @@ ul.nav {
   right: 0;
   top: -45px;
 }
+
+.sort-by-panel a:hover {
+  cursor: pointer;
+}
+
+.pagination a {
+  cursor: pointer;
+}

@@ -36,7 +36,7 @@ class Search extends React.Component<Props, State> {
     };
   }
 
-  public componentDidMount() {
+  public componentWillMount() {
     const path = this.props.location.pathname.slice(1);
     if (path === "recent") {
       this.props.getPosts();

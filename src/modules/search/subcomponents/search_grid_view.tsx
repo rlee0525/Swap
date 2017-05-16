@@ -1,5 +1,6 @@
 import React from 'react';
 import { shortenString, timeFromNow } from 'helpers';
+import { Pagination } from './';
 
 interface Post {
   title: string;
@@ -25,13 +26,16 @@ class SearchGridView extends React.Component<Props, State> {
     super(props);
     this.sortBy = this.sortBy.bind(this);
     let results = props.searchResult;
+    let maxPages = props.searchResult.length > 0 ? Math.ceil(props.searchResult.length / 15) : 1;
     this.state = {
       title: -1,
       description: -1,
       price: -1,
       created_at: -1,
       condition: -1,
-      results
+      results,
+      maxPages: maxPages,
+      currentPage: 1
     };
 
     this.checkVerified = this.checkVerified.bind(this);
@@ -39,7 +43,8 @@ class SearchGridView extends React.Component<Props, State> {
 
   public componentWillReceiveProps(nextProps) {
     let results = nextProps.searchResult;
-    this.setState({results});
+    let maxPages = Math.ceil(nextProps.searchResult.length / 15)
+    this.setState({results, maxPages});
   }
 
   buttonClass(condition: string) {
@@ -109,23 +114,29 @@ class SearchGridView extends React.Component<Props, State> {
   }
 
   render() {
+    let pageStart = (this.state.currentPage - 1) * 15;
+    let pageEnd = this.state.currentPage * 15;
+
     return (
-      <div className="row">
-        <div className="sort-by-panel">
-          <div className="btn-group">
-            <button type="button" className="btn btn-default btn-md dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Sort By <span className="caret"></span>
-            </button>
-            <ul className="dropdown-menu dropdown-menu-right">
-              <li><a onClick={() => this.sortBy("title")} >Title</a></li>
-              <li><a onClick={() => this.sortBy("description")} >Description</a></li>
-              <li><a onClick={() => this.sortBy("price")} >Price</a></li>
-              <li><a onClick={() => this.sortBy("created_at")} >Posting Date</a></li>
-              <li><a onClick={() => this.sortBy("condition")} >Condition</a></li>
-            </ul>
+      <div>
+        <div className="row">
+          <div className="sort-by-panel">
+            <div className="btn-group">
+              <button type="button" className="btn btn-default btn-md dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Sort By <span className="caret"></span>
+              </button>
+              <ul className="dropdown-menu dropdown-menu-right">
+                <li><a onClick={() => this.sortBy("title")} >Title</a></li>
+                <li><a onClick={() => this.sortBy("description")} >Description</a></li>
+                <li><a onClick={() => this.sortBy("price")} >Price</a></li>
+                <li><a onClick={() => this.sortBy("created_at")} >Posting Date</a></li>
+                <li><a onClick={() => this.sortBy("condition")} >Condition</a></li>
+              </ul>
+            </div>
           </div>
+          { this.state.results ? this.state.results.slice(pageStart, pageEnd).map(post => this.renderGridItem(post)) : null}
         </div>
-        { this.state.results ? this.state.results.map(post => this.renderGridItem(post)) : null }
+        <Pagination that={this} maxPages={this.state.maxPages} currentPage={this.state.currentPage} />
       </div>
     );
   }
