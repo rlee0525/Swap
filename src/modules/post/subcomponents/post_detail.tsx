@@ -151,7 +151,7 @@ class PostDetail extends React.Component {
                         {this.state.currentUser && this.state.currentUser.name}
                       </div>
                     </div>
-                    <button type="button" className="btn btn-xs btn-primary" data-clipboard-target="#purchase-msg-template" id="copy-template">Copy Message</button>
+                    <button type="button" className="btn btn-sm btn-primary" data-clipboard-target="#purchase-msg-template" id="copy-template">Copy Message</button>
                   </div>
                 </div>
                 <div className="modal-footer"></div>
