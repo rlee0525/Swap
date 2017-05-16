@@ -19,7 +19,15 @@ interface Props {
 }
 
 interface State {
-
+  title: any;
+  description: any;
+  price: any;
+  created_at: any;
+  condition: any;
+  results: any;
+  maxPages: number;
+  currentPage: number;
+  posts: Post [];
 }
 
 class SearchGridView extends React.Component<Props, State> {
@@ -28,6 +36,7 @@ class SearchGridView extends React.Component<Props, State> {
     this.sortBy = this.sortBy.bind(this);
     let results = props.searchResult;
     let maxPages = props.searchResult.length > 0 ? Math.ceil(props.searchResult.length / 15) : 1;
+
     this.state = {
       title: -1,
       description: -1,
@@ -36,7 +45,8 @@ class SearchGridView extends React.Component<Props, State> {
       condition: -1,
       results,
       maxPages: maxPages,
-      currentPage: 1
+      currentPage: 1,
+      posts: null
     };
 
     this.checkVerified = this.checkVerified.bind(this);

@@ -18,31 +18,19 @@ interface Props {
   searchResult: Post [];
 }
 
-interface State {
-  posts: Post [];
-  title: any;
-  description: any;
-  price: any;
-  created_at: any;
-  condition: any;
-  results: any;
-  currentPage: number;
-  maxPages: number;
-}
-
-class SearchListView extends React.Component<Props, State> {
+class SearchListView extends React.Component<Props, any> {
   constructor(props: Props) {
     super(props);
     this.sortBy = this.sortBy.bind(this);
     let results = props.searchResult;
     let maxPages = Math.ceil(props.searchResult.length / 10);
+
     this.state = {
       title: -1,
       description: -1,
       price: -1,
       created_at: -1,
       condition: -1,
-      maxPages: 1,
       currentPage: 1,
       results,
       posts: null,
