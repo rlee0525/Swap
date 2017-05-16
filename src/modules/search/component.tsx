@@ -14,22 +14,8 @@ interface Post {
   img_url3: string;
 }
 
-interface Props {
-  searchResult: Post [];
-  user: object;
-  search(query: string): void;
-  location: {
-    pathname: string
-  };
-  getPosts(query: string): void;
-}
-
-interface State {
-  viewType: string
-}
-
-class Search extends React.Component<Props, State> {
-  constructor(props: Props) {
+class Search extends React.Component<any, any> {
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -46,7 +32,7 @@ class Search extends React.Component<Props, State> {
     }
   }
 
-  public componentWillReceiveProps(nextProps: Props){
+  public componentWillReceiveProps(nextProps: any){
     const nextLocation = nextProps.location.pathname.slice(1)
     if (nextLocation !== this.props.location.pathname.slice(1)) {
       if (nextLocation === "recent") {
