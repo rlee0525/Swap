@@ -61,7 +61,7 @@ class MyPosts extends React.Component<Props, State> {
     $.ajax({
       type: "DELETE",
       url: `http://localhost:3000/api/posts/${id}`
-    }).then(() => this.getMyPosts();)
+    }).then(() => this.getMyPosts())
   }
 
   public renderListItem() {
