@@ -58,7 +58,7 @@ class PostDetail extends React.Component {
 
     return (
       <div className="carousel-inner" role="listbox">
-        <div className="item active">
+        <div className="item absolute-height active">
           <div className="block">
             <div className="container">
               <div className="col-sm-6">
@@ -67,7 +67,7 @@ class PostDetail extends React.Component {
             </div>
           </div>
         </div>
-        <div className="item">
+        <div className="item absolute-height">
           <div className="block">
             <div className="container">
               <div className="col-sm-6">
@@ -76,7 +76,7 @@ class PostDetail extends React.Component {
             </div>
           </div>
         </div>
-        <div className="item">
+        <div className="item absolute-height">
           <div className="block">
             <div className="container">
               <div className="col-sm-6">
@@ -107,21 +107,22 @@ class PostDetail extends React.Component {
     let title;
     let description;
     let price;
+    let created_at;
 
     if (this.props.post) {
       title = this.props.post.title;
       description = this.props.post.description;
       price = this.props.post.price;
+      created_at = this.props.post.created_at;
     }
 
     return (
-      <div className="col-lg-6 absolute-height">
-        <h3>{title}</h3>
+      <div className="col-lg-6 col-md-6 col-sm-6 absolute-height">
+        <h3>{title}</h3><div className="thumbnail-caption">{timeFromNow(created_at)}</div>
         <p id="post-description">{description}</p>
-        <h3 className="text-right">${Number(price).toLocaleString()}</h3>
+        <h3 className="text-left">${Number(price).toLocaleString()}</h3>
         <div className="row">
-          <a className="btn btn-warning btn-lg col-md-3">Bookmark</a>
-          <a className="col-md-1"></a>
+          <a className="btn btn-warning btn-lg col-md-4">Bookmark</a>
           <a className="btn btn-success btn-lg col-md-8" onClick={() => {this.fetchAuthor(); this.contactPerson();}}>Contact</a>
 
           <a id="contactModalTrigger" className="hidden" data-toggle="modal" data-target="#contactModal">Contact Modal Trigger</a>
@@ -139,7 +140,7 @@ class PostDetail extends React.Component {
                   </div>
                   <div className="modal-body text-center">
                     <div>
-                      <div id="purchase-msg-template">
+                      <div id="purchase-msg-template" contentEditable="true">
                         Hi, {this.state.userFB && this.state.userFB.name}, <br/><br/>
                         My name is {this.state.currentUser && this.state.currentUser.name}. I saw your positing on {this.props.post.title} on Swap.<br/>
                         I would like to purchase it at ${this.props.post.price}.<br/>
@@ -163,9 +164,6 @@ class PostDetail extends React.Component {
   }
 
   public render() {
-    console.log(this.props)
-    console.log(this.state)
-
     let link;
 
     if (this.props.post.category) {

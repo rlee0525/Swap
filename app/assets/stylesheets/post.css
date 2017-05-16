@@ -92,5 +92,10 @@
 }
 
 .absolute-height {
-  padding-bottom: 20px;
+  padding: 50px 0;
+  height: 100%;
+}
+
+#copy-template {
+  margin-top: 10px;
 }
