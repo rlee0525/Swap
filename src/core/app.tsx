@@ -1,10 +1,9 @@
 import * as React from 'react';
 import NavBar from 'core/navbar';
 import Footer from 'core/footer';
-import FB from 'fb';
 
 interface Props {
-  children: object;
+  children: any;
 }
 
 interface State {
@@ -45,7 +44,8 @@ class App extends React.Component<Props, State> {
     (function(d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) return;
-      js = d.createElement(s: HTMLImageElement); js.id = id;
+      js = d.createElement(s as any | null);
+      js.id = id;
       js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.9";
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
@@ -55,7 +55,7 @@ class App extends React.Component<Props, State> {
     let that = this;
     FB.getLoginStatus(function(response) {
       if (response.status === "connected") {
-        FB.api('/me?fields=email,name', function(response) {
+        FB.api('/me?fields=email,name', function(response: any) {
           that.setState({ userFB: response, status: "connected" });
         });
       } else {
@@ -64,17 +64,17 @@ class App extends React.Component<Props, State> {
     });
   }
 
-  public logout(response) {
+  public logout(response: any) {
     this.setState({ userFB: null, accessToken: null, status });
     (window as any).location.replace("/");
   }
 
-  public login(response) {
+  public login(response: any) {
     let that = this;
     const accessToken = response.authResponse.accessToken;
 
     this.setState({ accessToken });
-    FB.api('/me?fields=email,name', response => {
+    FB.api('/me?fields=email,name', (response: any) => {
       this.setState({ userFB: response });
     });
 

@@ -9,6 +9,7 @@ interface StateProps {
 
 interface DispatchProps {
   search: (query: string) => void;
+  getPosts: () => void;
 }
 
 const mapStateToProps = (state: StateProps, ownProp?: any): StateProps => ({
@@ -19,7 +20,6 @@ const mapStateToProps = (state: StateProps, ownProp?: any): StateProps => ({
 const mapDispatchToProps = (dispatch: any): DispatchProps => ({
   search: (query: string) => dispatch(search(query)),
   getPosts: () => dispatch(getPosts())
-
 });
 
 export default connect(

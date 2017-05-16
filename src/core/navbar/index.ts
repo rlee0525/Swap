@@ -3,12 +3,12 @@ import NavBar from './component';
 import { signup, getUser } from 'modules/user/actions';
 
 interface StateProps {
-  user: any;
+  user: object;
 }
 
 interface DispatchProps {
-  // onClick1: () => void;
-  // signup: user =>
+  signup: (user: object) => void;
+  getUser: (user: object) => void;
 }
 
 const mapStateToProps = (state: any, ownProp?: any): StateProps => ({
@@ -16,7 +16,6 @@ const mapStateToProps = (state: any, ownProp?: any): StateProps => ({
 });
 
 const mapDispatchToProps = (dispatch: any): DispatchProps => ({
-  // onClick1: () => { console.log("hi"); }
   signup: user => dispatch(signup(user)),
   getUser: user => dispatch(getUser(user))
 });
@@ -25,6 +24,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(NavBar);
-
-
-//TODO : delete all the useless state/actions
