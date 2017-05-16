@@ -122,8 +122,8 @@ class PostDetail extends React.Component {
         <p id="post-description">{description}</p>
         <h3 className="text-left">${Number(price).toLocaleString()}</h3>
         <div className="row">
-          <a className="btn btn-warning btn-lg col-md-4">Bookmark</a>
-          <a className="btn btn-success btn-lg col-md-8" onClick={() => {this.fetchAuthor(); this.contactPerson();}}>Contact</a>
+          <a className="btn btn-warning btn-lg col-md-3 col-sm-5 col-xs-3" id="bookmark-btn">Bookmark</a>
+          <a className="btn btn-success btn-lg col-md-8 col-sm-6 col-xs-8" onClick={() => {this.fetchAuthor(); this.contactPerson();}}>Contact</a>
 
           <a id="contactModalTrigger" className="hidden" data-toggle="modal" data-target="#contactModal">Contact Modal Trigger</a>
           <div className="modal fade" id="contactModal" tabIndex="-1" role="dialog"
