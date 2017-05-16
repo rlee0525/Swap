@@ -1,4 +1,4 @@
-require("CSV")
+require("csv")
 
 categories = ['Textbooks', 'Clothing', 'Furniture', 'Electronics',
               'Kitchenware', 'Games']
