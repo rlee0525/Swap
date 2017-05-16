@@ -142,7 +142,7 @@ class PostDetail extends React.Component {
                     <div>
                       <div id="purchase-msg-template" contentEditable="true">
                         Hi, {this.state.userFB && this.state.userFB.name}, <br/><br/>
-                        My name is {this.state.currentUser && this.state.currentUser.name}. I saw your positing on {this.props.post.title} on Swap.<br/>
+                        My name is {this.state.currentUser && this.state.currentUser.name}. I saw your posting on {this.props.post.title} on Swap.<br/>
                         I would like to purchase it at ${this.props.post.price}.<br/>
                         Please let me know if it's still available.<br/>
                         link: http://localhost:3000/#/posts/{this.props.post.id}<br/><br/>
