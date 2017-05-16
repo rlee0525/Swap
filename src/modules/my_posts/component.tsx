@@ -27,8 +27,15 @@ class MyPosts extends React.Component<Props, State> {
     this.editPost = this.editPost.bind(this);
     this.deletePost = this.deletePost.bind(this);
     this.renderMyPosts = this.renderMyPosts.bind(this);
+    this.sortBy = this.sortBy.bind(this);
     this.state = {
-      myPosts: []
+      myPosts: [],
+      title: -1,
+      description: -1,
+      price: -1,
+      course: -1,
+      created_at: -1,
+      condition: -1
     }
   }
 
@@ -73,6 +80,20 @@ class MyPosts extends React.Component<Props, State> {
     ))
   }
 
+  public sortBy(key) {
+    let polarity = this.state[key];
+    let newArray = this.state.myPosts.sort(function(a, b) {
+      if (a[key] < b[key]) return (-1 * polarity);
+      if (a[key] > b[key]) return (1 * polarity);
+      return 0;
+    })
+    let newPolarity = (polarity === -1 ? 1 : -1);
+    this.setState({
+      myPosts: newArray,
+      [key]: newPolarity
+    });
+  }
+
   public renderMyPosts() {
     return (
       <div>
@@ -82,12 +103,12 @@ class MyPosts extends React.Component<Props, State> {
               <thead>
                 <tr>
                   <th>Thumbnail</th>
-                  <th className="hidden-xs">Title</th>
-                  <th className="hidden-xs">Description</th>
-                  <th className="hidden-xs">Price</th>
-                  <th className="hidden-xs">Course</th>
-                  <th className="hidden-xs">Posting Date</th>
-                  <th className="hidden-xs">Condition</th>
+                  <th className="hidden-xs">Title<a onClick={() => this.sortBy("title")} className="btn btn-xs" ><span className="caret" /></a></th>
+                  <th className="hidden-xs">Description<a onClick={() => this.sortBy("description")} className="btn btn-xs" ><span className="caret" /></a></th>
+                  <th className="hidden-xs">Price<a onClick={() => this.sortBy("price")} className="btn btn-xs" ><span className="caret" /></a></th>
+                  <th className="hidden-xs">Course<a onClick={() => this.sortBy("course")} className="btn btn-xs" ><span className="caret" /></a></th>
+                  <th className="hidden-xs">Posting Date<a onClick={() => this.sortBy("created_at")} className="btn btn-xs" ><span className="caret" /></a></th>
+                  <th className="hidden-xs">Condition<a onClick={() => this.sortBy("condition")} className="btn btn-xs" ><span className="caret" /></a></th>
                   <th>Edit</th>
                   <th>Delete</th>
                 </tr>
@@ -109,8 +130,9 @@ class MyPosts extends React.Component<Props, State> {
           <ul className="nav nav-tabs">
             <li role="presentation" className="active"><a href="#/dashboard/posts">Posts</a></li>
             <li role="presentation"><a href="#/dashboard/bookmarks">Bookmarks</a></li>
+            <li role="presentation"><a href="#/dashboard/rfps">Alerts</a></li>
             <div>
-              <a href="#/posts/create" className="btn btn-success nav-button" >New Post</a>
+              <a href="#/posts/create" className="btn btn-success nav-button" >Create Post</a>
             </div>
           </ul>
           {this.renderMyPosts()}

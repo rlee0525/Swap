@@ -70,8 +70,10 @@ class SearchGridView extends React.Component<Props, State> {
           <span className={`label label-${this.buttonClass(post.condition)}`}>{post.condition}</span>
           <h3>{post.title}</h3>
           <p>{shortenString(post.description, 160)}</p>
-          <h3>${Number(post.price).toLocaleString()}</h3>
-          <a className="btn btn-success btn-lg btn-block">Go to Page</a>
+          <div className="grid-bottom">
+            <h3>${Number(post.price).toLocaleString()}</h3>
+            <a className="btn btn-success btn-lg btn-block">Go to Page</a>
+          </div>
         </div>
       </div>
     )

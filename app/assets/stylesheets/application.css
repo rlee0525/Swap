@@ -59,3 +59,13 @@ ul.nav {
   position: absolute;
   right: 0;
 }
+
+.grid-bottom {
+  position: absolute;
+  bottom: 10px;
+}
+
+.thumbnail a img {
+  width: 100%;
+  height: auto;
+}
