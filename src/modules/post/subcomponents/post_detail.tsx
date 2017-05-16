@@ -94,11 +94,11 @@ class PostDetail extends React.Component<any, any> {
   }
 
   public fetchAuthor() {
-    window.FB.api(`/${this.props.post.fb_id}?fields=email,name,link,picture`, response => {
+    (window as any).FB.api(`/${this.props.post.fb_id}?fields=email,name,link,picture`, response => {
       this.setState({ userFB: response });
     });
 
-    window.FB.api(`/me?fields=email,name`, res => {
+    (window as any).FB.api(`/me?fields=email,name`, res => {
       this.setState({ currentUser: res });
     });
   }
@@ -126,7 +126,7 @@ class PostDetail extends React.Component<any, any> {
           <a className="btn btn-success btn-lg col-md-8 col-sm-6 col-xs-8" onClick={() => {this.fetchAuthor(); this.contactPerson();}}>Contact</a>
 
           <a id="contactModalTrigger" className="hidden" data-toggle="modal" data-target="#contactModal">Contact Modal Trigger</a>
-          <div className="modal fade" id="contactModal" tabIndex="-1" role="dialog"
+          <div className="modal fade" id="contactModal" tabIndex={-1} role="dialog"
                aria-labelledby="contactModalLabel" aria-hidden="true">
             <div className="modal-dialog" role="document">
               <div className="modal-content">
@@ -140,7 +140,7 @@ class PostDetail extends React.Component<any, any> {
                   </div>
                   <div className="modal-body text-center">
                     <div>
-                      <div id="purchase-msg-template" contentEditable="true">
+                      <div id="purchase-msg-template" contentEditable={true}>
                         Hi, {this.state.userFB && this.state.userFB.name}, <br/><br/>
                         My name is {this.state.currentUser && this.state.currentUser.name}. I saw your posting on {this.props.post.title} on Swap.<br/>
                         I would like to purchase it at ${this.props.post.price}.<br/>
