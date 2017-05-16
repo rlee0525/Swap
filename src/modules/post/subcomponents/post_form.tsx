@@ -72,18 +72,20 @@ class PostForm extends React.Component<any, any> {
         console.error(err);
       }
 
+      const transformationPrefix = "http://res.cloudinary.com/dkympkwdz/image/upload/ar_3,c_fill,g_auto,h_700,q_80,w_700/f_jpg/";
+
       if (response.body.secure_url !== '') {
         if (this.state.img_url1 !== "" && this.state.img_url2 !== "") {
           this.setState({
-            img_url3: response.body.secure_url
+            img_url3: transformationPrefix + response.body.secure_url.split("/").slice(-1)[0]
           });
         } else if (this.state.img_url1 !== "") {
           this.setState({
-            img_url2: response.body.secure_url
+            img_url2: transformationPrefix + response.body.secure_url.split("/").slice(-1)[0]
           });
         } else {
           this.setState({
-            img_url1: response.body.secure_url
+            img_url1: transformationPrefix + response.body.secure_url.split("/").slice(-1)[0]
           });
         }
       }
@@ -229,7 +231,7 @@ class PostForm extends React.Component<any, any> {
               </div>
             </div>
             <div className="form-group">
-              <label htmlFor="inputImage3" className="col-sm-3 control-label">Image(s)</label>
+              <label htmlFor="inputImage3" className="col-sm-3 control-label">Image(s) <br/> (required 1) <br/> (will be cropped squarely)</label>
               <div className="col-sm-3 FileUpload">
                 <Dropzone
                   id="img_url1"
