@@ -35,6 +35,7 @@ class SearchListView extends React.Component<Props, State> {
     super(props);
     this.sortBy = this.sortBy.bind(this);
     let results = props.searchResult;
+    let maxPages = Math.ceil(props.searchResult.length / 10);
     this.state = {
       title: -1,
       description: -1,
@@ -43,16 +44,12 @@ class SearchListView extends React.Component<Props, State> {
       condition: -1,
       maxPages: 1,
       currentPage: 1,
-      results: null,
-      posts: null
+      results,
+      posts: null,
+      maxPages
     };
 
     this.checkVerified = this.checkVerified.bind(this);
-  }
-
-  public componentWillMount() {
-    let maxPages = Math.ceil(this.state.results.length / 10);
-    this.setState({maxPages});
   }
 
   public checkVerified(id:number) {
