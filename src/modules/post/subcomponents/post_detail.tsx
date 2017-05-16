@@ -3,7 +3,7 @@ import { SearchNavbar } from 'modules/search/subcomponents';
 import { shortenString, timeFromNow } from 'helpers';
 import Clipboard from 'clipboard';
 
-class PostDetail extends React.Component {
+class PostDetail extends React.Component<any, any> {
   constructor(props) {
     super(props);
 
