@@ -28,7 +28,7 @@ class NavBar extends React.Component<any, any> {
     });
   }
 
-  public componentWillReceiveProps(newProps: any) {
+  public componentWillReceiveProps(newProps: object) {
     if (this.state.userFB !== newProps.userFB) {
       this.setState({
         userFB: newProps.userFB,

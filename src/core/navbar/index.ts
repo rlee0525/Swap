@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import NavBar from './component';
 
 interface StateProps {
-  user: object;
+  user: any;
 }
 
 const mapStateToProps = (state: any, ownProp?: any): StateProps => ({

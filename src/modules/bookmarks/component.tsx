@@ -84,7 +84,7 @@ class Bookmarks extends React.Component<any, any> {
 
   public sortBy(key) {
     let polarity = this.state[key];
-    let newArray = this.state.bookmarkedPosts.sort(function(a, b) {
+    let newArray = this.state.bookmarkedPosts.sort(function(a: object, b: object) {
       if (a[key] < b[key]) return (-1 * polarity);
       if (a[key] > b[key]) return (1 * polarity);
       return 0;
