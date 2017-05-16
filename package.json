@@ -8,7 +8,8 @@
   "scripts": {
     "lint": "tslint --project tslint.json",
     "test-be": "bundle exec rspec spec",
-    "test-fe": "jest"
+    "test-fe": "jest",
+    "heroku-postbuild": "webpack --config webpack.config.js"
   },
   "dependencies": {
     "@types/lodash": "^4.14.64",
