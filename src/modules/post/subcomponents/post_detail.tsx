@@ -3,7 +3,7 @@ import { SearchNavbar } from 'modules/search/subcomponents';
 import { shortenString, timeFromNow } from 'helpers';
 import Clipboard from 'clipboard';
 
-class PostDetail extends React.Component {
+class PostDetail extends React.Component<any, any> {
   constructor(props) {
     super(props);
 
@@ -94,11 +94,11 @@ class PostDetail extends React.Component {
   }
 
   public fetchAuthor() {
-    window.FB.api(`/${this.props.post.fb_id}?fields=email,name,link,picture`, response => {
+    (window as any).FB.api(`/${this.props.post.fb_id}?fields=email,name,link,picture`, response => {
       this.setState({ userFB: response });
     });
 
-    window.FB.api(`/me?fields=email,name`, res => {
+    (window as any).FB.api(`/me?fields=email,name`, res => {
       this.setState({ currentUser: res });
     });
   }
@@ -122,11 +122,11 @@ class PostDetail extends React.Component {
         <p id="post-description">{description}</p>
         <h3 className="text-left">${Number(price).toLocaleString()}</h3>
         <div className="row">
-          <a className="btn btn-warning btn-lg col-md-4">Bookmark</a>
-          <a className="btn btn-success btn-lg col-md-8" onClick={() => {this.fetchAuthor(); this.contactPerson();}}>Contact</a>
+          <a className="btn btn-warning btn-lg col-md-3 col-sm-5 col-xs-3" id="bookmark-btn">Bookmark</a>
+          <a className="btn btn-success btn-lg col-md-8 col-sm-6 col-xs-8" onClick={() => {this.fetchAuthor(); this.contactPerson();}}>Contact</a>
 
           <a id="contactModalTrigger" className="hidden" data-toggle="modal" data-target="#contactModal">Contact Modal Trigger</a>
-          <div className="modal fade" id="contactModal" tabIndex="-1" role="dialog"
+          <div className="modal fade" id="contactModal" tabIndex={-1} role="dialog"
                aria-labelledby="contactModalLabel" aria-hidden="true">
             <div className="modal-dialog" role="document">
               <div className="modal-content">
@@ -140,9 +140,9 @@ class PostDetail extends React.Component {
                   </div>
                   <div className="modal-body text-center">
                     <div>
-                      <div id="purchase-msg-template" contentEditable="true">
+                      <div id="purchase-msg-template" contentEditable={true}>
                         Hi, {this.state.userFB && this.state.userFB.name}, <br/><br/>
-                        My name is {this.state.currentUser && this.state.currentUser.name}. I saw your positing on {this.props.post.title} on Swap.<br/>
+                        My name is {this.state.currentUser && this.state.currentUser.name}. I saw your posting on {this.props.post.title} on Swap.<br/>
                         I would like to purchase it at ${this.props.post.price}.<br/>
                         Please let me know if it's still available.<br/>
                         link: http://localhost:3000/#/posts/{this.props.post.id}<br/><br/>
@@ -151,7 +151,7 @@ class PostDetail extends React.Component {
                         {this.state.currentUser && this.state.currentUser.name}
                       </div>
                     </div>
-                    <button type="button" className="btn btn-xs btn-primary" data-clipboard-target="#purchase-msg-template" id="copy-template">Copy Message</button>
+                    <button type="button" className="btn btn-sm btn-primary" data-clipboard-target="#purchase-msg-template" id="copy-template">Copy Message</button>
                   </div>
                 </div>
                 <div className="modal-footer"></div>

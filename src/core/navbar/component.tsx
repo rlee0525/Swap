@@ -37,12 +37,12 @@ class NavBar extends React.Component<any, any> {
     }
   }
 
-  public sendEmail(e: object) {
+  public sendEmail(e: any) {
     e.preventDefault();
 
     let accessToken;
     let that = this;
-    const edu_email = $('input.form-control')[0].value
+    const edu_email = ($('input.form-control')[0] as HTMLInputElement).value
     FB.getLoginStatus(function(response) {
       accessToken = response.authResponse.accessToken
       $.ajax({
@@ -78,16 +78,16 @@ class NavBar extends React.Component<any, any> {
           } else {
             $('#emailVerificationModal').modal('show');
           }
-        }).fail(() => FB.logout())
+        }).fail(() => FB.logout(res => console.log(res)))
       } else {
         $('#logInModal').modal('show');
       }
     });
   }
 
-  public checkVerified(e) {
+  public checkVerified(e: any) {
     let address = e.currentTarget.id;
-    const accessToken = FB.getAccessToken();
+    const accessToken = (FB as any).getAccessToken();
     $.ajax({
       method: "GET",
       url: `http://localhost:3000/api/users/${accessToken}`
@@ -99,7 +99,7 @@ class NavBar extends React.Component<any, any> {
       } else {
         $('#emailVerificationModal').modal('show');
       }
-    }).fail(() => FB.logout())
+    }).fail(() => FB.logout(res => console.log(res)))
   }
 
   public checkUserStatus() {
@@ -147,7 +147,7 @@ class NavBar extends React.Component<any, any> {
         </nav>
 
         <a id="logInModalTrigger" className="hidden" data-toggle="modal" data-target="#logInModal">Login Modal Trigger</a>
-        <div className="modal fade" id="logInModal" tabIndex="-1" role="dialog"
+        <div className="modal fade" id="logInModal" tabIndex={-1} role="dialog"
              aria-labelledby="authModalLabel" aria-hidden="true">
           <div className="modal-dialog" role="document">
             <div className="modal-content">
@@ -166,7 +166,7 @@ class NavBar extends React.Component<any, any> {
         </div>
 
         <a id="emailInputModalTrigger" className="hidden" data-toggle="modal" data-target="#emailInputModal">Email Input Modal Trigger</a>
-        <div className="modal fade" id="emailInputModal" tabIndex="-1" role="dialog"
+        <div className="modal fade" id="emailInputModal" tabIndex={-1} role="dialog"
              aria-labelledby="authModalLabel" aria-hidden="true">
           <div className="modal-dialog" role="document">
             <div className="modal-content">
@@ -189,7 +189,7 @@ class NavBar extends React.Component<any, any> {
         </div>
 
         <a id="emailVerificationModalTrigger" className="hidden" data-toggle="modal" data-target="#emailVerificationModal">Email Verification Modal Trigger</a>
-        <div className="modal fade" id="emailVerificationModal" tabIndex="-1" role="dialog"
+        <div className="modal fade" id="emailVerificationModal" tabIndex={-1} role="dialog"
              aria-labelledby="authModalLabel" aria-hidden="true">
           <div className="modal-dialog" role="document">
             <div className="modal-content">

@@ -2,6 +2,26 @@ import React from 'react';
 import Clipboard from 'clipboard';
 import { shortenString, timeFromNow } from 'helpers';
 
+interface Post {
+  title: string;
+  description: string;
+  price: number;
+  created_at: string;
+  condition: string;
+  img_url1: string;
+  img_url2: string;
+  img_url3: string;
+}
+
+interface State {
+  bookmarkedPosts: Post [];
+  title: any;
+  description: any;
+  price: any;
+  created_at: any;
+  condition: any;
+}
+
 class Bookmarks extends React.Component<any, any> {
   constructor(props: any) {
     super(props);

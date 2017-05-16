@@ -3,6 +3,7 @@ import * as SearchAPI from './utils';
 export interface Action<T> {
   type: string;
   result: object;
+  posts: object [];
   payload: T;
 }
 

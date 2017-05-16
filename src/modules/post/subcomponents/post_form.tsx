@@ -144,7 +144,7 @@ class PostForm extends React.Component<any, any> {
   public submitForm(e) {
     const { title, condition, course, price, description, category, img_url1, img_url2, img_url3 } = this.state;
     e.preventDefault();
-    const method, url;
+    let method, url;
     if (typeof this.props.postData === 'undefined') {
       method = "POST";
       url = "/api/posts";
@@ -219,7 +219,7 @@ class PostForm extends React.Component<any, any> {
             <div className="form-group">
               <label htmlFor="inputDescription3" className="col-sm-3 control-label">Description</label>
               <div className="col-sm-9 input-group">
-                <textarea maxLength={250} value={this.state.description} onChange={this.updateState} className="form-control" id="description" rows="3"></textarea>
+                <textarea maxLength={250} value={this.state.description} onChange={this.updateState} className="form-control" id="description" rows={3}></textarea>
                 <span className="input-group-addon" id="basic-addon1">{250 - this.state.description.length} characters left</span>
               </div>
             </div>

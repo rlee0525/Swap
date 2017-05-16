@@ -3,9 +3,11 @@ import { shortenString, timeFromNow } from 'helpers';
 import { PostForm } from 'modules/post/subcomponents';
 
 interface Post {
+  id: number;
   title: string;
   description: string;
   price: number;
+  course: string;
   created_at: string;
   condition: string;
   img_url1: string;
@@ -18,6 +20,14 @@ interface Props {
 }
 
 interface State {
+  myPosts: Post [];
+  title: any;
+  description: any;
+  price: any;
+  course: any;
+  created_at: any;
+  condition: any;
+  myPost: Post;
 }
 
 class MyPosts extends React.Component<Props, State> {
@@ -35,7 +45,8 @@ class MyPosts extends React.Component<Props, State> {
       price: -1,
       course: -1,
       created_at: -1,
-      condition: -1
+      condition: -1,
+      myPost: null
     }
   }
 
@@ -54,14 +65,14 @@ class MyPosts extends React.Component<Props, State> {
     $.ajax({
       method: "GET",
       url: `http://localhost:3000/api/posts/${id}`
-    }).then(myPost => this.setState({myPost}))
+    }).then(myPost => this.setState({ myPost }))
   }
 
   public deletePost(id) {
     $.ajax({
       type: "DELETE",
       url: `http://localhost:3000/api/posts/${id}`
-    }).then(() => this.getMyPosts();)
+    }).then(() => this.getMyPosts())
   }
 
   public renderListItem() {

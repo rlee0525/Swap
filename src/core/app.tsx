@@ -2,8 +2,18 @@ import * as React from 'react';
 import NavBar from 'core/navbar';
 import Footer from 'core/footer';
 
-class App extends React.Component {
-  constructor(props) {
+interface Props {
+  children: any;
+}
+
+interface State {
+  userFB: number;
+  accessToken: string;
+  status: string;
+}
+
+class App extends React.Component<Props, State> {
+  constructor(props: Props) {
     super(props);
 
     this.state = {
@@ -17,7 +27,7 @@ class App extends React.Component {
     this.checkFbStatus = this.checkFbStatus.bind(this);
 
     let that = this;
-    window.fbAsyncInit = function() {
+    (window as any).fbAsyncInit = function() {
       FB.init({
         appId      : '641565912703327',
         cookie     : true,
@@ -34,7 +44,8 @@ class App extends React.Component {
     (function(d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
+      js = d.createElement(s as any | null);
+      js.id = id;
       js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.9";
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
@@ -44,7 +55,7 @@ class App extends React.Component {
     let that = this;
     FB.getLoginStatus(function(response) {
       if (response.status === "connected") {
-        FB.api('/me?fields=email,name', function(response) {
+        FB.api('/me?fields=email,name', function(response: any) {
           that.setState({ userFB: response, status: "connected" });
         });
       } else {
@@ -53,17 +64,17 @@ class App extends React.Component {
     });
   }
 
-  public logout(response) {
+  public logout(response: any) {
     this.setState({ userFB: null, accessToken: null, status });
-    window.location.replace("/");
+    (window as any).location.replace("/");
   }
 
-  public login(response) {
+  public login(response: any) {
     let that = this;
     const accessToken = response.authResponse.accessToken;
 
     this.setState({ accessToken });
-    FB.api('/me?fields=email,name', response => {
+    FB.api('/me?fields=email,name', (response: any) => {
       this.setState({ userFB: response });
     });
 
@@ -86,6 +97,7 @@ class App extends React.Component {
   }
 
   public render() {
+    console.log(this.props)
     return (
       <div className='home'>
         <NavBar

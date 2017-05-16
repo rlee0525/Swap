@@ -3,6 +3,7 @@ import { shortenString, timeFromNow } from 'helpers';
 import { Pagination } from './';
 
 interface Post {
+  id: any;
   title: string;
   description: string;
   price: number;
@@ -18,12 +19,15 @@ interface Props {
 }
 
 interface State {
-  title: number;
-  description: number;
-  price: number;
-  created_at: number;
-  condition: number;
-  results: object[];
+  posts: Post [];
+  title: any;
+  description: any;
+  price: any;
+  created_at: any;
+  condition: any;
+  results: any;
+  currentPage: number;
+  maxPages: number;
 }
 
 class SearchListView extends React.Component<Props, State> {
@@ -37,9 +41,10 @@ class SearchListView extends React.Component<Props, State> {
       price: -1,
       created_at: -1,
       condition: -1,
-      results,
       maxPages: 1,
-      currentPage: 1
+      currentPage: 1,
+      results: null,
+      posts: null
     };
 
     this.checkVerified = this.checkVerified.bind(this);
@@ -53,7 +58,7 @@ class SearchListView extends React.Component<Props, State> {
   public checkVerified(id:number) {
     (FB as any).getLoginStatus(function(response) {
       if (response.status === "connected") {
-        const accessToken = FB.getAccessToken();
+        const accessToken = (FB as any).getAccessToken();
         $.ajax({
           method: "GET",
           url: `http://localhost:3000/api/users/${accessToken}`
@@ -65,7 +70,7 @@ class SearchListView extends React.Component<Props, State> {
           } else {
             $('#emailVerificationModal').modal('show');
           }
-        }).fail(() => FB.logout())
+        }).fail(() => FB.logout(res => console.log(res)))
       } else {
         $('#logInModal').modal('show');
       }

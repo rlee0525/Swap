@@ -139,6 +139,10 @@ ansi-styles@^3.0.0:
   dependencies:
     color-convert "^1.0.0"
 
+any-promise@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/any-promise/-/any-promise-1.3.0.tgz#abc6afeedcea52e809cdc0376aed3ce39635d17f"
+
 anymatch@^1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/anymatch/-/anymatch-1.3.0.tgz#a3e52fa39168c825ff57b0248126ce5a8ff95507"
@@ -379,7 +383,7 @@ babel-register@^6.24.1:
     mkdirp "^0.5.1"
     source-map-support "^0.4.2"
 
-babel-runtime@^6.22.0:
+babel-runtime@^6.22.0, babel-runtime@^6.23.0:
   version "6.23.0"
   resolved "https://registry.yarnpkg.com/babel-runtime/-/babel-runtime-6.23.0.tgz#0a9489f144de70efb3ce4300accdb329e2fc543b"
   dependencies:
@@ -745,6 +749,10 @@ convert-source-map@^1.1.0, convert-source-map@^1.4.0:
 cookiejar@^2.0.6:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/cookiejar/-/cookiejar-2.1.1.tgz#41ad57b1b555951ec171412a81942b1e8200d34a"
+
+core-decorators@^0.17.0:
+  version "0.17.0"
+  resolved "https://registry.yarnpkg.com/core-decorators/-/core-decorators-0.17.0.tgz#3f43180a86d2ab0cc51069f46a1ec3e49e7cebd6"
 
 core-js@^1.0.0:
   version "1.2.7"
@@ -1134,6 +1142,16 @@ fb-watchman@^2.0.0:
   resolved "https://registry.yarnpkg.com/fb-watchman/-/fb-watchman-2.0.0.tgz#54e9abf7dfa2f26cd9b1636c588c1afc05de5d58"
   dependencies:
     bser "^2.0.0"
+
+fb@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/fb/-/fb-2.0.0.tgz#91fd40325da34ec41c68b25530fc3a3e0dacfa6a"
+  dependencies:
+    any-promise "^1.3.0"
+    babel-runtime "^6.23.0"
+    core-decorators "^0.17.0"
+    debug "^2.6.3"
+    request "^2.81.0"
 
 fbjs@^0.8.4, fbjs@^0.8.9:
   version "0.8.12"
@@ -2969,6 +2987,10 @@ sax@^1.2.1:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.2.tgz#fd8631a23bc7826bef5d871bdb87378c95647828"
 
+scmp@0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/scmp/-/scmp-0.0.3.tgz#3648df2d7294641e7f78673ffc29681d9bad9073"
+
 select@^1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/select/-/select-1.1.2.tgz#0e7350acdec80b1108528786ec1d4418d11b396d"
@@ -3002,6 +3024,12 @@ shellwords@^0.1.0:
 signal-exit@^3.0.0:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
+
+simple-encryptor@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/simple-encryptor/-/simple-encryptor-1.1.0.tgz#653bb1926c8f0fc2b8d7038577cc846053263ae8"
+  dependencies:
+    scmp "0.0.3"
 
 slash@^1.0.0:
   version "1.0.0"

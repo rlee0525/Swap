@@ -88,7 +88,7 @@
 }
 
 #post-description {
-  min-height: 250px !important;
+  min-height: 200px !important;
 }
 
 .absolute-height {
@@ -98,4 +98,12 @@
 
 #copy-template {
   margin-top: 10px;
+}
+
+#bookmark-btn {
+  margin-right: 5px;
+}
+
+#hundred-width {
+  width: 100%;
 }
