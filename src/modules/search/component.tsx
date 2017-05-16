@@ -17,10 +17,11 @@ interface Post {
 interface Props {
   searchResult: Post [];
   user: object;
-  search(path: string) : void;
+  search(query: string): void;
   location: {
     pathname: string
   };
+  getPosts(query: string): void;
 }
 
 interface State {

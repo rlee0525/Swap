@@ -2,6 +2,7 @@ import React from 'react';
 import { shortenString, timeFromNow } from 'helpers';
 
 interface Post {
+  id: any;
   title: string;
   description: string;
   price: number;
@@ -40,7 +41,7 @@ class SearchGridView extends React.Component<Props, State> {
   public checkVerified(id) {
     FB.getLoginStatus(function(response) {
       if (response.status === "connected") {
-        const accessToken = FB.getAccessToken();
+        const accessToken = (FB as any).getAccessToken();
         $.ajax({
           method: "GET",
           url: `http://localhost:3000/api/users/${accessToken}`
@@ -52,7 +53,7 @@ class SearchGridView extends React.Component<Props, State> {
           } else {
             $('#emailVerificationModal').modal('show');
           }
-        }).fail(() => FB.logout())
+        }).fail(() => FB.logout(res => console.log(res)))
       } else {
         $('#logInModal').modal('show');
       }

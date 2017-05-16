@@ -8,7 +8,7 @@ export const search = (query: string) => (
   })
 );
 
-export const fetchPosts = () => (
+export const fetchPosts = (query: string) => (
   $.ajax({
     method: 'GET',
     url: 'api/search',
