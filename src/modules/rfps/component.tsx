@@ -5,7 +5,8 @@ class Rfps extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
     this.fetchRfps = this.fetchRfps.bind(this);
-    this.state = { rfps: [] }
+    this.sortBy = this.sortBy.bind(this);
+    this.state = { rfps: [], description: -1 }
   }
 
   public fetchRfps() {
@@ -35,6 +36,20 @@ class Rfps extends React.Component<any, any> {
     ))
   }
 
+  public sortBy(key) {
+    let polarity = this.state[key];
+    let newArray = this.state.rfps.sort(function(a, b) {
+      if (a[key] < b[key]) return (-1 * polarity);
+      if (a[key] > b[key]) return (1 * polarity);
+      return 0;
+    })
+    let newPolarity = (polarity === -1 ? 1 : -1);
+    this.setState({
+      rfps: newArray,
+      [key]: newPolarity
+    });
+  }
+
   public render() {
     return (
       <div>
@@ -53,7 +68,7 @@ class Rfps extends React.Component<any, any> {
                 <table className="table table-hover">
                   <thead>
                     <tr>
-                      <th>Description</th>
+                      <th>Description<a onClick={() => this.sortBy("description")} className="btn btn-xs" ><span className="caret" /></a></th>
                       <th className="col-xs-1">Delete</th>
                     </tr>
                   </thead>
