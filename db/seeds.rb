@@ -44,7 +44,7 @@ course_objects.each do |course_object|
 end
 
 User.create!(
-  fb_id: 1,
+  fb_id: 10209361793984589,
   edu_email: "bob@berkeley.edu",
   university: University.first
 )

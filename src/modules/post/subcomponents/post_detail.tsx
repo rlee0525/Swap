@@ -1,10 +1,19 @@
 import React from 'react';
 import { SearchNavbar } from 'modules/search/subcomponents';
 import { shortenString, timeFromNow } from 'helpers';
+import Clipboard from 'clipboard';
 
 class PostDetail extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      userFB: null,
+      currentUser: null
+    }
+
+    this.contactPerson = this.contactPerson.bind(this);
+    this.initializeClipboard = this.initializeClipboard.bind(this);
   }
 
   public componentWillMount() {
@@ -12,8 +21,22 @@ class PostDetail extends React.Component {
     this.props.getPost(id);
   }
 
+  public componentDidMount() {
+    this.initializeClipboard();
+  }
+
+  public initializeClipboard() {
+    var clipboard = new Clipboard('#copy-template');
+    clipboard.on('success', function(e) {
+      $(e.trigger).text("copied!")
+      setTimeout(function(){ $(e.trigger).text("Copy Link"); }, 1000)
+      e.clearSelection();
+    });
+  }
+
   public componentWillReceiveProps(nextProps) {
     const nextId = nextProps.id;
+
     if (nextId !== this.props.id) {
       this.props.getPost(nextId);
     }
@@ -66,6 +89,20 @@ class PostDetail extends React.Component {
     )
   }
 
+  public contactPerson() {
+    $('#contactModal').modal("show");
+  }
+
+  public fetchAuthor() {
+    window.FB.api(`/${this.props.post.fb_id}?fields=email,name,link,picture`, response => {
+      this.setState({ userFB: response });
+    });
+
+    window.FB.api(`/me?fields=email,name`, res => {
+      this.setState({ currentUser: res });
+    });
+  }
+
   public renderDetail() {
     let title;
     let description;
@@ -80,24 +117,67 @@ class PostDetail extends React.Component {
     return (
       <div className="col-lg-6 absolute-height">
         <h3>{title}</h3>
-        <p>{description}</p>
-        <h3>${Number(price).toLocaleString()}</h3>
+        <p id="post-description">{description}</p>
+        <h3 className="text-right">${Number(price).toLocaleString()}</h3>
         <div className="row">
           <a className="btn btn-warning btn-lg col-md-3">Bookmark</a>
           <a className="col-md-1"></a>
-          <a className="btn btn-success btn-lg col-md-8">Contact</a>
+          <a className="btn btn-success btn-lg col-md-8" onClick={() => {this.fetchAuthor(); this.contactPerson();}}>Contact</a>
+
+          <a id="contactModalTrigger" className="hidden" data-toggle="modal" data-target="#contactModal">Contact Modal Trigger</a>
+          <div className="modal fade" id="contactModal" tabIndex="-1" role="dialog"
+               aria-labelledby="contactModalLabel" aria-hidden="true">
+            <div className="modal-dialog" role="document">
+              <div className="modal-content">
+                <div className="modal-header" id="contact-modal-header">
+                  <h3 className="modal-title" id="contactModalLabel">Contact the Seller</h3>
+                </div>
+                <div className="modal-body text-center" id="contact-modal-body">
+                  <div className="modal-body text-center row">
+                    <span>{this.state.userFB && this.state.userFB.name}</span>
+                    <div>{this.state.userFB && <a target="_blank" href={this.state.userFB.link}><img src={this.state.userFB.picture.data.url} /></a>}</div>
+                  </div>
+                  <div className="modal-body text-center">
+                    <div>
+                      <div id="purchase-msg-template">
+                        Hi, {this.state.userFB && this.state.userFB.name}, <br/><br/>
+                        My name is {this.state.currentUser && this.state.currentUser.name}. I saw your positing on {this.props.post.title} on Swap.<br/>
+                        I would like to purchase it at ${this.props.post.price}.<br/>
+                        Please let me know if it's still available.<br/>
+                        link: http://localhost:3000/#/posts/{this.props.post.id}<br/><br/>
+
+                        Thanks,<br/>
+                        {this.state.currentUser && this.state.currentUser.name}
+                      </div>
+                    </div>
+                    <button type="button" className="btn btn-xs btn-primary" data-clipboard-target="#purchase-msg-template" id="copy-template">Copy Message</button>
+                  </div>
+                </div>
+                <div className="modal-footer"></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     )
   }
 
   public render() {
+    console.log(this.props)
+    console.log(this.state)
+
+    let link;
+
+    if (this.props.post.category) {
+      link = this.props.post.category.toLowerCase();
+    }
+
     return (
       <div className="container">
         <SearchNavbar search={this.props.search} />
         <nav className="breadcrumb">
           <a className="breadcrumb-item" href="#/recent">All</a>
-          <a className="breadcrumb-item" href="#/textbooks">Textbooks</a>
+          <a className="breadcrumb-item" href={`#/${link}`}>{this.props.post.category}</a>
           <span className="breadcrumb-item active">{this.props.post.title}</span>
         </nav>
         <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
