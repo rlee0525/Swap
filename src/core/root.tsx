@@ -53,7 +53,7 @@ const Root: React.SFC<RootProps> = ({ store }) => {
             <Route path="posts" component={MyPosts} />
             <Route path="bookmarks" component={Bookmarks} />
           </Route>
-          <Route path="/posts" >
+          <Route path="/posts">
             <Route path=":id" component={Post} />
           </Route>
         </Route>

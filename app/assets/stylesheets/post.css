@@ -86,3 +86,11 @@
 .breadcrumb-item.active {
   color: #636c72;
 }
+
+#post-description {
+  min-height: 250px !important;
+}
+
+.absolute-height {
+  padding-bottom: 20px;
+}
