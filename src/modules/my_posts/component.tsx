@@ -18,6 +18,13 @@ interface Props {
 }
 
 interface State {
+  myPosts: Post [];
+  title: any;
+  description: any;
+  price: any;
+  course: any;
+  created_at: any;
+  condition: any;
 }
 
 class MyPosts extends React.Component<Props, State> {

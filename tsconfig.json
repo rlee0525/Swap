@@ -5,7 +5,7 @@
     "jsx": "react",
     "module": "es2015",
     "moduleResolution": "node",
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "pretty": true,
