@@ -5,6 +5,7 @@ interface Props {
 }
 
 interface State {
+  label: string;
 }
 
 class SearchNavbar extends React.Component<Props, State> {
@@ -23,7 +24,7 @@ class SearchNavbar extends React.Component<Props, State> {
   public componentWillMount() {
     let label = window.location.hash.slice(2);
 
-    if (!label.includes("/")) {
+    if (!(label as any).includes("/")) {
       label = label.charAt(0).toUpperCase() + label.slice(1);
 
       this.setState({

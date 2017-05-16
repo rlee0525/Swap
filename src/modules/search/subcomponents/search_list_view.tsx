@@ -2,6 +2,7 @@ import React from 'react';
 import { shortenString, timeFromNow } from 'helpers';
 
 interface Post {
+  id: any;
   title: string;
   description: string;
   price: number;
@@ -17,6 +18,13 @@ interface Props {
 }
 
 interface State {
+  posts: Post [];
+  title: any;
+  description: any;
+  price: any;
+  created_at: any;
+  condition: any;
+  results: any;
 }
 
 class SearchListView extends React.Component<Props, State> {
@@ -30,7 +38,8 @@ class SearchListView extends React.Component<Props, State> {
       price: -1,
       created_at: -1,
       condition: -1,
-      results
+      results: null,
+      posts: null
     };
 
     this.checkVerified = this.checkVerified.bind(this);
@@ -39,7 +48,7 @@ class SearchListView extends React.Component<Props, State> {
   public checkVerified(id) {
     FB.getLoginStatus(function(response) {
       if (response.status === "connected") {
-        const accessToken = FB.getAccessToken();
+        const accessToken = (FB as any).getAccessToken();
         $.ajax({
           method: "GET",
           url: `http://localhost:3000/api/users/${accessToken}`
@@ -51,7 +60,7 @@ class SearchListView extends React.Component<Props, State> {
           } else {
             $('#emailVerificationModal').modal('show');
           }
-        }).fail(() => FB.logout())
+        }).fail(() => FB.logout(res => console.log(res)))
       } else {
         $('#logInModal').modal('show');
       }

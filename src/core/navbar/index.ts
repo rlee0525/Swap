@@ -1,30 +1,15 @@
 import { connect } from 'react-redux';
 import NavBar from './component';
-import { signup, getUser } from 'modules/user/actions';
 
 interface StateProps {
-  user: any;
-}
-
-interface DispatchProps {
-  // onClick1: () => void;
-  // signup: user =>
+  user: object;
 }
 
 const mapStateToProps = (state: any, ownProp?: any): StateProps => ({
   user: state.user
 });
 
-const mapDispatchToProps = (dispatch: any): DispatchProps => ({
-  // onClick1: () => { console.log("hi"); }
-  signup: user => dispatch(signup(user)),
-  getUser: user => dispatch(getUser(user))
-});
-
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  null
 )(NavBar);
-
-
-//TODO : delete all the useless state/actions

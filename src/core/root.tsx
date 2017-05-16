@@ -22,7 +22,7 @@ interface RootProps {
 }
 
 const Root: React.SFC<RootProps> = ({ store }) => {
-  const _ensureLoggedIn = (nextState, replace) => {
+  const _ensureLoggedIn = (nextState: any, replace: any) => {
     const currentUser = store.getState().session.currentUser;
     if (!currentUser) {
       replace('/');
