@@ -134,8 +134,8 @@ class PostDetail extends React.Component {
                 </div>
                 <div className="modal-body text-center" id="contact-modal-body">
                   <div className="modal-body text-center row">
-                    <h4>{this.state.userFB && this.state.userFB.name}</h4>
-                    <div>{this.state.userFB && <a target="_blank" href={this.state.userFB.link}><img src={this.state.userFB.picture.data.url} onClick={}/></a>}</div>
+                    <span>{this.state.userFB && this.state.userFB.name}</span>
+                    <div>{this.state.userFB && <a target="_blank" href={this.state.userFB.link}><img src={this.state.userFB.picture.data.url} /></a>}</div>
                   </div>
                   <div className="modal-body text-center">
                     <div>
@@ -150,7 +150,7 @@ class PostDetail extends React.Component {
                         {this.state.currentUser && this.state.currentUser.name}
                       </div>
                     </div>
-                    <button type="button" className="btn btn-xs btn-success" data-clipboard-target="#purchase-msg-template" id="copy-template">Copy Message</button>
+                    <button type="button" className="btn btn-xs btn-primary" data-clipboard-target="#purchase-msg-template" id="copy-template">Copy Message</button>
                   </div>
                 </div>
                 <div className="modal-footer"></div>
