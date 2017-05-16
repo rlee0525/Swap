@@ -1,3 +1,5 @@
+/* global FB */
+
 import React from 'react';
 import { shortenString, timeFromNow } from 'helpers';
 
@@ -17,13 +19,19 @@ interface Props {
 }
 
 interface State {
+  title: number;
+  description: number;
+  price: number;
+  created_at: number;
+  condition: number;
+  results: object[];
 }
 
 class SearchListView extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.sortBy = this.sortBy.bind(this);
-    let results = this.props.searchResult;
+    let results = props.searchResult;
     this.state = {
       title: -1,
       description: -1,
@@ -36,8 +44,8 @@ class SearchListView extends React.Component<Props, State> {
     this.checkVerified = this.checkVerified.bind(this);
   }
 
-  public checkVerified(id) {
-    FB.getLoginStatus(function(response) {
+  public checkVerified(id:number) {
+    (FB as any).getLoginStatus(function(response) {
       if (response.status === "connected") {
         const accessToken = FB.getAccessToken();
         $.ajax({
@@ -70,9 +78,9 @@ class SearchListView extends React.Component<Props, State> {
     )
   }
 
-  public sortBy(key) {
+  public sortBy(key:string) {
     let polarity = this.state[key];
-    let newArray = this.state.results.sort(function(a, b) {
+    let newArray = this.state.results.sort(function(a:object, b:object) {
       if (a[key] < b[key]) return (-1 * polarity);
       if (a[key] > b[key]) return (1 * polarity);
       return 0;

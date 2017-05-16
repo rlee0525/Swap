@@ -6,8 +6,6 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  // onClick1: () => void;
-  // signup: user =>
 }
 
 const mapStateToProps = (state: any, ownProp?: any): StateProps => ({
@@ -15,7 +13,6 @@ const mapStateToProps = (state: any, ownProp?: any): StateProps => ({
 });
 
 const mapDispatchToProps = (dispatch: any): DispatchProps => ({
-  // onClick1: () => { console.log("hi"); }
   signup: user => dispatch(signup(user)),
   getUser: user => dispatch(getUser(user))
 });

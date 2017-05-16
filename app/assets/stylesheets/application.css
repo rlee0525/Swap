@@ -69,3 +69,22 @@ ul.nav {
   width: 100%;
   height: auto;
 }
+
+.sort-by-panel {
+  position: relative;
+}
+
+.sort-by-panel button {
+  border: 0;
+  background-color: white;
+}
+
+.sort-by-panel button:focus, .sort-by-panel button:hover {
+  background-color: white !important;
+}
+
+.sort-by-panel .btn-group {
+  position: absolute;
+  right: 0;
+  top: -45px;
+}

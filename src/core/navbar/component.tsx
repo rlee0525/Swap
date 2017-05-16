@@ -28,7 +28,7 @@ class NavBar extends React.Component<any, any> {
     });
   }
 
-  public componentWillReceiveProps(newProps) {
+  public componentWillReceiveProps(newProps: object) {
     if (this.state.userFB !== newProps.userFB) {
       this.setState({
         userFB: newProps.userFB,
@@ -37,7 +37,7 @@ class NavBar extends React.Component<any, any> {
     }
   }
 
-  public sendEmail(e) {
+  public sendEmail(e: object) {
     e.preventDefault();
 
     let accessToken;

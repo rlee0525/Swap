@@ -23,8 +23,23 @@ interface State {
 class SearchGridView extends React.Component<Props, State> {
   constructor(props) {
     super(props);
+    this.sortBy = this.sortBy.bind(this);
+    let results = props.searchResult;
+    this.state = {
+      title: -1,
+      description: -1,
+      price: -1,
+      created_at: -1,
+      condition: -1,
+      results
+    };
 
     this.checkVerified = this.checkVerified.bind(this);
+  }
+
+  public componentWillReceiveProps(nextProps) {
+    let results = nextProps.searchResult;
+    this.setState({results});
   }
 
   buttonClass(condition: string) {
@@ -59,6 +74,20 @@ class SearchGridView extends React.Component<Props, State> {
     });
   }
 
+  public sortBy(key) {
+    let polarity = this.state[key];
+    let newArray = this.state.results.sort(function(a:object, b:object) {
+      if (a[key] < b[key]) return (-1 * polarity);
+      if (a[key] > b[key]) return (1 * polarity);
+      return 0;
+    });
+    let newPolarity = (polarity === -1 ? 1 : -1);
+    this.setState({
+      posts: newArray,
+      [key]: newPolarity
+    });
+  }
+
   renderGridItem(post: Post) {
     return (
       <div className="thumbnail col-sm-6 col-md-4" key={Math.random() * post.id} onClick={() => this.checkVerified(post.id)}>
@@ -82,7 +111,21 @@ class SearchGridView extends React.Component<Props, State> {
   render() {
     return (
       <div className="row">
-        { this.props.searchResult ? this.props.searchResult.map(post => this.renderGridItem(post)) : null }
+        <div className="sort-by-panel">
+          <div className="btn-group">
+            <button type="button" className="btn btn-default btn-md dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Sort By <span className="caret"></span>
+            </button>
+            <ul className="dropdown-menu dropdown-menu-right">
+              <li><a onClick={() => this.sortBy("title")} >Title</a></li>
+              <li><a onClick={() => this.sortBy("description")} >Description</a></li>
+              <li><a onClick={() => this.sortBy("price")} >Price</a></li>
+              <li><a onClick={() => this.sortBy("created_at")} >Posting Date</a></li>
+              <li><a onClick={() => this.sortBy("condition")} >Condition</a></li>
+            </ul>
+          </div>
+        </div>
+        { this.state.results ? this.state.results.map(post => this.renderGridItem(post)) : null }
       </div>
     );
   }

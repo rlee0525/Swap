@@ -2,18 +2,6 @@ import * as React from 'react';
 import NavBar from 'core/navbar';
 import Footer from 'core/footer';
 
-// interface AppProps {
-//   children?: any;
-// }
-//
-// const App: React.SFC<AppProps> = ({ children }) => (
-//   <div className='home'>
-//     <NavBar />
-//     {children}
-//     <Footer />
-//   </div>
-// );
-
 class App extends React.Component {
   constructor(props) {
     super(props);
