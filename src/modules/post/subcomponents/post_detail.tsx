@@ -8,7 +8,8 @@ class PostDetail extends React.Component {
     super(props);
 
     this.state = {
-      userFB: null
+      userFB: null,
+      currentUser: null
     }
 
     this.contactPerson = this.contactPerson.bind(this);
@@ -17,14 +18,7 @@ class PostDetail extends React.Component {
 
   public componentWillMount() {
     const id = this.props.id;
-    this.props.getPost(id).then(() => {
-      let authorFB;
-      if (window.FB) {
-        window.FB.api(`/${this.props.post.fb_id}?fields=email,name,link`, response => {
-          this.setState({ userFB: response });
-        });
-      }
-    })
+    this.props.getPost(id);
   }
 
   public componentDidMount() {
@@ -32,7 +26,7 @@ class PostDetail extends React.Component {
   }
 
   public initializeClipboard() {
-    var clipboard = new Clipboard('.btn');
+    var clipboard = new Clipboard('#copy-template');
     clipboard.on('success', function(e) {
       $(e.trigger).text("copied!")
       setTimeout(function(){ $(e.trigger).text("Copy Link"); }, 1000)
@@ -101,9 +95,11 @@ class PostDetail extends React.Component {
 
   public fetchAuthor() {
     window.FB.api(`/${this.props.post.fb_id}?fields=email,name,link,picture`, response => {
-      this.setState({
-        userFB: response
-      });
+      this.setState({ userFB: response });
+    });
+
+    window.FB.api(`/me?fields=email,name`, res => {
+      this.setState({ currentUser: res });
     });
   }
 
@@ -137,22 +133,24 @@ class PostDetail extends React.Component {
                   <h3 className="modal-title" id="contactModalLabel">Contact the Seller</h3>
                 </div>
                 <div className="modal-body text-center" id="contact-modal-body">
-                  <div className="modal-body text-center">
-                    <h3>{this.state.userFB && this.state.userFB.name}</h3>
+                  <div className="modal-body text-center row">
+                    <h4>{this.state.userFB && this.state.userFB.name}</h4>
                     <div>{this.state.userFB && <a target="_blank" href={this.state.userFB.link}><img src={this.state.userFB.picture.data.url} onClick={}/></a>}</div>
                   </div>
                   <div className="modal-body text-center">
-                    <div id="purchase-msg-template">
-                      Hello, {this.state.userFB && this.state.userFB.name}:
+                    <div>
+                      <div id="purchase-msg-template">
+                        Hi, {this.state.userFB && this.state.userFB.name}, <br/><br/>
+                        My name is {this.state.currentUser && this.state.currentUser.name}. I saw your positing on {this.props.post.title} on Swap.<br/>
+                        I would like to purchase it at ${this.props.post.price}.<br/>
+                        Please let me know if it's still available.<br/>
+                        link: http://localhost:3000/#/posts/{this.props.post.id}<br/><br/>
 
-                      My name is ___. I saw your positing about ____ on SWAP.
-
-                      I would like to purchase _____ at $___.
-
-                      Thanks,
-                      Raymond
+                        Thanks,<br/>
+                        {this.state.currentUser && this.state.currentUser.name}
+                      </div>
                     </div>
-                    <button type="button" className="btn btn-xs btn-success" data-clipboard-text="hello World">Copy Link</button>
+                    <button type="button" className="btn btn-xs btn-success" data-clipboard-target="#purchase-msg-template" id="copy-template">Copy Message</button>
                   </div>
                 </div>
                 <div className="modal-footer"></div>
