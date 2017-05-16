@@ -65,13 +65,6 @@ User.create!(
   )
 end
 
-100.times do
-  Bookmark.create!(
-    user: User.find(rand(1..User.count)),
-    post: Post.find(rand(1..Post.count))
-  )
-end
-
 User.all.each do |user|
   Post.all.each do |post|
     Bookmark.create(user: user, post: post)
