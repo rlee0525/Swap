@@ -76,7 +76,7 @@ class SearchListView extends React.Component<Props, State> {
       if (a[key] < b[key]) return (-1 * polarity);
       if (a[key] > b[key]) return (1 * polarity);
       return 0;
-    })
+    });
     let newPolarity = (polarity === -1 ? 1 : -1);
     this.setState({
       posts: newArray,
