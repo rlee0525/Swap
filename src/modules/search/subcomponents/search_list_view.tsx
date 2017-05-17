@@ -46,7 +46,7 @@ class SearchListView extends React.Component<Props, any> {
         const accessToken = (FB as any).getAccessToken();
         $.ajax({
           method: "GET",
-          url: `http://localhost:3000/api/users/${accessToken}`
+          url: `/api/users/${accessToken}`
         }).then(obj => {
           if (obj.edu_email_confirmed) {
             window.location.href = `#/posts/${id}`

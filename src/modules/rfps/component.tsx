@@ -12,14 +12,14 @@ class Rfps extends React.Component<any, any> {
   public fetchRfps() {
     $.ajax({
       method: "GET",
-      url: "http://localhost:3000/api/rfps"
+      url: "/api/rfps"
     }).then(rfps => this.setState({ rfps }))
   }
 
   public deleteRfp(id) {
     $.ajax({
       type: "DELETE",
-      url: `http://localhost:3000/api/rfps/${id}`
+      url: `/api/rfps/${id}`
     }).then(data => this.fetchRfps())
   }
 
