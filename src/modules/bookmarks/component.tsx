@@ -42,14 +42,14 @@ class Bookmarks extends React.Component<any, any> {
   public fetchBookmarkedPosts() {
     $.ajax({
       method: "GET",
-      url: "http://localhost:3000/api/bookmarks"
+      url: "/api/bookmarks"
     }).then(bookmarkedPosts => this.setState({ bookmarkedPosts }))
   }
 
   public deleteBookmarkedPost(postId) {
     $.ajax({
       type: "DELETE",
-      url: `http://localhost:3000/api/bookmarks/${postId}`
+      url: `/api/bookmarks/${postId}`
     }).then(() => this.fetchBookmarkedPosts())
   }
 
@@ -76,7 +76,7 @@ class Bookmarks extends React.Component<any, any> {
         <td className="hidden-xs">${Number(bookmarkedPost.price).toLocaleString()}</td>
         <td className="hidden-xs">{timeFromNow(bookmarkedPost.created_at)}</td>
         <td className="hidden-xs">{bookmarkedPost.condition}</td>
-        <td><button type="button" className="btn btn-xs btn-success" data-clipboard-text={`http://localhost:3000/#/posts/${bookmarkedPost.id}`}>Copy Link</button></td>
+        <td><button type="button" className="btn btn-xs btn-success" data-clipboard-text={`wwww.swapnow.io/#/posts/${bookmarkedPost.id}`}>Copy Link</button></td>
         <td><button type="button" className="btn btn-xs btn-danger" onClick={() => this.deleteBookmarkedPost(bookmarkedPost.id)}>Delete</button></td>
       </tr>
     ))

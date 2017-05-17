@@ -29,7 +29,7 @@ class App extends React.Component<Props, State> {
     let that = this;
     (window as any).fbAsyncInit = function() {
       FB.init({
-        appId      : '641565912703327',
+        appId      : '1843174039341965',
         cookie     : true,
         xfbml      : true,
         version    : 'v2.8'
@@ -80,7 +80,7 @@ class App extends React.Component<Props, State> {
 
     $.ajax({
       method: "POST",
-      url: 'http://localhost:3000/api/users/',
+      url: '/api/users/',
       data: { accessToken }
     }).then(obj => {
       if (obj.edu_email === null) {
