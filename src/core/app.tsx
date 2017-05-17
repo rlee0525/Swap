@@ -2,6 +2,7 @@ import * as React from 'react';
 import NavBar from 'core/navbar';
 import Footer from 'core/footer';
 declare var $;
+declare var window;
 
 interface Props {
   children: any;
@@ -28,9 +29,9 @@ class App extends React.Component<Props, State> {
     this.checkFbStatus = this.checkFbStatus.bind(this);
 
     let that = this;
-    (window as any).fbAsyncInit = function() {
+    window.fbAsyncInit = function() {
       FB.init({
-        appId      : (window as any).fb_id,
+        appId      : window.fb_id,
         cookie     : true,
         xfbml      : true,
         version    : 'v2.8'
@@ -67,7 +68,7 @@ class App extends React.Component<Props, State> {
 
   public logout(response: any) {
     this.setState({ userFB: null, accessToken: null, status });
-    (window as any).location.replace("/");
+    window.location.replace("/");
   }
 
   public login(response: any) {

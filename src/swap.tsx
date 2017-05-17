@@ -3,6 +3,7 @@ import * as ReactDOM from 'react-dom';
 import { Store } from 'redux';
 import configureStore from './core/store';
 import Root from './core/root';
+declare var window;
 
 document.addEventListener('DOMContentLoaded', () => {
   const root: HTMLElement = document.getElementById('root');
@@ -12,6 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const store = configureStore(preloadedState);
 
   ReactDOM.render(<Root store={store}/>, root);
-  (window as any).store = store;
-  (window as any).s = store.getState;
+  window.store = store;
+  window.s = store.getState;
 });
