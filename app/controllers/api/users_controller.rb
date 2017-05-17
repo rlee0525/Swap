@@ -37,7 +37,7 @@ class Api::UsersController < ApplicationController
       if @user.edu_email_confirmed
         return render "api/users/show", status: 200
       elsif
-        @user.update(edu_email: "#{edu_email}@berkeley.edu")
+        @user.update(edu_email: "#{edu_email}")
         return render "api/users/show", status: 200
       else
         return render json: ["couldn't update edu email"], status: 500
