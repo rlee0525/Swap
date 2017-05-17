@@ -4,6 +4,7 @@ class CreatePosts < ActiveRecord::Migration[5.0]
       t.integer :user_id, null: false
       t.text :description, null: false
       t.integer :price, null: false
+      t.string :title, null: false
       t.string :img_url1, null: false
       t.string :img_url2
       t.string :img_url3
