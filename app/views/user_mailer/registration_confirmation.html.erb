@@ -2,4 +2,4 @@ Hi FB ID:<%= @user.fb_id %>,
 
 Thanks for registering! To confirm your registration click the URL below.
 
-<a href="<%= "http://www.swapnow.io/email_confirmation/#{@user.edu_email_confirm_token}" %>" target="_blank">Confirm Token</a>
+<a href="<%= "#{ENV['LOCALHOST_URL']}/email_confirmation/#{@user.edu_email_confirm_token}" %>">Confirm Token</a>

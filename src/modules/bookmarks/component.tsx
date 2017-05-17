@@ -40,16 +40,16 @@ class Bookmarks extends React.Component<any, any> {
   }
 
   public fetchBookmarkedPosts() {
-    $.ajax({
+    ($ as any).ajax({
       method: "GET",
-      url: "/api/bookmarks"
+      url: "api/bookmarks"
     }).then(bookmarkedPosts => this.setState({ bookmarkedPosts }))
   }
 
   public deleteBookmarkedPost(postId) {
-    $.ajax({
+    ($ as any).ajax({
       type: "DELETE",
-      url: `/api/bookmarks/${postId}`
+      url: `api/bookmarks/${postId}`
     }).then(() => this.fetchBookmarkedPosts())
   }
 
@@ -61,8 +61,8 @@ class Bookmarks extends React.Component<any, any> {
   public initializeClipboard() {
     var clipboard = new Clipboard('.btn');
     clipboard.on('success', function(e) {
-      $(e.trigger).text("copied!")
-      setTimeout(function(){ $(e.trigger).text("Copy Link"); }, 1000)
+      ($ as any)(e.trigger).text("copied!")
+      setTimeout(function(){ ($ as any)(e.trigger).text("Copy Link"); }, 1000)
       e.clearSelection();
     });
   }
@@ -76,7 +76,7 @@ class Bookmarks extends React.Component<any, any> {
         <td className="hidden-xs">${Number(bookmarkedPost.price).toLocaleString()}</td>
         <td className="hidden-xs">{timeFromNow(bookmarkedPost.created_at)}</td>
         <td className="hidden-xs">{bookmarkedPost.condition}</td>
-        <td><button type="button" className="btn btn-xs btn-success" data-clipboard-text={`/#/posts/${bookmarkedPost.id}`}>Copy Link</button></td>
+        <td><button type="button" className="btn btn-xs btn-success" data-clipboard-text={`#/posts/${bookmarkedPost.id}`}>Copy Link</button></td>
         <td><button type="button" className="btn btn-xs btn-danger" onClick={() => this.deleteBookmarkedPost(bookmarkedPost.id)}>Delete</button></td>
       </tr>
     ))

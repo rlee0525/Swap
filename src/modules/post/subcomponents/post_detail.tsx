@@ -28,8 +28,8 @@ class PostDetail extends React.Component<any, any> {
   public initializeClipboard() {
     var clipboard = new Clipboard('#copy-template');
     clipboard.on('success', function(e) {
-      $(e.trigger).text("copied!")
-      setTimeout(function(){ $(e.trigger).text("Copy Link"); }, 1000)
+      ($ as any)(e.trigger).text("copied!")
+      setTimeout(function(){ ($ as any)(e.trigger).text("Copy Link"); }, 1000)
       e.clearSelection();
     });
   }
@@ -90,7 +90,7 @@ class PostDetail extends React.Component<any, any> {
   }
 
   public contactPerson() {
-    $('#contactModal').modal("show");
+    ($ as any)('#contactModal').modal("show");
   }
 
   public fetchAuthor() {
@@ -145,7 +145,8 @@ class PostDetail extends React.Component<any, any> {
                         My name is {this.state.currentUser && this.state.currentUser.name}. I saw your posting on {this.props.post.title} on Swap.<br/>
                         I would like to purchase it at ${this.props.post.price}.<br/>
                         Please let me know if it's still available.<br/>
-                        link: /#/posts/{this.props.post.id}<br/><br/>
+
+                        link: {(window as any).localhost_url}/#/posts/{this.props.post.id}<br/><br/>
 
                         Thanks,<br/>
                         {this.state.currentUser && this.state.currentUser.name}

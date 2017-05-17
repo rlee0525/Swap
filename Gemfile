@@ -67,3 +67,4 @@ end
 gem 'delayed_job_active_record'
 gem 'koala'
 gem 'daemons'
+gem 'figaro'
