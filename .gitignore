@@ -27,3 +27,6 @@ app/assets/javascripts/bundle.js.map
 
 config/api_key.js
 application.yml
+
+# Ignore application configuration
+/config/application.yml

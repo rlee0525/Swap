@@ -74,7 +74,7 @@ class SearchGridView extends React.Component<Props, State> {
         const accessToken = (FB as any).getAccessToken();
         $.ajax({
           method: "GET",
-          url: `/api/users/${accessToken}`
+          url: `api/users/${accessToken}`
         }).then(obj => {
           if (obj.edu_email_confirmed) {
             window.location.href = `#/posts/${id}`

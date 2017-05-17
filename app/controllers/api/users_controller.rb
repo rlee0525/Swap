@@ -20,6 +20,7 @@ class Api::UsersController < ApplicationController
     else
       @user = User.new(fb_id: fb_id)
       if @user.save
+        @user.mail
         return render "api/users/show", status: 200
       else
         return render json: ["invalid token"], status: 401
@@ -38,6 +39,7 @@ class Api::UsersController < ApplicationController
         return render "api/users/show", status: 200
       elsif
         @user.update(edu_email: "#{edu_email}")
+        @user.mail
         return render "api/users/show", status: 200
       else
         return render json: ["couldn't update edu email"], status: 500

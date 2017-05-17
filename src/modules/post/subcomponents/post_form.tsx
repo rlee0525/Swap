@@ -111,7 +111,7 @@ class PostForm extends React.Component<any, any> {
   public fetchPost(id) {
     $.ajax({
       method: "GET",
-      url: `/api/posts/${id}`
+      url: `api/posts/${id}`
     }).then(post => {
       this.setState({ ...post })
     })
@@ -120,7 +120,7 @@ class PostForm extends React.Component<any, any> {
   public fetchAllCategories() {
     $.ajax({
       method: "GET",
-      url: "/api/courses"
+      url: "api/courses"
     }).then(courses => {
       let coursesArray = courses.map(course => course.course_number)
       this.setState({ courses: coursesArray })
@@ -147,10 +147,10 @@ class PostForm extends React.Component<any, any> {
     let method, url;
     if (typeof this.props.postData === 'undefined') {
       method = "POST";
-      url = "/api/posts";
+      url = "api/posts";
     } else {
       method = "PATCH";
-      url = `/api/posts/${this.props.postData.id}`
+      url = `api/posts/${this.props.postData.id}`
     }
     $.ajax({
       method: method,

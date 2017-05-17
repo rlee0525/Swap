@@ -47,7 +47,7 @@ class NavBar extends React.Component<any, any> {
       accessToken = response.authResponse.accessToken
       $.ajax({
         method: "PATCH",
-        url: `/api/users/${accessToken}`,
+        url: `api/users/${accessToken}`,
         data: { edu_email }
       }).then(obj => {
         $('#logInModal').modal('hide');
@@ -69,7 +69,7 @@ class NavBar extends React.Component<any, any> {
         const accessToken = response.authResponse.accessToken
         $.ajax({
           method: "GET",
-          url: `/api/users/${accessToken}`
+          url: `api/users/${accessToken}`
         }).then(obj => {
           if (obj.edu_email_confirmed) {
             $('#logInModal').modal('show');
@@ -90,7 +90,7 @@ class NavBar extends React.Component<any, any> {
     const accessToken = (FB as any).getAccessToken();
     $.ajax({
       method: "GET",
-      url: `/api/users/${accessToken}`
+      url: `api/users/${accessToken}`
     }).then(obj => {
       if (obj.edu_email_confirmed) {
         this.props.router.push(address);

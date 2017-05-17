@@ -25,7 +25,6 @@ class User < ApplicationRecord
   belongs_to :university, optional: true
 
   before_create :confirmation_token
-  after_update :mail
 
   def email_activate
     self.edu_email_confirmed = true

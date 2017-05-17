@@ -57,8 +57,8 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "swapnow_#{Rails.env}"
   config.action_mailer.perform_caching = false
 
+  # SMTP settings for gmail
   config.action_mailer.delivery_method = :smtp
-# SMTP settings for gmail
   config.action_mailer.smtp_settings = {
    :address              => "smtp.gmail.com",
    :port                 => 587,
