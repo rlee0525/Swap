@@ -80,7 +80,7 @@ class App extends React.Component<Props, State> {
 
     $.ajax({
       method: "POST",
-      url: 'http://localhost:3000/api/users/',
+      url: '/api/users/',
       data: { accessToken }
     }).then(obj => {
       if (obj.edu_email === null) {
