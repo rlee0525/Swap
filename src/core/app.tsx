@@ -29,7 +29,7 @@ class App extends React.Component<Props, State> {
     let that = this;
     (window as any).fbAsyncInit = function() {
       FB.init({
-        appId      : window.fb_id,
+        appId      : (window as any).fb_id,
         cookie     : true,
         xfbml      : true,
         version    : 'v2.8'
@@ -78,24 +78,20 @@ class App extends React.Component<Props, State> {
       this.setState({ userFB: response });
     });
 
-    $.ajax({
+    ($ as any).ajax({
       method: "POST",
-<<<<<<< HEAD
       url: 'api/users/',
-=======
-      url: '/api/users/',
->>>>>>> 9947deec24a771fb4899316d1cbf32bd1d2ee838
       data: { accessToken }
     }).then(obj => {
       if (obj.edu_email === null) {
-        $('#logInModal').modal('hide')
-        $('#emailInputModal').modal('show')
+        ($ as any)('#logInModal').modal('hide')
+        ($ as any)('#emailInputModal').modal('show')
       } else if (obj.edu_email_confirmed === false) {
-        $('#logInModal').modal('hide')
-        $('#emailInputModal').modal('hide')
-        $('#emailVerificationModal').modal('show')
+        ($ as any)('#logInModal').modal('hide')
+        ($ as any)('#emailInputModal').modal('hide')
+        ($ as any)('#emailVerificationModal').modal('show')
       } else {
-        $('#logInModal').modal('hide')
+        ($ as any)('#logInModal').modal('hide')
       }
     })
   }

@@ -42,29 +42,25 @@ class NavBar extends React.Component<any, any> {
 
     let accessToken;
     let that = this;
-    const edu_email = ($('input.form-control')[0] as HTMLInputElement).value
+    const edu_email = (($ as any)('input.form-control')[0] as HTMLInputElement).value
     FB.getLoginStatus(function(response) {
       accessToken = response.authResponse.accessToken
       $.ajax({
         method: "PATCH",
-<<<<<<< HEAD
         url: `api/users/${accessToken}`,
-=======
-        url: `/api/users/${accessToken}`,
->>>>>>> 9947deec24a771fb4899316d1cbf32bd1d2ee838
         data: { edu_email }
       }).then(obj => {
-        $('#logInModal').modal('hide');
-        $('#emailInputModal').modal('hide');
-        $('#emailVerificationModal').modal('show');
+        ($ as any)('#logInModal').modal('hide');
+        ($ as any)('#emailInputModal').modal('hide');
+        ($ as any)('#emailVerificationModal').modal('show');
       })
     })
   }
 
   public resendVerificationEmail() {
-    $('#logInModal').modal('hide')
-    $('#emailInputModal').modal('show')
-    $('#emailVerificationModal').modal('hide')
+    ($ as any)('#logInModal').modal('hide')
+    ($ as any)('#emailInputModal').modal('show')
+    ($ as any)('#emailVerificationModal').modal('hide')
   }
 
   public chooseModal() {
@@ -73,22 +69,18 @@ class NavBar extends React.Component<any, any> {
         const accessToken = response.authResponse.accessToken
         $.ajax({
           method: "GET",
-<<<<<<< HEAD
           url: `api/users/${accessToken}`
-=======
-          url: `/api/users/${accessToken}`
->>>>>>> 9947deec24a771fb4899316d1cbf32bd1d2ee838
         }).then(obj => {
           if (obj.edu_email_confirmed) {
-            $('#logInModal').modal('show');
+            ($ as any)('#logInModal').modal('show');
           } else if (obj.edu_email === null) {
-            $('#emailInputModal').modal('show');
+            ($ as any)('#emailInputModal').modal('show');
           } else {
-            $('#emailVerificationModal').modal('show');
+            ($ as any)('#emailVerificationModal').modal('show');
           }
         }).fail(() => FB.logout(res => console.log(res)))
       } else {
-        $('#logInModal').modal('show');
+        ($ as any)('#logInModal').modal('show');
       }
     });
   }
@@ -98,18 +90,14 @@ class NavBar extends React.Component<any, any> {
     const accessToken = (FB as any).getAccessToken();
     $.ajax({
       method: "GET",
-<<<<<<< HEAD
       url: `api/users/${accessToken}`
-=======
-      url: `/api/users/${accessToken}`
->>>>>>> 9947deec24a771fb4899316d1cbf32bd1d2ee838
     }).then(obj => {
       if (obj.edu_email_confirmed) {
         this.props.router.push(address);
       } else if (obj.edu_email === null) {
-        $('#emailInputModal').modal('show');
+        ($ as any)('#emailInputModal').modal('show');
       } else {
-        $('#emailVerificationModal').modal('show');
+        ($ as any)('#emailVerificationModal').modal('show');
       }
     }).fail(() => FB.logout(res => console.log(res)))
   }
@@ -212,7 +200,7 @@ class NavBar extends React.Component<any, any> {
                 <h4>Please check your email for the verification link</h4>
                 <br/>
                 <button type="button" className="btn btn-warning btn-lg btn-block" onClick={ this.resendVerificationEmail }>Re-send verification email</button>
-                <button type="button" className="btn btn-primary btn-lg btn-block" onClick={ () => $('#emailVerificationModal').modal('hide') }>Close</button>
+                <button type="button" className="btn btn-primary btn-lg btn-block" onClick={ () => ($ as any)('#emailVerificationModal').modal('hide') }>Close</button>
               </div>
               <br/>
               <div className="modal-footer"></div>

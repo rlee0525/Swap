@@ -93,12 +93,12 @@ class PostForm extends React.Component<any, any> {
   }
 
   public initializeDropzone() {
-    $('.dropzone-upload').on('dragenter', function() {
-      $(this)
+    ($ as any)('.dropzone-upload').on('dragenter', function() {
+      ($ as any)(this)
         .css({'background-color' : 'rgba(0,0,0,0.2)'})
     });
-    $('.dropzone-upload').on('dragleave', function() {
-      $(this)
+    ($ as any)('.dropzone-upload').on('dragleave', function() {
+      ($ as any)(this)
         .css({'background-color' : 'rgba(0,0,0,0)'})
     });
   }
@@ -111,11 +111,7 @@ class PostForm extends React.Component<any, any> {
   public fetchPost(id) {
     $.ajax({
       method: "GET",
-<<<<<<< HEAD
       url: `api/posts/${id}`
-=======
-      url: `/api/posts/${id}`
->>>>>>> 9947deec24a771fb4899316d1cbf32bd1d2ee838
     }).then(post => {
       this.setState({ ...post })
     })

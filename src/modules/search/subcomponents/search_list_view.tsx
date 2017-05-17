@@ -51,13 +51,13 @@ class SearchListView extends React.Component<Props, any> {
           if (obj.edu_email_confirmed) {
             window.location.href = `#/posts/${id}`
           } else if (obj.edu_email === null) {
-            $('#emailInputModal').modal('show');
+            ($ as any)('#emailInputModal').modal('show');
           } else {
-            $('#emailVerificationModal').modal('show');
+            ($ as any)('#emailVerificationModal').modal('show');
           }
         }).fail(() => FB.logout(res => console.log(res)))
       } else {
-        $('#logInModal').modal('show');
+        ($ as any)('#logInModal').modal('show');
       }
     });
   }

@@ -55,21 +55,21 @@ class MyPosts extends React.Component<Props, State> {
   }
 
   public getMyPosts() {
-    $.ajax({
+    ($ as any).ajax({
       method: "GET",
       url: "api/posts"
     }).then(myPosts => this.setState({myPosts}))
   }
 
   public editPost(id) {
-    $.ajax({
+    ($ as any).ajax({
       method: "GET",
       url: `api/posts/${id}`
     }).then(myPost => this.setState({ myPost }))
   }
 
   public deletePost(id) {
-    $.ajax({
+    ($ as any).ajax({
       type: "DELETE",
       url: `api/posts/${id}`
     }).then(() => this.getMyPosts())
