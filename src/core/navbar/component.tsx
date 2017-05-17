@@ -7,6 +7,7 @@ class NavBar extends React.Component<any, any> {
     super(props);
 
     this.state = {
+      modalHeader: "Log in with Facebook",
       userFB: null,
       accessToken: null,
       status
@@ -65,8 +66,10 @@ class NavBar extends React.Component<any, any> {
   }
 
   public chooseModal() {
+    const that = this;
     FB.getLoginStatus(function(response) {
       if (response.status === "connected") {
+        that.setState({modalHeader: "Log out with Facebook"})
         const accessToken = response.authResponse.accessToken
         $.ajax({
           method: "GET",
@@ -81,6 +84,7 @@ class NavBar extends React.Component<any, any> {
           }
         }).fail(() => FB.logout(res => console.log(res)))
       } else {
+        that.setState({modalHeader: "Log in with Facebook"})
         $('#logInModal').modal('show');
       }
     });
@@ -153,7 +157,7 @@ class NavBar extends React.Component<any, any> {
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <div className="modal-header" id="auth-modal-header">
-                <h3 className="modal-title" id="authModalLabel">Log in with Facebook</h3>
+                <h3 className="modal-title" id="authModalLabel">{this.state.modalHeader}</h3>
               </div>
               <div className="modal-body text-center" id="fb-modal-body">
                 <div className="fb-login-button" data-scope="email" data-max-rows="1" data-size="large" data-button-type="login_with" data-auto-logout-link="true" data-use-continue-as="true" data-onlogin=""></div>
