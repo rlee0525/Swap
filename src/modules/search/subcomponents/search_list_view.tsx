@@ -41,6 +41,12 @@ class SearchListView extends React.Component<Props, any> {
     this.checkVerified = this.checkVerified.bind(this);
   }
 
+  public componentWillReceiveProps(nextProps) {
+    let results = nextProps.searchResult;
+    let maxPages = Math.ceil(nextProps.searchResult.length / 10)
+    this.setState({results, maxPages});
+  }
+
   public checkVerified(id:number) {
     (FB as any).getLoginStatus(function(response) {
       if (response.status === "connected") {
