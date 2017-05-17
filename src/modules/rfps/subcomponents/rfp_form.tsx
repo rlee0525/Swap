@@ -20,6 +20,7 @@ class RfpForm extends React.Component<any, any> {
     $.ajax({
       method: "POST",
       url: "api/rfps",
+
       data: { description }
     }).then(post => this.props.props.router.replace(`dashboard/rfps`))
       .fail(errors => {

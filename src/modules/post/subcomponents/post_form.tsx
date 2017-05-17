@@ -111,7 +111,11 @@ class PostForm extends React.Component<any, any> {
   public fetchPost(id) {
     $.ajax({
       method: "GET",
+<<<<<<< HEAD
       url: `api/posts/${id}`
+=======
+      url: `/api/posts/${id}`
+>>>>>>> 9947deec24a771fb4899316d1cbf32bd1d2ee838
     }).then(post => {
       this.setState({ ...post })
     })

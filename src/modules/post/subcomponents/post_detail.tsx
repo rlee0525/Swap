@@ -145,7 +145,11 @@ class PostDetail extends React.Component<any, any> {
                         My name is {this.state.currentUser && this.state.currentUser.name}. I saw your posting on {this.props.post.title} on Swap.<br/>
                         I would like to purchase it at ${this.props.post.price}.<br/>
                         Please let me know if it's still available.<br/>
+<<<<<<< HEAD
                         link: /#/posts/{this.props.post.id}<br/><br/>
+=======
+                        link: www.swapnow.io/#/posts/{this.props.post.id}<br/><br/>
+>>>>>>> 9947deec24a771fb4899316d1cbf32bd1d2ee838
 
                         Thanks,<br/>
                         {this.state.currentUser && this.state.currentUser.name}

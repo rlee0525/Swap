@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  helper_method :fb_app_id, :localhost_url
 
   def fb_id(access_token)
     graph = Koala::Facebook::API.new(access_token)
@@ -20,17 +19,5 @@ class ApplicationController < ActionController::Base
       return false
     end
     !!user
-  end
-
-  def fb_app_id
-    ENV["FB_APP_ID"]
-  end
-
-  def localhost_url
-    if Rails.env.development?
-      return 'localhost:3000'
-    elsif Rails.env.production?
-      return "http://www.swapnow.io"
-    end
   end
 end

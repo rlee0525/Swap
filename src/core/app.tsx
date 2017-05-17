@@ -80,7 +80,11 @@ class App extends React.Component<Props, State> {
 
     $.ajax({
       method: "POST",
+<<<<<<< HEAD
       url: 'api/users/',
+=======
+      url: '/api/users/',
+>>>>>>> 9947deec24a771fb4899316d1cbf32bd1d2ee838
       data: { accessToken }
     }).then(obj => {
       if (obj.edu_email === null) {
