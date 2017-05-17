@@ -1,7 +1,7 @@
 import React from 'react';
 
 class Home extends React.Component<any, any> {
-  constructor(props: any) {
+  constructor(props) {
     super(props);
 
     this.viewDescription = this.viewDescription.bind(this);
