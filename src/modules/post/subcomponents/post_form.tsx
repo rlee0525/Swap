@@ -13,9 +13,10 @@ class PostForm extends React.Component<any, any> {
     this.submitForm = this.submitForm.bind(this);
     this.categoryRadioUpdate = this.categoryRadioUpdate.bind(this);
     this.conditionRadioUpdate = this.conditionRadioUpdate.bind(this);
-    this.fetchAllCategories = this.fetchAllCategories.bind(this);
+    this.fetchAllCourses = this.fetchAllCourses.bind(this);
     this.initializeDropzone = this.initializeDropzone.bind(this);
     this.renderErrors = this.renderErrors.bind(this);
+    this.autoComplete = this.autoComplete.bind(this);
 
     this.state = {
       title: "",
@@ -33,6 +34,23 @@ class PostForm extends React.Component<any, any> {
     if (typeof props.params.id !== "undefined") {
       this.fetchPost(props.params.id)
     }
+  }
+
+  public autoComplete(courses) {
+    let that = this;
+    let input = function () { return  { search: ($ as any)('#course').val() }};
+    ($ as any)('#course').devbridgeAutocomplete({
+      lookup: function (query, done) {
+        $.ajax({
+          method: 'GET',
+          url: 'api/courses',
+          data: input()
+        }).then(data => done({ "suggestions": data }))
+      },
+      onSelect: function (suggestion) {
+        that.setState({course: suggestion.value})
+      }
+    });
   }
 
   public componentWillReceiveProps(nextProps) {
@@ -105,7 +123,7 @@ class PostForm extends React.Component<any, any> {
 
   public componentDidMount() {
     this.initializeDropzone();
-    this.fetchAllCategories();
+    this.fetchAllCourses();
   }
 
   public fetchPost(id) {
@@ -117,13 +135,13 @@ class PostForm extends React.Component<any, any> {
     })
   }
 
-  public fetchAllCategories() {
+  public fetchAllCourses() {
     $.ajax({
       method: "GET",
       url: "api/courses"
     }).then(courses => {
-      let coursesArray = courses.map(course => course.course_number)
-      this.setState({ courses: coursesArray })
+      this.setState({ courses })
+      this.autoComplete(courses)
     }).fail(errors => {
       this.setState({ errors })
     })
