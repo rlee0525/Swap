@@ -61,9 +61,6 @@ module.exports = {
           {
             loader: 'babel-loader',
             options: babelOptions
-          },
-          {
-            loader: 'awesome-typescript-loader'
           }
         ]
       }]
