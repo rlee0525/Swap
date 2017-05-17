@@ -171,13 +171,13 @@ class NavBar extends React.Component<any, any> {
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <div className="modal-header" id="auth-modal-header">
-                <h3 className="modal-title" id="authModalLabel">Enter your university email address</h3>
+                <h3 className="modal-title" id="authModalLabel">Enter your email address</h3>
               </div>
               <div className="modal-body text-center" id="fb-modal-body">
                 <form onSubmit={ this.sendEmail }>
                   <div className="form-group input-group">
                     <input type="text" className="form-control" placeholder="Your email" aria-describedby="basic-addon2"/>
-                    <span className="input-group-addon" id="basic-addon2">@berkeley.edu</span>
+                    <span className="input-group-addon" id="basic-addon2">Ex: me@email.com</span>
                   </div>
                   <button type="button" className="btn btn-primary btn-lg btn-block" onClick={ this.sendEmail }>Submit</button>
                 </form>
