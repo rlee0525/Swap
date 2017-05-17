@@ -23,7 +23,7 @@ interface State {
 }
 
 class Bookmarks extends React.Component<any, any> {
-  constructor(props: any) {
+  constructor(props) {
     super(props);
     this.initializeClipboard = this.initializeClipboard.bind(this);
     this.fetchBookmarkedPosts = this.fetchBookmarkedPosts.bind(this);

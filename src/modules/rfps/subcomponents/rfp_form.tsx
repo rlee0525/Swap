@@ -1,7 +1,7 @@
 import React from 'react';
 
 class RfpForm extends React.Component<any, any> {
-  constructor(props: any) {
+  constructor(props) {
     super(props);
     this.submitForm = this.submitForm.bind(this);
     this.updateState = this.updateState.bind(this);

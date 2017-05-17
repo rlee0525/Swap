@@ -1,7 +1,7 @@
 import React from 'react';
 
 class FAQ extends React.Component<any, any> {
-  constructor(props: any) {
+  constructor(props) {
     super(props);
   }
 

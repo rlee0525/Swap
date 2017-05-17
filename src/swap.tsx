@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const preloadedState: object = {};
 
-  const store: Store<any> = configureStore(preloadedState);
+  const store = configureStore(preloadedState);
 
   ReactDOM.render(<Root store={store}/>, root);
   (window as any).store = store;
