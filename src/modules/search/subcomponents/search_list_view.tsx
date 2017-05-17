@@ -1,6 +1,7 @@
 import React from 'react';
 import { shortenString, timeFromNow } from 'helpers';
 import { Pagination } from './';
+declare var $;
 
 interface Post {
   id: any;
@@ -51,13 +52,13 @@ class SearchListView extends React.Component<Props, any> {
           if (obj.edu_email_confirmed) {
             window.location.href = `#/posts/${id}`
           } else if (obj.edu_email === null) {
-            ($ as any)('#emailInputModal').modal('show');
+            $('#emailInputModal').modal('show');
           } else {
-            ($ as any)('#emailVerificationModal').modal('show');
+            $('#emailVerificationModal').modal('show');
           }
         }).fail(() => FB.logout(res => console.log(res)))
       } else {
-        ($ as any)('#logInModal').modal('show');
+        $('#logInModal').modal('show');
       }
     });
   }

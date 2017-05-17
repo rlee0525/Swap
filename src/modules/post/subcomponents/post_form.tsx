@@ -1,7 +1,7 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
-
+declare var $;
 const CLOUDINARY_UPLOAD_PRESET = 'xmfenamw';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/dkympkwdz/upload';
 
@@ -38,8 +38,8 @@ class PostForm extends React.Component<any, any> {
 
   public autoComplete(courses) {
     let that = this;
-    let input = function () { return  { search: ($ as any)('#course').val() }};
-    ($ as any)('#course').devbridgeAutocomplete({
+    let input = function () { return  { search: $('#course').val() }};
+    $('#course').devbridgeAutocomplete({
       lookup: function (query, done) {
         $.ajax({
           method: 'GET',
@@ -111,12 +111,12 @@ class PostForm extends React.Component<any, any> {
   }
 
   public initializeDropzone() {
-    ($ as any)('.dropzone-upload').on('dragenter', function() {
-      ($ as any)(this)
+    $('.dropzone-upload').on('dragenter', function() {
+      $(this)
         .css({'background-color' : 'rgba(0,0,0,0.2)'})
     });
-    ($ as any)('.dropzone-upload').on('dragleave', function() {
-      ($ as any)(this)
+    $('.dropzone-upload').on('dragleave', function() {
+      $(this)
         .css({'background-color' : 'rgba(0,0,0,0)'})
     });
   }
@@ -163,12 +163,12 @@ class PostForm extends React.Component<any, any> {
     const { title, condition, course, price, description, category, img_url1, img_url2, img_url3 } = this.state;
     e.preventDefault();
     let method, url;
-    if (typeof this.props.postData === 'undefined') {
+    if (typeof this.props.params.id === 'undefined') {
       method = "POST";
       url = "api/posts";
     } else {
       method = "PATCH";
-      url = `api/posts/${this.props.postData.id}`
+      url = `api/posts/${this.props.params.id}`
     }
     $.ajax({
       method: method,
@@ -286,7 +286,7 @@ class PostForm extends React.Component<any, any> {
             </div>
             <div className="form-group">
               <div className="col-sm-12">
-                <button onClick={this.submitForm} type="button" className="btn btn-success btn-lg btn-block">{typeof this.props.postData === "undefined" ? "Create" : "Update"}</button>
+                <button onClick={this.submitForm} type="button" className="btn btn-success btn-lg btn-block">{typeof this.props.params.id === "undefined" ? "Create" : "Update"}</button>
               </div>
             </div>
           </form>

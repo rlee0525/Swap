@@ -1,6 +1,6 @@
 class Api::PostsController < ApplicationController
   def index
-    @posts = Post.all.includes(:course)
+    @posts = Post.all.includes(:course).order(id: :desc)
     render "api/posts/index", status: 200
   end
 

@@ -40,14 +40,14 @@ class Bookmarks extends React.Component<any, any> {
   }
 
   public fetchBookmarkedPosts() {
-    ($ as any).ajax({
+    $.ajax({
       method: "GET",
       url: "api/bookmarks"
     }).then(bookmarkedPosts => this.setState({ bookmarkedPosts }))
   }
 
   public deleteBookmarkedPost(postId) {
-    ($ as any).ajax({
+    $.ajax({
       type: "DELETE",
       url: `api/bookmarks/${postId}`
     }).then(() => this.fetchBookmarkedPosts())
@@ -61,8 +61,8 @@ class Bookmarks extends React.Component<any, any> {
   public initializeClipboard() {
     var clipboard = new Clipboard('.btn');
     clipboard.on('success', function(e) {
-      ($ as any)(e.trigger).text("copied!")
-      setTimeout(function(){ ($ as any)(e.trigger).text("Copy Link"); }, 1000)
+      $(e.trigger).text("copied!")
+      setTimeout(function(){ $(e.trigger).text("Copy Link"); }, 1000)
       e.clearSelection();
     });
   }

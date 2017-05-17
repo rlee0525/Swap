@@ -1,6 +1,7 @@
 import * as React from 'react';
 import NavBar from 'core/navbar';
 import Footer from 'core/footer';
+declare var $;
 
 interface Props {
   children: any;
@@ -78,20 +79,20 @@ class App extends React.Component<Props, State> {
       this.setState({ userFB: response });
     });
 
-    ($ as any).ajax({
+    $.ajax({
       method: "POST",
       url: 'api/users/',
       data: { accessToken }
     }).then(obj => {
       if (obj.edu_email === null) {
-        ($ as any)('#logInModal').modal('hide')
-        ($ as any)('#emailInputModal').modal('show')
+        $('#logInModal').modal('hide')
+        $('#emailInputModal').modal('show')
       } else if (obj.edu_email_confirmed === false) {
-        ($ as any)('#logInModal').modal('hide')
-        ($ as any)('#emailInputModal').modal('hide')
-        ($ as any)('#emailVerificationModal').modal('show')
+        $('#logInModal').modal('hide')
+        $('#emailInputModal').modal('hide')
+        $('#emailVerificationModal').modal('show')
       } else {
-        ($ as any)('#logInModal').modal('hide')
+        $('#logInModal').modal('hide')
       }
     })
   }

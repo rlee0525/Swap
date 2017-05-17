@@ -2,6 +2,7 @@ import React from 'react';
 import { SearchNavbar } from 'modules/search/subcomponents';
 import { shortenString, timeFromNow } from 'helpers';
 import Clipboard from 'clipboard';
+declare var $;
 
 class PostDetail extends React.Component<any, any> {
   constructor(props) {
@@ -28,8 +29,8 @@ class PostDetail extends React.Component<any, any> {
   public initializeClipboard() {
     var clipboard = new Clipboard('#copy-template');
     clipboard.on('success', function(e) {
-      ($ as any)(e.trigger).text("copied!")
-      setTimeout(function(){ ($ as any)(e.trigger).text("Copy Link"); }, 1000)
+      $(e.trigger).text("copied!")
+      setTimeout(function(){ $(e.trigger).text("Copy Link"); }, 1000)
       e.clearSelection();
     });
   }
@@ -90,7 +91,7 @@ class PostDetail extends React.Component<any, any> {
   }
 
   public contactPerson() {
-    ($ as any)('#contactModal').modal("show");
+    $('#contactModal').modal("show");
   }
 
   public fetchAuthor() {
