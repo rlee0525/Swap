@@ -160,7 +160,8 @@ class PostForm extends React.Component<any, any> {
   }
 
   public submitForm(e) {
-    const { title, condition, course, price, description, category, img_url1, img_url2, img_url3 } = this.state;
+    let { title, condition, course, price, description, category, img_url1, img_url2, img_url3 } = this.state;
+    if (this.state.category !== "Textbooks") course = "";
     e.preventDefault();
     let method, url;
     if (typeof this.props.params.id === 'undefined') {
@@ -220,7 +221,7 @@ class PostForm extends React.Component<any, any> {
                 <div onClick={this.conditionRadioUpdate} className={`col-sm-3 radio-button ${this.state.condition === "Like New" ? "radio-active" : "" }`}>Like New</div>
                 <div onClick={this.conditionRadioUpdate} className={`col-sm-3 radio-button ${this.state.condition === "Used" ? "radio-active" : "" }`}>Used</div>
             </div>
-            <div className="form-group">
+            <div className={`form-group ${this.state.category !== "Textbooks" ? "hidden" : ""}`}>
               <label htmlFor="inputCourse3" className="col-sm-3 control-label">Course</label>
               <div className="col-sm-9 input-group" >
                 <input maxLength={50} value={this.state.course} onChange={ this.updateState } type="text" className="form-control" id="course" placeholder="Type to autocomplete"/>
