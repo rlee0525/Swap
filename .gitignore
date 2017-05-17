@@ -17,8 +17,10 @@
 .byebug_history
 
 node_modules/
-bundle.js
-bundle.js.map
+main.js
+main.js.map
+vendor.js
+vendor.js.map
 
 app/assets/javascripts/bundle.js
 app/assets/javascripts/bundle.js.map

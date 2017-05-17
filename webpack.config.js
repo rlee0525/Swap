@@ -2,11 +2,36 @@ const path = require('path');
 // const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 
+var babelOptions = {
+  "presets": [
+    "react",
+    [
+      "es2015",
+      {
+        "modules": false
+      }
+    ],
+    "es2016"
+  ]
+};
+
 module.exports = {
-    entry: "./src/swap.tsx",
+    cache: true,
+    entry: {
+      main: "./src/swap.tsx",
+      vendor: [
+        'babel-polyfill',
+        'events',
+        'fbemitter',
+        'flux',
+        'react',
+        'react-dom'
+      ]
+    },
     output: {
-        filename: "bundle.js",
-        path: __dirname + "/app/assets/javascripts"
+        filename: "[name].js",
+        path: __dirname + "/app/assets/javascripts",
+        chunkFilename: '[chunkhash].js'
     },
     devtool: "source-map",
     resolve: {
@@ -17,10 +42,28 @@ module.exports = {
         ]
     },
     module: {
-        rules: [
-            { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
-            { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
+      rules: [{
+        test: /\.ts(x?)$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: babelOptions
+          },
+          {
+            loader: 'awesome-typescript-loader'
+          }
         ]
+      }, {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: babelOptions
+          }
+        ]
+      }]
     },
     node: {
       fs: 'empty',
