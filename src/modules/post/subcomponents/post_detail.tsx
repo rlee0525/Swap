@@ -43,49 +43,39 @@ class PostDetail extends React.Component<any, any> {
     }
   }
 
-  public renderCarousel() {
-    let img_url1;
-    let img_url2;
-    let img_url3;
-    let created_at;
+  public renderCarouselIndicators() {
+    if (!this.props.post) return null;
+    let { img_url1, img_url2, img_url3 } = this.props.post;
+    let imageArray = [img_url1, img_url2, img_url3].filter(el => el !== null);
+    imageArray = imageArray.map((el, idx) => (
+      <li key={idx} data-target="#carousel-example-generic-2"
+        data-slide-to={idx} className={idx === 0 ? "active" : ""}></li>
+    ))
+    return (
+      <ol className="carousel-indicators">{imageArray}</ol>
+    )
+  }
 
-    if (this.props.post) {
-      img_url1 = this.props.post.img_url1;
-      img_url2 = this.props.post.img_url2;
-      img_url3 = this.props.post.img_url3;
-      created_at = this.props.post.created_at;
-    }
-    // TODO: Refactor using iteration
+  public renderCarousel() {
+    if (!this.props.post) return null;
+    let { img_url1, img_url2, img_url3 } = this.props.post;
+    let imageArray = [img_url1, img_url2, img_url3].filter(el => el !== null);
+
+    imageArray = imageArray.map((el, idx) => (
+      <div key={idx} className={`item absolute-height ${idx == 0 ? "active" : ""}`}>
+        <div className="block">
+          <div className="container">
+            <div className="col-sm-6">
+              <img className="img-responsive center-block app-block-game-img" src={el} />
+            </div>
+          </div>
+        </div>
+      </div>
+    ))
 
     return (
       <div className="carousel-inner" role="listbox">
-        <div className="item absolute-height active">
-          <div className="block">
-            <div className="container">
-              <div className="col-sm-6">
-                <img className="img-responsive center-block app-block-game-img" src={img_url1} />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="item absolute-height">
-          <div className="block">
-            <div className="container">
-              <div className="col-sm-6">
-                <img className="img-responsive center-block app-block-game-img" src={img_url2} />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="item absolute-height">
-          <div className="block">
-            <div className="container">
-              <div className="col-sm-6">
-                <img className="img-responsive center-block app-block-game-img" src={img_url3} />
-              </div>
-            </div>
-          </div>
-        </div>
+        {imageArray}
       </div>
     )
   }
@@ -176,11 +166,7 @@ class PostDetail extends React.Component<any, any> {
         <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
           <div className="block p-l-0 p-t-0 p-r-0">
             <div id="carousel-example-generic-2" className="carousel carousel-light slide" data-ride="carousel">
-             <ol className="carousel-indicators">
-               <li data-target="#carousel-example-generic-2" data-slide-to="0" className="active"></li>
-               <li data-target="#carousel-example-generic-2" data-slide-to="1"></li>
-               <li data-target="#carousel-example-generic-2" data-slide-to="2"></li>
-             </ol>
+             {this.renderCarouselIndicators()}
              {this.renderCarousel()}
              <a className="left carousel-control" href="#carousel-example-generic-2" role="button" data-slide="prev">
                <span className="icon icon-chevron-thin-left" aria-hidden="true"></span>
