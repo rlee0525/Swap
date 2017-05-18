@@ -1,7 +1,7 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
-
+declare var $;
 const CLOUDINARY_UPLOAD_PRESET = 'xmfenamw';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/dkympkwdz/upload';
 
@@ -13,9 +13,10 @@ class PostForm extends React.Component<any, any> {
     this.submitForm = this.submitForm.bind(this);
     this.categoryRadioUpdate = this.categoryRadioUpdate.bind(this);
     this.conditionRadioUpdate = this.conditionRadioUpdate.bind(this);
-    this.fetchAllCategories = this.fetchAllCategories.bind(this);
+    this.fetchAllCourses = this.fetchAllCourses.bind(this);
     this.initializeDropzone = this.initializeDropzone.bind(this);
     this.renderErrors = this.renderErrors.bind(this);
+    this.autoComplete = this.autoComplete.bind(this);
 
     this.state = {
       title: "",
@@ -33,6 +34,23 @@ class PostForm extends React.Component<any, any> {
     if (typeof props.params.id !== "undefined") {
       this.fetchPost(props.params.id)
     }
+  }
+
+  public autoComplete(courses) {
+    let that = this;
+    let input = function () { return  { search: $('#course').val() }};
+    $('#course').devbridgeAutocomplete({
+      lookup: function (query, done) {
+        $.ajax({
+          method: 'GET',
+          url: 'api/courses',
+          data: input()
+        }).then(data => done({ "suggestions": data }))
+      },
+      onSelect: function (suggestion) {
+        that.setState({course: suggestion.value})
+      }
+    });
   }
 
   public componentWillReceiveProps(nextProps) {
@@ -93,19 +111,19 @@ class PostForm extends React.Component<any, any> {
   }
 
   public initializeDropzone() {
-    ($ as any)('.dropzone-upload').on('dragenter', function() {
-      ($ as any)(this)
+    $('.dropzone-upload').on('dragenter', function() {
+      $(this)
         .css({'background-color' : 'rgba(0,0,0,0.2)'})
     });
-    ($ as any)('.dropzone-upload').on('dragleave', function() {
-      ($ as any)(this)
+    $('.dropzone-upload').on('dragleave', function() {
+      $(this)
         .css({'background-color' : 'rgba(0,0,0,0)'})
     });
   }
 
   public componentDidMount() {
     this.initializeDropzone();
-    this.fetchAllCategories();
+    this.fetchAllCourses();
   }
 
   public fetchPost(id) {
@@ -117,13 +135,13 @@ class PostForm extends React.Component<any, any> {
     })
   }
 
-  public fetchAllCategories() {
+  public fetchAllCourses() {
     $.ajax({
       method: "GET",
       url: "api/courses"
     }).then(courses => {
-      let coursesArray = courses.map(course => course.course_number)
-      this.setState({ courses: coursesArray })
+      this.setState({ courses })
+      this.autoComplete(courses)
     }).fail(errors => {
       this.setState({ errors })
     })
@@ -142,15 +160,16 @@ class PostForm extends React.Component<any, any> {
   }
 
   public submitForm(e) {
-    const { title, condition, course, price, description, category, img_url1, img_url2, img_url3 } = this.state;
+    let { title, condition, course, price, description, category, img_url1, img_url2, img_url3 } = this.state;
+    if (this.state.category !== "Textbooks") course = "";
     e.preventDefault();
     let method, url;
-    if (typeof this.props.postData === 'undefined') {
+    if (typeof this.props.params.id === 'undefined') {
       method = "POST";
       url = "api/posts";
     } else {
       method = "PATCH";
-      url = `api/posts/${this.props.postData.id}`
+      url = `api/posts/${this.props.params.id}`
     }
     $.ajax({
       method: method,
@@ -202,7 +221,7 @@ class PostForm extends React.Component<any, any> {
                 <div onClick={this.conditionRadioUpdate} className={`col-sm-3 radio-button ${this.state.condition === "Like New" ? "radio-active" : "" }`}>Like New</div>
                 <div onClick={this.conditionRadioUpdate} className={`col-sm-3 radio-button ${this.state.condition === "Used" ? "radio-active" : "" }`}>Used</div>
             </div>
-            <div className="form-group">
+            <div className={`form-group ${this.state.category !== "Textbooks" ? "hidden" : ""}`}>
               <label htmlFor="inputCourse3" className="col-sm-3 control-label">Course</label>
               <div className="col-sm-9 input-group" >
                 <input maxLength={50} value={this.state.course} onChange={ this.updateState } type="text" className="form-control" id="course" placeholder="Type to autocomplete"/>
@@ -268,7 +287,7 @@ class PostForm extends React.Component<any, any> {
             </div>
             <div className="form-group">
               <div className="col-sm-12">
-                <button onClick={this.submitForm} type="button" className="btn btn-success btn-lg btn-block">{typeof this.props.postData === "undefined" ? "Create" : "Update"}</button>
+                <button onClick={this.submitForm} type="button" className="btn btn-success btn-lg btn-block">{typeof this.props.params.id === "undefined" ? "Create" : "Update"}</button>
               </div>
             </div>
           </form>

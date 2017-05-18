@@ -1,6 +1,8 @@
 import * as React from 'react';
 import NavBar from 'core/navbar';
 import Footer from 'core/footer';
+declare var $;
+declare var window;
 
 interface Props {
   children: any;
@@ -27,9 +29,9 @@ class App extends React.Component<Props, State> {
     this.checkFbStatus = this.checkFbStatus.bind(this);
 
     let that = this;
-    (window as any).fbAsyncInit = function() {
+    window.fbAsyncInit = function() {
       FB.init({
-        appId      : (window as any).fb_id,
+        appId      : window.fb_id,
         cookie     : true,
         xfbml      : true,
         version    : 'v2.8'
@@ -66,7 +68,7 @@ class App extends React.Component<Props, State> {
 
   public logout(response: any) {
     this.setState({ userFB: null, accessToken: null, status });
-    (window as any).location.replace("/");
+    window.location.replace("/");
   }
 
   public login(response: any) {
@@ -78,20 +80,20 @@ class App extends React.Component<Props, State> {
       this.setState({ userFB: response });
     });
 
-    ($ as any).ajax({
+    $.ajax({
       method: "POST",
       url: 'api/users/',
       data: { accessToken }
     }).then(obj => {
       if (obj.edu_email === null) {
-        ($ as any)('#logInModal').modal('hide')
-        ($ as any)('#emailInputModal').modal('show')
+        $('#logInModal').modal('hide')
+        $('#emailInputModal').modal('show')
       } else if (obj.edu_email_confirmed === false) {
-        ($ as any)('#logInModal').modal('hide')
-        ($ as any)('#emailInputModal').modal('hide')
-        ($ as any)('#emailVerificationModal').modal('show')
+        $('#logInModal').modal('hide')
+        $('#emailInputModal').modal('hide')
+        $('#emailVerificationModal').modal('show')
       } else {
-        ($ as any)('#logInModal').modal('hide')
+        $('#logInModal').modal('hide')
       }
     })
   }

@@ -37,8 +37,8 @@ class Api::UsersController < ApplicationController
       @user = User.find_by(fb_id: fb_id)
       if @user.edu_email_confirmed
         return render "api/users/show", status: 200
-      elsif
-        @user.update(edu_email: "#{edu_email}")
+      elsif @user
+        @user.update(edu_email: edu_email)
         @user.mail
         return render "api/users/show", status: 200
       else

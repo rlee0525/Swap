@@ -11,7 +11,14 @@
 #
 
 class Course < ApplicationRecord
+  include SearchCop
+
+  search_scope :search do
+    attributes :course_number
+  end
+
   validates :university, :course_name, :course_number, presence: true
   has_many :posts, inverse_of: :course
   belongs_to :university
+
 end

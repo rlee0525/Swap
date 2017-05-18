@@ -11,7 +11,7 @@ class Api::BookmarksController < ApplicationController
   def index
     # TODO add authentication in application_controller
     # for selecting user. right now uses first user
-    @bookmarked_posts = User.first.bookmarked_posts
+    @bookmarked_posts = User.first.bookmarked_posts.order(id: :desc)
     render "api/bookmarks/index", status: 200
   end
 

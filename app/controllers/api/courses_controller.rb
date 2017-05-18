@@ -1,6 +1,11 @@
 class Api::CoursesController < ApplicationController
   def index
-    @courses = Course.all
+    filter = params[:search]
+    if filter
+      @courses = Course.search(filter).limit(10)
+    else
+      @courses = Course.all
+    end
     render "api/courses/index", status: 200
   end
 

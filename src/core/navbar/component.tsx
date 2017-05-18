@@ -1,11 +1,13 @@
 import React from 'react';
 import { withRouter } from 'react-router';
+declare var $;
 
 class NavBar extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
 
     this.state = {
+      modalHeader: "Log in with Facebook",
       userFB: null,
       accessToken: null,
       status
@@ -42,7 +44,7 @@ class NavBar extends React.Component<any, any> {
 
     let accessToken;
     let that = this;
-    const edu_email = (($ as any)('input.form-control')[0] as HTMLInputElement).value
+    const edu_email = ($('input.form-control')[0] as HTMLInputElement).value
     FB.getLoginStatus(function(response) {
       accessToken = response.authResponse.accessToken
       $.ajax({
@@ -50,37 +52,40 @@ class NavBar extends React.Component<any, any> {
         url: `api/users/${accessToken}`,
         data: { edu_email }
       }).then(obj => {
-        ($ as any)('#logInModal').modal('hide');
-        ($ as any)('#emailInputModal').modal('hide');
-        ($ as any)('#emailVerificationModal').modal('show');
+        $('#logInModal').modal('hide');
+        $('#emailInputModal').modal('hide');
+        $('#emailVerificationModal').modal('show');
       })
     })
   }
 
   public resendVerificationEmail() {
-    ($ as any)('#logInModal').modal('hide')
-    ($ as any)('#emailInputModal').modal('show')
-    ($ as any)('#emailVerificationModal').modal('hide')
+    $('#logInModal').modal('hide')
+    $('#emailInputModal').modal('show')
+    $('#emailVerificationModal').modal('hide')
   }
 
   public chooseModal() {
+    const that = this;
     FB.getLoginStatus(function(response) {
       if (response.status === "connected") {
+        that.setState({modalHeader: "Log out with Facebook"})
         const accessToken = response.authResponse.accessToken
         $.ajax({
           method: "GET",
           url: `api/users/${accessToken}`
         }).then(obj => {
           if (obj.edu_email_confirmed) {
-            ($ as any)('#logInModal').modal('show');
+            $('#logInModal').modal('show');
           } else if (obj.edu_email === null) {
-            ($ as any)('#emailInputModal').modal('show');
+            $('#emailInputModal').modal('show');
           } else {
-            ($ as any)('#emailVerificationModal').modal('show');
+            $('#emailVerificationModal').modal('show');
           }
         }).fail(() => FB.logout(res => console.log(res)))
       } else {
-        ($ as any)('#logInModal').modal('show');
+        that.setState({modalHeader: "Log in with Facebook"})
+        $('#logInModal').modal('show');
       }
     });
   }
@@ -95,9 +100,9 @@ class NavBar extends React.Component<any, any> {
       if (obj.edu_email_confirmed) {
         this.props.router.push(address);
       } else if (obj.edu_email === null) {
-        ($ as any)('#emailInputModal').modal('show');
+        $('#emailInputModal').modal('show');
       } else {
-        ($ as any)('#emailVerificationModal').modal('show');
+        $('#emailVerificationModal').modal('show');
       }
     }).fail(() => FB.logout(res => console.log(res)))
   }
@@ -152,7 +157,7 @@ class NavBar extends React.Component<any, any> {
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <div className="modal-header" id="auth-modal-header">
-                <h3 className="modal-title" id="authModalLabel">Log in with Facebook</h3>
+                <h3 className="modal-title" id="authModalLabel">{this.state.modalHeader}</h3>
               </div>
               <div className="modal-body text-center" id="fb-modal-body">
                 <div className="fb-login-button" data-scope="email" data-max-rows="1" data-size="large" data-button-type="login_with" data-auto-logout-link="true" data-use-continue-as="true" data-onlogin=""></div>
@@ -200,7 +205,7 @@ class NavBar extends React.Component<any, any> {
                 <h4>Please check your email for the verification link</h4>
                 <br/>
                 <button type="button" className="btn btn-warning btn-lg btn-block" onClick={ this.resendVerificationEmail }>Re-send verification email</button>
-                <button type="button" className="btn btn-primary btn-lg btn-block" onClick={ () => ($ as any)('#emailVerificationModal').modal('hide') }>Close</button>
+                <button type="button" className="btn btn-primary btn-lg btn-block" onClick={ () => $('#emailVerificationModal').modal('hide') }>Close</button>
               </div>
               <br/>
               <div className="modal-footer"></div>
