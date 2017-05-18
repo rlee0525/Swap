@@ -39,10 +39,13 @@ class PostForm extends React.Component<any, any> {
 
   public checkKey(e) {
     let keyCode = (e.keyCode ? e.keyCode : e.which);
-    if (!(keyCode > 47 && keyCode < 58) || !(keyCode > 34 && keyCode < 41) || !(keyCode > 95 && keyCode < 106) ||
-        !(keyCode == 8) || !(keyCode == 9) || !(keyCode == 13) || !(keyCode == 46))
+    if ((keyCode > 47 && keyCode < 58) || (keyCode > 34 && keyCode < 41) || (keyCode > 95 && keyCode < 106) ||
+        (keyCode == 8) || (keyCode == 9) || (keyCode == 13) || (keyCode == 46))
         {
+          $('#fixed-price').removeClass("has-error");
+        } else {
           e.preventDefault();
+          $('#fixed-price').addClass("has-error");
         }
   }
 
@@ -210,14 +213,31 @@ class PostForm extends React.Component<any, any> {
   }
 
   public render() {
+    const borderStyle = {
+      borderRadius: '4px 0 0 4px'
+    };
+
+    const noBorder = {
+      borderRadius: 0
+    };
+
+    const labelStyle = {
+      paddingRight: 35
+    };
+
+    const widthFull = {
+      width: 'auto',
+      height: '100%'
+    };
+
     return (
       <div>
         <div className="container">
         {this.renderErrors()}
-        <h1>{typeof this.props.params.id === "undefined" ? "Post a New Item" : `Edit Post ${this.state.id}`}</h1>
+        <h1>{typeof this.props.params.id === "undefined" ? "Create a new post" : `Edit post ${this.state.id}`}</h1><br/>
           <form className="form-horizontal">
             <div className="form-group radio-group">
-              <label htmlFor="inputCategory3" className="col-sm-3 control-label">Category</label>
+              <label style={labelStyle} htmlFor="inputCategory3" className="col-sm-2 control-label">Category</label>
                 <div onClick={this.categoryRadioUpdate} className={`col-sm-1 radio-button ${this.state.category === "Textbooks" ? "radio-active" : "" }`}>Textbooks</div>
                 <div onClick={this.categoryRadioUpdate} className={`col-sm-1 radio-button ${this.state.category === "Clothing" ? "radio-active" : "" }`}>Clothing</div>
                 <div onClick={this.categoryRadioUpdate} className={`col-sm-1 radio-button ${this.state.category === "Furniture" ? "radio-active" : "" }`}>Furniture</div>
@@ -226,49 +246,49 @@ class PostForm extends React.Component<any, any> {
                 <div onClick={this.categoryRadioUpdate} className={`col-sm-1 radio-button ${this.state.category === "Games" ? "radio-active" : "" }`}>Games</div>
             </div>
             <div className="form-group radio-group">
-              <label htmlFor="inputCondition3" className="col-sm-3 control-label">Condition</label>
+              <label style={labelStyle} htmlFor="inputCondition3" className="col-sm-2 control-label">Condition</label>
                 <div onClick={this.conditionRadioUpdate} className={`col-sm-3 radio-button ${this.state.condition === "Brand New" ? "radio-active" : "" }`}>Brand New</div>
                 <div onClick={this.conditionRadioUpdate} className={`col-sm-3 radio-button ${this.state.condition === "Like New" ? "radio-active" : "" }`}>Like New</div>
                 <div onClick={this.conditionRadioUpdate} className={`col-sm-3 radio-button ${this.state.condition === "Used" ? "radio-active" : "" }`}>Used</div>
             </div>
             <div className={`form-group ${this.state.category !== "Textbooks" ? "hidden" : ""}`}>
-              <label htmlFor="inputCourse3" className="col-sm-3 control-label">Course</label>
+              <label style={labelStyle} htmlFor="inputCourse3" className="col-sm-2 control-label">Course</label>
               <div className="col-sm-9 input-group" >
-                <input maxLength={50} value={this.state.course} onChange={ this.updateState } type="text" className="form-control" id="course" placeholder="Type to autocomplete"/>
-                <span className="input-group-addon" id="basic-addon1"></span>
+                <input maxLength={50} value={this.state.course} onChange={ this.updateState } type="text" className="form-control" id="course" style={borderStyle} placeholder="Type to autocomplete"/>
               </div>
             </div>
             <div className="form-group">
-              <label htmlFor="inputTitle3" className="col-sm-3 control-label">Title</label>
+              <label style={labelStyle} htmlFor="inputTitle3" className="col-sm-2 control-label">Title</label>
               <div className="col-sm-9 input-group" >
-                <input maxLength={50} value={this.state.title} onChange={this.updateState} type="text" className="form-control" id="title" placeholder="Title"/>
-                <span className="input-group-addon" id="basic-addon1">&nbsp;{50 - this.state.title.length} characters left</span>
+                <input maxLength={50} value={this.state.title} onChange={this.updateState} type="text" className="form-control" id="title" required />
+                <span className="pull-right" id="character-count">&nbsp;{50 - this.state.title.length} / 50</span>
               </div>
             </div>
             <div className="form-group">
-              <label htmlFor="inputDescription3" className="col-sm-3 control-label">Description</label>
+              <label style={labelStyle} htmlFor="inputDescription3" className="col-sm-2 control-label">Description</label>
               <div className="col-sm-9 input-group">
                 <textarea maxLength={250} value={this.state.description} onChange={this.updateState} className="form-control" id="description" rows={3}></textarea>
-                <span className="input-group-addon" id="basic-addon1">{250 - this.state.description.length} characters left</span>
+                <span className="pull-right" id="character-count">{250 - this.state.description.length} / 250</span>
               </div>
             </div>
             <div className="form-group">
-              <label htmlFor="inputPrice3" className="col-sm-3 control-label">Price</label>
+              <label style={labelStyle} htmlFor="inputPrice3" className="col-sm-2 control-label">Price</label>
               <div className="col-sm-9 input-group" id="fixed-price">
+                <span className="input-group-addon" id="basic-addon1">$</span>
                 <input
                   value={this.state.price}
                   onChange={ this.updateState }
                   className="form-control"
                   id="price"
-                  placeholder="Price"
+                  placeholder="10"
                   onKeyDown={e => this.checkKey(e)}
                   onKeyUp={e => this.checkKey(e)}
                 />
-                <span className="input-group-addon" id="basic-addon1">&nbsp;Integer Only ${this.state.price}</span>
+                <span className="input-group-addon" id="basic-addon1" style={noBorder}>.00</span>
               </div>
             </div>
             <div className="form-group">
-              <label htmlFor="inputImage3" className="col-sm-3 control-label">Image(s) <br/> (required 1) <br/> (will be cropped squarely)</label>
+              <label style={labelStyle} htmlFor="inputImage3" className="col-sm-2 control-label">Image(s) <br/> (required 1)</label>
               <div className="col-sm-3 FileUpload">
                 <Dropzone
                   id="img_url1"
@@ -276,8 +296,8 @@ class PostForm extends React.Component<any, any> {
                   multiple={ false }
                   accept="image/*"
                   onDrop={this.onImageDrop}>
-                  {this.state.img_url1 === '' ? <div>Click or drop image here</div> :
-                    <img className="img-responsive" src={this.state.img_url1} />}
+                  {this.state.img_url1 === '' ? <div>Click or drop image here<br />(330 x 330)</div> :
+                    <img className="img-responsive center-block" style={widthFull} src={this.state.img_url1} />}
                 </Dropzone>
               </div>
               <div className="col-sm-3 FileUpload">
@@ -287,8 +307,8 @@ class PostForm extends React.Component<any, any> {
                   multiple={ false }
                   accept="image/*"
                   onDrop={this.onImageDrop}>
-                  {this.state.img_url2 === '' ? <div>Click or drop image here</div> :
-                    <img className="img-responsive" src={this.state.img_url2} />}
+                  {this.state.img_url2 === '' ? <div>Click or drop image here<br />(330 x 330)</div> :
+                    <img className="img-responsive center-block" style={widthFull} src={this.state.img_url2} />}
                 </Dropzone>
               </div>
               <div className="col-sm-3 FileUpload">
@@ -298,14 +318,15 @@ class PostForm extends React.Component<any, any> {
                   multiple={ false }
                   accept="image/*"
                   onDrop={this.onImageDrop}>
-                  {this.state.img_url3 === '' ? <div>Click or drop image here</div> :
-                    <img className="img-responsive" src={this.state.img_url3} />}
+                  {this.state.img_url3 === '' ? <div>Click or drop image here<br />(330 x 330)</div> :
+                    <img className="img-responsive center-block" style={widthFull} src={this.state.img_url3} />}
                 </Dropzone>
               </div>
             </div>
             <div className="form-group">
-              <div className="col-sm-12">
-                <button onClick={this.submitForm} type="button" className="btn btn-success btn-lg btn-block">{typeof this.props.params.id === "undefined" ? "Create" : "Update"}</button>
+              <div className="col-sm-1"></div>
+              <div className="col-sm-10">
+                <button onClick={this.submitForm} type="button" className="btn btn-primary btn-lg btn-block">{typeof this.props.params.id === "undefined" ? "Create" : "Update"}</button>
               </div>
             </div>
           </form>

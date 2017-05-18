@@ -3093,7 +3093,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   line-height: 1;
   color: #555555;
   text-align: center;
-  background-color: #eeeeee;
+  /*background-color: #eeeeee;*/
   border: 1px solid #cccccc;
   border-radius: 4px;
 }
