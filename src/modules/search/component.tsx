@@ -48,15 +48,10 @@ class Search extends React.Component<any, any> {
   }
 
   private renderView() {
-    let searchResults = this.props.searchResult.sort(function(a:object, b:object) {
-      if (a['created_at'] < b['created_at']) return 1;
-      if (a['created_at'] > b['created_at']) return -1;
-      return 0;
-    });
     if (this.state.viewType === 'grid') {
-      return <SearchGridView searchResult={searchResults} />;
+      return <SearchGridView searchResult={this.props.searchResult} />;
     } else {
-      return <SearchListView searchResult={searchResults} />;
+      return <SearchListView searchResult={this.props.searchResult} />;
     }
   }
 
