@@ -39,13 +39,18 @@ class PostForm extends React.Component<any, any> {
 
   public checkKey(e) {
     let keyCode = (e.keyCode ? e.keyCode : e.which);
+    let metaKey = e.metaKey;
+    let ctrlKey = e.ctrlKey;
+
     if ((keyCode > 47 && keyCode < 58) || (keyCode > 34 && keyCode < 41) || (keyCode > 95 && keyCode < 106) ||
-        (keyCode == 8) || (keyCode == 9) || (keyCode == 13) || (keyCode == 46))
+        (keyCode == 224) || (keyCode == 17) || (keyCode == 91) || (keyCode == 93) || (keyCode == 20) ||
+        (keyCode == 8) || (keyCode == 9) || (keyCode == 13) || (keyCode == 46) || ((keyCode == 65 || keyCode == 86 || keyCode == 67) && (ctrlKey === true || metaKey === true)) || (ctrlKey === true))
         {
           $('#fixed-price').removeClass("has-error");
         } else {
-          e.preventDefault();
+          e.preventDefault();``
           $('#fixed-price').addClass("has-error");
+          setTimeout(() => $('#fixed-price').removeClass("has-error"), 1500);
         }
   }
 
@@ -161,7 +166,17 @@ class PostForm extends React.Component<any, any> {
   }
 
   public updateState(e) {
-    this.setState({ [e.target.id]: e.target.value })
+    let valid_input = "1234567890";
+
+    if (e.target.id === "price") {
+      for (var i = 0; i < valid_input.length; ++i) {
+        if (e.target.value.includes(valid_input[i]) || e.target.value.length === 0) {
+          this.setState({ [e.target.id]: e.target.value })
+        }
+      }
+    } else {
+      this.setState({ [e.target.id]: e.target.value })
+    }
   }
 
   public categoryRadioUpdate(e) {

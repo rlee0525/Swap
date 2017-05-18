@@ -63,7 +63,7 @@ class PostDetail extends React.Component<any, any> {
 
     imageArray = imageArray.map((el, idx) => (
       <div key={idx} className={`item absolute-height ${idx == 0 ? "active" : ""}`}>
-        <div className="block">
+        <div className="block" id="carousel-container">
           <div className="container">
             <div className="col-sm-6">
               <img className="img-responsive center-block app-block-game-img" src={el} />
@@ -156,14 +156,14 @@ class PostDetail extends React.Component<any, any> {
     }
 
     return (
-      <div className="container">
+      <div className="container" id="container-body">
         <SearchNavbar search={this.props.search} />
         <nav className="breadcrumb">
           <a className="breadcrumb-item" href="#/recent">All</a>
           <a className="breadcrumb-item" href={`#/${link}`}>{this.props.post.category}</a>
           <span className="breadcrumb-item active">{this.props.post.title}</span>
         </nav>
-        <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12" id="detail-left">
           <div className="block p-l-0 p-t-0 p-r-0">
             <div id="carousel-example-generic-2" className="carousel carousel-light slide" data-ride="carousel">
              {this.renderCarouselIndicators()}
