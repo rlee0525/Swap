@@ -13,6 +13,7 @@ interface Post {
   img_url1: string;
   img_url2: string;
   img_url3: string;
+  views: string;
 }
 
 interface Props {

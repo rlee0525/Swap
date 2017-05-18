@@ -32,13 +32,13 @@ course_objects.each do |course_object|
 end
 
 User.create!(
-  fb_id: "10209361793984589",
+  fb_id: ENV['RAYMOND_FB_ID'],
   edu_email: "bob@berkeley.edu",
   university: University.first
 )
 
 User.create!(
-  fb_id: "10155319625093824",
+  fb_id: ENV['RANDY_FB_ID'],
   edu_email: "bobby@berkeley.edu",
   university: University.first
 )
