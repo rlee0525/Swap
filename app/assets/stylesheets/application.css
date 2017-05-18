@@ -116,3 +116,7 @@ ul.nav {
 .red {
   color: red;
 }
+
+.label:first-of-type + span {
+  color: red;
+}
