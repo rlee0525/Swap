@@ -90,7 +90,7 @@
 
 .breadcrumb {
   padding: 0.75rem 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0 !important;
   list-style: none;
   background-color: transparent !important;
   border-radius: 0.25rem;
@@ -126,13 +126,83 @@
   color: #636c72;
 }
 
-#post-description {
-  min-height: 200px !important;
+.absolute-height {
+  height: 100%;
 }
 
-.absolute-height {
-  padding: 0 0 30px 0;
-  height: 100%;
+@media screen and (max-width: 768px) {
+  #post-description {
+    height: 170px !important;
+  }
+
+  .absolute-height {
+    margin-bottom: -30px;
+  }
+
+  #carousel-arrows-left,
+  #carousel-arrows-right {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  #post-description {
+    height: 140px !important;
+  }
+
+  .absolute-height {
+    margin-bottom: -20px;
+  }
+
+  #carousel-arrows-left {
+    margin-left: -5px;
+  }
+
+  #carousel-arrows-right {
+    margin-right: -25px;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  #post-description {
+    height: 200px !important;
+  }
+
+  .absolute-height {
+    margin-bottom: -20px;
+  }
+
+  #carousel-arrows-left {
+    margin-left: -10px;
+  }
+
+  #carousel-arrows-right {
+    margin-right: -30px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  #post-description {
+    height: 250px !important;
+  }
+
+  .absolute-height {
+    margin-bottom: -20px;
+  }
+
+  #carousel-arrows-left {
+    margin-left: -15px;
+  }
+
+  #carousel-arrows-right {
+    margin-right: -35px;
+  }
+
+}
+
+#detail-body {
+  margin-top: 20px;
+  padding-left: 10px;
 }
 
 #copy-template {
@@ -145,4 +215,11 @@
 
 #hundred-width {
   width: 100%;
+}
+
+#carousel-arrows-left,
+#carousel-arrows-right {
+  background-color: white;
+  opacity: 1;
+  color: black;
 }
