@@ -16,6 +16,7 @@
 #  title       :string           not null
 #  img_url3    :string
 #  condition   :string           not null
+#  views       :integer          default(1)
 #
 
 FactoryGirl.define do
