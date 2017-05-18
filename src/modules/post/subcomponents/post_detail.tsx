@@ -164,7 +164,7 @@ class PostDetail extends React.Component<any, any> {
           <span className="breadcrumb-item active">{this.props.post.title && shortenString(this.props.post.title, 20)}</span>
         </nav>
         <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12" id="detail-left">
-          <div className="block p-l-0 p-t-0 p-r-0">
+          <div className="block p-l-0 p-t-0 p-r-0" id="small-img-padding">
             <div id="carousel-example-generic-2" className="carousel carousel-light slide" data-ride="carousel">
              {this.renderCarouselIndicators()}
              {this.renderCarousel()}
