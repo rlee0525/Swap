@@ -10,6 +10,7 @@ interface Post {
   price: number;
   created_at: string;
   condition: string;
+  views: number;
   img_url1: string;
   img_url2: string;
   img_url3: string;
@@ -32,6 +33,7 @@ class SearchListView extends React.Component<Props, any> {
       price: -1,
       created_at: -1,
       condition: -1,
+      views: -1,
       currentPage: 1,
       results,
       posts: null,
@@ -77,6 +79,7 @@ class SearchListView extends React.Component<Props, any> {
         <td>${Number(post.price).toLocaleString()}</td>
         <td className="hidden-xs">{timeFromNow(post.created_at)}</td>
         <td className="hidden-xs">{post.condition}</td>
+        <td className="hidden-xs">{post.views}</td>
       </tr>
     )
   }
@@ -109,6 +112,7 @@ class SearchListView extends React.Component<Props, any> {
               <th>Price<a onClick={() => this.sortBy("price")} className="btn btn-xs" ><span className="caret" /></a></th>
               <th className="hidden-xs">Posting Date<a onClick={() => this.sortBy("created_at")} className="btn btn-xs" ><span className="caret" /></a></th>
               <th className="hidden-xs">Condition<a onClick={() => this.sortBy("condition")} className="btn btn-xs" ><span className="caret" /></a></th>
+              <th className="hidden-xs">View Count<a onClick={() => this.sortBy("views")} className="btn btn-xs" ><span className="caret" /></a></th>
             </tr>
           </thead>
           <tbody>

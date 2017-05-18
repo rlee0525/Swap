@@ -105,26 +105,19 @@ class PostDetail extends React.Component<any, any> {
   }
 
   public renderDetail() {
-    let title;
-    let description;
-    let price;
-    let created_at;
-
-    if (this.props.post) {
-      title = this.props.post.title;
-      description = this.props.post.description;
-      price = this.props.post.price;
-      created_at = this.props.post.created_at;
-    }
+    if (typeof this.props.post === "undefined") return null;
+    let { title, description, price, created_at, views } = this.props.post;
 
     return (
       <div className="col-lg-6 col-md-6 col-sm-6 absolute-height">
         <h3>{title}</h3><div className="thumbnail-caption">{timeFromNow(created_at)}</div>
+        <p className="red"><span className="glyphicon glyphicon-fire"></span> {views} Views</p>
         <p id="post-description">{description}</p>
+
         <h3 className="text-left">${Number(price).toLocaleString()}</h3>
         <div className="row">
-          <a className="btn btn-warning btn-lg col-md-3 col-sm-5 col-xs-3" id="bookmark-btn">Bookmark</a>
-          <a className="btn btn-success btn-lg col-md-8 col-sm-6 col-xs-8" onClick={() => {this.fetchAuthor(); this.contactPerson();}}>Contact</a>
+          <a className="btn btn-warning btn-lg col-md-3 col-sm-5 col-xs-12 bottom-margin-spacing" id="bookmark-btn">Bookmark</a>
+          <a className="btn btn-success btn-lg col-md-8 col-sm-6 col-xs-12" onClick={() => {this.fetchAuthor(); this.contactPerson();}}>Contact</a>
 
           <a id="contactModalTrigger" className="hidden" data-toggle="modal" data-target="#contactModal">Contact Modal Trigger</a>
           <div className="modal fade" id="contactModal" tabIndex={-1} role="dialog"

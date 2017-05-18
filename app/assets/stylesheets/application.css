@@ -96,3 +96,11 @@ ul.nav {
 .pagination a {
   cursor: pointer;
 }
+
+.bottom-margin-spacing {
+  margin-bottom: 10px;
+}
+
+.red {
+  color: red;
+}

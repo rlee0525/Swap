@@ -28,6 +28,7 @@ interface State {
   results: any;
   maxPages: number;
   currentPage: number;
+  views: number;
   posts: Post [];
 }
 
@@ -44,6 +45,7 @@ class SearchGridView extends React.Component<Props, State> {
       price: -1,
       created_at: -1,
       condition: -1,
+      views: -1,
       results,
       maxPages: maxPages,
       currentPage: 1,
@@ -143,6 +145,7 @@ class SearchGridView extends React.Component<Props, State> {
                 <li><a onClick={() => this.sortBy("price")} >Price</a></li>
                 <li><a onClick={() => this.sortBy("created_at")} >Posting Date</a></li>
                 <li><a onClick={() => this.sortBy("condition")} >Condition</a></li>
+                <li><a onClick={() => this.sortBy("views")} >View Count</a></li>
               </ul>
             </div>
           </div>
