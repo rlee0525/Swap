@@ -63,12 +63,12 @@ class SearchGridView extends React.Component<Props, State> {
   }
 
   buttonClass(condition: string) {
-    if (condition === 'New') {
-      return 'success';
-    } else if (condition === 'Like New') {
+    if (condition === 'Brand New') {
       return 'primary';
+    } else if (condition === 'Like New') {
+      return 'secondary';
     } else {
-      return 'info';
+      return 'success';
     }
   }
 
@@ -118,10 +118,9 @@ class SearchGridView extends React.Component<Props, State> {
           <div className="thumbnail-caption-top-right">{createdDate}</div>
         </a>
         <div className="caption">
-          <span className={`label label-${this.buttonClass(post.condition)}`}>{post.condition}</span> <span className="glyphicon glyphicon-fire"></span>
+          <span className={`label label-${this.buttonClass(post.condition)}`} id="label-micro">{post.condition}</span> <span className="glyphicon glyphicon-fire" id="condition-views-grid"></span>
           <span className="red"> {post.views} Views</span>
           <h3>{post.title}</h3>
-          <p>{shortenString(post.description, 160)}</p>
           <div className="grid-bottom">
             <h3>${Number(post.price).toLocaleString()}</h3>
             <a className="btn btn-success btn-lg btn-block">Go to Page</a>

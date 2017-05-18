@@ -43,6 +43,16 @@ class PostDetail extends React.Component<any, any> {
     }
   }
 
+  public buttonClass(condition: string) {
+    if (condition === 'Brand New') {
+      return 'primary';
+    } else if (condition === 'Like New') {
+      return 'secondary';
+    } else {
+      return 'success';
+    }
+  }
+
   public renderCarouselIndicators() {
     if (!this.props.post) return null;
     let { img_url1, img_url2, img_url3 } = this.props.post;
@@ -95,19 +105,23 @@ class PostDetail extends React.Component<any, any> {
   }
 
   public renderDetail() {
+    let titleMargin = {
+      marginBottom: 10
+    };
+
     if (typeof this.props.post === "undefined") return null;
-    let { title, description, price, created_at, views } = this.props.post;
+    let { title, description, price, created_at, views, condition } = this.props.post;
 
     return (
-      <div className="col-lg-6 col-md-6 col-sm-6 absolute-height">
-        <h3>{title}</h3><div className="thumbnail-caption">{timeFromNow(created_at)}</div>
-        <p className="red"><span className="glyphicon glyphicon-fire"></span> {views} Views</p>
+      <div className="col-lg-6 col-md-6 col-sm-6 absolute-height" id="detail-body">
+        <h3 style={titleMargin}>{title}</h3>
+        <p className="red"><span className={`label label-${this.buttonClass(condition)}`} id="label-micro">{condition}</span><span className="glyphicon glyphicon-fire"  id="condition-views"></span> {views} Views </p>
         <p id="post-description">{description}</p>
 
         <h3 className="text-left">${Number(price).toLocaleString()}</h3>
         <div className="row">
-          <a className="btn btn-warning btn-lg col-md-3 col-sm-5 col-xs-12 bottom-margin-spacing" id="bookmark-btn">Bookmark</a>
-          <a className="btn btn-success btn-lg col-md-8 col-sm-6 col-xs-12" onClick={() => {this.fetchAuthor(); this.contactPerson();}}>Contact</a>
+          <span className="btn btn-warning btn-lg col-md-2 col-sm-2 col-xs-2 bottom-margin-spacing glyphicon glyphicon-bookmark" id="bookmark-btn"></span>
+          <a className="btn btn-primary btn-lg col-md-9 col-sm-9 col-xs-9" onClick={() => {this.fetchAuthor(); this.contactPerson();}}>Contact the Seller</a>
 
           <a id="contactModalTrigger" className="hidden" data-toggle="modal" data-target="#contactModal">Contact Modal Trigger</a>
           <div className="modal fade" id="contactModal" tabIndex={-1} role="dialog"
@@ -161,19 +175,19 @@ class PostDetail extends React.Component<any, any> {
         <nav className="breadcrumb">
           <a className="breadcrumb-item" href="#/recent">All</a>
           <a className="breadcrumb-item" href={`#/${link}`}>{this.props.post.category}</a>
-          <span className="breadcrumb-item active">{this.props.post.title}</span>
+          <span className="breadcrumb-item active">{this.props.post.title && shortenString(this.props.post.title, 20)}</span>
         </nav>
         <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12" id="detail-left">
-          <div className="block p-l-0 p-t-0 p-r-0">
+          <div className="block p-l-0 p-t-0 p-r-0" id="small-img-padding">
             <div id="carousel-example-generic-2" className="carousel carousel-light slide" data-ride="carousel">
              {this.renderCarouselIndicators()}
              {this.renderCarousel()}
              <a className="left carousel-control" href="#carousel-example-generic-2" role="button" data-slide="prev">
-               <span className="icon icon-chevron-thin-left" aria-hidden="true"></span>
+               <span className="icon icon-chevron-thin-left" aria-hidden="true" id="carousel-arrows-left"></span>
                <span className="sr-only">Previous</span>
              </a>
              <a className="right carousel-control" href="#carousel-example-generic-2" role="button" data-slide="next">
-               <span className="icon icon-chevron-thin-right" aria-hidden="true"></span>
+               <span className="icon icon-chevron-thin-right" aria-hidden="true" id="carousel-arrows-right"></span>
                <span className="sr-only">Next</span>
              </a>
            </div>

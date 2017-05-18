@@ -7,8 +7,12 @@ class Post extends React.Component<any, any> {
   }
 
   public render() {
+    let paddingBot = {
+      paddingBottom: 20
+    };
+
     return (
-      <div className="container">
+      <div className="container" style={paddingBot}>
         <PostDetail
           id={this.props.params.id}
           getPost={this.props.getPost}

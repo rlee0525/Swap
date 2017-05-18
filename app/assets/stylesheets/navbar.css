@@ -37,6 +37,8 @@
   width: 100%;
 }
 
-.full-width {
-  width: calc(100% - 128px) !important;
+@media screen and (max-width: 768px) {
+  #phone-search-nav {
+    width: calc(94% - 128px) !important;
+  }
 }
