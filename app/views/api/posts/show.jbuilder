@@ -11,7 +11,8 @@ json.extract! @post,
               :course_id,
               :zip_code,
               :created_at,
-              :condition
+              :condition,
+              :views
 json.course @post.course.course_number if @post.course
 json.category @post.category.name
 json.fb_id @post.user.fb_id

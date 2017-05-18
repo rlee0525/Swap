@@ -28,6 +28,7 @@ class Api::PostsController < ApplicationController
   def show
     @post = Post.find_by(id: params[:id])
     if @post
+      @post.update(views: @post.views + 1)
       render "api/posts/show", status: 200
     else
       render json: ["not found"], status: 404

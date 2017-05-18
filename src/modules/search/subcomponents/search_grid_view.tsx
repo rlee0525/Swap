@@ -28,6 +28,7 @@ interface State {
   results: any;
   maxPages: number;
   currentPage: number;
+  views: number;
   posts: Post [];
 }
 
@@ -44,6 +45,7 @@ class SearchGridView extends React.Component<Props, State> {
       price: -1,
       created_at: -1,
       condition: -1,
+      views: -1,
       results,
       maxPages: maxPages,
       currentPage: 1,
@@ -110,7 +112,8 @@ class SearchGridView extends React.Component<Props, State> {
       <div className="thumbnail col-sm-6 col-md-4" key={Math.random() * post.id} onClick={() => this.checkVerified(post.id)}>
         <a id={post.id}>
           <img src={post.img_url1} alt={post.title} />
-          <div className="thumbnail-caption">{timeFromNow(post.created_at)}</div>
+          <div className="thumbnail-caption-top-right">{timeFromNow(post.created_at)}</div>
+          <div className="thumbnail-caption-top-left"><span className="glyphicon glyphicon-fire"></span> {post.views} Views</div>
         </a>
         <div className="caption">
           <span className={`label label-${this.buttonClass(post.condition)}`}>{post.condition}</span>
@@ -143,6 +146,7 @@ class SearchGridView extends React.Component<Props, State> {
                 <li><a onClick={() => this.sortBy("price")} >Price</a></li>
                 <li><a onClick={() => this.sortBy("created_at")} >Posting Date</a></li>
                 <li><a onClick={() => this.sortBy("condition")} >Condition</a></li>
+                <li><a onClick={() => this.sortBy("views")} >View Count</a></li>
               </ul>
             </div>
           </div>

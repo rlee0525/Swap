@@ -29,14 +29,26 @@
   text-align: center;
 }
 
-.thumbnail-caption {
+.thumbnail-caption-top-right {
   text-align: center;
   color: white;
+  border-radius: 2px;
   background-color: red;
   padding: 0 5px 0 5px;
   position: absolute !important;
   top: 0;
   right: 0;
+}
+
+.thumbnail-caption-top-left {
+  text-align: center;
+  color: white;
+  border-radius: 2px;
+  background-color: red;
+  padding: 0 5px 0 5px;
+  position: absolute !important;
+  top: 0;
+  left: 0;
 }
 
 ul.nav-tabs {
@@ -95,4 +107,12 @@ ul.nav {
 
 .pagination a {
   cursor: pointer;
+}
+
+.bottom-margin-spacing {
+  margin-bottom: 10px;
+}
+
+.red {
+  color: red;
 }
