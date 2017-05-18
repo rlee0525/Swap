@@ -17,6 +17,7 @@ class PostForm extends React.Component<any, any> {
     this.initializeDropzone = this.initializeDropzone.bind(this);
     this.renderErrors = this.renderErrors.bind(this);
     this.autoComplete = this.autoComplete.bind(this);
+    this.checkKey = this.checkKey.bind(this);
 
     this.state = {
       title: "",
@@ -34,6 +35,15 @@ class PostForm extends React.Component<any, any> {
     if (typeof props.params.id !== "undefined") {
       this.fetchPost(props.params.id)
     }
+  }
+
+  public checkKey(e) {
+    let keyCode = (e.keyCode ? e.keyCode : e.which);
+    if (!(keyCode > 47 && keyCode < 58) || !(keyCode > 34 && keyCode < 41) || !(keyCode > 95 && keyCode < 106) ||
+        !(keyCode == 8) || !(keyCode == 9) || !(keyCode == 13) || !(keyCode == 46))
+        {
+          e.preventDefault();
+        }
   }
 
   public autoComplete(courses) {
@@ -244,8 +254,16 @@ class PostForm extends React.Component<any, any> {
             </div>
             <div className="form-group">
               <label htmlFor="inputPrice3" className="col-sm-3 control-label">Price</label>
-              <div className="col-sm-9 input-group" >
-                <input value={this.state.price} onChange={ this.updateState } type="text" className="form-control" id="price" placeholder="Price"/>
+              <div className="col-sm-9 input-group" id="fixed-price">
+                <input
+                  value={this.state.price}
+                  onChange={ this.updateState }
+                  className="form-control"
+                  id="price"
+                  placeholder="Price"
+                  onKeyDown={e => this.checkKey(e)}
+                  onKeyUp={e => this.checkKey(e)}
+                />
                 <span className="input-group-addon" id="basic-addon1">&nbsp;Integer Only ${this.state.price}</span>
               </div>
             </div>
