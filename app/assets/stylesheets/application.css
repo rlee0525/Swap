@@ -120,3 +120,7 @@ ul.nav {
 .label:first-of-type + span {
   color: red;
 }
+
+.panel-title a:hover, .panel-title a:focus {
+  text-decoration: none;
+}
