@@ -43,6 +43,16 @@ class PostDetail extends React.Component<any, any> {
     }
   }
 
+  public buttonClass(condition: string) {
+    if (condition === 'Brand New') {
+      return 'primary';
+    } else if (condition === 'Like New') {
+      return 'secondary';
+    } else {
+      return 'success';
+    }
+  }
+
   public renderCarouselIndicators() {
     if (!this.props.post) return null;
     let { img_url1, img_url2, img_url3 } = this.props.post;
@@ -95,13 +105,17 @@ class PostDetail extends React.Component<any, any> {
   }
 
   public renderDetail() {
+    let titleMargin = {
+      marginBottom: 10
+    };
+
     if (typeof this.props.post === "undefined") return null;
-    let { title, description, price, created_at, views } = this.props.post;
+    let { title, description, price, created_at, views, condition } = this.props.post;
 
     return (
       <div className="col-lg-6 col-md-6 col-sm-6 absolute-height" id="detail-body">
-        <h3>{title}</h3><div className="thumbnail-caption">{timeFromNow(created_at)}</div>
-        <p className="red"><span className="glyphicon glyphicon-fire"></span> {views} Views</p>
+        <h3 style={titleMargin}>{title}</h3>
+        <p className="red"><span className={`label label-${this.buttonClass(condition)}`} id="label-micro">{condition}</span><span className="glyphicon glyphicon-fire"  id="condition-views"></span> {views} Views </p>
         <p id="post-description">{description}</p>
 
         <h3 className="text-left">${Number(price).toLocaleString()}</h3>

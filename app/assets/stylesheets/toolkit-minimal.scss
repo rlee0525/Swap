@@ -2221,7 +2221,7 @@ fieldset[disabled] a.btn {
   pointer-events: none;
 }
 .btn-default {
-  color: #333333;
+  color: #777;
   background-color: #ffffff;
   border-color: #cccccc;
 }
@@ -4064,11 +4064,18 @@ a.label:focus {
   background-color: #919191;
 }
 .label-primary {
-  background-color: #685d9f;
+  background-color: #20b2aa;
 }
 .label-primary[href]:hover,
 .label-primary[href]:focus {
-  background-color: #534a7f;
+  background-color: #1ca099;
+}
+.label-secondary {
+  background-color: #f08080;
+}
+.label-secondary[href]:hover,
+.label-secondary[href]:focus {
+  background-color: #d87373;
 }
 .label-success {
   background-color: #5cb85c;

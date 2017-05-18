@@ -179,7 +179,7 @@
 
 @media screen and (min-width: 992px) {
   #post-description {
-    height: 200px !important;
+    height: 230px !important;
   }
 
   .absolute-height {
@@ -197,7 +197,7 @@
 
 @media screen and (min-width: 1200px) {
   #post-description {
-    height: 250px !important;
+    height: 280px !important;
   }
 
   .absolute-height {
@@ -209,7 +209,7 @@
   }
 
   #carousel-arrows-right {
-    margin-right: -35px;
+    margin-right: -36px;
   }
 
 }
@@ -236,4 +236,17 @@
   background-color: white;
   opacity: 1;
   color: black;
+}
+
+#condition-views {
+  margin-left: 15px;
+}
+
+#condition-views-grid {
+  margin-left: 8px;
+}
+
+#label-micro {
+  position: relative;
+  top: -2px;
 }
