@@ -41,13 +41,33 @@
 }
 
 .radio-group > div {
-  margin-right: 20px;
+  margin-right: 13px;
   width: auto;
 }
 /*Radio button styling end*/
 
 #character-count {
   color: #aaa !important;
+}
+
+.control-label-custom {
+  color: #777777;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: .15em;
+  font-weight: 400;
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-align: right;
+}
+
+#heading-custom {
+  color: #777777;
+  text-transform: uppercase;
+  font-size: 30px;
+  letter-spacing: .15em;
+  font-weight: 300;
+  margin-left: 15px;
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 /*Post Detail*/
