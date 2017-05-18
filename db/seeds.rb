@@ -62,7 +62,8 @@ User.create!(
     category: category,
     course: course,
     zip_code: rand(0..9999).to_s,
-    condition: conditions.sample
+    condition: conditions.sample,
+    created_at: rand(0..4320).minutes.ago
   )
 end
 

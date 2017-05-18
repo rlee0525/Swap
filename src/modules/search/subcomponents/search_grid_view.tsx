@@ -30,7 +30,7 @@ interface State {
   maxPages: number;
   currentPage: number;
   views: number;
-  posts: Post [];
+  firstTime: number;
 }
 
 class SearchGridView extends React.Component<Props, State> {
@@ -44,13 +44,13 @@ class SearchGridView extends React.Component<Props, State> {
       title: -1,
       description: -1,
       price: -1,
-      created_at: -1,
+      created_at: 1,
       condition: -1,
       views: -1,
       results,
-      maxPages: maxPages,
+      maxPages,
       currentPage: 1,
-      posts: null
+      firstTime: 1
     };
 
     this.checkVerified = this.checkVerified.bind(this);
@@ -103,21 +103,23 @@ class SearchGridView extends React.Component<Props, State> {
     });
     let newPolarity = (polarity === -1 ? 1 : -1);
     this.setState({
-      posts: newArray,
+      results: newArray,
       [key]: newPolarity
     });
   }
 
   renderGridItem(post: Post) {
+    let createdDate = Date.parse(post.created_at);
+    createdDate = Date.now() - createdDate <= 86400000 ? timeFromNow(post.created_at) : ""
     return (
       <div className="thumbnail col-sm-6 col-md-4" key={Math.random() * post.id} onClick={() => this.checkVerified(post.id)}>
         <a id={post.id}>
           <img src={post.img_url1} alt={post.title} />
-          <div className="thumbnail-caption-top-right">{timeFromNow(post.created_at)}</div>
-          <div className="thumbnail-caption-top-left"><span className="glyphicon glyphicon-fire"></span> {post.views} Views</div>
+          <div className="thumbnail-caption-top-right">{createdDate}</div>
         </a>
         <div className="caption">
-          <span className={`label label-${this.buttonClass(post.condition)}`}>{post.condition}</span>
+          <span className={`label label-${this.buttonClass(post.condition)}`}>{post.condition}</span> <span className="glyphicon glyphicon-fire"></span>
+          <span className="red"> {post.views} Views</span>
           <h3>{post.title}</h3>
           <p>{shortenString(post.description, 160)}</p>
           <div className="grid-bottom">
