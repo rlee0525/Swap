@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import RFP from './component';
 
 interface StateProps {
-  user: any;
+  user: object;
 }
 
 interface DispatchProps {
