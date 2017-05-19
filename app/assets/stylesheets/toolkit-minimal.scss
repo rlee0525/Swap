@@ -5434,6 +5434,7 @@ body {
   font-size: 12px;
   opacity: 0;
   filter: alpha(opacity=0);
+  background: lightcoral;
 }
 .tooltip.in {
   opacity: 0.9;
@@ -5458,9 +5459,9 @@ body {
 .tooltip-inner {
   max-width: 200px;
   padding: 3px 8px;
-  color: #ffffff;
+  color: white;
   text-align: center;
-  background-color: #000000;
+  background-color: lightseagreen;
   border-radius: 4px;
 }
 .tooltip-arrow {
