@@ -48,7 +48,7 @@ class PostForm extends React.Component<any, any> {
         {
           $('#fixed-price').removeClass("has-error");
         } else {
-          e.preventDefault();``
+          e.preventDefault();
           $('#fixed-price').addClass("has-error");
           setTimeout(() => $('#fixed-price').removeClass("has-error"), 1500);
         }
