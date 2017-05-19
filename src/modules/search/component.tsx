@@ -14,6 +14,7 @@ interface Props {
   user: object;
   searchResult: IPost[];
   search: (query: string) => JQueryXHR;
+  location: any;
 }
 
 class Search extends React.Component<Props, State> {
