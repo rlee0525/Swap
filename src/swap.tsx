@@ -11,7 +11,6 @@ window.start = user => {
 
     let preloadedState: object = {};
 
-
     preloadedState = { user: user };
     const store = configureStore(preloadedState);
 
