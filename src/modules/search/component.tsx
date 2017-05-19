@@ -1,7 +1,7 @@
 import React from 'react';
 import { IPost } from 'helpers';
 
-import { 
+import {
   SearchGridView,
   SearchListView,
   SearchNavbar } from './subcomponents';

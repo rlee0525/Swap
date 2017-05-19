@@ -43,14 +43,16 @@ class Bookmarks extends React.Component<any, any> {
   public fetchBookmarkedPosts() {
     $.ajax({
       method: "GET",
-      url: "api/bookmarks"
+      url: "api/bookmarks",
+      data: { access_token: this.props.user.auth.accessToken }
     }).then(bookmarkedPosts => this.setState({ bookmarkedPosts }))
   }
 
   public deleteBookmarkedPost(postId) {
     $.ajax({
       type: "DELETE",
-      url: `api/bookmarks/${postId}`
+      url: `api/bookmarks/${postId}`,
+      data: { access_token: this.props.user.auth.accessToken }
     }).then(() => this.fetchBookmarkedPosts())
   }
 

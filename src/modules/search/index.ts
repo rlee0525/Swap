@@ -17,8 +17,7 @@ const mapStateToProps = (state: StateProps, ownProp?: any): StateProps => ({
 });
 
 const mapDispatchToProps = (dispatch: any): DispatchProps => ({
-  search: query => dispatch(search(query)),
-  getPosts: () => dispatch(getPosts())
+  search: query => dispatch(search(query))
 });
 
 export default connect(
