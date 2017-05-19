@@ -142,7 +142,7 @@ class PostDetail extends React.Component<any, any> {
                 <div className="modal-body text-center" id="contact-modal-body">
                   <div className="modal-body text-center">
                     <div>
-                      <div id="purchase-msg-template" contentEditable={true}>
+                      <div id="purchase-msg-template" contentEditable={true} data-toggle="tooltip" data-placement="bottom" title="click to edit">
                         Hi, {this.state.userFB && this.state.userFB.name}, <br/><br/>
                         My name is {this.state.currentUser && this.state.currentUser.name}. I saw your posting on {this.props.post.title} on Swap.<br/>
                         I would like to purchase it at ${this.props.post.price}.<br/>
