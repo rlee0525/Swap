@@ -56,7 +56,6 @@ class MyPosts extends React.Component<Props, State> {
   }
 
   public getMyPosts() {
-    console.log(this.props)
     $.ajax({
       method: "GET",
       url: "api/posts",
