@@ -64,9 +64,9 @@ class SearchGridView extends React.Component<Props, State> {
 
   buttonClass(condition: string) {
     if (condition === 'Brand New') {
-      return 'primary';
+      return 'info';
     } else if (condition === 'Like New') {
-      return 'secondary';
+      return 'primary';
     } else {
       return 'success';
     }

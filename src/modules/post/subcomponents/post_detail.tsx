@@ -45,9 +45,9 @@ class PostDetail extends React.Component<any, any> {
 
   public buttonClass(condition: string) {
     if (condition === 'Brand New') {
-      return 'primary';
+      return 'info';
     } else if (condition === 'Like New') {
-      return 'secondary';
+      return 'primary';
     } else {
       return 'success';
     }
