@@ -100,18 +100,25 @@ class SearchGridView extends React.Component<Props, State> {
     let createdDate: number | string= Date.parse(post.created_at);
     createdDate = Date.now() - createdDate <= 86400000 ? timeFromNow(post.created_at) : ""
     return (
-      <div className="thumbnail col-sm-6 col-md-4" key={Math.random() * post.id} onClick={() => this.checkVerified(post.id)}>
-        <a id={post.id}>
-          <img src={post.img_url1} alt={post.title} />
-          <div className="thumbnail-caption-top-right">{createdDate}</div>
-        </a>
-        <div className="caption">
-          <span className={`label label-${this.buttonClass(post.condition)}`} id="label-micro">{post.condition}</span> <span className="glyphicon glyphicon-fire" id="condition-views-grid"></span>
-          <span className="red"> {post.views} Views</span>
-          <h3>{post.title}</h3>
-          <div className="grid-bottom">
-            <h3>${Number(post.price).toLocaleString()}</h3>
-            <a className="btn btn-success btn-lg btn-block">Go to Page</a>
+      <div className="col-sm-6 col-md-4" key={Math.random() * post.id}
+           onClick={() => this.checkVerified(post.id)}>
+        <div className="thumbnail col-md-12">
+          <a id={post.id}>
+            <img src={post.img_url1} alt={post.title} />
+            <div className="thumbnail-caption-top-right">{createdDate}</div>
+          </a>
+          <div className="caption" id="grid-caption">
+            <span id="grid-title">${Number(post.price).toLocaleString()}&nbsp; | &nbsp;{post.title}</span>
+
+            <div className="grid-bottom">
+              <span className={`label label-${this.buttonClass(post.condition)}`} id="label-micro">
+                {post.condition}
+              </span>
+              <span className="red">
+                <span className="glyphicon glyphicon-fire" id="condition-views-grid"></span>
+                {post.views} Views
+              </span>
+            </div>
           </div>
         </div>
       </div>

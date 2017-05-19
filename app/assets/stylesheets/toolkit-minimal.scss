@@ -4204,6 +4204,12 @@ a.badge:focus {
   border-radius: 4px;
   transition: border 0.2s ease-in-out;
   cursor: pointer;
+  margin-right: 5px;
+}
+.thumbnail:hover {
+  box-shadow: 0 22px 43px rgba(0,0,0,0.15);
+  transform: translateY(-4px);
+  transition: 0.3s;
 }
 .thumbnail > img,
 .thumbnail a > img {
