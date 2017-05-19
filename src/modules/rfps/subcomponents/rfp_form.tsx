@@ -2,7 +2,11 @@ import React from 'react';
 
 interface State {
   description: string;
-  errors: object;
+  errors: any;
+}
+
+interface Props {
+
 }
 
 class RfpForm extends React.Component<any, State> {
@@ -11,7 +15,7 @@ class RfpForm extends React.Component<any, State> {
 
     this.state = {
       description: "",
-      erros: {}
+      errors: {}
     };
 
     this.submitForm = this.submitForm.bind(this);

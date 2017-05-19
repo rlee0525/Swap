@@ -1,6 +1,8 @@
 import React from 'react';
 import { shortenString, timeFromNow } from 'helpers';
 
+import { NavTabs } from './subcomponents';
+
 interface RFP {
   id: number;
   description: string;
@@ -81,14 +83,7 @@ class Rfps extends React.Component<Props, State> {
     return (
       <div>
         <div className="container">
-          <ul className="nav nav-tabs">
-            <li role="presentation"><a href="#/dashboard/posts">Posts</a></li>
-            <li role="presentation"><a href="#/dashboard/bookmarks">Bookmarks</a></li>
-            <li role="presentation" className="active"><a href="#/dashboard/rfps">Alerts</a></li>
-            <div>
-              <a href="#/rfps/create" className="btn btn-success nav-button" >Create Alert</a>
-            </div>
-          </ul>
+          <NavTabs />
           <div>
             <div className="panel panel-default">
               <div className="panel-body">
