@@ -13,8 +13,6 @@ window.start = user => {
 
 
     preloadedState = { user: user };
-    console.log(window.user)
-    console.log(preloadedState)
     const store = configureStore(preloadedState);
 
     ReactDOM.render(<Root store={store}/>, root);

@@ -17,13 +17,12 @@ interface State {
   maxPages?: number;
   currentPage?: number;
   views?: number;
-  firstTime?: number;
 }
 
 class SearchGridView extends React.Component<Props, State> {
   constructor(props) {
     super(props);
-    let results: Post[] = props.searchResult;
+    let results = props.searchResult;
     let maxPages = props.searchResult.length > 0 ? Math.ceil(props.searchResult.length / 15) : 1;
 
     this.state = {
@@ -35,8 +34,7 @@ class SearchGridView extends React.Component<Props, State> {
       views: -1,
       results,
       maxPages,
-      currentPage: 1,
-      firstTime: 1
+      currentPage: 1
     };
 
     this.sortBy = this.sortBy.bind(this);
