@@ -14,5 +14,5 @@ Rails.application.routes.draw do
     end
   end
 
-  match 'email_confirmation/:token' => 'emails#confirm_email', :via => :get
+  get 'email_confirmation/:token', to: 'emails#confirm_email'
 end
