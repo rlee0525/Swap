@@ -19,7 +19,7 @@ class PostDetail extends React.Component<any, any> {
 
   public componentWillMount() {
     const id = this.props.id;
-    this.props.getPost(id);
+    this.props.getPost(id, this.props.user.auth.accessToken);
   }
 
   public componentDidMount() {

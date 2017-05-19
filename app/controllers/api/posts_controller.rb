@@ -26,6 +26,7 @@ class Api::PostsController < ApplicationController
   end
 
   def show
+    return render json: ["unauthorized"], status: 401 unless fb_auth_user(params[:access_token])
     @post = Post.find_by(id: params[:id])
     if @post
       @post.update(views: @post.views + 1)
@@ -37,14 +38,20 @@ class Api::PostsController < ApplicationController
 
   def update
     user = fb_auth_user(params[:access_token])
+    @post = Post.find_by(id: params[:id])
+
+    if params[:method] == "delete" && @post.delete
+      return render "api/posts/show", status: 200
+    elsif params[:method] == "delete"
+      return render json: ["not found"], status: 404
+    end
+
     category_name = params[:category][:category]
     course_number = params[:course][:course]
 
     category = Category.find_by(name: category_name)
     course = Course.find_by(course_number: course_number)
     update_params = post_params.merge(category: category, course: course)
-
-    @post = Post.find_by(id: params[:id])
 
     if @post && @post.user == user && @post.update(update_params)
       render "api/posts/show", status: 200

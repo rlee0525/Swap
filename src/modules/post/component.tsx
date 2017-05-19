@@ -17,6 +17,7 @@ class Post extends React.Component<any, any> {
           id={this.props.params.id}
           getPost={this.props.getPost}
           post={this.props.post}
+          {...this.props}
         />
       </div>
     );
