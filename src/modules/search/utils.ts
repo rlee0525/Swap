@@ -7,11 +7,3 @@ export const search = (query: string) => (
     data: { query }
   })
 );
-
-export const fetchPosts = (query: string) => (
-  $.ajax({
-    method: 'GET',
-    url: 'api/search',
-    data: { query: [] }
-  })
-);

@@ -14,7 +14,18 @@ interface Post {
   img_url3: string;
 }
 
-class Search extends React.Component<any, any> {
+interface State {
+  viewType: string;
+}
+
+interface Props {
+  user: object;
+  searchResult: object[];
+  search: (query: string) => JQueryXHR;
+  getPosts: () => JQueryXHR;
+}
+
+class Search extends React.Component<Props, State> {
   constructor(props) {
     super(props);
 
