@@ -78,6 +78,7 @@
 
 #carousel-container {
   padding-bottom: 40px !important;
+  padding-top: 25px !important;
 }
 
 #detail-left {
@@ -94,36 +95,45 @@
   list-style: none;
   background-color: transparent !important;
   border-radius: 0.25rem;
+  color: lightseagreen;
 }
 
 .breadcrumb::after {
   display: block;
   content: "";
   clear: both;
+  color: lightseagreen;
 }
 
 .breadcrumb-item {
   float: left;
+  color: lightseagreen;
 }
 
 .breadcrumb-item + .breadcrumb-item::before {
   display: inline-block;
   padding-right: 0.5rem;
   padding-left: 0.5rem;
-  color: #636c72;
+  color: lightseagreen;
   content: "/";
 }
 
 .breadcrumb-item + .breadcrumb-item:hover::before {
   text-decoration: underline;
+  color: lightseagreen;
+}
+
+.breadcrumb-item:hover {
+  color: lightseagreen;
 }
 
 .breadcrumb-item + .breadcrumb-item:hover::before {
   text-decoration: none;
+  color: lightseagreen;
 }
 
 .breadcrumb-item.active {
-  color: #636c72;
+  color: lightseagreen;
 }
 
 .absolute-height {
@@ -215,7 +225,7 @@
 }
 
 #detail-body {
-  margin-top: 20px;
+  margin-top: 5px;
   padding-left: 10px;
 }
 

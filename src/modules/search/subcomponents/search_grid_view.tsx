@@ -134,7 +134,7 @@ class SearchGridView extends React.Component<Props, State> {
         <div className="row">
           <div className="sort-by-panel">
             <div className="btn-group">
-              <button type="button" className="btn btn-default btn-md dropdown-toggle btn-special-size" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <button type="button" className="btn btn-default btn-md dropdown-toggle btn-special-size" id="margin-right" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Sort By <span className="caret"></span>
               </button>
               <ul className="dropdown-menu dropdown-menu-right">
