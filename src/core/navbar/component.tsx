@@ -1,16 +1,15 @@
 import React from 'react';
 import { withRouter } from 'react-router';
 declare var $;
+declare var FB;
+declare var window;
 
 class NavBar extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
 
     this.state = {
-      modalHeader: "Log in with Facebook",
-      userFB: null,
-      accessToken: null,
-      status
+      modalHeader: "Log in with Facebook"
     };
 
     this.sendEmail = this.sendEmail.bind(this);
@@ -20,17 +19,16 @@ class NavBar extends React.Component<any, any> {
   }
 
   public componentDidMount() {
-    this.initializeNavbarFade();
+    this.reinitializeFB();
+  }
 
-    let userFB = this.props.userFB;
-    let accessToken = this.props.accessToken;
-    let status = this.props.status;
-
-    this.setState({
-      userFB,
-      accessToken,
-      status
-    });
+  public reinitializeFB() {
+    // necessary for getting the FB button to load
+    FB.init({
+      cookie     : true,
+      xfbml      : true,
+      version    : 'v2.8'
+    })
   }
 
   public initializeNavbarFade() {
@@ -43,32 +41,20 @@ class NavBar extends React.Component<any, any> {
     });
   }
 
-  public componentWillReceiveProps(newProps: any) {
-    if (this.state.userFB !== newProps.userFB) {
-      this.setState({
-        userFB: newProps.userFB,
-        status: newProps.status
-      });
-    }
-  }
-
   public sendEmail(e: any) {
     e.preventDefault();
 
     let accessToken;
     let that = this;
     const edu_email = ($('input.form-control')[0] as HTMLInputElement).value
-    FB.getLoginStatus(function(response) {
-      accessToken = response.authResponse.accessToken
-      $.ajax({
-        method: "PATCH",
-        url: `api/users/${accessToken}`,
-        data: { edu_email }
-      }).then(obj => {
-        $('#logInModal').modal('hide');
-        $('#emailInputModal').modal('hide');
-        $('#emailVerificationModal').modal('show');
-      })
+    $.ajax({
+      method: "PATCH",
+      url: `api/users/${that.props.user.auth.accessToken}`,
+      data: { edu_email }
+    }).then(obj => {
+      $('#logInModal').modal('hide');
+      $('#emailInputModal').modal('hide');
+      $('#emailVerificationModal').modal('show');
     })
   }
 
@@ -80,32 +66,36 @@ class NavBar extends React.Component<any, any> {
 
   public chooseModal() {
     const that = this;
-    FB.getLoginStatus(function(response) {
-      if (response.status === "connected") {
-        that.setState({modalHeader: "Log out with Facebook"})
-        const accessToken = response.authResponse.accessToken
-        $.ajax({
-          method: "GET",
-          url: `api/users/${accessToken}`
-        }).then(obj => {
-          if (obj.edu_email_confirmed) {
-            $('#logInModal').modal('show');
-          } else if (obj.edu_email === null) {
-            $('#emailInputModal').modal('show');
-          } else {
-            $('#emailVerificationModal').modal('show');
-          }
-        }).fail(() => FB.logout(res => console.log(res)))
-      } else {
-        that.setState({modalHeader: "Log in with Facebook"})
-        $('#logInModal').modal('show');
-      }
-    });
+    if (that.props.user !== null) {
+      that.setState({modalHeader: "Log out with Facebook"})
+      const accessToken = that.props.user.auth.accessToken;
+      $.ajax({
+        method: "GET",
+        url: `api/users/${accessToken}`
+      }).then(obj => {
+        if (obj.edu_email_confirmed) {
+          $('#logInModal').modal('show');
+        } else if (obj.edu_email === null) {
+          $('#emailInputModal').modal('show');
+        } else {
+          $('#emailVerificationModal').modal('show');
+        }
+      }).fail(() => FB.logout(res => console.log(res)))
+    } else {
+      that.setState({modalHeader: "Log in with Facebook"})
+      $('#logInModal').modal('show');
+    }
   }
 
   public checkVerified(e: any) {
+    if (this.props.user === null) {
+      FB.logout();
+      window.location.replace("/");
+      return null;
+    };
+
     let address = e.currentTarget.id;
-    const accessToken = (FB as any).getAccessToken();
+    const accessToken = this.props.user.auth.accessToken;
     $.ajax({
       method: "GET",
       url: `api/users/${accessToken}`
@@ -121,13 +111,13 @@ class NavBar extends React.Component<any, any> {
   }
 
   public checkUserStatus() {
-    if (this.state.userFB) {
+    if (this.props.user !== null) {
       return (
         <div className="navbar-collapse collapse" id="navbar-collapse">
           <ul className="nav navbar-nav navbar-right">
             <li><a href="/#/recent">Browse</a></li>
             <li><a id="dashboard/posts" onClick={(e) => this.checkVerified(e)}>Dashboard</a></li>
-            <li><a onClick={this.chooseModal}>{this.state.userFB.name}</a></li>
+            <li><a onClick={this.chooseModal}>{this.props.user.userFB.name}</a></li>
           </ul>
         </div>
       );

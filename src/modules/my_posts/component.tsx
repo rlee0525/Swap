@@ -17,6 +17,7 @@ interface Post {
 
 interface Props {
   searchResult: Post [];
+  user: any;
 }
 
 interface State {
@@ -55,9 +56,11 @@ class MyPosts extends React.Component<Props, State> {
   }
 
   public getMyPosts() {
+    console.log(this.props)
     $.ajax({
       method: "GET",
-      url: "api/posts"
+      url: "api/posts",
+      data: { access_token: this.props.user.auth.accessToken }
     }).then(myPosts => this.setState({myPosts}))
   }
 
