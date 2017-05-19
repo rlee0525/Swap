@@ -45,9 +45,9 @@ class PostDetail extends React.Component<any, any> {
 
   public buttonClass(condition: string) {
     if (condition === 'Brand New') {
-      return 'primary';
+      return 'info';
     } else if (condition === 'Like New') {
-      return 'secondary';
+      return 'primary';
     } else {
       return 'success';
     }
@@ -70,6 +70,14 @@ class PostDetail extends React.Component<any, any> {
     if (!this.props.post) return null;
     let { img_url1, img_url2, img_url3 } = this.props.post;
     let imageArray = [img_url1, img_url2, img_url3].filter(el => el !== null);
+
+    if (img_url2) {
+      $('.carousel-control').removeClass("hide");
+      $('.carousel-indicators').removeClass("hide");
+    } else {
+      $('.carousel-control').addClass("hide");
+      $('.carousel-indicators').addClass("hide");
+    }
 
     imageArray = imageArray.map((el, idx) => (
       <div key={idx} className={`item absolute-height ${idx == 0 ? "active" : ""}`}>

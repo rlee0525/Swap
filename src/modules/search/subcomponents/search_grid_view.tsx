@@ -51,9 +51,9 @@ class SearchGridView extends React.Component<Props, State> {
 
   private buttonClass(condition: string) {
     if (condition === 'Brand New') {
-      return 'primary';
+      return 'info';
     } else if (condition === 'Like New') {
-      return 'secondary';
+      return 'primary';
     } else {
       return 'success';
     }
@@ -127,8 +127,8 @@ class SearchGridView extends React.Component<Props, State> {
         <div className="row">
           <div className="sort-by-panel">
             <div className="btn-group">
-              <button type="button" className="btn btn-default btn-md dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Sort By <span className="caret" />
+              <button type="button" className="btn btn-default btn-md dropdown-toggle btn-special-size" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Sort By <span className="caret"></span>
               </button>
               <ul className="dropdown-menu dropdown-menu-right">
                 <li><a onClick={() => this.sortBy("title")} >Title</a></li>

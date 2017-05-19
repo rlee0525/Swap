@@ -65,10 +65,10 @@ class Search extends React.Component<Props, State> {
             <SearchNavbar search={this.props.search} />
             <div className="col-md-12">
               <div className="search-icons">
-                <button className="btn btn-link" id="grid-type" onClick={this.changeView('grid')}>
+                <button className="btn btn-link btn-special-size btn-special-margin" id="grid-type" onClick={this.changeView('grid')}>
                   <span className="glyphicon glyphicon-th-large"></span> Grid View
                 </button>
-                <button className="btn btn-link" id="list-type" onClick={this.changeView('list')}>
+                <button className="btn btn-link btn-special-size btn-special-margin" id="list-type" onClick={this.changeView('list')}>
                   <span className="glyphicon glyphicon-th-list"></span> List View
                 </button>
               </div>
