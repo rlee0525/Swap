@@ -15,7 +15,7 @@ class RfpForm extends React.Component<any, State> {
 
     this.state = {
       description: "",
-      errors: {}
+      errors: undefined
     };
 
     this.submitForm = this.submitForm.bind(this);

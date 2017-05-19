@@ -84,9 +84,9 @@ class Rfps extends React.Component <Props, State> {
     return (
       <div>
         <div className="container">
-          <NavTabs/>
+          <NavTabs />
           <div className="panel panel-default">
-            <div className="rfp-description" style={{ width: "100%", padding: "15px" }} >
+            <div className="rfp-description" style={{ width: "100%", padding: "15px" }}>
               Create custom alerts to get emails whenever a posting related to the created keywords.
             </div>
             <div className="panel-body">
@@ -99,7 +99,6 @@ class Rfps extends React.Component <Props, State> {
                         <span className="caret"/>
                       </a>
                     </th>
-                    <th className="col-xs-1">Delete</th>
                   </tr>
                 </thead>
                 <tbody>
