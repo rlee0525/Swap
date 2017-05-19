@@ -13,8 +13,8 @@ export const receivePost = post => ({
   post
 });
 
-export const getPost = (id: number) => dispatch => {
-  return PostAPI.fetchPost(id).then(
+export const getPost = (id: number, access_token: string) => dispatch => {
+  return PostAPI.fetchPost(id, access_token).then(
     res => dispatch(receivePost(res))
   );
 }
