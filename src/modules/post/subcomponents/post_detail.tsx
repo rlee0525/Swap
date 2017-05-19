@@ -140,9 +140,6 @@ class PostDetail extends React.Component<any, any> {
                   <h3 className="modal-title" id="contactModalLabel">Contact the Seller</h3>
                 </div>
                 <div className="modal-body text-center" id="contact-modal-body">
-                  <div className="modal-body text-center row">
-                      <button type="button" className="btn btn-lg btn-fb" id="fb-name-contact">{this.state.userFB && this.state.userFB.name} &nbsp;&nbsp; {this.state.userFB && <a target="_blank" href={this.state.userFB.link}><img src={this.state.userFB.picture.data.url} /></a>}</button>
-                  </div>
                   <div className="modal-body text-center">
                     <div>
                       <div id="purchase-msg-template" contentEditable={true}>
@@ -160,7 +157,18 @@ class PostDetail extends React.Component<any, any> {
                     <button type="button" className="btn btn-sm btn-primary" data-clipboard-target="#purchase-msg-template" id="copy-template">Copy Message</button>
                   </div>
                 </div>
-                <div className="modal-footer"></div>
+                <div className="modal-footer" id="fb-footer">
+
+                    <button type="button" className="btn btn-sm btn-fb" id="fb-name-contact">
+                      <span id="fb-contact-text">Contact {this.state.userFB && this.state.userFB.name}</span>
+                      {this.state.userFB &&
+                        <a target="_blank" href={this.state.userFB.link}>
+                          <img src={this.state.userFB.picture.data.url} id="fb-img-id" />
+                        </a>
+                      }
+                    </button>
+
+                </div>
               </div>
             </div>
           </div>
