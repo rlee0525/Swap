@@ -13,12 +13,11 @@ interface DispatchProps {
 
 const mapStateToProps = (state: StateProps, ownProp?: any): StateProps => ({
   user: state.user,
-  searchResult: state.searchResult
+  searchResult: state.searchResult.sort((a: object, b: object) => new Date(b.created_at) - new Date(a.created_at))
 });
 
 const mapDispatchToProps = (dispatch: any): DispatchProps => ({
-  search: query => dispatch(search(query)),
-  getPosts: () => dispatch(getPosts())
+  search: query => dispatch(search(query))
 });
 
 export default connect(
