@@ -1,23 +1,23 @@
 import React from 'react';
-import { shortenString, timeFromNow } from 'helpers';
+import { shortenString, timeFromNow, IPost } from 'helpers';
 import { Pagination } from './';
 declare var $;
 
-interface Post {
-  id: any;
-  title: string;
-  description: string;
-  price: number;
-  created_at: string;
-  condition: string;
-  views: number;
-  img_url1: string;
-  img_url2: string;
-  img_url3: string;
+interface Props {
+  searchResult: IPost [];
 }
 
-interface Props {
-  searchResult: Post [];
+interface State {
+  results: IPost[];
+  title?: number;
+  description?: number;
+  price?: number;
+  created_at?: number;
+  condition?: number;
+  maxPages?: number;
+  currentPage?: number;
+  views?: number;
+  firstTime?: number;
 }
 
 class SearchListView extends React.Component<Props, any> {
@@ -71,7 +71,7 @@ class SearchListView extends React.Component<Props, any> {
     });
   }
 
-  renderListItem(post: Post, idx: number) {
+  renderListItem(post: IPost, idx: number) {
     return (
       <tr key={idx} onClick={() => this.checkVerified(post.id)}>
         <td>{post.title}</td>

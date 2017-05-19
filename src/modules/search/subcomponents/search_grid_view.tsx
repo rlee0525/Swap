@@ -1,43 +1,29 @@
 import React from 'react';
-import { shortenString, timeFromNow } from 'helpers';
+import { shortenString, timeFromNow, IPost } from 'helpers';
 import { Pagination } from './';
 declare var $;
 
-interface Post {
-  id: any;
-  title: string;
-  description: string;
-  price: number;
-  created_at: string;
-  condition: string;
-  img_url1: string;
-  img_url2: string;
-  img_url3: string;
-  views: string;
-}
-
 interface Props {
-  searchResult: Post [];
+  searchResult: IPost [];
 }
 
 interface State {
-  title: any;
-  description: any;
-  price: any;
-  created_at: any;
-  condition: any;
-  results: any;
-  maxPages: number;
-  currentPage: number;
-  views: number;
-  firstTime: number;
+  results: IPost[];
+  title?: number;
+  description?: number;
+  price?: number;
+  created_at?: number;
+  condition?: number;
+  maxPages?: number;
+  currentPage?: number;
+  views?: number;
+  firstTime?: number;
 }
 
 class SearchGridView extends React.Component<Props, State> {
   constructor(props) {
     super(props);
-    this.sortBy = this.sortBy.bind(this);
-    let results = props.searchResult;
+    let results: Post[] = props.searchResult;
     let maxPages = props.searchResult.length > 0 ? Math.ceil(props.searchResult.length / 15) : 1;
 
     this.state = {
@@ -53,6 +39,7 @@ class SearchGridView extends React.Component<Props, State> {
       firstTime: 1
     };
 
+    this.sortBy = this.sortBy.bind(this);
     this.checkVerified = this.checkVerified.bind(this);
   }
 
@@ -62,7 +49,7 @@ class SearchGridView extends React.Component<Props, State> {
     this.setState({results, maxPages});
   }
 
-  buttonClass(condition: string) {
+  private buttonClass(condition: string) {
     if (condition === 'Brand New') {
       return 'info';
     } else if (condition === 'Like New') {
@@ -94,22 +81,23 @@ class SearchGridView extends React.Component<Props, State> {
     });
   }
 
-  public sortBy(key) {
+  public sortBy(key: string) {
     let polarity = this.state[key];
-    let newArray = this.state.results.sort(function(a:object, b:object) {
+    let newArray: IPost[] = this.state.results.sort(function(a:object, b:object) {
       if (a[key] < b[key]) return (-1 * polarity);
       if (a[key] > b[key]) return (1 * polarity);
       return 0;
     });
-    let newPolarity = (polarity === -1 ? 1 : -1);
+    let newPolarity: number = -1 * polarity;
+
     this.setState({
       results: newArray,
       [key]: newPolarity
     });
   }
 
-  renderGridItem(post: Post) {
-    let createdDate = Date.parse(post.created_at);
+  renderGridItem(post: IPost) {
+    let createdDate: number | string= Date.parse(post.created_at);
     createdDate = Date.now() - createdDate <= 86400000 ? timeFromNow(post.created_at) : ""
     return (
       <div className="thumbnail col-sm-6 col-md-4" key={Math.random() * post.id} onClick={() => this.checkVerified(post.id)}>
@@ -131,8 +119,8 @@ class SearchGridView extends React.Component<Props, State> {
   }
 
   render() {
-    let pageStart = (this.state.currentPage - 1) * 15;
-    let pageEnd = this.state.currentPage * 15;
+    let pageStart: number = (this.state.currentPage - 1) * 15;
+    let pageEnd: number = this.state.currentPage * 15;
 
     return (
       <div>

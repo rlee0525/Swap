@@ -1,20 +1,22 @@
 import React from 'react';
-import { SearchGridView,
-         SearchListView,
-         SearchNavbar } from './subcomponents';
+import { IPost } from 'helpers';
 
-interface Post {
-  title: string;
-  description: string;
-  price: number;
-  created_at: string;
-  condition: string;
-  img_url1: string;
-  img_url2: string;
-  img_url3: string;
+import { 
+  SearchGridView,
+  SearchListView,
+  SearchNavbar } from './subcomponents';
+
+interface State {
+  viewType: string;
 }
 
-class Search extends React.Component<any, any> {
+interface Props {
+  user: object;
+  searchResult: IPost[];
+  search: (query: string) => JQueryXHR;
+}
+
+class Search extends React.Component<Props, State> {
   constructor(props) {
     super(props);
 
@@ -26,7 +28,7 @@ class Search extends React.Component<any, any> {
   public componentWillMount() {
     const path = this.props.location.pathname.slice(1);
     if (path === "recent") {
-      this.props.getPosts();
+      this.props.search('');
     } else {
       this.props.search(path);
     }
@@ -36,7 +38,7 @@ class Search extends React.Component<any, any> {
     const nextLocation = nextProps.location.pathname.slice(1)
     if (nextLocation !== this.props.location.pathname.slice(1)) {
       if (nextLocation === "recent") {
-        this.props.getPosts();
+        this.props.search('');
       } else {
         this.props.search(nextLocation);
       }
