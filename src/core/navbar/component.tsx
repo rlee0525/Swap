@@ -16,9 +16,12 @@ class NavBar extends React.Component<any, any> {
     this.sendEmail = this.sendEmail.bind(this);
     this.chooseModal = this.chooseModal.bind(this);
     this.checkVerified = this.checkVerified.bind(this);
+    this.initializeNavbarFade = this.initializeNavbarFade.bind(this);
   }
 
   public componentDidMount() {
+    this.initializeNavbarFade();
+
     let userFB = this.props.userFB;
     let accessToken = this.props.accessToken;
     let status = this.props.status;
@@ -27,6 +30,16 @@ class NavBar extends React.Component<any, any> {
       userFB,
       accessToken,
       status
+    });
+  }
+
+  public initializeNavbarFade() {
+    $(window).scroll(function(){
+      if ($(this).scrollTop() > 300) {
+        $('#menu').fadeIn(500);
+      } else {
+        $('#menu').fadeOut(500);
+      }
     });
   }
 
@@ -134,6 +147,22 @@ class NavBar extends React.Component<any, any> {
   public render() {
     return (
       <div>
+        <nav id="menu" className="navbar navbar-default navbar-static-top navbar-padded text-uppercase app-navbar">
+          <div className="container">
+            <div className="navbar-header">
+              <button type="button" className="navbar-toggle collapsed p-x-0" data-toggle="collapse" data-target="#navbar-collapse">
+                <span className="sr-only">Toggle navigation</span>
+                <span className="icon-bar"></span>
+                <span className="icon-bar"></span>
+                <span className="icon-bar"></span>
+              </button>
+              <a className="navbar-brand" href="#">
+                <span>Swap</span>
+              </a>
+            </div>
+            {this.checkUserStatus()}
+          </div>
+        </nav>
         <nav className="navbar navbar-default navbar-static-top navbar-padded text-uppercase app-navbar">
           <div className="container">
             <div className="navbar-header">

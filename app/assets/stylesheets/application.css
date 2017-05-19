@@ -124,3 +124,16 @@ ul.nav {
 .panel-title a:hover, .panel-title a:focus {
   text-decoration: none;
 }
+
+/*fadein fadeout navbar*/
+#menu {
+  position: fixed;
+	top: 0px;
+	width: 100%;
+	background-color: white;
+	z-index: 9999;
+}
+
+#menu, .navbar {
+  box-shadow: 0 4px 4px rgba(0,0,0,0.06);
+}
