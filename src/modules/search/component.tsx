@@ -1,18 +1,10 @@
 import React from 'react';
-import { SearchGridView,
-         SearchListView,
-         SearchNavbar } from './subcomponents';
+import { IPost } from 'helpers';
 
-interface Post {
-  title: string;
-  description: string;
-  price: number;
-  created_at: string;
-  condition: string;
-  img_url1: string;
-  img_url2: string;
-  img_url3: string;
-}
+import { 
+  SearchGridView,
+  SearchListView,
+  SearchNavbar } from './subcomponents';
 
 interface State {
   viewType: string;
@@ -20,7 +12,7 @@ interface State {
 
 interface Props {
   user: object;
-  searchResult: object[];
+  searchResult: IPost[];
   search: (query: string) => JQueryXHR;
 }
 

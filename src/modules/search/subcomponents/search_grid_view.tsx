@@ -1,27 +1,14 @@
 import React from 'react';
-import { shortenString, timeFromNow } from 'helpers';
+import { shortenString, timeFromNow, IPost } from 'helpers';
 import { Pagination } from './';
 declare var $;
 
-interface Post {
-  id: any;
-  title: string;
-  description: string;
-  price: number;
-  created_at: string;
-  condition: string;
-  img_url1: string;
-  img_url2: string;
-  img_url3: string;
-  views: string;
-}
-
 interface Props {
-  searchResult: Post [];
+  searchResult: IPost [];
 }
 
 interface State {
-  results: Post[];
+  results: IPost[];
   title?: number;
   description?: number;
   price?: number;
@@ -96,7 +83,7 @@ class SearchGridView extends React.Component<Props, State> {
 
   public sortBy(key: string) {
     let polarity = this.state[key];
-    let newArray: Post[] = this.state.results.sort(function(a:object, b:object) {
+    let newArray: IPost[] = this.state.results.sort(function(a:object, b:object) {
       if (a[key] < b[key]) return (-1 * polarity);
       if (a[key] > b[key]) return (1 * polarity);
       return 0;
@@ -109,8 +96,8 @@ class SearchGridView extends React.Component<Props, State> {
     });
   }
 
-  renderGridItem(post: Post) {
-    let createdDate: number = Date.parse(post.created_at);
+  renderGridItem(post: IPost) {
+    let createdDate: number | string= Date.parse(post.created_at);
     createdDate = Date.now() - createdDate <= 86400000 ? timeFromNow(post.created_at) : ""
     return (
       <div className="thumbnail col-sm-6 col-md-4" key={Math.random() * post.id} onClick={() => this.checkVerified(post.id)}>

@@ -1,3 +1,5 @@
+export * from './interfaces';
+
 export const timeFromNow = (date: string) : string => {
   let durationsInSeconds: object = {
     year: 31536000,
@@ -8,7 +10,7 @@ export const timeFromNow = (date: string) : string => {
     second: 1
   };
 
-  let ms:number = Math.floor((Number(new Date()) - Number(new Date(date))) / 1000);
+  let ms: number = Math.floor((Number(new Date()) - Number(new Date(date))) / 1000);
   let types: string[] = ['year', 'month', 'day', 'hour', 'minute', 'second'];
 
   for (let idx = 0; idx < types.length; idx++) {
@@ -19,6 +21,8 @@ export const timeFromNow = (date: string) : string => {
       return `${num} ${type} ago`;
     }
   }
+
+  return 'Just now';
 };
 
 // add ... to strings that are too long
