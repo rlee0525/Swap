@@ -75,7 +75,7 @@ class SearchListView extends React.Component<Props, any> {
     return (
       <tr key={idx} onClick={() => this.checkVerified(post.id)}>
         <td>{post.title}</td>
-        <td className="hidden-xs">{shortenString(post.description, 30)}</td>
+        <td className="hidden-xs" id="hide-description">{shortenString(post.description, 30)}</td>
         <td>${Number(post.price).toLocaleString()}</td>
         <td className="hidden-xs">{timeFromNow(post.created_at)}</td>
         <td className="hidden-xs">{post.condition}</td>
@@ -108,11 +108,11 @@ class SearchListView extends React.Component<Props, any> {
           <thead>
             <tr>
               <th>Title<a onClick={() => this.sortBy("title")} className="btn btn-xs" ><span className="caret" /></a></th>
-              <th className="hidden-xs">Description<a onClick={() => this.sortBy("description")} className="btn btn-xs" ><span className="caret" /></a></th>
+              <th className="hidden-xs" id="hide-description">Description<a onClick={() => this.sortBy("description")} className="btn btn-xs"><span className="caret" /></a></th>
               <th>Price<a onClick={() => this.sortBy("price")} className="btn btn-xs" ><span className="caret" /></a></th>
               <th className="hidden-xs">Posting Date<a onClick={() => this.sortBy("created_at")} className="btn btn-xs" ><span className="caret" /></a></th>
               <th className="hidden-xs">Condition<a onClick={() => this.sortBy("condition")} className="btn btn-xs" ><span className="caret" /></a></th>
-              <th className="hidden-xs">View Count<a onClick={() => this.sortBy("views")} className="btn btn-xs" ><span className="caret" /></a></th>
+              <th className="hidden-xs">Views<a onClick={() => this.sortBy("views")} className="btn btn-xs" ><span className="caret" /></a></th>
             </tr>
           </thead>
           <tbody>
