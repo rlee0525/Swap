@@ -38,6 +38,8 @@ group :development, :test do
   gem 'byebug', platform: :mri
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'rb-readline'
+  gem 'pry-coolline'
   gem 'pry-rails'
   gem 'annotate'
   gem 'spring'
