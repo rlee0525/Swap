@@ -5,14 +5,17 @@ import configureStore from './core/store';
 import Root from './core/root';
 declare var window;
 
-document.addEventListener('DOMContentLoaded', () => {
-  const root: HTMLElement = document.getElementById('root');
+window.start = user => {
+  // document.addEventListener('DOMContentLoaded', () => {
+    const root: HTMLElement = document.getElementById('root');
 
-  const preloadedState: object = {};
+    let preloadedState: object = {};
 
-  const store = configureStore(preloadedState);
+    preloadedState = { user: user };
+    const store = configureStore(preloadedState);
 
-  ReactDOM.render(<Root store={store}/>, root);
-  window.store = store;
-  window.s = store.getState;
-});
+    ReactDOM.render(<Root store={store}/>, root);
+    window.store = store;
+    window.s = store.getState;
+  // });
+}

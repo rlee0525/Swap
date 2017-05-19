@@ -1,13 +1,11 @@
 import { connect } from 'react-redux';
-import NavBar from './component';
-import { receiveUser } from './actions';
+import PostForm from './component';
 
 interface StateProps {
   user: any;
 }
 
 interface DispatchProps {
-  receiveUser: (user: object) => void;
 }
 
 const mapStateToProps = (state: any, ownProp?: any): StateProps => ({
@@ -15,10 +13,9 @@ const mapStateToProps = (state: any, ownProp?: any): StateProps => ({
 });
 
 const mapDispatchToProps = (dispatch: any): DispatchProps => ({
-  receiveUser: user => dispatch(receiveUser(user))
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(NavBar);
+)(PostForm);

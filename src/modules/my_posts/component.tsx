@@ -1,6 +1,5 @@
 import React from 'react';
 import { shortenString, timeFromNow } from 'helpers';
-import { PostForm } from 'modules/post/subcomponents';
 
 interface Post {
   id: number;
@@ -17,6 +16,7 @@ interface Post {
 
 interface Props {
   searchResult: Post [];
+  user: any;
 }
 
 interface State {
@@ -34,7 +34,6 @@ class MyPosts extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.getMyPosts = this.getMyPosts.bind(this);
-    this.editPost = this.editPost.bind(this);
     this.deletePost = this.deletePost.bind(this);
     this.renderMyPosts = this.renderMyPosts.bind(this);
     this.sortBy = this.sortBy.bind(this);
@@ -57,21 +56,17 @@ class MyPosts extends React.Component<Props, State> {
   public getMyPosts() {
     $.ajax({
       method: "GET",
-      url: "api/posts"
+      url: "api/posts",
+      data: { access_token: this.props.user.auth.accessToken }
     }).then(myPosts => this.setState({myPosts}))
   }
 
-  public editPost(id) {
-    $.ajax({
-      method: "GET",
-      url: `api/posts/${id}`
-    }).then(myPost => this.setState({ myPost }))
-  }
-
   public deletePost(id) {
+    const access_token = this.props.user.auth.access_token;
     $.ajax({
-      type: "DELETE",
-      url: `api/posts/${id}`
+      type: "PATCH",
+      url: `api/posts/${id}`,
+      data: { access_token, method: "delete" }
     }).then(() => this.getMyPosts())
   }
 

@@ -11,11 +11,9 @@
 
 class Api::UsersController < ApplicationController
   def create
-    access_token = params[:accessToken]
-    fb_id = fb_id(access_token)
-    user = User.find_by(fb_id: fb_id)
-    if user
-      @user = user
+    fb_id = fb_id(params[:accessToken])
+    @user = fb_auth_user(params[:accessToken])
+    if @user
       return render "api/users/show", status: 200
     else
       @user = User.new(fb_id: fb_id)
@@ -29,29 +27,22 @@ class Api::UsersController < ApplicationController
   end
 
   def update
+    @user = fb_auth_user(params[:id])
     edu_email = params[:edu_email]
-    access_token = params[:id]
-    fb_id = fb_id(access_token)
 
-    if fb_id && edu_email
-      @user = User.find_by(fb_id: fb_id)
-      if @user.edu_email_confirmed
-        return render "api/users/show", status: 200
-      elsif @user
-        @user.update(edu_email: edu_email)
-        @user.mail
-        return render "api/users/show", status: 200
-      else
-        return render json: ["couldn't update edu email"], status: 500
-      end
+    if @user && @user.edu_email_confirmed
+      render "api/users/show", status: 200
+    elsif @user && @user.update(edu_email: edu_email)
+      @user.mail
+      render "api/users/show", status: 200
+    else
+      render json: ["invalid fb_id / edu_email"], status: 500
     end
-    render json: ["invalid fb_id / edu_email"], status: 500
   end
 
   def show
-    access_token = params[:id]
-    fb_id = fb_id(access_token)
-    @user = User.find_by(fb_id: fb_id)
+    @user = fb_auth_user(params[:id])
+
     if @user
       render "api/users/show", status: 200
     else

@@ -19,7 +19,7 @@ class PostDetail extends React.Component<any, any> {
 
   public componentWillMount() {
     const id = this.props.id;
-    this.props.getPost(id);
+    this.props.getPost(id, this.props.user.auth.accessToken);
   }
 
   public componentDidMount() {
@@ -45,9 +45,9 @@ class PostDetail extends React.Component<any, any> {
 
   public buttonClass(condition: string) {
     if (condition === 'Brand New') {
-      return 'primary';
+      return 'info';
     } else if (condition === 'Like New') {
-      return 'secondary';
+      return 'primary';
     } else {
       return 'success';
     }
@@ -70,6 +70,14 @@ class PostDetail extends React.Component<any, any> {
     if (!this.props.post) return null;
     let { img_url1, img_url2, img_url3 } = this.props.post;
     let imageArray = [img_url1, img_url2, img_url3].filter(el => el !== null);
+
+    if (img_url2) {
+      $('.carousel-control').removeClass("hide");
+      $('.carousel-indicators').removeClass("hide");
+    } else {
+      $('.carousel-control').addClass("hide");
+      $('.carousel-indicators').addClass("hide");
+    }
 
     imageArray = imageArray.map((el, idx) => (
       <div key={idx} className={`item absolute-height ${idx == 0 ? "active" : ""}`}>
@@ -132,13 +140,9 @@ class PostDetail extends React.Component<any, any> {
                   <h3 className="modal-title" id="contactModalLabel">Contact the Seller</h3>
                 </div>
                 <div className="modal-body text-center" id="contact-modal-body">
-                  <div className="modal-body text-center row">
-                    <span>{this.state.userFB && this.state.userFB.name}</span>
-                    <div>{this.state.userFB && <a target="_blank" href={this.state.userFB.link}><img src={this.state.userFB.picture.data.url} /></a>}</div>
-                  </div>
                   <div className="modal-body text-center">
                     <div>
-                      <div id="purchase-msg-template" contentEditable={true}>
+                      <div id="purchase-msg-template" contentEditable={true} data-toggle="tooltip" data-placement="bottom" title="click to edit">
                         Hi, {this.state.userFB && this.state.userFB.name}, <br/><br/>
                         My name is {this.state.currentUser && this.state.currentUser.name}. I saw your posting on {this.props.post.title} on Swap.<br/>
                         I would like to purchase it at ${this.props.post.price}.<br/>
@@ -153,7 +157,18 @@ class PostDetail extends React.Component<any, any> {
                     <button type="button" className="btn btn-sm btn-primary" data-clipboard-target="#purchase-msg-template" id="copy-template">Copy Message</button>
                   </div>
                 </div>
-                <div className="modal-footer"></div>
+                <div className="modal-footer" id="fb-footer">
+
+                    <button type="button" className="btn btn-sm btn-fb" id="fb-name-contact">
+                      <span id="fb-contact-text">Contact {this.state.userFB && this.state.userFB.name}</span>
+                      {this.state.userFB &&
+                        <a target="_blank" href={this.state.userFB.link}>
+                          <img src={this.state.userFB.picture.data.url} id="fb-img-id" />
+                        </a>
+                      }
+                    </button>
+
+                </div>
               </div>
             </div>
           </div>

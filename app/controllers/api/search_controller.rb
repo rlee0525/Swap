@@ -1,7 +1,5 @@
 class Api::SearchController < ApplicationController
   def index
-    # category = params[:query].capitalize
-    # @posts = Post.joins(:category).where('categories.name = ?', category)
     query = params[:query]
 
     if params[:query].nil? || query.empty?

@@ -145,9 +145,11 @@ class PostForm extends React.Component<any, any> {
   }
 
   public fetchPost(id) {
+    const access_token = this.props.user.auth.accessToken;
     $.ajax({
       method: "GET",
-      url: `api/posts/${id}`
+      url: `api/posts/${id}`,
+      data: { access_token }
     }).then(post => {
       this.setState({ ...post })
     })
@@ -199,15 +201,17 @@ class PostForm extends React.Component<any, any> {
       method = "PATCH";
       url = `api/posts/${this.props.params.id}`
     }
+    const access_token = this.props.user.auth.accessToken;
     $.ajax({
       method: method,
       url: url,
       data: {
         post: { title, condition, price, description, img_url1, img_url2, img_url3 },
         course: { course },
-        category: { category }
+        category: { category },
+        access_token
       }
-    }).then(post => this.props.props.router.replace(`posts/${post.id}`))
+    }).then(post => this.props.router.replace(`posts/${post.id}`))
       .fail(errors => {
         this.setState({ errors })
       })
@@ -368,4 +372,4 @@ class PostForm extends React.Component<any, any> {
   }
 }
 
-export { PostForm };
+export default PostForm;

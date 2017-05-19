@@ -1,7 +1,7 @@
 import React from 'react';
 import { shortenString, timeFromNow } from 'helpers';
 
-import { NavTabs } from './subcomponents';
+import { NavTabs } from './subcomponents/nav_tabs';
 
 interface RFP {
   id: number;
@@ -31,17 +31,19 @@ class Rfps extends React.Component <Props, State> {
 
   public fetchRfps() {
     $.ajax({
-      method: "GET", 
-      url: "api/rfps"
+      method: "GET",
+      url: "api/rfps",
+      data: { access_token: this.props.user.auth.accessToken }
     }).then(
-      rfps => this.setState({rfps})
+      rfps => this.setState({ rfps })
     );
   }
 
   public deleteRfp(id) {
     $.ajax({
-      type: "DELETE", 
-      url: `api/rfps/${id}`
+      type: "DELETE",
+      url: `api/rfps/${id}`,
+      data: { access_token: this.props.user.auth.accessToken }
     }).then(
       data => this.fetchRfps()
     );

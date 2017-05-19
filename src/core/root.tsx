@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Provider } from 'react-redux';
 import { Store } from 'redux';
 import { Router, Route, IndexRoute, hashHistory } from 'react-router';
-import App from './app';
+import App from 'core';
 import Home from 'modules/home';
 import Search from 'modules/search';
 import About from 'modules/about';
@@ -14,8 +14,8 @@ import Terms from 'modules/terms';
 import Bookmarks from 'modules/bookmarks';
 import MyPosts from 'modules/my_posts';
 import Rfps from 'modules/rfps';
-import { PostForm } from 'modules/post/subcomponents';
-import { RfpForm } from 'modules/rfps/subcomponents';
+import PostForm from 'modules/post_form';
+import RfpForm from 'modules/rfps/subcomponents';
 
 interface RootProps {
   store: Store<any>;

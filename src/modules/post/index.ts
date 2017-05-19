@@ -8,7 +8,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  getPost: (id: number) => void;
+  getPost: (id: number, access_token: string) => void;
 }
 
 const mapStateToProps = (state: any, ownProp?: any): StateProps => ({
@@ -17,7 +17,7 @@ const mapStateToProps = (state: any, ownProp?: any): StateProps => ({
 });
 
 const mapDispatchToProps = (dispatch: any): DispatchProps => ({
-  getPost: id => dispatch(getPost(id))
+  getPost: (id, access_token) => dispatch(getPost(id, access_token))
 });
 
 export default connect(

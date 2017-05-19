@@ -32,12 +32,12 @@ class RfpForm extends React.Component<any, State> {
     $.ajax({
       method: "POST",
       url: "api/rfps",
-      data: { description }
+      data: { description, access_token: this.props.user.auth.accessToken }
     }).then(
-      post => this.props.props.router.replace(`dashboard/rfps`))
-    .fail(errors => {
-      this.setState({ errors })
-    })
+      post => this.props.router.replace(`dashboard/rfps`)
+    ).fail(
+      errors => this.setState({ errors })
+    );
   }
 
   public renderErrors() {
@@ -94,4 +94,4 @@ class RfpForm extends React.Component<any, State> {
   }
 }
 
-export { RfpForm };
+export default RfpForm;
