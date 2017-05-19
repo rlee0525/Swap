@@ -78,3 +78,7 @@
 .grid-left {
   left: 20px;
 }
+
+#margin-right {
+  margin-right: 10px !important;
+}
