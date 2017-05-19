@@ -22,7 +22,6 @@ interface Props {
   user: object;
   searchResult: object[];
   search: (query: string) => JQueryXHR;
-  getPosts: () => JQueryXHR;
 }
 
 class Search extends React.Component<Props, State> {
@@ -37,7 +36,7 @@ class Search extends React.Component<Props, State> {
   public componentWillMount() {
     const path = this.props.location.pathname.slice(1);
     if (path === "recent") {
-      this.props.getPosts();
+      this.props.search('');
     } else {
       this.props.search(path);
     }
@@ -47,7 +46,7 @@ class Search extends React.Component<Props, State> {
     const nextLocation = nextProps.location.pathname.slice(1)
     if (nextLocation !== this.props.location.pathname.slice(1)) {
       if (nextLocation === "recent") {
-        this.props.getPosts();
+        this.props.search('');
       } else {
         this.props.search(nextLocation);
       }
