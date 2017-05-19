@@ -1,5 +1,5 @@
-Hi FB ID:<%= @user.fb_id %>,
+Hi FB ID:<%= @user %>,
 
 Thanks for registering! To confirm your registration click the URL below.
 
-<a href="<%= "#{ENV['LOCALHOST_URL']}/email_confirmation/#{@user.edu_email_confirm_token}" %>">Confirm Token</a>
+<a href="<%= "#{ENV['LOCALHOST_URL']}/#/email_confirmation/#{@user.edu_email_confirm_token}" %>">Confirm Token</a>

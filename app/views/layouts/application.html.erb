@@ -26,26 +26,20 @@
 
     <script>
       function statusChangeCallback(response) {
-        console.log('statusChangeCallback');
-        console.log(response);
 
         if (response.status === 'connected') {
-          console.log("logged into facebook")
           FB.api('/me?fields=email,name', function(otherResponse) {
             const auth = response.authResponse;
             const user = { auth, userFB: otherResponse, status: "connected" };
             window.start(user);
           });
         } else {
-          console.log("not logged into facebook")
           window.start(null)
         }
       }
 
       function checkLoginState() {
-        console.log("checking")
         FB.getLoginStatus(function(response) {
-          console.log("response is " + response)
           statusChangeCallback(response);
         });
       }
@@ -67,7 +61,6 @@
         js.src = "//connect.facebook.net/en_US/sdk.js";
         fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'facebook-jssdk'));
-
     </script>
 
   </head>
