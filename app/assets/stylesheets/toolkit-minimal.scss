@@ -2453,6 +2453,63 @@ fieldset[disabled] .btn-info.focus {
   color: #5bc0de;
   background-color: #ffffff;
 }
+.btn-fb {
+  color: #ffffff;
+  background-color: #4267B2;
+  border-color: #4267B2;
+}
+.btn-fb:focus,
+.btn-fb.focus {
+  color: #ffffff;
+  background-color: #3c5ea3;
+  border-color: #3c5ea3;
+}
+.btn-fb:hover {
+  color: #ffffff;
+  background-color: #3c5ea3;
+  border-color: #3c5ea3;
+}
+.btn-fb:active,
+.btn-fb.active,
+.open > .dropdown-toggle.btn-fb {
+  color: #ffffff;
+  background-color: #3c5ea3;
+  border-color: #3c5ea3;
+}
+.btn-fb:active:hover,
+.btn-fb.active:hover,
+.open > .dropdown-toggle.btn-fb:hover,
+.btn-fb:active:focus,
+.btn-fb.active:focus,
+.open > .dropdown-toggle.btn-fb:focus,
+.btn-fb:active.focus,
+.btn-fb.active.focus,
+.open > .dropdown-toggle.btn-fb.focus {
+  color: #ffffff;
+  background-color: #365695;
+  border-color: #365695;
+}
+.btn-fb:active,
+.btn-fb.active,
+.open > .dropdown-toggle.btn-fb {
+  background-image: none;
+}
+.btn-fb.disabled:hover,
+.btn-fb[disabled]:hover,
+fieldset[disabled] .btn-fb:hover,
+.btn-fb.disabled:focus,
+.btn-fb[disabled]:focus,
+fieldset[disabled] .btn-fb:focus,
+.btn-fb.disabled.focus,
+.btn-fb[disabled].focus,
+fieldset[disabled] .btn-fb.focus {
+  background-color: #4267B2;
+  border-color: #46b8da;
+}
+.btn-fb .badge {
+  color: #4267B2;
+  background-color: #ffffff;
+}
 .btn-warning {
   color: #ffffff;
   background-color: #f0ad4e;

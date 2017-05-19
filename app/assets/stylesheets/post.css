@@ -261,3 +261,11 @@
   position: relative;
   top: -2px;
 }
+
+#fb-name-contact {
+  text-transform: uppercase;
+  font-size: 24px;
+  letter-spacing: .05em;
+  font-weight: 300;
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}

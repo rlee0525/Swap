@@ -141,8 +141,7 @@ class PostDetail extends React.Component<any, any> {
                 </div>
                 <div className="modal-body text-center" id="contact-modal-body">
                   <div className="modal-body text-center row">
-                    <span>{this.state.userFB && this.state.userFB.name}</span>
-                    <div>{this.state.userFB && <a target="_blank" href={this.state.userFB.link}><img src={this.state.userFB.picture.data.url} /></a>}</div>
+                      <button type="button" className="btn btn-lg btn-fb" id="fb-name-contact">{this.state.userFB && this.state.userFB.name} &nbsp;&nbsp; {this.state.userFB && <a target="_blank" href={this.state.userFB.link}><img src={this.state.userFB.picture.data.url} /></a>}</button>
                   </div>
                   <div className="modal-body text-center">
                     <div>
