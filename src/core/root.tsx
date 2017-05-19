@@ -33,7 +33,7 @@ const Root: React.SFC<RootProps> = ({ store }) => {
     <Provider store={store}>
       <Router history={hashHistory}>
         <Route path="/" component={App}>
-        <IndexRoute component={Home} />
+          <IndexRoute component={Home} />
           <Route path="/recent" component={Search} />
           <Route path="/textbooks" component={Search} />
           <Route path="/clothing" component={Search} />
@@ -48,14 +48,15 @@ const Root: React.SFC<RootProps> = ({ store }) => {
           <Route path="/terms" component={Terms} />
           <Route path="/search" component={Search} />
           <Route path="/posts/create" component={PostForm} />
-          <Route path="/rfps/create" component={RfpForm} />
+          
           <Route path="/posts/edit/" >
             <Route path=":id" component={PostForm} />
           </Route>
-          <Route path="/dashboard" >
+          <Route path="/dashboard">
             <Route path="posts" component={MyPosts} />
             <Route path="bookmarks" component={Bookmarks} />
             <Route path="rfps" component={Rfps} />
+            <Route path="rfps/create" component={RfpForm} />
           </Route>
           <Route path="/posts">
             <Route path=":id" component={Post} />
