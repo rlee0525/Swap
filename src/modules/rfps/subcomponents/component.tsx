@@ -6,10 +6,10 @@ interface State {
 }
 
 interface Props {
-
+  user: any;
 }
 
-class RfpForm extends React.Component<any, State> {
+class RfpForm extends React.Component<Props, State> {
   constructor(props) {
     super(props);
 
