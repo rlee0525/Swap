@@ -13,7 +13,7 @@ interface DispatchProps {
 
 const mapStateToProps = (state: StateProps, ownProp?: any): StateProps => ({
   user: state.user,
-  searchResult: state.searchResult.sort((a: object, b: object) => new Date(b.created_at) - new Date(a.created_at))
+  searchResult: state.searchResult.sort((a: any, b: any) => Date.parse(b.created_at) - Date.parse(a.created_at))
 });
 
 const mapDispatchToProps = (dispatch: any): DispatchProps => ({

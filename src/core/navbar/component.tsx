@@ -41,21 +41,33 @@ class NavBar extends React.Component<any, any> {
     });
   }
 
+  private isEmailAddress(str) {
+    let pattern =/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    return pattern.test(str);
+  }
+
   public sendEmail(e: any) {
     e.preventDefault();
 
     let accessToken;
     let that = this;
     const edu_email = ($('input.form-control')[0] as HTMLInputElement).value
-    $.ajax({
-      method: "PATCH",
-      url: `api/users/${that.props.user.auth.accessToken}`,
-      data: { edu_email }
-    }).then(obj => {
-      $('#logInModal').modal('hide');
-      $('#emailInputModal').modal('hide');
-      $('#emailVerificationModal').modal('show');
-    })
+
+    if (this.isEmailAddress(edu_email)) {
+      $('#email-input-form').removeClass("has-error");
+      $.ajax({
+        method: "PATCH",
+        url: `api/users/${that.props.user.auth.accessToken}`,
+        data: { edu_email }
+      }).then(obj => {
+        $('#logInModal').modal('hide');
+        $('#emailInputModal').modal('hide');
+        $('#emailVerificationModal').modal('show');
+      })
+    } else {
+      $('#email-error-div').addClass("has-error");
+      setTimeout(() => $('#email-error-div').removeClass("has-error"), 1500);
+    }
   }
 
   public resendVerificationEmail() {
@@ -199,7 +211,7 @@ class NavBar extends React.Component<any, any> {
               </div>
               <div className="modal-body text-center" id="fb-modal-body">
                 <form onSubmit={ this.sendEmail }>
-                  <div className="form-group input-group">
+                  <div className="form-group input-group" id="email-error-div">
                     <input type="text" className="form-control" placeholder="Your email" aria-describedby="basic-addon2"/>
                     <span className="input-group-addon" id="basic-addon2">Ex: me@email.com</span>
                   </div>
