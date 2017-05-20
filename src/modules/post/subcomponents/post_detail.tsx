@@ -137,6 +137,7 @@ class PostDetail extends React.Component<any, any> {
             <div className="modal-dialog" role="document">
               <div className="modal-content">
                 <div className="modal-header" id="contact-modal-header">
+                  <button type="button" className="close" data-dismiss="modal">&times;</button>
                   <h3 className="modal-title" id="contactModalLabel">Contact the Seller</h3>
                 </div>
                 <div className="modal-body text-center" id="contact-modal-body">
