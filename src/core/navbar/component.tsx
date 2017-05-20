@@ -19,6 +19,7 @@ class NavBar extends React.Component<any, any> {
   }
 
   public componentDidMount() {
+    this.initializeNavbarFade();
     this.reinitializeFB();
   }
 
@@ -32,6 +33,7 @@ class NavBar extends React.Component<any, any> {
   }
 
   public initializeNavbarFade() {
+
     $(window).scroll(function(){
       if ($(this).scrollTop() > 300) {
         $('#menu').fadeIn(500);
@@ -122,10 +124,10 @@ class NavBar extends React.Component<any, any> {
     }).fail(() => FB.logout(res => console.log(res)))
   }
 
-  public checkUserStatus() {
+  public checkUserStatus(id) {
     if (this.props.user !== null) {
       return (
-        <div className="navbar-collapse collapse" id="navbar-collapse">
+        <div className="navbar-collapse collapse" id={id}>
           <ul className="nav navbar-nav navbar-right">
             <li><a href="/#/recent">Browse</a></li>
             <li><a id="dashboard/posts" onClick={(e) => this.checkVerified(e)}>Dashboard</a></li>
@@ -135,7 +137,7 @@ class NavBar extends React.Component<any, any> {
       );
     } else {
       return (
-        <div className="navbar-collapse collapse" id="navbar-collapse">
+        <div className="navbar-collapse collapse" id={id}>
           <ul className="nav navbar-nav navbar-right">
             <li><a href="/#/recent">Browse</a></li>
             <li><a onClick={this.chooseModal}>Sign Up</a></li>
@@ -162,13 +164,13 @@ class NavBar extends React.Component<any, any> {
                 <span>Swap</span>
               </a>
             </div>
-            {this.checkUserStatus()}
+            {this.checkUserStatus("navbar-collapse")}
           </div>
         </nav>
         <nav className="navbar navbar-default navbar-static-top navbar-padded text-uppercase app-navbar">
           <div className="container">
             <div className="navbar-header">
-              <button type="button" className="navbar-toggle collapsed p-x-0" data-toggle="collapse" data-target="#navbar-collapse">
+              <button type="button" className="navbar-toggle collapsed p-x-0" data-toggle="collapse" data-target="#navbar-collapse2">
                 <span className="sr-only">Toggle navigation</span>
                 <span className="icon-bar"></span>
                 <span className="icon-bar"></span>
@@ -178,7 +180,7 @@ class NavBar extends React.Component<any, any> {
                 <span>Swap</span>
               </a>
             </div>
-            {this.checkUserStatus()}
+            {this.checkUserStatus("navbar-collapse2")}
           </div>
         </nav>
 
