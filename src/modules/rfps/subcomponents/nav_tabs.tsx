@@ -3,17 +3,17 @@ import { Link } from 'react-router';
 
 const NavTabs = () : JSX.Element => (
   <ul className="nav nav-tabs">
-    <li role="presentation">
+    <li role="presentation" id="dashboard-nav-title">
       <Link to="dashboard/posts">Posts</Link>
     </li>
-    <li role="presentation">
+    <li role="presentation" id="dashboard-nav-title">
       <Link to="dashboard/bookmarks">Bookmarks</Link>
     </li>
-    <li role="presentation" className="active">
+    <li role="presentation" id="dashboard-nav-title" className="active">
       <Link to="dashboard/rfps">Alerts</Link>
     </li>
     <div>
-      <Link to="dashboard/rfps/create" className="btn btn-success nav-button">
+      <Link to="dashboard/rfps/create" className="btn btn-clear nav-button">
         Create Alert
       </Link>
     </div>
