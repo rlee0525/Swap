@@ -22,37 +22,6 @@ class RfpForm extends React.Component<any, State> {
     this.updateState = this.updateState.bind(this);
   }
 
-  public updateState(e) {
-    this.setState({ [e.target.id]: e.target.value })
-  }
-
-  public submitForm(e) {
-    e.preventDefault();
-    const { description } = this.state;
-    $.ajax({
-      method: "POST",
-      url: "api/rfps",
-      data: { description, access_token: this.props.user.auth.accessToken }
-    }).then(
-      post => this.props.router.replace(`dashboard/rfps`)
-    ).fail(
-      errors => this.setState({ errors })
-    );
-  }
-
-  public renderErrors() {
-    if (typeof this.state.errors === "undefined") {
-      return null;
-    } else {
-      return this.state.errors.responseJSON.map((error, key) => (
-        <div key={key} className="alert alert-danger" role="alert">
-          <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-          <span className="sr-only">Error:</span> {error}
-        </div>
-      ));
-    }
-  }
-
   public render() {
     return (
       <div>
