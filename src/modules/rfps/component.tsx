@@ -1,7 +1,7 @@
 import React from 'react';
 import { shortenString, timeFromNow } from 'helpers';
 
-import { NavTabs } from './subcomponents/nav_tabs';
+import { NavTabs } from './subcomponents';
 
 interface RFP {
   id: number;
