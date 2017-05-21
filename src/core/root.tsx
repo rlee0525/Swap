@@ -22,10 +22,23 @@ interface RootProps {
 
 const Root: React.SFC<RootProps> = ({ store }) => {
   const _ensureLoggedIn = (nextState: any, replace: any) => {
-    const currentUser = store.getState().session.currentUser;
-    if (!currentUser) {
+    const user = store.getState().user;
+
+    if (!user) {
       replace('/');
+    } else {
+      const accessToken = user.auth.accessToken;
+
+      $.ajax({
+        method: 'GET',
+        url: `api/users/${accessToken}`
+      }).then(user => {
+        if (!user.edu_email_confirmed) {
+          replace('/');
+        }
+      });
     }
+
   };
 
   return (
@@ -58,7 +71,7 @@ const Root: React.SFC<RootProps> = ({ store }) => {
             <Route path=":id" component={PostForm} />
           </Route>
           <Route path="/posts">
-            <Route path=":id" component={Post} />
+            <Route path=":id" component={Post} onEnter={_ensureLoggedIn} />
           </Route>
 
           {/* Dashboard routes */}
