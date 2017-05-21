@@ -32,7 +32,7 @@ class App extends React.Component<Props, State> {
     let that = this;
     FB.getLoginStatus(function(response) {
       if (response.status === "connected") {
-        FB.api('/me?fields=email,name', function(otherResponse: any) {
+        FB.api('/me?fields=email,name,link,picture', function(otherResponse: any) {
           const auth = response.authResponse;
           that.props.receiveUser({ auth, userFB: otherResponse, status: "connected" });
         });
@@ -50,7 +50,7 @@ class App extends React.Component<Props, State> {
   public login(response: any) {
     let that = this;
     if (response.authResponse === null) return null;
-    FB.api('/me?fields=email,name', function(otherResponse: any) {
+    FB.api('/me?fields=email,name,link,picture', function(otherResponse: any) {
       const auth = response.authResponse;
       that.props.receiveUser({ auth, userFB: otherResponse, status: "connected" });
     });

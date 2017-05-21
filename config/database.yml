@@ -78,6 +78,8 @@ test:
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
+
+# heroku pg:credentials DATABASE_URL --app swapnow
 production:
   <<: *default
   database: swapnow_production

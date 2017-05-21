@@ -138,3 +138,7 @@ ul.nav {
   padding-top: 5px;
   box-shadow: 0 4px 4px rgba(0,0,0,0.06);
 }
+
+.navbar-default .navbar-collapse, .navbar-default .navbar-form {
+  background: white;
+}

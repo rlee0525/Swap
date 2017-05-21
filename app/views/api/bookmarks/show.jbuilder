@@ -11,4 +11,5 @@ json.extract! @bookmarked_post,
               :course_id,
               :zip_code,
               :created_at,
-              :condition
+              :condition,
+              :active

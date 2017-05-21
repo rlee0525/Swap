@@ -28,7 +28,7 @@
       function statusChangeCallback(response) {
 
         if (response.status === 'connected') {
-          FB.api('/me?fields=email,name', function(otherResponse) {
+          FB.api('/me?fields=email,name,link,picture', function(otherResponse) {
             const auth = response.authResponse;
             const user = { auth, userFB: otherResponse, status: "connected" };
             window.start(user);
