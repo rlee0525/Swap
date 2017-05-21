@@ -14,7 +14,7 @@ interface State {
 }
 
 interface Props {
-  user: object;
+  user: any;
 }
 
 class Rfps extends React.Component <Props, State> {
