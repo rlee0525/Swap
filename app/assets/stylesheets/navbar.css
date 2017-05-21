@@ -21,10 +21,6 @@
   border-radius: 5px !important;
 }
 
-.caret {
-  margin-left: 10px !important;
-}
-
 #search-navbar-container {
   margin-bottom: 30px;
   display: flex;
@@ -41,4 +37,13 @@
   #phone-search-nav {
     width: calc(94% - 128px) !important;
   }
+}
+
+#caret-container {
+  padding-bottom: 5px !important;
+}
+
+#special-caret {
+  margin-left: 10px !important;
+  margin-bottom: 1px !important;
 }

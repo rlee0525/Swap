@@ -1,5 +1,33 @@
 @media (max-width: 1200px) {
     #hide-description {
-        display: none !important;
+      display: none !important;
     }
+}
+
+tr th {
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: .05em;
+  font-weight: 400;
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  padding: 8px 0 4px 8px !important;
+  border: none !important;
+  cursor: pointer;
+}
+
+td {
+  vertical-align: middle !important;
+}
+
+#th-no-caret {
+  padding: 0 8px 8px 0 !important;
+  text-align: center;
+  cursor: auto !important;
+}
+
+@media (max-width: 768px) {
+  #th-no-caret {
+    padding-left: 10px !important;
+    text-align: left !important;
+  }
 }

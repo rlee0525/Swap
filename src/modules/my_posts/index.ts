@@ -17,5 +17,5 @@ const mapDispatchToProps = (dispatch: any): DispatchProps => ({
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  null
 )(MyPosts);

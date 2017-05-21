@@ -56,7 +56,7 @@ class SearchNavbar extends React.Component<Props, State> {
         <div className="dropdown">
           <button className="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
             {this.state.label}
-            <span className="caret"></span>
+            <span className="caret" id="special-caret"></span>
           </button>
           <ul className="dropdown-menu col-md-2" aria-labelledby="dropdownMenu1">
             <li><a href="#/recent" onClick={() => this.renderCateogryMenu("Recent")}>Recent</a></li>

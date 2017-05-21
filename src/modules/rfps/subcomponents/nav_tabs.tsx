@@ -73,9 +73,12 @@ class NavTabs extends React.Component<any, State> {
           <Link to="dashboard/rfps">Alerts</Link>
         </li>
         <div>
-          <button className="btn btn-clear nav-button" onClick={() => this.createAlert()}>
+          <a onClick={() => this.createAlert()} className="btn btn-clear nav-button" id="responsive-create-text">
             Create Alert
-          </button>
+          </a>
+          <a onClick={() => this.createAlert()} className="btn btn-clear nav-button" id="responsive-create-icon">
+            <span className="glyphicon glyphicon-bell" aria-hidden="true" id="create-icon-button"/>
+          </a>
           
 
           <a id="createAlertModalTrigger" className="hidden" data-toggle="modal" data-target="#createAlertModal">Email Input Modal Trigger</a>
