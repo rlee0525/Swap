@@ -19,6 +19,8 @@ class PostDetail extends React.Component<any, any> {
     this.contactPerson = this.contactPerson.bind(this);
     this.initializeClipboard = this.initializeClipboard.bind(this);
     this.createBookmark = this.createBookmark.bind(this);
+    this.editPost = this.editPost.bind(this);
+    this.deletePost = this.deletePost.bind(this);
   }
 
   public componentWillMount() {
@@ -38,7 +40,7 @@ class PostDetail extends React.Component<any, any> {
       if (this.state.user.id === res.post.user_id) {
         ownPost = true;
       }
-      
+
       let usersBookmarked = [] as any;
       res.post.bookmarks.forEach(obj => usersBookmarked.push(obj.user_id));
 
@@ -86,6 +88,19 @@ class PostDetail extends React.Component<any, any> {
       setTimeout(function(){ $(e.trigger).text("Copy Link"); }, 1000)
       e.clearSelection();
     });
+  }
+
+  public deletePost(id) {
+    const access_token = this.props.user.auth.access_token;
+    $.ajax({
+      type: "PATCH",
+      url: `api/posts/${id}`,
+      data: { access_token, method: "delete" }
+    }).then(() => window.location.href = `#/recent`)
+  }
+
+  public editPost(id) {
+    window.location.href = `#/posts/edit/${id}`
   }
 
   public buttonClass(condition: string) {
@@ -163,7 +178,7 @@ class PostDetail extends React.Component<any, any> {
     };
 
     if (typeof this.props.post === "undefined") return null;
-    let { title, description, price, created_at, views, condition } = this.props.post;
+    let { id, title, description, price, created_at, views, condition } = this.props.post;
 
     return (
       <div className="col-lg-6 col-md-6 col-sm-6 absolute-height" id="detail-body">
@@ -174,7 +189,9 @@ class PostDetail extends React.Component<any, any> {
         <h3 className="text-left">${Number(price).toLocaleString()}</h3>
         <div className="row">
           <span className="btn btn-warning btn-lg col-md-2 col-sm-2 col-xs-2 bottom-margin-spacing glyphicon glyphicon-bookmark" id="bookmark-btn" onClick={() => this.createBookmark()}></span>
-          <a className="btn btn-primary btn-lg col-md-9 col-sm-9 col-xs-9" onClick={() => {this.fetchAuthor(); this.contactPerson();}}>Contact the Seller</a>
+          <a className="btn btn-primary btn-lg col-md-9 col-sm-9 col-xs-9" id="contact-the-seller-btn" onClick={() => {this.fetchAuthor(); this.contactPerson();}}>Contact the Seller</a>
+          <a className="btn btn-primary btn-lg col-md-6 col-sm-6 col-xs-6" id="ownPost-edit" onClick={() => this.editPost(id)}>Edit Post</a>
+          <a className="btn btn-secondary btn-lg col-md-5 col-sm-5 col-xs-5" id="ownPost-delete" onClick={() => this.deletePost(id)}>Delete Post</a>
 
           <a id="contactModalTrigger" className="hidden" data-toggle="modal" data-target="#contactModal">Contact Modal Trigger</a>
           <div className="modal fade" id="contactModal" tabIndex={-1} role="dialog"
@@ -224,12 +241,22 @@ class PostDetail extends React.Component<any, any> {
   }
 
   public render() {
-    console.log(this.state)
-    console.log(this.props)
     if (this.state.bookmarked) {
       $("#bookmark-btn").addClass("disabled");
     } else {
       $("#bookmark-btn").removeClass("disabled");
+    }
+
+    if (this.state.ownPost) {
+      $("#contact-the-seller-btn").hide();
+      $("#bookmark-btn").hide();
+      $("#ownPost-edit").show();
+      $("#ownPost-delete").show();
+    } else {
+      $("#contact-the-seller-btn").show();
+      $("#bookmark-btn").show();
+      $("#ownPost-edit").hide();
+      $("#ownPost-delete").hide();
     }
 
     let link;
