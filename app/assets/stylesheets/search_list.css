@@ -13,4 +13,5 @@ tr th {
   padding: 0 0 0 18px !important;
   border: none !important;
   padding-left: 8px !important;
+  cursor: pointer;
 }
