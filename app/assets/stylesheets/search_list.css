@@ -20,3 +20,10 @@ tr th {
   text-align: center;
   cursor: auto !important;
 }
+
+@media (max-width: 768px) {
+  #th-no-caret {
+    padding-left: 10px !important;
+    text-align: left !important;
+  }
+}

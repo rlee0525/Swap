@@ -74,8 +74,8 @@ class Bookmarks extends React.Component<any, any> {
     return this.state.bookmarkedPosts.map(bookmarkedPost => (
       <tr key={`post${bookmarkedPost.id}`}>
         <td><a href={`#/posts/${bookmarkedPost.id}`} ><img className="img img-responsive img-thumbnail-size" src={bookmarkedPost.img_url1}/></a></td>
-        <td className="hidden-xs"><a href={`#/posts/${bookmarkedPost.id}`} >{bookmarkedPost.title}</a></td>
-        <td className="hidden-xs">{shortenString(bookmarkedPost.description, 30)}</td>
+        <td className="hidden-xs"><a href={`#/posts/${bookmarkedPost.id}`} >{shortenString(bookmarkedPost.title, 25)}</a></td>
+        <td className="hidden-xs" id="hide-description">{shortenString(bookmarkedPost.description, 30)}</td>
         <td className="hidden-xs">${Number(bookmarkedPost.price).toLocaleString()}</td>
         <td className="hidden-xs">{timeFromNow(bookmarkedPost.created_at)}</td>
         <td className="hidden-xs">{bookmarkedPost.condition}</td>
@@ -114,14 +114,14 @@ class Bookmarks extends React.Component<any, any> {
                 <table className="table table-hover">
                   <thead>
                     <tr>
-                      <th>Thumbnail</th>
-                      <th className="hidden-xs">Title<a onClick={() => this.sortBy("title")} className="btn btn-xs" ><span className="caret" /></a></th>
-                      <th className="hidden-xs">Description<a onClick={() => this.sortBy("description")} className="btn btn-xs" ><span className="caret" /></a></th>
-                      <th className="hidden-xs">Price<a onClick={() => this.sortBy("price")} className="btn btn-xs" ><span className="caret" /></a></th>
-                      <th className="hidden-xs">Posting Date<a onClick={() => this.sortBy("created_at")} className="btn btn-xs" ><span className="caret" /></a></th>
-                      <th className="hidden-xs">Condition<a onClick={() => this.sortBy("condition")} className="btn btn-xs" ><span className="caret" /></a></th>
-                      <th>Copy Link</th>
-                      <th>Delete</th>
+                      <th id="th-no-caret"></th>
+                      <th onClick={() => this.sortBy("title")} className="hidden-xs">Title<a onClick={() => this.sortBy("title")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
+                      <th onClick={() => this.sortBy("description")} className="hidden-xs" id="hide-description">Description<a onClick={() => this.sortBy("description")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
+                      <th onClick={() => this.sortBy("price")} className="hidden-xs">Price<a onClick={() => this.sortBy("price")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
+                      <th onClick={() => this.sortBy("created_at")} className="hidden-xs">Posting Date<a onClick={() => this.sortBy("created_at")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
+                      <th onClick={() => this.sortBy("condition")} className="hidden-xs">Condition<a onClick={() => this.sortBy("condition")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
+                      <th id="th-no-caret">Copy Link</th>
+                      <th id="th-no-caret">Delete</th>
                     </tr>
                   </thead>
                   <tbody>
