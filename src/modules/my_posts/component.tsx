@@ -33,10 +33,6 @@ interface State {
 class MyPosts extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    this.getMyPosts = this.getMyPosts.bind(this);
-    this.deletePost = this.deletePost.bind(this);
-    this.renderMyPosts = this.renderMyPosts.bind(this);
-    this.sortBy = this.sortBy.bind(this);
     this.state = {
       myPosts: [],
       title: -1,
@@ -47,6 +43,12 @@ class MyPosts extends React.Component<Props, State> {
       condition: -1,
       myPost: null
     }
+
+    this.getMyPosts = this.getMyPosts.bind(this);
+    this.editPost = this.editPost.bind(this);
+    this.deletePost = this.deletePost.bind(this);
+    this.renderMyPosts = this.renderMyPosts.bind(this);
+    this.sortBy = this.sortBy.bind(this);
   }
 
   public componentDidMount() {
@@ -58,10 +60,11 @@ class MyPosts extends React.Component<Props, State> {
       method: "GET",
       url: "api/posts",
       data: { access_token: this.props.user.auth.accessToken }
-    }).then(myPosts => this.setState({myPosts}))
+    }).then(myPosts => this.setState({ myPosts }))
   }
 
-  public deletePost(id) {
+  public deletePost(e, id) {
+    e.stopPropagation();
     const access_token = this.props.user.auth.access_token;
     $.ajax({
       type: "PATCH",
@@ -70,17 +73,26 @@ class MyPosts extends React.Component<Props, State> {
     }).then(() => this.getMyPosts())
   }
 
+  public loadPost(id) {
+    window.location.href = `#/posts/${id}`
+  }
+
+  public editPost(e, id) {
+    e.stopPropagation();
+    window.location.href = `#/posts/edit/${id}`
+  }
+
   public renderListItem() {
     return this.state.myPosts.map(myPost => (
-      <tr key={myPost.id}>
-        <td><a href={`#/posts/${myPost.id}`} ><img className="img img-responsive img-thumbnail-size" src={myPost.img_url1}/></a></td>
-        <td className="hidden-xs"><a href={`#/posts/${myPost.id}`}>{shortenString(myPost.title, 25)}</a></td>
+      <tr key={myPost.id} onClick={() => this.loadPost(myPost.id)}>
+        <td><img className="img img-responsive img-thumbnail-size" src={myPost.img_url1}/></td>
+        <td className="hidden-xs">{shortenString(myPost.title, 30)}</td>
         <td className="hidden-xs" id="hide-description">{shortenString(myPost.description, 30)}</td>
         <td className="hidden-xs">${Number(myPost.price).toLocaleString()}</td>
         <td className="hidden-xs">{timeFromNow(myPost.created_at)}</td>
         <td className="hidden-xs">{myPost.condition}</td>
-        <td><a type="button" className="btn btn-xs btn-primary" href={`#/posts/edit/${myPost.id}`}>Edit</a></td>
-        <td><button type="button" className="btn btn-xs btn-secondary" onClick={() => this.deletePost(myPost.id)}>Delete</button></td>
+        <td><button type="button" id="action-button" className="btn btn-xs btn-primary" onClick={(e) => this.editPost(e, myPost.id)}>Edit</button></td>
+        <td><button type="button" id="action-button" className="btn btn-xs btn-secondary" onClick={(e) => this.deletePost(e, myPost.id)}>Delete</button></td>
       </tr>
     ))
   }
