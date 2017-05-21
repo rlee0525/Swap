@@ -126,7 +126,7 @@ class Bookmarks extends React.Component<any, any> {
                       <th onClick={() => this.sortBy("title")} className="hidden-xs">Title<a onClick={() => this.sortBy("title")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
                       <th onClick={() => this.sortBy("description")} className="hidden-xs" id="hide-description">Description<a onClick={() => this.sortBy("description")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
                       <th onClick={() => this.sortBy("price")} className="hidden-xs">Price<a onClick={() => this.sortBy("price")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
-                      <th onClick={() => this.sortBy("created_at")} className="hidden-xs">Posting Date<a onClick={() => this.sortBy("created_at")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
+                      <th onClick={() => this.sortBy("created_at")} className="hidden-xs">Posted<a onClick={() => this.sortBy("created_at")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
                       <th onClick={() => this.sortBy("condition")} className="hidden-xs">Condition<a onClick={() => this.sortBy("condition")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
                       <th id="th-no-caret">Copy</th>
                       <th id="th-no-caret">Delete</th>
