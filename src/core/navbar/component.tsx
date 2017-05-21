@@ -188,6 +188,7 @@ class NavBar extends React.Component<any, any> {
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <div className="modal-header" id="auth-modal-header">
+                <button type="button" className="close" data-dismiss="modal">&times;</button>
                 <h3 className="modal-title" id="authModalLabel">{this.state.modalHeader}</h3>
               </div>
               <div className="modal-body text-center" id="fb-modal-body">
@@ -207,6 +208,7 @@ class NavBar extends React.Component<any, any> {
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <div className="modal-header" id="auth-modal-header">
+                <button type="button" className="close" data-dismiss="modal">&times;</button>
                 <h3 className="modal-title" id="authModalLabel">Enter your email address</h3>
               </div>
               <div className="modal-body text-center" id="fb-modal-body">
@@ -230,6 +232,7 @@ class NavBar extends React.Component<any, any> {
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <div className="modal-header" id="auth-modal-header">
+                <button type="button" className="close" data-dismiss="modal">&times;</button>
                 <h3 className="modal-title" id="authModalLabel">Thank you!</h3>
               </div>
               <div className="modal-body text-center" id="fb-modal-body">

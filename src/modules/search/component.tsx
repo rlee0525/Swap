@@ -8,6 +8,7 @@ import {
 
 interface State {
   viewType: string;
+  posts: object;
 }
 
 interface Props {
@@ -22,16 +23,27 @@ class Search extends React.Component<Props, State> {
     super(props);
 
     this.state = {
-      viewType: 'grid'
+      viewType: 'grid',
+      posts: null
     };
   }
 
   public componentWillMount() {
     const path = this.props.location.pathname.slice(1);
     if (path === "recent") {
-      this.props.search('');
+      this.props.search('').then(res => {
+        let posts = this.props.searchResult.sort((a: any, b: any) => Date.parse(b.created_at) - Date.parse(a.created_at))
+        this.setState({
+          posts: this.props.searchResult
+        });
+      })
     } else {
-      this.props.search(path);
+      this.props.search(path).then(res => {
+        let posts = this.props.searchResult.sort((a: any, b: any) => Date.parse(b.created_at) - Date.parse(a.created_at))
+        this.setState({
+          posts: this.props.searchResult
+        });
+      })
     }
   }
 
@@ -39,9 +51,19 @@ class Search extends React.Component<Props, State> {
     const nextLocation = nextProps.location.pathname.slice(1)
     if (nextLocation !== this.props.location.pathname.slice(1)) {
       if (nextLocation === "recent") {
-        this.props.search('');
+        this.props.search('').then(res => {
+          let posts = this.props.searchResult.sort((a: any, b: any) => Date.parse(b.created_at) - Date.parse(a.created_at))
+          this.setState({
+            posts: this.props.searchResult
+          });
+        })
       } else {
-        this.props.search(nextLocation);
+        this.props.search(nextLocation).then(res => {
+          let posts = this.props.searchResult.sort((a: any, b: any) => Date.parse(b.created_at) - Date.parse(a.created_at))
+          this.setState({
+            posts: this.props.searchResult
+          });
+        })
       }
     }
   }

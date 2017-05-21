@@ -104,9 +104,9 @@ class Bookmarks extends React.Component<any, any> {
       <div>
         <div className="container">
           <ul className="nav nav-tabs">
-            <li role="presentation"><a href="#/dashboard/posts">Posts</a></li>
-            <li role="presentation" className="active"><a href="#/dashboard/bookmarks">Bookmarks</a></li>
-            <li role="presentation"><a href="#/dashboard/rfps">Alerts</a></li>
+            <li role="presentation" id="dashboard-nav-title"><a href="#/dashboard/posts">Posts</a></li>
+            <li role="presentation" id="dashboard-nav-title" className="active"><a href="#/dashboard/bookmarks">Bookmarks</a></li>
+            <li role="presentation" id="dashboard-nav-title"><a href="#/dashboard/rfps">Alerts</a></li>
           </ul>
           <div>
             <div className="panel panel-default">

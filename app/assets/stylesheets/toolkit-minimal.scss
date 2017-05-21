@@ -2339,6 +2339,65 @@ fieldset[disabled] .btn-primary.focus {
   color: #20b2aa;
   background-color: #ffffff;
 }
+.btn-clear {
+  color: lightseagreen !important;
+  text-transform: uppercase !important;
+  font-size: 14px !important;
+  letter-spacing: .05em !important;
+  font-weight: 300;
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background-color: transparent;
+  border-color: transparent;
+  outline: none;
+}
+.btn-clear:focus,
+.btn-clear.focus {
+  outline: none;
+}
+.btn-clear:hover {
+  color: #1ca099 !important;
+  outline: none;
+}
+.btn-clear:active,
+.btn-clear.active,
+.open > .dropdown-toggle.btn-clear {
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125) !important;
+  outline: none;
+}
+.btn-clear:active:hover,
+.btn-clear.active:hover,
+.open > .dropdown-toggle.btn-clear:hover,
+.btn-clear:active:focus,
+.btn-clear.active:focus,
+.open > .dropdown-toggle.btn-clear:focus,
+.btn-clear:active.focus,
+.btn-clear.active.focus,
+.open > .dropdown-toggle.btn-clear.focus {
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125) !important;
+  outline: none;
+}
+.btn-clear:active,
+.btn-clear.active,
+.open > .dropdown-toggle.btn-clear {
+  background-image: none;
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125) !important;
+}
+.btn-clear.disabled:hover,
+.btn-clear[disabled]:hover,
+fieldset[disabled] .btn-clear:hover,
+.btn-clear.disabled:focus,
+.btn-clear[disabled]:focus,
+fieldset[disabled] .btn-clear:focus,
+.btn-clear.disabled.focus,
+.btn-clear[disabled].focus,
+fieldset[disabled] .btn-clear.focus {
+  background-color: #20b2aa;
+  border-color: #5d548f;
+}
+.btn-clear .badge {
+  color: #20b2aa;
+  background-color: #ffffff;
+}
 .btn-success {
   color: #ffffff;
   background-color: #5cb85c;

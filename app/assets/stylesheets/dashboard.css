@@ -1,0 +1,25 @@
+#dashboard-nav-title,
+#dashboard-nav-title:hover,
+#dashboard-nav-title:active {
+  color: #777777 !important;
+  text-transform: uppercase !important;
+  font-size: 11px !important;
+  letter-spacing: .15em !important;
+  font-weight: 400 !important;
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+}
+
+#dashboard-nav-title > a:hover,
+#dashboard-nav-title > a {
+  color: #777777 !important;
+}
+
+.rfp-description {
+  width: 100%;
+  padding: 22px 15px 0 22px !important;
+  color: #777777 !important;
+  font-size: 14px !important;
+  letter-spacing: .1em !important;
+  font-weight: 300 !important;
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+}

@@ -88,7 +88,7 @@ class Rfps extends React.Component <Props, State> {
         <div className="container">
           <NavTabs />
           <div className="panel panel-default">
-            <div className="rfp-description" style={{ width: "100%", padding: "15px" }}>
+            <div className="rfp-description">
               Add custom alerts to get emails whenever a post related to the created keywords is created.
             </div>
             <div className="panel-body">
