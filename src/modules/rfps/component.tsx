@@ -101,6 +101,9 @@ class Rfps extends React.Component <Props, State> {
                         <span className="caret"/>
                       </a>
                     </th>
+                    <th>
+                      Action
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
