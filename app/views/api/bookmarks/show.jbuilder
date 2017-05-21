@@ -1,4 +1,4 @@
-json.extract! @bookmarked_post,
+json.extract! @bookmarked_post.post,
               :id,
               :title,
               :user_id,

@@ -10,7 +10,9 @@ class PostDetail extends React.Component<any, any> {
 
     this.state = {
       userFB: null,
-      currentUser: null
+      user: null,
+      currentUser: null,
+      bookmarked: false
     }
 
     this.contactPerson = this.contactPerson.bind(this);
@@ -19,6 +21,14 @@ class PostDetail extends React.Component<any, any> {
   }
 
   public componentWillMount() {
+    const accessToken = this.props.user.auth.accessToken;
+    $.ajax({
+      method: 'GET',
+      url: `api/users/${accessToken}`
+    }).then(user => {
+      this.setState({ user })
+    });
+
     const id = this.props.id;
     this.props.getPost(id, this.props.user.auth.accessToken);
   }
@@ -36,7 +46,20 @@ class PostDetail extends React.Component<any, any> {
   }
 
   public createBookmark() {
+    const access_token = this.props.user.auth.accessToken;
+    const id = this.props.id;
+    const bookmark = {
+      post_id: id,
+      user_id: this.state.user.id
+    };
     
+    $.ajax({
+      method: "POST",
+      url: `api/bookmarks`,
+      data: { bookmark, access_token }
+    }).then(res => {
+      this.setState({ bookmarked: true })
+    });
   }
 
   public initializeClipboard() {
@@ -133,7 +156,7 @@ class PostDetail extends React.Component<any, any> {
 
         <h3 className="text-left">${Number(price).toLocaleString()}</h3>
         <div className="row">
-          <span className="btn btn-warning btn-lg col-md-2 col-sm-2 col-xs-2 bottom-margin-spacing glyphicon glyphicon-bookmark" id="bookmark-btn"></span>
+          <span className="btn btn-warning btn-lg col-md-2 col-sm-2 col-xs-2 bottom-margin-spacing glyphicon glyphicon-bookmark" id="bookmark-btn" onClick={() => this.createBookmark()}></span>
           <a className="btn btn-primary btn-lg col-md-9 col-sm-9 col-xs-9" onClick={() => {this.fetchAuthor(); this.contactPerson();}}>Contact the Seller</a>
 
           <a id="contactModalTrigger" className="hidden" data-toggle="modal" data-target="#contactModal">Contact Modal Trigger</a>
