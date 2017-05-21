@@ -186,49 +186,51 @@ class PostDetail extends React.Component<any, any> {
         <p className="red"><span className={`label label-${this.buttonClass(condition)}`} id="label-micro">{condition}</span><span className="glyphicon glyphicon-fire"  id="condition-views"></span> {views} Views </p>
         <p id="post-description">{description}</p>
 
-        <h3 className="text-left">${Number(price).toLocaleString()}</h3>
-        <div className="row">
-          <span className="btn btn-warning btn-lg col-md-2 col-sm-2 col-xs-2 bottom-margin-spacing glyphicon glyphicon-bookmark" id="bookmark-btn" onClick={() => this.createBookmark()}></span>
-          <a className="btn btn-primary btn-lg col-md-9 col-sm-9 col-xs-9" id="contact-the-seller-btn" onClick={() => {this.fetchAuthor(); this.contactPerson();}}>Contact the Seller</a>
-          <a className="btn btn-primary btn-lg col-md-6 col-sm-6 col-xs-6" id="ownPost-edit" onClick={() => this.editPost(id)}>Edit Post</a>
-          <a className="btn btn-secondary btn-lg col-md-5 col-sm-5 col-xs-5" id="ownPost-delete" onClick={() => this.deletePost(id)}>Delete Post</a>
+        <div className="footer" id="post-detail-right-bottom">
+          <h3 className="text-left">${Number(price).toLocaleString()}</h3>
+          <div className="row">
+            <span className="btn btn-warning btn-lg col-md-2 col-sm-2 col-xs-2 bottom-margin-spacing glyphicon glyphicon-bookmark" id="bookmark-btn" onClick={() => this.createBookmark()}></span>
+            <a className="btn btn-primary btn-lg col-md-9 col-sm-9 col-xs-9" id="contact-the-seller-btn" onClick={() => {this.fetchAuthor(); this.contactPerson();}}>Contact the Seller</a>
+            <a className="btn btn-primary btn-lg col-md-6 col-sm-6 col-xs-6" id="ownPost-edit" onClick={() => this.editPost(id)}>Edit Post</a>
+            <a className="btn btn-secondary btn-lg col-md-5 col-sm-5 col-xs-5" id="ownPost-delete" onClick={() => this.deletePost(id)}>Delete Post</a>
 
-          <a id="contactModalTrigger" className="hidden" data-toggle="modal" data-target="#contactModal">Contact Modal Trigger</a>
-          <div className="modal fade" id="contactModal" tabIndex={-1} role="dialog"
-               aria-labelledby="contactModalLabel" aria-hidden="true">
-            <div className="modal-dialog" role="document">
-              <div className="modal-content">
-                <div className="modal-header" id="contact-modal-header">
-                  <button type="button" className="close" data-dismiss="modal">&times;</button>
-                  <h3 className="modal-title" id="contactModalLabel">Contact the Seller</h3>
-                </div>
-                <div className="modal-body text-center" id="contact-modal-body">
-                  <div className="modal-body text-center">
-                    <div>
-                      <div id="purchase-msg-template" contentEditable={true} data-toggle="tooltip" data-placement="bottom" title="click to edit">
-                        Hi, {this.state.userFB && this.state.userFB.name}, <br/><br/>
-                        My name is {this.state.currentUser && this.state.currentUser.name}. I saw your posting on {this.props.post.title} on Swap.<br/>
-                        I would like to purchase it at ${this.props.post.price}.<br/>
-                        Please let me know if it's still available.<br/>
-
-                        link: {(window as any).localhost_url}/#/posts/{this.props.post.id}<br/><br/>
-
-                        Thanks,<br/>
-                        {this.state.currentUser && this.state.currentUser.name}
-                      </div>
-                    </div>
-                    <button type="button" className="btn btn-sm btn-primary" data-clipboard-target="#purchase-msg-template" id="copy-template">Copy Message</button>
+            <a id="contactModalTrigger" className="hidden" data-toggle="modal" data-target="#contactModal">Contact Modal Trigger</a>
+            <div className="modal fade" id="contactModal" tabIndex={-1} role="dialog"
+                aria-labelledby="contactModalLabel" aria-hidden="true">
+              <div className="modal-dialog" role="document">
+                <div className="modal-content">
+                  <div className="modal-header" id="contact-modal-header">
+                    <button type="button" className="close" data-dismiss="modal">&times;</button>
+                    <h3 className="modal-title" id="contactModalLabel">Contact the Seller</h3>
                   </div>
-                </div>
-                <div className="modal-footer" id="fb-footer">
-                  <button type="button" className="btn btn-sm btn-fb" id="fb-name-contact">
-                    <span id="fb-contact-text">Contact {this.state.userFB && this.state.userFB.name}</span>
-                    {this.state.userFB &&
-                      <a target="_blank" href={this.state.userFB.link}>
-                        <img src={this.state.userFB.picture.data.url} id="fb-img-id" />
-                      </a>
-                    }
-                  </button>
+                  <div className="modal-body text-center" id="contact-modal-body">
+                    <div className="modal-body text-center">
+                      <div>
+                        <div id="purchase-msg-template" contentEditable={true} data-toggle="tooltip" data-placement="bottom" title="click to edit">
+                          Hi, {this.state.userFB && this.state.userFB.name}, <br/><br/>
+                          My name is {this.state.currentUser && this.state.currentUser.name}. I saw your posting on {this.props.post.title} on Swap.<br/>
+                          I would like to purchase it at ${this.props.post.price}.<br/>
+                          Please let me know if it's still available.<br/>
+
+                          link: {(window as any).localhost_url}/#/posts/{this.props.post.id}<br/><br/>
+
+                          Thanks,<br/>
+                          {this.state.currentUser && this.state.currentUser.name}
+                        </div>
+                      </div>
+                      <button type="button" className="btn btn-sm btn-primary" data-clipboard-target="#purchase-msg-template" id="copy-template">Copy Message</button>
+                    </div>
+                  </div>
+                  <div className="modal-footer" id="fb-footer">
+                    <button type="button" className="btn btn-sm btn-fb" id="fb-name-contact">
+                      <span id="fb-contact-text">Contact {this.state.userFB && this.state.userFB.name}</span>
+                      {this.state.userFB &&
+                        <a target="_blank" href={this.state.userFB.link}>
+                          <img src={this.state.userFB.picture.data.url} id="fb-img-id" />
+                        </a>
+                      }
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
