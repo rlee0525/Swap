@@ -60,4 +60,4 @@ class About extends React.Component<any, any> {
   }
 }
 
-export default About;
+export { About };
