@@ -42,3 +42,8 @@
 #caret-container {
   padding-bottom: 5px !important;
 }
+
+#special-caret {
+  margin-left: 10px !important;
+  margin-bottom: 1px !important;
+}
