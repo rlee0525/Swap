@@ -79,8 +79,8 @@ class Bookmarks extends React.Component<any, any> {
         <td className="hidden-xs">${Number(bookmarkedPost.price).toLocaleString()}</td>
         <td className="hidden-xs">{timeFromNow(bookmarkedPost.created_at)}</td>
         <td className="hidden-xs">{bookmarkedPost.condition}</td>
-        <td><button type="button" className="btn btn-xs btn-success" data-clipboard-text={window.localhost_url + `/#/posts/${bookmarkedPost.id}`}>Copy Link</button></td>
-        <td><button type="button" className="btn btn-xs btn-danger" onClick={() => this.deleteBookmarkedPost(bookmarkedPost.id)}>Delete</button></td>
+        <td><button type="button" className="btn btn-xs btn-primary" data-clipboard-text={window.localhost_url + `/#/posts/${bookmarkedPost.id}`}>Copy Link</button></td>
+        <td><button type="button" className="btn btn-xs btn-secondary" onClick={() => this.deleteBookmarkedPost(bookmarkedPost.id)}>Delete</button></td>
       </tr>
     ))
   }

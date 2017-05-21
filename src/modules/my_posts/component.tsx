@@ -75,12 +75,12 @@ class MyPosts extends React.Component<Props, State> {
       <tr key={myPost.id}>
         <td><a href={`#/posts/${myPost.id}`} ><img className="img img-responsive img-thumbnail-size" src={myPost.img_url1}/></a></td>
         <td className="hidden-xs"><a href={`#/posts/${myPost.id}`}>{shortenString(myPost.title, 25)}</a></td>
-        <td className="hidden-xs">{shortenString(myPost.description, 30)}</td>
+        <td className="hidden-xs" id="hide-description">{shortenString(myPost.description, 30)}</td>
         <td className="hidden-xs">${Number(myPost.price).toLocaleString()}</td>
         <td className="hidden-xs">{timeFromNow(myPost.created_at)}</td>
         <td className="hidden-xs">{myPost.condition}</td>
-        <td><a type="button" className="btn btn-xs btn-success" href={`#/posts/edit/${myPost.id}`}>Edit</a></td>
-        <td><button type="button" className="btn btn-xs btn-danger" onClick={() => this.deletePost(myPost.id)}>Delete</button></td>
+        <td><a type="button" className="btn btn-xs btn-primary" href={`#/posts/edit/${myPost.id}`}>Edit</a></td>
+        <td><button type="button" className="btn btn-xs btn-secondary" onClick={() => this.deletePost(myPost.id)}>Delete</button></td>
       </tr>
     ))
   }
@@ -109,7 +109,7 @@ class MyPosts extends React.Component<Props, State> {
                 <tr>
                   <th id="th-no-caret"></th>
                   <th onClick={() => this.sortBy("title")} className="hidden-xs">Title<a onClick={() => this.sortBy("title")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
-                  <th onClick={() => this.sortBy("description")} className="hidden-xs">Description<a onClick={() => this.sortBy("description")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
+                  <th onClick={() => this.sortBy("description")} className="hidden-xs" id="hide-description">Description<a onClick={() => this.sortBy("description")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
                   <th onClick={() => this.sortBy("price")} className="hidden-xs">Price<a onClick={() => this.sortBy("price")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
                   <th onClick={() => this.sortBy("created_at")} className="hidden-xs">Posted<a onClick={() => this.sortBy("created_at")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
                   <th onClick={() => this.sortBy("condition")} className="hidden-xs">Condition<a onClick={() => this.sortBy("condition")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
