@@ -221,16 +221,14 @@ class PostDetail extends React.Component<any, any> {
                   </div>
                 </div>
                 <div className="modal-footer" id="fb-footer">
-
-                    <button type="button" className="btn btn-sm btn-fb" id="fb-name-contact">
-                      <span id="fb-contact-text">Contact {this.state.userFB && this.state.userFB.name}</span>
-                      {this.state.userFB &&
-                        <a target="_blank" href={this.state.userFB.link}>
-                          <img src={this.state.userFB.picture.data.url} id="fb-img-id" />
-                        </a>
-                      }
-                    </button>
-
+                  <button type="button" className="btn btn-sm btn-fb" id="fb-name-contact">
+                    <span id="fb-contact-text">Contact {this.state.userFB && this.state.userFB.name}</span>
+                    {this.state.userFB &&
+                      <a target="_blank" href={this.state.userFB.link}>
+                        <img src={this.state.userFB.picture.data.url} id="fb-img-id" />
+                      </a>
+                    }
+                  </button>
                 </div>
               </div>
             </div>

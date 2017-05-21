@@ -10,7 +10,7 @@ class FAQ extends React.Component<any, any> {
       <div className="container">
         <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
           <div className="panel panel-default">
-            <div className="panel-heading" role="tab" id="headingOne">
+            <div className="panel-heading collapsed pointer-cursor" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
               <h4 className="panel-title">
                 <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                   FAQ
@@ -27,7 +27,7 @@ class FAQ extends React.Component<any, any> {
             </div>
           </div>
           <div className="panel panel-default">
-            <div className="panel-heading" role="tab" id="headingTwo">
+            <div className="panel-heading collapsed pointer-cursor" role="tab" id="headingTwo" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
               <h4 className="panel-title">
                 <a className="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                   Prohibited Items
@@ -96,7 +96,7 @@ class FAQ extends React.Component<any, any> {
             </div>
           </div>
           <div className="panel panel-default">
-            <div className="panel-heading" role="tab" id="headingThree">
+            <div className="panel-heading collapsed pointer-cursor" role="tab" id="headingThree"  data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
               <h4 className="panel-title">
                 <a className="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                   Terms of Use
