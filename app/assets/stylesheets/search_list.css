@@ -15,6 +15,10 @@ tr th {
   cursor: pointer;
 }
 
+td {
+  vertical-align: middle !important;
+}
+
 #th-no-caret {
   padding: 0 8px 8px 0 !important;
   text-align: center;
