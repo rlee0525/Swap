@@ -1,7 +1,7 @@
 import React from 'react';
 import { shortenString, timeFromNow } from 'helpers';
 
-import { NavTabs } from './subcomponents/nav_tabs';
+import { NavTabs } from './subcomponents';
 
 interface RFP {
   id: number;
@@ -49,7 +49,7 @@ class Rfps extends React.Component <Props, State> {
     );
   }
 
-  public componentDidMount() {
+  public componentWillMount() {
     this.fetchRfps();
   }
 
@@ -86,7 +86,7 @@ class Rfps extends React.Component <Props, State> {
     return (
       <div>
         <div className="container">
-          <NavTabs />
+          <NavTabs user={this.props.user} fetchRfps={this.fetchRfps} />
           <div className="panel panel-default">
             <div className="rfp-description">
               Add custom alerts to get emails whenever a post related to the created keywords is created.
@@ -100,6 +100,9 @@ class Rfps extends React.Component <Props, State> {
                         Keywords
                         <span className="caret"/>
                       </a>
+                    </th>
+                    <th>
+                      Action
                     </th>
                   </tr>
                 </thead>
