@@ -12,25 +12,44 @@ class PostDetail extends React.Component<any, any> {
       userFB: null,
       user: null,
       currentUser: null,
-      bookmarked: false
+      bookmarked: false,
+      ownPost: false
     }
 
     this.contactPerson = this.contactPerson.bind(this);
     this.initializeClipboard = this.initializeClipboard.bind(this);
     this.createBookmark = this.createBookmark.bind(this);
+    this.editPost = this.editPost.bind(this);
+    this.deletePost = this.deletePost.bind(this);
   }
 
   public componentWillMount() {
     const accessToken = this.props.user.auth.accessToken;
+    let ownPost = false;
+    let bookmarked = false;
+
     $.ajax({
       method: 'GET',
       url: `api/users/${accessToken}`
     }).then(user => {
-      this.setState({ user })
+      this.setState({ user });
     });
 
     const id = this.props.id;
-    this.props.getPost(id, this.props.user.auth.accessToken);
+    this.props.getPost(id, this.props.user.auth.accessToken).then(res => {
+      if (this.state.user.id === res.post.user_id) {
+        ownPost = true;
+      }
+
+      let usersBookmarked = [] as any;
+      res.post.bookmarks.forEach(obj => usersBookmarked.push(obj.user_id));
+
+      if (usersBookmarked.includes(this.state.user.id)) {
+        bookmarked = true;
+      }
+
+      this.setState({ bookmarked, ownPost });
+    })
   }
 
   public componentDidMount() {
@@ -69,6 +88,19 @@ class PostDetail extends React.Component<any, any> {
       setTimeout(function(){ $(e.trigger).text("Copy Link"); }, 1000)
       e.clearSelection();
     });
+  }
+
+  public deletePost(id) {
+    const access_token = this.props.user.auth.access_token;
+    $.ajax({
+      type: "PATCH",
+      url: `api/posts/${id}`,
+      data: { access_token, method: "delete" }
+    }).then(() => window.location.href = `#/recent`)
+  }
+
+  public editPost(id) {
+    window.location.href = `#/posts/edit/${id}`
   }
 
   public buttonClass(condition: string) {
@@ -146,7 +178,7 @@ class PostDetail extends React.Component<any, any> {
     };
 
     if (typeof this.props.post === "undefined") return null;
-    let { title, description, price, created_at, views, condition } = this.props.post;
+    let { id, title, description, price, created_at, views, condition } = this.props.post;
 
     return (
       <div className="col-lg-6 col-md-6 col-sm-6 absolute-height" id="detail-body">
@@ -154,40 +186,42 @@ class PostDetail extends React.Component<any, any> {
         <p className="red"><span className={`label label-${this.buttonClass(condition)}`} id="label-micro">{condition}</span><span className="glyphicon glyphicon-fire"  id="condition-views"></span> {views} Views </p>
         <p id="post-description">{description}</p>
 
-        <h3 className="text-left">${Number(price).toLocaleString()}</h3>
-        <div className="row">
-          <span className="btn btn-warning btn-lg col-md-2 col-sm-2 col-xs-2 bottom-margin-spacing glyphicon glyphicon-bookmark" id="bookmark-btn" onClick={() => this.createBookmark()}></span>
-          <a className="btn btn-primary btn-lg col-md-9 col-sm-9 col-xs-9" onClick={() => {this.fetchAuthor(); this.contactPerson();}}>Contact the Seller</a>
+        <div className="footer" id="post-detail-right-bottom">
+          <h3 className="text-left">${Number(price).toLocaleString()}</h3>
+          <div className="row">
+            <span className="btn btn-warning btn-lg col-md-2 col-sm-2 col-xs-2 bottom-margin-spacing glyphicon glyphicon-bookmark" id="bookmark-btn" onClick={() => this.createBookmark()}></span>
+            <a className="btn btn-primary btn-lg col-md-9 col-sm-9 col-xs-9" id="contact-the-seller-btn" onClick={() => {this.fetchAuthor(); this.contactPerson();}}>Contact the Seller</a>
+            <a className="btn btn-primary btn-lg col-md-6 col-sm-6 col-xs-6" id="ownPost-edit" onClick={() => this.editPost(id)}>Edit Post</a>
+            <a className="btn btn-secondary btn-lg col-md-5 col-sm-5 col-xs-5" id="ownPost-delete" onClick={() => this.deletePost(id)}>Delete Post</a>
 
-          <a id="contactModalTrigger" className="hidden" data-toggle="modal" data-target="#contactModal">Contact Modal Trigger</a>
-          <div className="modal fade" id="contactModal" tabIndex={-1} role="dialog"
-               aria-labelledby="contactModalLabel" aria-hidden="true">
-            <div className="modal-dialog" role="document">
-              <div className="modal-content">
-                <div className="modal-header" id="contact-modal-header">
-                  <button type="button" className="close" data-dismiss="modal">&times;</button>
-                  <h3 className="modal-title" id="contactModalLabel">Contact the Seller</h3>
-                </div>
-                <div className="modal-body text-center" id="contact-modal-body">
-                  <div className="modal-body text-center">
-                    <div>
-                      <div id="purchase-msg-template" contentEditable={true} data-toggle="tooltip" data-placement="bottom" title="click to edit">
-                        Hi, {this.state.userFB && this.state.userFB.name}, <br/><br/>
-                        My name is {this.state.currentUser && this.state.currentUser.name}. I saw your posting on {this.props.post.title} on Swap.<br/>
-                        I would like to purchase it at ${this.props.post.price}.<br/>
-                        Please let me know if it's still available.<br/>
-
-                        link: {(window as any).localhost_url}/#/posts/{this.props.post.id}<br/><br/>
-
-                        Thanks,<br/>
-                        {this.state.currentUser && this.state.currentUser.name}
-                      </div>
-                    </div>
-                    <button type="button" className="btn btn-sm btn-primary" data-clipboard-target="#purchase-msg-template" id="copy-template">Copy Message</button>
+            <a id="contactModalTrigger" className="hidden" data-toggle="modal" data-target="#contactModal">Contact Modal Trigger</a>
+            <div className="modal fade" id="contactModal" tabIndex={-1} role="dialog"
+                aria-labelledby="contactModalLabel" aria-hidden="true">
+              <div className="modal-dialog" role="document">
+                <div className="modal-content">
+                  <div className="modal-header" id="contact-modal-header">
+                    <button type="button" className="close" data-dismiss="modal">&times;</button>
+                    <h3 className="modal-title" id="contactModalLabel">Contact the Seller</h3>
                   </div>
-                </div>
-                <div className="modal-footer" id="fb-footer">
+                  <div className="modal-body text-center" id="contact-modal-body">
+                    <div className="modal-body text-center">
+                      <div>
+                        <div id="purchase-msg-template" contentEditable={true} data-toggle="tooltip" data-placement="bottom" title="click to edit">
+                          Hi, {this.state.userFB && this.state.userFB.name}, <br/><br/>
+                          My name is {this.state.currentUser && this.state.currentUser.name}. I saw your posting on {this.props.post.title} on Swap.<br/>
+                          I would like to purchase it at ${this.props.post.price}.<br/>
+                          Please let me know if it's still available.<br/>
 
+                          link: {(window as any).localhost_url}/#/posts/{this.props.post.id}<br/><br/>
+
+                          Thanks,<br/>
+                          {this.state.currentUser && this.state.currentUser.name}
+                        </div>
+                      </div>
+                      <button type="button" className="btn btn-sm btn-primary" data-clipboard-target="#purchase-msg-template" id="copy-template">Copy Message</button>
+                    </div>
+                  </div>
+                  <div className="modal-footer" id="fb-footer">
                     <button type="button" className="btn btn-sm btn-fb" id="fb-name-contact">
                       <span id="fb-contact-text">Contact {this.state.userFB && this.state.userFB.name}</span>
                       {this.state.userFB &&
@@ -196,7 +230,7 @@ class PostDetail extends React.Component<any, any> {
                         </a>
                       }
                     </button>
-
+                  </div>
                 </div>
               </div>
             </div>
@@ -207,6 +241,24 @@ class PostDetail extends React.Component<any, any> {
   }
 
   public render() {
+    if (this.state.bookmarked) {
+      $("#bookmark-btn").addClass("disabled");
+    } else {
+      $("#bookmark-btn").removeClass("disabled");
+    }
+
+    if (this.state.ownPost) {
+      $("#contact-the-seller-btn").hide();
+      $("#bookmark-btn").hide();
+      $("#ownPost-edit").show();
+      $("#ownPost-delete").show();
+    } else {
+      $("#contact-the-seller-btn").show();
+      $("#bookmark-btn").show();
+      $("#ownPost-edit").hide();
+      $("#ownPost-delete").hide();
+    }
+
     let link;
 
     if (this.props.post.category) {

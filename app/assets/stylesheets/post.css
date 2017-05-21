@@ -299,3 +299,11 @@
 #fb-footer {
   text-align: center !important;
 }
+
+#ownPost-edit {
+  margin-right: 5px !important;
+}
+
+.pointer-cursor {
+  cursor: pointer;
+}
