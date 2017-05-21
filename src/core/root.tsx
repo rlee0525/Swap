@@ -7,7 +7,7 @@ import Home from 'modules/home';
 import Search from 'modules/search';
 import About from 'modules/about';
 import Post from 'modules/post';
-import Careers from 'modules/careers';
+import Infos from 'modules/infos';
 import FAQ from 'modules/faq';
 import Contact from 'modules/contact';
 import Terms from 'modules/terms';
@@ -47,7 +47,7 @@ const Root: React.SFC<RootProps> = ({ store }) => {
 
           {/* Information routes */}
           <Route path="/about" component={About} />
-          <Route path="/careers" component={Careers} />
+          <Route path="/infos" component={Infos} />
           <Route path="/faq" component={FAQ} />
           <Route path="/contact" component={Contact} />
           <Route path="/terms" component={Terms} />
