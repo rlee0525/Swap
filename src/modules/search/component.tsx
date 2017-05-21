@@ -23,7 +23,7 @@ class Search extends React.Component<Props, State> {
     super(props);
 
     this.state = {
-      viewType: 'list',
+      viewType: 'grid',
       posts: null
     };
   }

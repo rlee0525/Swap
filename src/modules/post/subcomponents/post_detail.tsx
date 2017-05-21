@@ -15,6 +15,7 @@ class PostDetail extends React.Component<any, any> {
 
     this.contactPerson = this.contactPerson.bind(this);
     this.initializeClipboard = this.initializeClipboard.bind(this);
+    this.createBookmark = this.createBookmark.bind(this);
   }
 
   public componentWillMount() {
@@ -26,6 +27,18 @@ class PostDetail extends React.Component<any, any> {
     this.initializeClipboard();
   }
 
+  public componentWillReceiveProps(nextProps) {
+    const nextId = nextProps.id;
+
+    if (nextId !== this.props.id) {
+      this.props.getPost(nextId);
+    }
+  }
+
+  public createBookmark() {
+    
+  }
+
   public initializeClipboard() {
     var clipboard = new Clipboard('#copy-template');
     clipboard.on('success', function(e) {
@@ -33,14 +46,6 @@ class PostDetail extends React.Component<any, any> {
       setTimeout(function(){ $(e.trigger).text("Copy Link"); }, 1000)
       e.clearSelection();
     });
-  }
-
-  public componentWillReceiveProps(nextProps) {
-    const nextId = nextProps.id;
-
-    if (nextId !== this.props.id) {
-      this.props.getPost(nextId);
-    }
   }
 
   public buttonClass(condition: string) {

@@ -1,6 +1,6 @@
 @media (max-width: 1200px) {
     #hide-description {
-        display: none !important;
+      display: none !important;
     }
 }
 
@@ -10,8 +10,13 @@ tr th {
   letter-spacing: .05em;
   font-weight: 400;
   font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  padding: 0 0 0 18px !important;
+  padding: 8px 0 4px 8px !important;
   border: none !important;
-  padding-left: 8px !important;
   cursor: pointer;
+}
+
+#th-no-caret {
+  padding: 0 8px 8px 0 !important;
+  text-align: center;
+  cursor: auto !important;
 }
