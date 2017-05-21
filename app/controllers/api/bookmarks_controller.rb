@@ -15,7 +15,7 @@ class Api::BookmarksController < ApplicationController
 
   def index
     user = fb_auth_user(params[:access_token])
-    @bookmarked_posts = user.bookmarked_posts.order(id: :desc)
+    @bookmarked_posts = user.bookmarked_posts.order(id: :desc).where(active: true)
     render "api/bookmarks/index", status: 200
   end
 
