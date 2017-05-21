@@ -12,7 +12,8 @@ class PostDetail extends React.Component<any, any> {
       userFB: null,
       user: null,
       currentUser: null,
-      bookmarked: false
+      bookmarked: false,
+      ownPost: false
     }
 
     this.contactPerson = this.contactPerson.bind(this);
@@ -22,15 +23,31 @@ class PostDetail extends React.Component<any, any> {
 
   public componentWillMount() {
     const accessToken = this.props.user.auth.accessToken;
+    let ownPost = false;
+    let bookmarked = false;
+
     $.ajax({
       method: 'GET',
       url: `api/users/${accessToken}`
     }).then(user => {
-      this.setState({ user })
+      this.setState({ user });
     });
 
     const id = this.props.id;
-    this.props.getPost(id, this.props.user.auth.accessToken);
+    this.props.getPost(id, this.props.user.auth.accessToken).then(res => {
+      if (this.state.user.id === res.post.user_id) {
+        ownPost = true;
+      }
+      
+      let usersBookmarked = [] as any;
+      res.post.bookmarks.forEach(obj => usersBookmarked.push(obj.user_id));
+
+      if (usersBookmarked.includes(this.state.user.id)) {
+        bookmarked = true;
+      }
+
+      this.setState({ bookmarked, ownPost });
+    })
   }
 
   public componentDidMount() {
@@ -207,6 +224,14 @@ class PostDetail extends React.Component<any, any> {
   }
 
   public render() {
+    console.log(this.state)
+    console.log(this.props)
+    if (this.state.bookmarked) {
+      $("#bookmark-btn").addClass("disabled");
+    } else {
+      $("#bookmark-btn").removeClass("disabled");
+    }
+
     let link;
 
     if (this.props.post.category) {
