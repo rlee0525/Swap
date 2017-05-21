@@ -23,3 +23,38 @@
   font-weight: 300 !important;
   font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 }
+
+#rfp-delete {
+  text-align: center;
+}
+
+#th-no-caret-rfp {
+  padding: 0 8px 8px 10px !important;
+  text-align: center;
+  cursor: auto !important;
+}
+
+@media (max-width: 768px) {
+  #responsive-create-text {
+    display: none;
+  }
+
+  #responsive-create-icon {
+    display: block;
+  }
+}
+
+@media (min-width: 768px) {
+  #responsive-create-text {
+    display: block;
+  }
+
+  #responsive-create-icon {
+    display: none;
+  }
+}
+
+#create-icon-button {
+  font-size: 18px !important;
+  font-weight: 300 !important
+}

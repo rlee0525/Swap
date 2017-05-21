@@ -57,7 +57,7 @@ class Rfps extends React.Component <Props, State> {
     return this.state.rfps.map((rfp : RFP) => (
       <tr key={`post${rfp.id}`}>
         <td>{shortenString(rfp.description, 30)}</td>
-        <td>
+        <td id="rfp-delete">
           <button
             type="button"
             className="btn btn-xs btn-danger"
@@ -95,15 +95,13 @@ class Rfps extends React.Component <Props, State> {
               <table className="table table-hover">
                 <thead>
                   <tr>
-                    <th>
-                      <a onClick={() => this.sortBy("description")} className="btn btn-xs">
-                        Keywords
-                        <span className="caret"/>
+                    <th onClick={() => this.sortBy("description")}>
+                      Keywords
+                      <a onClick={() => this.sortBy("description")} className="btn btn-xs" id="caret-container">
+                        <span className="caret" />
                       </a>
                     </th>
-                    <th>
-                      Action
-                    </th>
+                    <th id="th-no-caret-rfp">Delete</th>
                   </tr>
                 </thead>
                 <tbody>
