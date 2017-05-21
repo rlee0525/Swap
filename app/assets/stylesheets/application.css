@@ -142,3 +142,33 @@ ul.nav {
 .navbar-default .navbar-collapse, .navbar-default .navbar-form {
   background: white;
 }
+
+/*Post Detail*/
+
+#bookmark-btn {
+  margin-bottom: 0;
+}
+
+@media screen and (min-width: 768px) {
+  #detail-body {
+    height: 361px !important;
+  }
+
+  #post-detail-right-bottom {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  #detail-body {
+    height: 430px !important;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  #detail-body {
+    height: 500px !important;
+  }
+}
