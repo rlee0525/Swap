@@ -39,10 +39,11 @@ class NavTabs extends React.Component<any, State> {
       method: "POST",
       url: "api/rfps",
       data: { description, access_token: this.props.user.auth.accessToken }
-    }).then(
-      post => this.props.router.replace(`dashboard/rfps`)
-    ).fail(
-      errors => this.setState({ errors })
+    }).then( post => {
+      this.props.fetchRfps();
+      $('#createAlertModal').modal('hide');
+    }).fail( errors => 
+      this.setState({ errors })
     );
   }
 
@@ -84,15 +85,24 @@ class NavTabs extends React.Component<any, State> {
               <div className="modal-content">
                 <div className="modal-header" id="auth-modal-header">
                   <button type="button" className="close" data-dismiss="modal">&times;</button>
-                  <h3 className="modal-title" id="authModalLabel">Enter your email address</h3>
+                  <h3 className="modal-title" id="authModalLabel">Create a new alert</h3>
                 </div>
                 <div className="modal-body text-center" id="fb-modal-body">
-                  <form onSubmit={ this.sendEmail }>
+                  <form onSubmit={ this.submitForm }>
                     <div className="form-group input-group" id="email-error-div">
-                      <input type="text" className="form-control" placeholder="Your email" aria-describedby="basic-addon2"/>
-                      <span className="input-group-addon" id="basic-addon2">Ex: me@email.com</span>
+                      <input 
+                        type="text" 
+                        maxLength={50}
+                        value={this.state.description}
+                        onChange={this.updateState}
+                        className="form-control" 
+                        id="description"
+                        placeholder="Keyword (e.g. Desk)" 
+                        aria-describedby="basic-addon2"
+                      />
+                      <span className="input-group-addon" id="basic-addon1">&nbsp;{50 - this.state.description.length} characters left</span>
                     </div>
-                    <button type="button" className="btn btn-primary btn-lg btn-block" onClick={ this.sendEmail }>Submit</button>
+                    <button type="button" className="btn btn-primary btn-lg btn-block" onClick={ this.submitForm }>Create</button>
                   </form>
                 </div>
                 <br/>
