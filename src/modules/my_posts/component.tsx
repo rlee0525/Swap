@@ -74,7 +74,7 @@ class MyPosts extends React.Component<Props, State> {
     return this.state.myPosts.map(myPost => (
       <tr key={myPost.id}>
         <td><a href={`#/posts/${myPost.id}`} ><img className="img img-responsive img-thumbnail-size" src={myPost.img_url1}/></a></td>
-        <td className="hidden-xs"><a href={`#/posts/${myPost.id}`}>{myPost.title}</a></td>
+        <td className="hidden-xs"><a href={`#/posts/${myPost.id}`}>{shortenString(myPost.title, 25)}</a></td>
         <td className="hidden-xs">{shortenString(myPost.description, 30)}</td>
         <td className="hidden-xs">${Number(myPost.price).toLocaleString()}</td>
         <td className="hidden-xs">{myPost.course}</td>

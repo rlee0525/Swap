@@ -3,3 +3,14 @@
         display: none !important;
     }
 }
+
+tr th {
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: .05em;
+  font-weight: 400;
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  padding: 0 0 0 18px !important;
+  border: none !important;
+  padding-left: 8px !important;
+}
