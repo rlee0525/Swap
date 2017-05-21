@@ -30,12 +30,14 @@ const Root: React.SFC<RootProps> = ({ store }) => {
           {/* Search routes */}
           <Route path="/recent" component={Search} />
           <Route path="/textbooks" component={Search} />
-          <Route path="/clothing" component={Search} />
           <Route path="/furniture" component={Search} />
+          <Route path="/clothing" component={Search} />
           <Route path="/electronics" component={Search} />
-          <Route path="/kitchenware" component={Search} />
+          <Route path="/housing" component={Search} />
+          <Route path="/bikes" component={Search} />
           <Route path="/games" component={Search} />
           <Route path="/others" component={Search} />
+          <Route path="/lostandfound" component={Search} />
           <Route path="/search" component={Search} />
 
           {/* Information routes */}
