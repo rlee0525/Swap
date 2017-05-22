@@ -11,7 +11,11 @@ class Api::SearchController < ApplicationController
 
     sql = 'title ILIKE ANY( array[?] ) OR categories.name ILIKE ANY ( array[?] )'
 
-    posts = Post.joins(:category).where(sql, sql_query, sql_query)
+    posts = Post
+            .joins(:category)
+            .where(sql, sql_query, sql_query)
+            .where(active: true)
+            .where(deleted: false)
 
     @posts = []
 

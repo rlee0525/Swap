@@ -12,6 +12,7 @@ interface Post {
   img_url1: string;
   img_url2: string;
   img_url3: string;
+  active: boolean;
 }
 
 interface Props {
@@ -48,6 +49,7 @@ class MyPosts extends React.Component<Props, State> {
     this.editPost = this.editPost.bind(this);
     this.deletePost = this.deletePost.bind(this);
     this.renderMyPosts = this.renderMyPosts.bind(this);
+    this.toggleActivation = this.toggleActivation.bind(this);
     this.sortBy = this.sortBy.bind(this);
   }
 
@@ -82,6 +84,17 @@ class MyPosts extends React.Component<Props, State> {
     window.location.href = `#/posts/edit/${id}`
   }
 
+  public toggleActivation(e, id, polarity) {
+    let method = polarity == true ? "deactivate" : "activate";
+    e.stopPropagation();
+    const access_token = this.props.user.auth.access_token;
+    $.ajax({
+      type: "PATCH",
+      url: `api/posts/${id}`,
+      data: { access_token, method }
+    }).then(() => this.getMyPosts())
+  }
+
   public renderListItem() {
     return this.state.myPosts.map(myPost => (
       <tr key={myPost.id} onClick={() => this.loadPost(myPost.id)}>
@@ -92,7 +105,7 @@ class MyPosts extends React.Component<Props, State> {
         <td className="hidden-xs">{timeFromNow(myPost.created_at)}</td>
         <td className="hidden-xs">{myPost.condition}</td>
         <td><button type="button" id="action-button" className="btn btn-xs btn-primary" onClick={(e) => this.editPost(e, myPost.id)}>Edit</button></td>
-        <td><button type="button" id="action-button" className="btn btn-xs btn-primary" onClick={(e) => this.editPost(e, myPost.id)}>Edit</button></td>
+        <td><button type="button" id="action-button" className={`btn btn-xs ${myPost.active ? "btn-primary" : "btn-secondary"}`} onClick={(e) => this.toggleActivation(e, myPost.id, myPost.active)}>{myPost.active ? "Active" : "Inactive"}</button></td>
         <td><button type="button" id="action-button" className="btn btn-xs btn-secondary" onClick={(e) => this.deletePost(e, myPost.id)}>Delete</button></td>
       </tr>
     ))
