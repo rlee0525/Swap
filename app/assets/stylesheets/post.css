@@ -157,7 +157,18 @@
 
   #carousel-arrows-left,
   #carousel-arrows-right {
-    display: none;
+    color: white !important;
+    background-color: transparent !important;
+  }
+
+  .carousel-light .carousel-indicators li {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .carousel-control.right, .carousel-control.left {
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.3);
   }
 
   #detail-left {
