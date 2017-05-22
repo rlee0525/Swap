@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+declare var $;
 
 interface State {
   description: string;
@@ -42,7 +43,7 @@ class NavTabs extends React.Component<any, State> {
     }).then( post => {
       this.props.fetchRfps();
       $('#createAlertModal').modal('hide');
-    }).fail( errors => 
+    }).fail( errors =>
       this.setState({ errors })
     );
   }
@@ -79,7 +80,7 @@ class NavTabs extends React.Component<any, State> {
           <a onClick={() => this.createAlert()} className="btn btn-clear nav-button" id="responsive-create-icon">
             <span className="glyphicon glyphicon-bell" aria-hidden="true" id="create-icon-button"/>
           </a>
-          
+
 
           <a id="createAlertModalTrigger" className="hidden" data-toggle="modal" data-target="#createAlertModal">Email Input Modal Trigger</a>
           <div className="modal fade" id="createAlertModal" tabIndex={-1} role="dialog"
@@ -93,14 +94,14 @@ class NavTabs extends React.Component<any, State> {
                 <div className="modal-body text-center" id="fb-modal-body">
                   <form onSubmit={ this.submitForm }>
                     <div className="form-group input-group" id="email-error-div">
-                      <input 
-                        type="text" 
+                      <input
+                        type="text"
                         maxLength={50}
                         value={this.state.description}
                         onChange={this.updateState}
-                        className="form-control" 
+                        className="form-control"
                         id="description"
-                        placeholder="Keyword (e.g. Desk)" 
+                        placeholder="Keyword (e.g. Desk)"
                         aria-describedby="basic-addon2"
                       />
                       <span className="input-group-addon" id="basic-addon1">&nbsp;{50 - this.state.description.length} characters left</span>
