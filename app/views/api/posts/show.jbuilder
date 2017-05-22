@@ -18,3 +18,5 @@ json.extract! @post,
 json.course @post.course.course_number if @post.course
 json.category @post.category.name
 json.fb_id @post.user.fb_id
+json.is_bookmarked @post.user.bookmarked_posts.where(active: true).include?(@post)
+json.is_owner @post.user == @user
