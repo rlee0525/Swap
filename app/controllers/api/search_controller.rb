@@ -33,7 +33,7 @@ class Api::SearchController < ApplicationController
   private
 
   def calc_score(post, query)
-    categories = ['Textbooks', 'Clothing', 'Furniture', 'Electronics', 'Lost & Found', 'Games', 'Bikes & Locks', 'Sublets']
+    categories = ['Textbooks', 'Clothing', 'Furniture', 'Electronics', 'Lost & Found', 'Games', 'Bikes', 'Housing']
 
     query = query.split(' ')
     score = 0
