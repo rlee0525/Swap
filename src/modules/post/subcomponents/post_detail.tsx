@@ -9,7 +9,7 @@ class PostDetail extends React.Component<any, any> {
     super(props);
 
     this.state = {
-      userFB: null,
+      authorFB: null,
       user: null,
       currentUser: null,
       bookmarked: false,
@@ -25,45 +25,16 @@ class PostDetail extends React.Component<any, any> {
     this.checkVerifiedBookmark = this.checkVerifiedBookmark.bind(this);
   }
 
-  public componentWillMount() {
+  public initializePost() {
     const accessToken = this.props.user.auth.accessToken;
-    let ownPost = false;
-    let bookmarked = false;
-
-    $.ajax({
-      method: 'GET',
-      url: `api/users/${accessToken}`
-    }).then(user => {
-      this.setState({ user });
-    });
-
     const id = this.props.id;
-    this.props.getPost(id, this.props.user.auth.accessToken).then(res => {
-      if (this.state.user.id === res.post.user_id) {
-        ownPost = true;
-      }
-
-      let usersBookmarked = [] as any;
-      res.post.bookmarks.forEach(obj => usersBookmarked.push(obj.user_id));
-
-      if (usersBookmarked.includes(this.state.user.id)) {
-        bookmarked = true;
-      }
-
-      this.setState({ bookmarked, ownPost });
-    })
+    this.props.getPost(id, accessToken)
+    .then(res => { this.fetchAuthor() });
   }
 
   public componentDidMount() {
     this.initializeClipboard();
-  }
-
-  public componentWillReceiveProps(nextProps) {
-    const nextId = nextProps.id;
-
-    if (nextId !== this.props.id) {
-      this.props.getPost(nextId);
-    }
+    this.initializePost();
   }
 
   public checkVerifiedContact(id) {
@@ -118,17 +89,25 @@ class PostDetail extends React.Component<any, any> {
     const access_token = this.props.user.auth.accessToken;
     const id = this.props.id;
     const bookmark = {
-      post_id: id,
-      user_id: this.state.user.id
+      post_id: id
     };
-    
-    $.ajax({
-      method: "POST",
-      url: `api/bookmarks`,
-      data: { bookmark, access_token }
-    }).then(res => {
-      this.setState({ bookmarked: true })
-    });
+    if (this.props.post.is_bookmarked) {
+      $.ajax({
+        type: "DELETE",
+        url: `api/bookmarks/${id}`,
+        data: { access_token }
+      }).then(res => {
+        this.initializePost();
+      });
+    } else {
+      $.ajax({
+        method: "POST",
+        url: `api/bookmarks`,
+        data: { bookmark, access_token }
+      }).then(res => {
+        this.initializePost();
+      });
+    }
   }
 
   public initializeClipboard() {
@@ -214,74 +193,50 @@ class PostDetail extends React.Component<any, any> {
 
   public fetchAuthor() {
     (window as any).FB.api(`/${this.props.post.fb_id}?fields=email,name,link,picture`, response => {
-      this.setState({ userFB: response });
-    });
-
-    (window as any).FB.api(`/me?fields=email,name`, res => {
-      this.setState({ currentUser: res });
+      this.setState({ authorFB: response });
     });
   }
 
-  public renderDetail() {
-    let titleMargin = {
-      marginBottom: 10
-    };
-
-    if (typeof this.props.post === "undefined") return null;
-    let { id, title, description, price, created_at, views, condition } = this.props.post;
+  public renderModal() {
+    if (!this.state.authorFB) return null;
+    let { name, link, picture } = this.state.authorFB;
 
     return (
-      <div className="col-lg-6 col-md-6 col-sm-6 absolute-height" id="detail-body">
-        <h3 style={titleMargin}>{title}</h3>
-        <p className="red"><span className={`label label-${this.buttonClass(condition)}`} id="label-micro">{condition}</span><span className="glyphicon glyphicon-fire"  id="condition-views"></span> {views} Views </p>
-        <p id="post-description">{description}</p>
+      <div>
+        <a id="contactModalTrigger" className="hidden" data-toggle="modal" data-target="#contactModal">Contact Modal Trigger</a>
+        <div className="modal fade" id="contactModal" tabIndex={-1} role="dialog"
+            aria-labelledby="contactModalLabel" aria-hidden="true">
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header" id="contact-modal-header">
+                <button type="button" className="close" data-dismiss="modal">&times;</button>
+                <h3 className="modal-title" id="contactModalLabel">Contact the Seller</h3>
+              </div>
+              <div className="modal-body text-center" id="contact-modal-body">
+                <div className="modal-body text-center">
+                  <div>
+                    <div id="purchase-msg-template" contentEditable={true} data-toggle="tooltip" data-placement="bottom" title="click to edit">
+                      Hi, {name}, <br/><br/>
+                      My name is {this.props.user.userFB.name}. I saw your posting on {this.props.post.title} on Swap.<br/>
+                      I would like to purchase it at ${this.props.post.price}.<br/>
+                      Please let me know if it's still available.<br/>
 
-        <div className="footer" id="post-detail-right-bottom">
-          <h3 className="text-left">${Number(price).toLocaleString()}</h3>
-          <div className="row">
-            <span className="btn btn-warning btn-lg col-md-2 col-sm-2 col-xs-2 bottom-margin-spacing glyphicon glyphicon-bookmark" id="bookmark-btn" onClick={() => this.checkVerifiedBookmark(id)}></span>
-            <a className="btn btn-primary btn-lg col-md-9 col-sm-9 col-xs-9" id="contact-the-seller-btn" onClick={() => {this.fetchAuthor(); this.checkVerifiedContact(id);}}>Contact the Seller</a>
-            <a className="btn btn-primary btn-lg col-md-6 col-sm-6 col-xs-6" id="ownPost-edit" onClick={() => this.editPost(id)}>Edit Post</a>
-            <a className="btn btn-secondary btn-lg col-md-5 col-sm-5 col-xs-5" id="ownPost-delete" onClick={() => this.deletePost(id)}>Delete Post</a>
+                      link: {(window as any).localhost_url}/#/posts/{this.props.post.id}<br/><br/>
 
-            <a id="contactModalTrigger" className="hidden" data-toggle="modal" data-target="#contactModal">Contact Modal Trigger</a>
-            <div className="modal fade" id="contactModal" tabIndex={-1} role="dialog"
-                aria-labelledby="contactModalLabel" aria-hidden="true">
-              <div className="modal-dialog" role="document">
-                <div className="modal-content">
-                  <div className="modal-header" id="contact-modal-header">
-                    <button type="button" className="close" data-dismiss="modal">&times;</button>
-                    <h3 className="modal-title" id="contactModalLabel">Contact the Seller</h3>
-                  </div>
-                  <div className="modal-body text-center" id="contact-modal-body">
-                    <div className="modal-body text-center">
-                      <div>
-                        <div id="purchase-msg-template" contentEditable={true} data-toggle="tooltip" data-placement="bottom" title="click to edit">
-                          Hi, {this.state.userFB && this.state.userFB.name}, <br/><br/>
-                          My name is {this.state.currentUser && this.state.currentUser.name}. I saw your posting on {this.props.post.title} on Swap.<br/>
-                          I would like to purchase it at ${this.props.post.price}.<br/>
-                          Please let me know if it's still available.<br/>
-
-                          link: {(window as any).localhost_url}/#/posts/{this.props.post.id}<br/><br/>
-
-                          Thanks,<br/>
-                          {this.state.currentUser && this.state.currentUser.name}
-                        </div>
-                      </div>
-                      <button type="button" className="btn btn-sm btn-primary" data-clipboard-target="#purchase-msg-template" id="copy-template">Copy Message</button>
+                      Thanks,<br/>
+                      {this.props.user.userFB.name}
                     </div>
                   </div>
-                  <div className="modal-footer" id="fb-footer">
-                    <button type="button" className="btn btn-sm btn-fb" id="fb-name-contact">
-                      <span id="fb-contact-text">Contact {this.state.userFB && this.state.userFB.name}</span>
-                      {this.state.userFB &&
-                        <a target="_blank" href={this.state.userFB.link}>
-                          <img src={this.state.userFB.picture.data.url} id="fb-img-id" />
-                        </a>
-                      }
-                    </button>
-                  </div>
+                  <button type="button" className="btn btn-sm btn-primary" data-clipboard-target="#purchase-msg-template" id="copy-template">Copy Message</button>
                 </div>
+              </div>
+              <div className="modal-footer" id="fb-footer">
+                <a target="_blank" href={link}>
+                  <button type="button" className="btn btn-sm btn-fb" id="fb-name-contact">
+                    <span id="fb-contact-text">Contact {name}</span>
+                    <img src={picture.data.url} id="fb-img-id" />
+                  </button>
+                </a>
               </div>
             </div>
           </div>
@@ -290,38 +245,58 @@ class PostDetail extends React.Component<any, any> {
     )
   }
 
+  public renderDetail() {
+    let titleMargin = {
+      marginBottom: 10
+    };
+
+    let { id, title, description, price, created_at, views, condition } = this.props.post;
+    let buttons;
+    const isAuthor = this.props.post.is_author;
+    const isBookmarked = this.props.post.is_bookmarked;
+    if (isAuthor) {
+      buttons = (
+        <div>
+          <a className="btn btn-primary btn-lg col-md-6 col-sm-6 col-xs-6" id="ownPost-edit" onClick={() => this.editPost(id)}>Edit Post</a>
+          <a className="btn btn-secondary btn-lg col-md-5 col-sm-5 col-xs-5" id="ownPost-delete" onClick={() => this.deletePost(id)}>Delete Post</a>
+        </div>
+      )
+    } else {
+      buttons = (
+        <div>
+          <span disabled={isBookmarked} className="btn btn-warning btn-lg col-md-2 col-sm-2 col-xs-2 bottom-margin-spacing glyphicon glyphicon-bookmark" id="bookmark-btn" onClick={() => this.checkVerifiedBookmark(id)}></span>
+          <a className="btn btn-primary btn-lg col-md-9 col-sm-9 col-xs-9" id="contact-the-seller-btn" onClick={() => {this.checkVerifiedContact(id)}}>Contact the Seller</a>
+        </div>
+      )
+    }
+    return (
+      <div className="col-lg-6 col-md-6 col-sm-6 absolute-height" id="detail-body">
+        <h3 style={titleMargin}>{title}</h3>
+        <p className="red"><span className={`label label-${this.buttonClass(condition)}`} id="label-micro">{condition}</span><span className="glyphicon glyphicon-fire"  id="condition-views"></span> {views} Views </p>
+        <p id="post-description">{description}</p>
+        <div className="footer" id="post-detail-right-bottom">
+          <h3 className="text-left">${Number(price).toLocaleString()}</h3>
+          <div className="row">
+            {buttons}
+            {this.renderModal()}
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   public render() {
-    if (this.state.bookmarked) {
-      $("#bookmark-btn").addClass("disabled");
-    } else {
-      $("#bookmark-btn").removeClass("disabled");
-    }
-
-    if (this.state.ownPost) {
-      $("#contact-the-seller-btn").hide();
-      $("#bookmark-btn").hide();
-      $("#ownPost-edit").show();
-      $("#ownPost-delete").show();
-    } else {
-      $("#contact-the-seller-btn").show();
-      $("#bookmark-btn").show();
-      $("#ownPost-edit").hide();
-      $("#ownPost-delete").hide();
-    }
-
-    let link;
-
-    if (this.props.post.category) {
-      link = this.props.post.category.toLowerCase();
-    }
+    if (!this.props.post) return null;
+    let { link, category, title } = this.props.post;
+    link = category.toLowerCase();
 
     return (
       <div className="container" id="container-body">
         <SearchNavbar search={this.props.search} />
         <nav className="breadcrumb">
           <a className="breadcrumb-item" href="#/recent">All</a>
-          <a className="breadcrumb-item" href={`#/${link}`}>{this.props.post.category}</a>
-          <span className="breadcrumb-item active">{this.props.post.title && shortenString(this.props.post.title, 20)}</span>
+          <a className="breadcrumb-item" href={`#/${link}`}>{category}</a>
+          <span className="breadcrumb-item active">{title && shortenString(title, 20)}</span>
         </nav>
         <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12" id="detail-left">
           <div className="block p-l-0 p-t-0 p-r-0" id="small-img-padding">

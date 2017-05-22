@@ -3,7 +3,7 @@ class Api::SearchController < ApplicationController
     query = params[:query]
 
     if params[:query].nil? || query.empty?
-      @posts = Post.all
+      @posts = Post.all.where(active: true).where(deleted: false)
       return render 'api/search/index'
     end
 
@@ -11,7 +11,11 @@ class Api::SearchController < ApplicationController
 
     sql = 'title ILIKE ANY( array[?] ) OR categories.name ILIKE ANY ( array[?] )'
 
-    posts = Post.joins(:category).where(sql, sql_query, sql_query)
+    posts = Post
+            .joins(:category)
+            .where(sql, sql_query, sql_query)
+            .where(active: true)
+            .where(deleted: false)
 
     @posts = []
 
@@ -29,7 +33,7 @@ class Api::SearchController < ApplicationController
   private
 
   def calc_score(post, query)
-    categories = ['Textbooks', 'Clothing', 'Furniture', 'Electronics', 'Kitchenware', 'Games']
+    categories = ['Textbooks', 'Clothing', 'Furniture', 'Electronics', 'Lost & Found', 'Games', 'Bikes', 'Housing']
 
     query = query.split(' ')
     score = 0

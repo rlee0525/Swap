@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170520224618) do
+ActiveRecord::Schema.define(version: 20170522033132) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,21 +53,22 @@ ActiveRecord::Schema.define(version: 20170520224618) do
   end
 
   create_table "posts", force: :cascade do |t|
-    t.integer  "user_id",                    null: false
-    t.text     "description",                null: false
-    t.integer  "price",                      null: false
-    t.string   "img_url1",                   null: false
+    t.integer  "user_id",                     null: false
+    t.text     "description",                 null: false
+    t.integer  "price",                       null: false
+    t.string   "img_url1",                    null: false
     t.string   "img_url2"
-    t.integer  "category_id",                null: false
+    t.integer  "category_id",                 null: false
     t.integer  "course_id"
     t.string   "zip_code"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.string   "title",                      null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.string   "title",                       null: false
     t.string   "img_url3"
-    t.string   "condition",                  null: false
+    t.string   "condition",                   null: false
     t.integer  "views",       default: 1
     t.boolean  "active",      default: true
+    t.boolean  "deleted",     default: false
     t.index ["course_id"], name: "index_posts_on_course_id", using: :btree
     t.index ["user_id"], name: "index_posts_on_user_id", using: :btree
   end

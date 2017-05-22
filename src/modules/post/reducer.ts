@@ -1,7 +1,7 @@
 import { merge } from 'lodash';
 import { Action, RECEIVE_POST } from "./actions";
 
-let _defaultState = [];
+let _defaultState = null;
 
 const postReducer = (state = _defaultState, action: Action<any>) => {
   Object.freeze(state);

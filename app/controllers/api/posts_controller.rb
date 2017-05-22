@@ -1,7 +1,7 @@
 class Api::PostsController < ApplicationController
   def index
     user = fb_auth_user(params[:access_token])
-    @posts = user.posts.includes(:course).order(id: :desc)
+    @posts = user.posts.includes(:course).order(id: :desc).where(deleted: false)
     render "api/posts/index", status: 200
   end
 
@@ -26,10 +26,13 @@ class Api::PostsController < ApplicationController
   end
 
   def show
-    return render json: ["unauthorized"], status: 401 unless fb_auth_user(params[:access_token])
+    @user = fb_auth_user(params[:access_token])
+    return render json: ["unauthorized"], status: 401 unless @user
     @post = Post.find_by(id: params[:id])
-    if @post
+    if @post && !@post.deleted && @post.active
       @post.update(views: @post.views + 1)
+      render "api/posts/show", status: 200
+    elsif @post && !@post.deleted && params[:edit]
       render "api/posts/show", status: 200
     else
       render json: ["not found"], status: 404
@@ -39,11 +42,18 @@ class Api::PostsController < ApplicationController
   def update
     user = fb_auth_user(params[:access_token])
     @post = Post.find_by(id: params[:id])
-
-    if params[:method] == "delete" && @post.delete
+    if params[:method] == "delete" && @post.update(deleted: true)
       return render "api/posts/show", status: 200
     elsif params[:method] == "delete"
       return render json: ["not found"], status: 404
+    end
+
+    if params[:method] == "activate" && @post.update(active: true)
+      return render "api/posts/show", status: 200
+    end
+
+    if params[:method] == "deactivate" && @post.update(active: false)
+      return render "api/posts/show", status: 200
     end
 
     category_name = params[:category][:category]
@@ -57,16 +67,6 @@ class Api::PostsController < ApplicationController
       render "api/posts/show", status: 200
     else
       render json: ["internal error"], status: 500
-    end
-  end
-
-  def destroy
-    user = fb_auth_user(params[:access_token])
-    @post = Post.find_by(id: params[:id])
-    if @post && post.user == user && @post.destroy
-      render "api/posts/show", status: 200
-    else
-      render json: ["not found"], status: 404
     end
   end
 
