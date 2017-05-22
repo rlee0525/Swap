@@ -3,7 +3,7 @@ class Api::SearchController < ApplicationController
     query = params[:query]
 
     if params[:query].nil? || query.empty?
-      @posts = Post.all.where(active: true)
+      @posts = Post.all.where(active: true).where(deleted: false)
       return render 'api/search/index'
     end
 
