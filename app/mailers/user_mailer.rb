@@ -7,9 +7,20 @@ class UserMailer < ActionMailer::Base
     mail(to: @user.edu_email, subject: "Registration Confirmation")
   end
 
-  def rfp_alert(user, content)
+  def first_reminder(user)
     @user = user
-    @content = content
+    mail(to: @user.edu_email, subject: "Registration Confirmation")
+  end
+
+  def second_reminder(user)
+    @user = user
+    mail(to: @user.edu_email, subject: "Registration Confirmation")
+  end
+
+  def rfp_alert(user, post, description)
+    @user = user
+    @post = post
+    @description = description
     mail(to: @user.edu_email, subject: "RFP Alert")
   end
 end
