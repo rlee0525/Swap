@@ -29,7 +29,7 @@ class Api::PostsController < ApplicationController
     @user = fb_auth_user(params[:access_token])
     return render json: ["unauthorized"], status: 401 unless @user
     @post = Post.find_by(id: params[:id])
-    if @post && !@post.deleted
+    if @post && !@post.deleted && params[:edit]
       @post.update(views: @post.views + 1)
       render "api/posts/show", status: 200
     else

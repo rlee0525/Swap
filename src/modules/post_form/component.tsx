@@ -149,7 +149,7 @@ class PostForm extends React.Component<any, any> {
     $.ajax({
       method: "GET",
       url: `api/posts/${id}`,
-      data: { access_token }
+      data: { access_token, edit: true }
     }).then(post => {
       this.setState({ ...post })
     })
