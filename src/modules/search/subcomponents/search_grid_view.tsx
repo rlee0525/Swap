@@ -38,7 +38,6 @@ class SearchGridView extends React.Component<Props, State> {
     };
 
     this.sortBy = this.sortBy.bind(this);
-    this.checkVerified = this.checkVerified.bind(this);
   }
 
   public componentWillReceiveProps(nextProps) {
@@ -55,28 +54,6 @@ class SearchGridView extends React.Component<Props, State> {
     } else {
       return 'success';
     }
-  }
-
-  public checkVerified(id) {
-    FB.getLoginStatus(function(response) {
-      if (response.status === "connected") {
-        const accessToken = (FB as any).getAccessToken();
-        $.ajax({
-          method: "GET",
-          url: `api/users/${accessToken}`
-        }).then(obj => {
-          if (obj.edu_email_confirmed) {
-            window.location.href = `#/posts/${id}`
-          } else if (obj.edu_email === null) {
-            $('#emailInputModal').modal('show');
-          } else {
-            $('#emailVerificationModal').modal('show');
-          }
-        }).fail(() => FB.logout(res => console.log(res)))
-      } else {
-        $('#logInModal').modal('show');
-      }
-    });
   }
 
   public sortBy(key: string) {
@@ -99,7 +76,7 @@ class SearchGridView extends React.Component<Props, State> {
     createdDate = Date.now() - createdDate <= 86400000 ? timeFromNow(post.created_at) : ""
     return (
       <div className="col-sm-6 col-md-4" key={Math.random() * post.id}
-           onClick={() => this.checkVerified(post.id)}>
+           onClick={() => window.location.href = `#/posts/${post.id}`}>
         <div className="thumbnail col-md-12">
           <a id={post.id}>
             <img src={post.img_url1} alt={post.title} />

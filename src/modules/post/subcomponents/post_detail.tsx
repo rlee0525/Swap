@@ -21,8 +21,8 @@ class PostDetail extends React.Component<any, any> {
     this.createBookmark = this.createBookmark.bind(this);
     this.editPost = this.editPost.bind(this);
     this.deletePost = this.deletePost.bind(this);
-    this.fetchAuthor = this.fetchAuthor.bind(this);
-    this.initializePost = this.initializePost.bind(this);
+    this.checkVerifiedContact = this.checkVerifiedContact.bind(this);
+    this.checkVerifiedBookmark = this.checkVerifiedBookmark.bind(this);
   }
 
   public initializePost() {
@@ -35,6 +35,54 @@ class PostDetail extends React.Component<any, any> {
   public componentDidMount() {
     this.initializeClipboard();
     this.initializePost();
+  }
+
+  public checkVerifiedContact(id) {
+    let that = this;
+
+    FB.getLoginStatus(function(response) {
+      if (response.status === "connected") {
+        const accessToken = (FB as any).getAccessToken();
+        $.ajax({
+          method: "GET",
+          url: `api/users/${accessToken}`
+        }).then(obj => {
+          if (obj.edu_email_confirmed) {
+            that.contactPerson();
+          } else if (obj.edu_email === null) {
+            $('#emailInputModal').modal('show');
+          } else {
+            $('#emailVerificationModal').modal('show');
+          }
+        }).fail(() => FB.logout(res => console.log(res)))
+      } else {
+        $('#logInModal').modal('show');
+      }
+    });
+  }
+
+  public checkVerifiedBookmark(id) {
+    let that = this;
+
+    FB.getLoginStatus(function(response) {
+      if (response.status === "connected") {
+        const accessToken = (FB as any).getAccessToken();
+        $.ajax({
+          method: "GET",
+          url: `api/users/${accessToken}`
+        }).then(obj => {
+          if (obj.edu_email_confirmed) {
+            that.createBookmark();
+          } else if (obj.edu_email === null) {
+            $('#emailInputModal').modal('show');
+          } else {
+            $('#emailVerificationModal').modal('show');
+          }
+        }).fail(() => FB.logout(res => console.log(res)))
+      } else {
+        $('#logInModal').modal('show');
+      }
+    });
   }
 
   public createBookmark() {
@@ -216,8 +264,8 @@ class PostDetail extends React.Component<any, any> {
     } else {
       buttons = (
         <div>
-          <span disabled={isBookmarked} className="btn btn-warning btn-lg col-md-2 col-sm-2 col-xs-2 bottom-margin-spacing glyphicon glyphicon-bookmark" id="bookmark-btn" onClick={() => this.createBookmark()}></span>
-          <a className="btn btn-primary btn-lg col-md-9 col-sm-9 col-xs-9" id="contact-the-seller-btn" onClick={() => {this.contactPerson()}}>Contact the Seller</a>
+          <span disabled={isBookmarked} className="btn btn-warning btn-lg col-md-2 col-sm-2 col-xs-2 bottom-margin-spacing glyphicon glyphicon-bookmark" id="bookmark-btn" onClick={() => this.checkVerifiedBookmark(id)}></span>
+          <a className="btn btn-primary btn-lg col-md-9 col-sm-9 col-xs-9" id="contact-the-seller-btn" onClick={() => {this.checkVerifiedContact(id)}}>Contact the Seller</a>
         </div>
       )
     }
