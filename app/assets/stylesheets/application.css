@@ -172,3 +172,10 @@ ul.nav {
     height: 500px !important;
   }
 }
+
+/*my posts*/
+.disabled {
+  cursor: not-allowed !important;
+  background: #f9f9f9;
+  color: lightgrey;
+}

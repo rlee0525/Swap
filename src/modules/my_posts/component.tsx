@@ -97,7 +97,7 @@ class MyPosts extends React.Component<Props, State> {
 
   public renderListItem() {
     return this.state.myPosts.map(myPost => (
-      <tr key={myPost.id} onClick={() => this.loadPost(myPost.id)}>
+      <tr key={myPost.id} onClick={() => myPost.active ? this.loadPost(myPost.id) : null} className={myPost.active ? "" : "disabled"}>
         <td><img className="img img-responsive img-thumbnail-size" src={myPost.img_url1}/></td>
         <td className="hidden-xs">{shortenString(myPost.title, 30)}</td>
         <td className="hidden-xs" id="hide-description">{shortenString(myPost.description, 30)}</td>
@@ -105,7 +105,7 @@ class MyPosts extends React.Component<Props, State> {
         <td className="hidden-xs">{timeFromNow(myPost.created_at)}</td>
         <td className="hidden-xs">{myPost.condition}</td>
         <td><button type="button" id="action-button" className="btn btn-xs btn-primary" onClick={(e) => this.editPost(e, myPost.id)}>Edit</button></td>
-        <td><button type="button" id="action-button" className={`btn btn-xs ${myPost.active ? "btn-primary" : "btn-secondary"}`} onClick={(e) => this.toggleActivation(e, myPost.id, myPost.active)}>{myPost.active ? "Active" : "Inactive"}</button></td>
+        <td><button type="button" id="action-button" className={`btn btn-xs ${myPost.active ? "btn-primary" : "btn-warning"}`} onClick={(e) => this.toggleActivation(e, myPost.id, myPost.active)}>{myPost.active ? "Active" : "Inactive"}</button></td>
         <td><button type="button" id="action-button" className="btn btn-xs btn-secondary" onClick={(e) => this.deletePost(e, myPost.id)}>Delete</button></td>
       </tr>
     ))
