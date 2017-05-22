@@ -146,15 +146,7 @@
   }
 }
 
-@media screen and (max-width: 768px) {
-  #post-description {
-    height: 140px !important;
-  }
-
-  .absolute-height {
-    margin-bottom: -30px;
-  }
-
+@media screen and (max-width: 480px) {
   #carousel-arrows-left,
   #carousel-arrows-right {
     color: white !important;
@@ -170,6 +162,17 @@
     z-index: 10;
     background-color: rgba(0, 0, 0, 0.3);
   }
+}
+
+@media screen and (max-width: 768px) {
+  #post-description {
+    height: 140px !important;
+  }
+
+  .absolute-height {
+    margin-bottom: -30px;
+  }
+
 
   #detail-left {
     padding: 0 !important;
