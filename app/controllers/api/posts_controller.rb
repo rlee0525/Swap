@@ -40,11 +40,18 @@ class Api::PostsController < ApplicationController
   def update
     user = fb_auth_user(params[:access_token])
     @post = Post.find_by(id: params[:id])
-
     if params[:method] == "delete" && @post.update(deleted: true)
       return render "api/posts/show", status: 200
     elsif params[:method] == "delete"
       return render json: ["not found"], status: 404
+    end
+
+    if params[:method] == "activate" && @post.update(active: true)
+      return render "api/posts/show", status: 200
+    end
+
+    if params[:method] == "deactivate" && @post.update(active: false)
+      return render "api/posts/show", status: 200
     end
 
     category_name = params[:category][:category]

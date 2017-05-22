@@ -92,6 +92,7 @@ class MyPosts extends React.Component<Props, State> {
         <td className="hidden-xs">{timeFromNow(myPost.created_at)}</td>
         <td className="hidden-xs">{myPost.condition}</td>
         <td><button type="button" id="action-button" className="btn btn-xs btn-primary" onClick={(e) => this.editPost(e, myPost.id)}>Edit</button></td>
+        <td><button type="button" id="action-button" className="btn btn-xs btn-primary" onClick={(e) => this.editPost(e, myPost.id)}>Edit</button></td>
         <td><button type="button" id="action-button" className="btn btn-xs btn-secondary" onClick={(e) => this.deletePost(e, myPost.id)}>Delete</button></td>
       </tr>
     ))
@@ -126,6 +127,7 @@ class MyPosts extends React.Component<Props, State> {
                   <th onClick={() => this.sortBy("created_at")} className="hidden-xs">Posted<a onClick={() => this.sortBy("created_at")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
                   <th onClick={() => this.sortBy("condition")} className="hidden-xs">Condition<a onClick={() => this.sortBy("condition")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
                   <th id="th-no-caret">Edit</th>
+                  <th id="th-no-caret">Active</th>
                   <th id="th-no-caret">Delete</th>
                 </tr>
               </thead>
