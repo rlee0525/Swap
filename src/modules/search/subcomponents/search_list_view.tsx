@@ -39,8 +39,6 @@ class SearchListView extends React.Component<Props, any> {
       posts: null,
       maxPages
     };
-
-    this.checkVerified = this.checkVerified.bind(this);
   }
 
   public componentWillReceiveProps(nextProps) {
@@ -49,31 +47,9 @@ class SearchListView extends React.Component<Props, any> {
     this.setState({results, maxPages});
   }
 
-  public checkVerified(id:number) {
-    (FB as any).getLoginStatus(function(response) {
-      if (response.status === "connected") {
-        const accessToken = (FB as any).getAccessToken();
-        $.ajax({
-          method: "GET",
-          url: `api/users/${accessToken}`
-        }).then(obj => {
-          if (obj.edu_email_confirmed) {
-            window.location.href = `#/posts/${id}`
-          } else if (obj.edu_email === null) {
-            $('#emailInputModal').modal('show');
-          } else {
-            $('#emailVerificationModal').modal('show');
-          }
-        }).fail(() => FB.logout(res => console.log(res)))
-      } else {
-        $('#logInModal').modal('show');
-      }
-    });
-  }
-
   renderListItem(post: IPost, idx: number) {
     return (
-      <tr key={idx} onClick={() => this.checkVerified(post.id)}>
+      <tr key={idx} onClick={() => window.location.href = `#/posts/${post.id}`}>
         <td>{post.title}</td>
         <td className="hidden-xs" id="hide-description">{shortenString(post.description, 30)}</td>
         <td>${Number(post.price).toLocaleString()}</td>

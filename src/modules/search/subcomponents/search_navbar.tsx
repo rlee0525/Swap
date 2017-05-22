@@ -61,11 +61,14 @@ class SearchNavbar extends React.Component<Props, State> {
           <ul className="dropdown-menu col-md-2" aria-labelledby="dropdownMenu1">
             <li><a href="#/recent" onClick={() => this.renderCateogryMenu("Recent")}>Recent</a></li>
             <li><a href="#/textbooks" onClick={() => this.renderCateogryMenu("Textbooks")}>Textbooks</a></li>
-            <li><a href="#/clothing" onClick={() => this.renderCateogryMenu("Clothing")}>Clothing</a></li>
             <li><a href="#/furniture" onClick={() => this.renderCateogryMenu("Furniture")}>Furniture</a></li>
+            <li><a href="#/clothing" onClick={() => this.renderCateogryMenu("Clothing")}>Clothing</a></li>
             <li><a href="#/electronics" onClick={() => this.renderCateogryMenu("Electronics")}>Electronics</a></li>
-            <li><a href="#/kitchenware" onClick={() => this.renderCateogryMenu("Kitchenware")}>Kitchenware</a></li>
+            <li><a href="#/housing" onClick={() => this.renderCateogryMenu("Housing")}>Housing</a></li>
+            <li><a href="#/bikes" onClick={() => this.renderCateogryMenu("Bikes")}>Bikes</a></li>
             <li><a href="#/games" onClick={() => this.renderCateogryMenu("Games")}>Games</a></li>
+            <li><a href="#/others" onClick={() => this.renderCateogryMenu("Others")}>Others</a></li>
+            <li><a href="#/lostandfound" onClick={() => this.renderCateogryMenu("Lostandfound")}>Lost & found</a></li>
           </ul>
         </div>
       </div>
