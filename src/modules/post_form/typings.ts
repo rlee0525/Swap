@@ -10,7 +10,7 @@ export interface IState {
   img_url2?: string;
   img_url3?: string;
   courses: object[];
-  errors?: any[];
+  errors?: string[];
   uploadedFile: any;
 }
 
@@ -26,5 +26,6 @@ export const _defaultState = {
   img_url2: "",
   img_url3: "",
   courses: null,
-  uploadedFile: null
+  uploadedFile: null,
+  errors: []
 }

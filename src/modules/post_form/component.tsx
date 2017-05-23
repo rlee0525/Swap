@@ -32,7 +32,7 @@ class PostForm extends React.Component<any, IState> {
     this.checkKey = this.checkKey.bind(this);
 
     this.state = {
-      ...defaultState
+      ..._defaultState
     }
 
     if (props.params.id) {
@@ -78,7 +78,7 @@ class PostForm extends React.Component<any, IState> {
     if (nextProps.params.id) {
       this.fetchPost(nextProps.params.id);
     } else {
-      this.setState({ ...defaultState });
+      this.setState({ ..._defaultState });
     }
   }
 
@@ -156,7 +156,7 @@ class PostForm extends React.Component<any, IState> {
       this.setState({ courses })
       this.autoComplete(courses)
     }).fail(errors => {
-      this.setState({ errors })
+      this.setState({ errors: errors.responseJSON })
     })
   }
 
@@ -201,23 +201,18 @@ class PostForm extends React.Component<any, IState> {
         access_token
       }
     }).then(post => this.props.router.replace(`posts/${post.id}`))
-      .fail(errors => {
-        this.setState({ errors })
+      .fail(errors => {      
+        this.setState({ errors: errors.responseJSON })
       })
   }
 
   public renderErrors() {
-    if (typeof this.state.errors === "undefined") {
-      return null
-    } else {
-      return this.state.errors.responseJSON.map((error, key) =>
-      (
-        <div key={key} className="alert alert-danger" role="alert">
-          <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-          <span className="sr-only">Error:</span> {error}
-        </div>
-      ))
-    }
+    return this.state.errors.map((error, key) => (
+      <div key={key} className="alert alert-danger" role="alert">
+        <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span className="sr-only">Error:</span> {error}
+      </div>
+    ));
   }
 
   public render() {
