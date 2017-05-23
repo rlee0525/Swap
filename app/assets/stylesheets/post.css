@@ -321,3 +321,7 @@
 .pointer-cursor {
   cursor: pointer;
 }
+
+#detail-body h3 {
+  word-wrap: break-word;
+}

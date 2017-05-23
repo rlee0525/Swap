@@ -18,17 +18,20 @@ class Pagination extends React.Component<any, any> {
   public goPrevious() {
     if (this.props.currentPage > 1) {
       this.props.that.setState({currentPage: this.props.currentPage - 1})
+      window.scrollTo(0, 0);
     }
   }
 
   public goNext() {
     if (this.props.currentPage < this.props.maxPages) {
       this.props.that.setState({currentPage: this.props.currentPage + 1})
+      window.scrollTo(0, 0);
     }
   }
 
   public setCurrentPage(page) {
     this.props.that.setState({currentPage: page})
+    window.scrollTo(0, 0);
   }
 
   public render() {

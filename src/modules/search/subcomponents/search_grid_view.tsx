@@ -23,7 +23,7 @@ class SearchGridView extends React.Component<Props, State> {
   constructor(props) {
     super(props);
     let results = props.searchResult;
-    let maxPages = props.searchResult.length > 0 ? Math.ceil(props.searchResult.length / 15) : 1;
+    let maxPages = props.searchResult.length > 0 ? Math.ceil(props.searchResult.length / 16) : 1;
 
     this.state = {
       title: -1,
@@ -42,7 +42,7 @@ class SearchGridView extends React.Component<Props, State> {
 
   public componentWillReceiveProps(nextProps) {
     let results = nextProps.searchResult;
-    let maxPages = Math.ceil(nextProps.searchResult.length / 15)
+    let maxPages = Math.ceil(nextProps.searchResult.length / 16)
     this.setState({results, maxPages});
   }
 
@@ -75,7 +75,7 @@ class SearchGridView extends React.Component<Props, State> {
     let createdDate: number | string= Date.parse(post.created_at);
     createdDate = Date.now() - createdDate <= 86400000 ? timeFromNow(post.created_at) : ""
     return (
-      <div className="col-sm-6 col-md-4" key={Math.random() * post.id}
+      <div className="col-sm-6 col-md-3" key={Math.random() * post.id}
            onClick={() => window.location.href = `#/posts/${post.id}`}>
         <div className="thumbnail col-md-12">
           <a id={post.id}>
@@ -101,8 +101,8 @@ class SearchGridView extends React.Component<Props, State> {
   }
 
   render() {
-    let pageStart: number = (this.state.currentPage - 1) * 15;
-    let pageEnd: number = this.state.currentPage * 15;
+    let pageStart: number = (this.state.currentPage - 1) * 16;
+    let pageEnd: number = this.state.currentPage * 16;
 
     return (
       <div>
