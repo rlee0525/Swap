@@ -262,12 +262,13 @@ class PostForm extends React.Component<any, State> {
       <div className="container">
         {this.renderErrors()}
         <h1 style={paddingLeft} id="heading-custom">
-          {typeof this.props.params.id === "undefined" ? "Create a new post" : `Edit post ${this.state.id}`}
+          {this.props.params.id ? `Edit post ${this.state.id}` : "Create a new post"}
         </h1>
         <br/>
         <br/>
         <form className="form-horizontal">
           
+          {/* Category radio buttons */}
           <RadioButtons 
             type="category" 
             list={categories} 
@@ -275,6 +276,7 @@ class PostForm extends React.Component<any, State> {
             currentValue={this.state.category}
           />
 
+          {/* Condition radio buttons */}
           <RadioButtons
             type="condition"
             list={conditions}
@@ -282,12 +284,15 @@ class PostForm extends React.Component<any, State> {
             currentValue={this.state.condition}
           />
 
+          {/* Course dropdown menu */}
           <div className={`form-group ${this.state.category !== "Textbooks" ? "hidden" : ""}`}>
             <label style={labelStyle} htmlFor="inputCourse3" className="col-sm-2 control-label-custom">Course</label>
             <div className="col-sm-9 input-group" style={paddingAll}>
               <input maxLength={50} value={this.state.course} onChange={ this.updateState } type="text" className="form-control" id="course" style={borderStyle} placeholder="Type to autocomplete"/>
             </div>
           </div>
+
+          {/* Post title input */}
           <div className="form-group">
             <label style={labelStyle} htmlFor="inputTitle3" className="col-sm-2 control-label-custom">Title</label>
             <div className="col-sm-9 input-group" style={morePadding}>
@@ -295,6 +300,8 @@ class PostForm extends React.Component<any, State> {
               <span className="pull-right" id="character-count">&nbsp;{50 - this.state.title.length} / 50</span>
             </div>
           </div>
+
+          {/* Post description textarea */}
           <div className="form-group">
             <label style={labelStyle} htmlFor="inputDescription3" className="col-sm-2 control-label-custom">Description</label>
             <div className="col-sm-9 input-group" style={morePadding}>
@@ -302,6 +309,8 @@ class PostForm extends React.Component<any, State> {
               <span className="pull-right" id="character-count">{250 - this.state.description.length} / 250</span>
             </div>
           </div>
+
+          {/* Price input */}
           <div className="form-group">
             <label style={labelStyle} htmlFor="inputPrice3" className="col-sm-2 control-label-custom">Price</label>
             <div className="col-sm-9 input-group" id="fixed-price" style={paddingBottom}>
@@ -318,6 +327,8 @@ class PostForm extends React.Component<any, State> {
               <span className="input-group-addon" id="basic-addon1" style={noBorder}>.00</span>
             </div>
           </div>
+
+          {/* Post images */}
           <div className="form-group">
             <label style={labelStyle} htmlFor="inputImage3" className="col-sm-2 control-label-custom">
               Image(s) <br/> (required 1)
@@ -328,6 +339,8 @@ class PostForm extends React.Component<any, State> {
             <ImageDropzone img_url={this.state.img_url3} onImageDrop={this.onImageDrop} />
 
           </div>
+
+          {/* Submit button */}
           <div className="form-group">
             <div className="col-sm-2"></div>
             <div className="col-sm-9">

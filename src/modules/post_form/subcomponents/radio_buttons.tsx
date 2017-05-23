@@ -1,5 +1,4 @@
 import React from 'react';
-import { capitalize } from 'helpers';
 import { morePadding, labelStyle } from '../styles';
 
 interface Props {
@@ -12,7 +11,7 @@ interface Props {
 const RadioButtons: React.SFC<Props> = ({ type, list, clickAction, currentValue}) => (
   <div className="form-group radio-group" style={morePadding}>
     <label style={labelStyle} htmlFor="inputCategory3" className="col-sm-2 control-label-custom">
-      { capitalize(type) }
+      { type }
     </label>
 
     { list.map(item => (
