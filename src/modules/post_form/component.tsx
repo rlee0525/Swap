@@ -54,8 +54,7 @@ class PostForm extends React.Component<any, State> {
     this.updateState = this.updateState.bind(this);
     this.onImageDrop = this.onImageDrop.bind(this);
     this.submitForm = this.submitForm.bind(this);
-    this.categoryRadioUpdate = this.categoryRadioUpdate.bind(this);
-    this.conditionRadioUpdate = this.conditionRadioUpdate.bind(this);
+    this.radioButtonsUpdate = this.radioButtonsUpdate.bind(this);
     this.fetchAllCourses = this.fetchAllCourses.bind(this);
     this.initializeDropzone = this.initializeDropzone.bind(this);
     this.renderErrors = this.renderErrors.bind(this);
@@ -106,15 +105,14 @@ class PostForm extends React.Component<any, State> {
   }
 
   public componentWillReceiveProps(nextProps) {
-    if (typeof nextProps.params.id !== "undefined") {
-      this.fetchPost(nextProps.params.id)
+    if (nextProps.params.id) {
+      this.fetchPost(nextProps.params.id);
     } else {
-      this.setState({
-        ...defaultState
-      })
+      this.setState({ ...defaultState });
     }
   }
 
+  // when a new image is uploaded, old image is replaced???
   public onImageDrop(files) {
     this.setState({
       uploadedFile: files[0]
@@ -206,12 +204,8 @@ class PostForm extends React.Component<any, State> {
     }
   }
 
-  public categoryRadioUpdate(e) {
-    this.setState({ category: e.currentTarget.textContent })
-  }
-
-  public conditionRadioUpdate(e) {
-    this.setState({ condition: e.currentTarget.textContent })
+  public radioButtonsUpdate(type) {
+    return e => this.setState({ [type]: e.currentTarget.textContent });
   }
 
   public submitForm(e) {
@@ -258,6 +252,9 @@ class PostForm extends React.Component<any, State> {
 
   public render() {
 
+    console.log(this.state);
+    
+
     const categories = ['Textbooks', 'Clothing', 'Furniture', 'Electronics', 'Kitchenware', 'Games'];
     const conditions = ['Brand New', "Like New", "Used"];
 
@@ -274,14 +271,14 @@ class PostForm extends React.Component<any, State> {
           <RadioButtons 
             type="category" 
             list={categories} 
-            clickAction={this.categoryRadioUpdate}
+            clickAction={this.radioButtonsUpdate('category')}
             currentValue={this.state.category}
           />
 
           <RadioButtons
             type="condition"
             list={conditions}
-            clickAction={this.conditionRadioUpdate}
+            clickAction={this.radioButtonsUpdate('condition')}
             currentValue={this.state.condition}
           />
 
