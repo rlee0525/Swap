@@ -1,11 +1,28 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
+
+import { ImageDropzone } from './subcomponents';
+
 declare var $;
 const CLOUDINARY_UPLOAD_PRESET = 'xmfenamw';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/dkympkwdz/upload';
 
-class PostForm extends React.Component<any, any> {
+interface State {
+  title: string;
+  description: string;
+  category: string;
+  condition: string;
+  course?: string;
+  price: string;
+  img_url1?: string;
+  img_url2?: string;
+  img_url3?: string;
+  courses: object[];
+  errors?: string[];
+}
+
+class PostForm extends React.Component<any, State> {
   constructor(props: any) {
     super(props);
     this.updateState = this.updateState.bind(this);
@@ -232,6 +249,7 @@ class PostForm extends React.Component<any, any> {
   }
 
   public render() {
+    
     const borderStyle = {
       borderRadius: '4px 0 0 4px'
     };
