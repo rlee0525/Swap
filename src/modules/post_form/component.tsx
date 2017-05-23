@@ -2,7 +2,7 @@ import React from 'react';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
 
-import { ImageDropzone, Categories } from './subcomponents';
+import { ImageDropzone, Categories, Conditions } from './subcomponents';
 import { 
   borderStyle, 
   noBorder, 
@@ -270,12 +270,8 @@ class PostForm extends React.Component<any, State> {
         <form className="form-horizontal">
           <Categories categoryRadioUpdate={this.categoryRadioUpdate} category={this.state.category} />
 
-          <div className="form-group radio-group" style={morePadding}>
-            <label style={labelStyle} htmlFor="inputCondition3" className="col-sm-2 control-label-custom">Condition</label>
-              <div onClick={this.conditionRadioUpdate} className={`col-sm-3 radio-button ${this.state.condition === "Brand New" ? "radio-active" : "" }`}>Brand New</div>
-              <div onClick={this.conditionRadioUpdate} className={`col-sm-3 radio-button ${this.state.condition === "Like New" ? "radio-active" : "" }`}>Like New</div>
-              <div onClick={this.conditionRadioUpdate} className={`col-sm-3 radio-button ${this.state.condition === "Used" ? "radio-active" : "" }`}>Used</div>
-          </div>
+          <Conditions conditionRadioUpdate={this.conditionRadioUpdate} condition={this.state.condition} />
+
           <div className={`form-group ${this.state.category !== "Textbooks" ? "hidden" : ""}`}>
             <label style={labelStyle} htmlFor="inputCourse3" className="col-sm-2 control-label-custom">Course</label>
             <div className="col-sm-9 input-group" style={paddingAll}>
