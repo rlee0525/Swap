@@ -97,8 +97,8 @@ ul.nav {
 
 .sort-by-panel .btn-group {
   position: absolute;
-  right: 0;
-  top: -45px;
+  right: 57px;
+  top: -46px;
 }
 
 .sort-by-panel a:hover {
@@ -178,4 +178,25 @@ ul.nav {
   cursor: not-allowed !important;
   background: #f9f9f9;
   color: lightgrey;
+}
+
+#nav-tools {
+  height: 44px;
+  position: relative;
+}
+
+.search-icons {
+  position: absolute;
+  right: 0px;
+  bottom: 2px;
+  padding-right: 0px;
+}
+
+.search-icons > button > span {
+  font-size: 18px !important;
+}
+
+.search-icons > button {
+  padding-right: 4px;
+  padding-left: 4px;
 }

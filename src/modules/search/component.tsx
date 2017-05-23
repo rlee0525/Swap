@@ -1,5 +1,6 @@
 import React from 'react';
 import { IPost } from 'helpers';
+import { shortenString } from 'helpers';
 
 import {
   SearchGridView,
@@ -16,6 +17,7 @@ interface Props {
   searchResult: IPost[];
   search: (query: string) => JQueryXHR;
   location: any;
+  post: any;
 }
 
 class Search extends React.Component<Props, State> {
@@ -29,7 +31,7 @@ class Search extends React.Component<Props, State> {
   }
 
   public componentWillMount() {
-    const path = this.props.location.pathname.slice(1);
+    let path = this.props.location.pathname.slice(1);
     if (path === "recent") {
       this.props.search('').then(res => {
         let posts = this.props.searchResult.sort((a: any, b: any) => Date.parse(b.created_at) - Date.parse(a.created_at))
@@ -38,6 +40,9 @@ class Search extends React.Component<Props, State> {
         });
       })
     } else {
+      if (path === "lostandfound") {
+        path = "Lost & Found";
+      }
       this.props.search(path).then(res => {
         let posts = this.props.searchResult.sort((a: any, b: any) => Date.parse(b.created_at) - Date.parse(a.created_at))
         this.setState({
@@ -48,7 +53,7 @@ class Search extends React.Component<Props, State> {
   }
 
   public componentWillReceiveProps(nextProps: any){
-    const nextLocation = nextProps.location.pathname.slice(1)
+    let nextLocation = nextProps.location.pathname.slice(1)
     if (nextLocation !== this.props.location.pathname.slice(1)) {
       if (nextLocation === "recent") {
         this.props.search('').then(res => {
@@ -58,6 +63,9 @@ class Search extends React.Component<Props, State> {
           });
         })
       } else {
+        if (nextLocation === "lostandfound") {
+          nextLocation = "Lost & Found";
+        }
         this.props.search(nextLocation).then(res => {
           let posts = this.props.searchResult.sort((a: any, b: any) => Date.parse(b.created_at) - Date.parse(a.created_at))
           this.setState({
@@ -81,19 +89,31 @@ class Search extends React.Component<Props, State> {
   }
 
   public render() {
+    let path = this.props.location.pathname.slice(1);
+    if (path == "lostandfound") {
+      path = "Lost & Found";
+    }
+    const uppercase = path[0].toUpperCase() + path.slice(1, path.length);
     return (
       <div>
         <div className="container">
           <div className="row">
-            <SearchNavbar search={this.props.search} />
+            <SearchNavbar props={this.props} search={this.props.search} />
+
             <div className="col-md-12">
-              <div className="search-icons">
-                <button className="btn btn-link btn-special-size btn-special-margin" id="grid-type" onClick={this.changeView('grid')}>
-                  <span className="glyphicon glyphicon-th-large"></span> Grid View
-                </button>
-                <button className="btn btn-link btn-special-size btn-special-margin" id="list-type" onClick={this.changeView('list')}>
-                  <span className="glyphicon glyphicon-th-list"></span> List View
-                </button>
+              <div id="nav-tools">
+                <nav className="breadcrumb">
+                  <a className="breadcrumb-item" href="#/recent">All</a>
+                  <a className="breadcrumb-item" href={`#/${path}`}>{uppercase}</a>
+                </nav>
+                <div className="search-icons">
+                  <button className="btn btn-link btn-special-size btn-special-margin" id="grid-type" onClick={this.changeView('grid')}>
+                    <span className="glyphicon glyphicon-th-large"></span>
+                  </button>
+                  <button className="btn btn-link btn-special-size btn-special-margin" id="list-type" onClick={this.changeView('list')}>
+                    <span className="glyphicon glyphicon-th-list"></span>
+                  </button>
+                </div>
               </div>
               { this.renderView() }
             </div>
