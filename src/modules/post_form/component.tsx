@@ -246,18 +246,43 @@ class PostForm extends React.Component<any, IState> {
 
           {/* Course dropdown menu */}
           <div className={`form-group ${this.state.category !== "Textbooks" ? "hidden" : ""}`}>
-            <label style={labelStyle} htmlFor="inputCourse3" className="col-sm-2 control-label-custom">Course</label>
+            <label style={labelStyle} htmlFor="inputCourse3" className="col-sm-2 control-label-custom">
+              Course
+            </label>
+            
             <div className="col-sm-9 input-group" style={paddingAll}>
-              <input maxLength={50} value={this.state.course} onChange={ this.updateState } type="text" className="form-control" id="course" style={borderStyle} placeholder="Type to autocomplete"/>
-            </div>
+              <input
+                maxLength={50}
+                value={this.state.course}
+                onChange={ this.updateState }
+                type="text"
+                className="form-control"
+                id="course"
+                style={borderStyle}
+                placeholder="Type to autocomplete"
+              />
+              </div>
           </div>
 
           {/* Post title input */}
           <div className="form-group">
-            <label style={labelStyle} htmlFor="inputTitle3" className="col-sm-2 control-label-custom">Title</label>
+            <label style={labelStyle} htmlFor="inputTitle3" className="col-sm-2 control-label-custom">
+              Title
+            </label>
+
             <div className="col-sm-9 input-group" style={morePadding}>
-              <input maxLength={50} value={this.state.title} onChange={this.updateState} type="text" className="form-control" id="title" required />
-              <span className="pull-right" id="character-count">&nbsp;{50 - this.state.title.length} / 50</span>
+              <input
+                maxLength={50}
+                value={this.state.title}
+                onChange={this.updateState}
+                type="text"
+                className="form-control"
+                id="title"
+                required
+              />
+              <span className="pull-right" id="character-count">
+                &nbsp;{50 - this.state.title.length} / 50
+              </span>
             </div>
           </div>
 
@@ -265,8 +290,19 @@ class PostForm extends React.Component<any, IState> {
           <div className="form-group">
             <label style={labelStyle} htmlFor="inputDescription3" className="col-sm-2 control-label-custom">Description</label>
             <div className="col-sm-9 input-group" style={morePadding}>
-              <textarea maxLength={250} value={this.state.description} onChange={this.updateState} className="form-control" id="description" rows={3}></textarea>
-              <span className="pull-right" id="character-count">{250 - this.state.description.length} / 250</span>
+              <textarea
+                maxLength={250}
+                value={this.state.description}
+                onChange={this.updateState}
+                className="form-control" 
+                id="description"
+                rows={3}
+              >
+              </textarea>
+              
+              <span className="pull-right" id="character-count">
+                {250 - this.state.description.length} / 250
+              </span>
             </div>
           </div>
 
