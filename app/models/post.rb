@@ -43,14 +43,14 @@ class Post < ApplicationRecord
     post = self.as_json
     relevance_score = calc_score(post, description)
     if relevance_score >= 10
-      UserMailer.rfp_alert(user, post).deliver
+      UserMailer.rfp_alert(user, post, description).deliver
     end
   end
 
   private
 
   def calc_score(post, query)
-    categories = ['Textbooks', 'Clothing', 'Furniture', 'Electronics', 'Kitchenware', 'Games']
+    categories = ['Textbooks', 'Clothing', 'Furniture', 'Electronics', 'Lost & Found', 'Games', 'Bikes', 'Housing']
 
     query = query.split(' ')
     score = 0
