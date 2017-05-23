@@ -2,7 +2,7 @@ import React from 'react';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
 
-import { ImageDropzone } from './subcomponents';
+import { ImageDropzone, Categories } from './subcomponents';
 import { 
   borderStyle, 
   noBorder, 
@@ -268,15 +268,8 @@ class PostForm extends React.Component<any, State> {
         <br/>
         <br/>
         <form className="form-horizontal">
-          <div className="form-group radio-group" style={morePadding}>
-            <label style={labelStyle} htmlFor="inputCategory3" className="col-sm-2 control-label-custom">Category</label>
-              <div onClick={this.categoryRadioUpdate} className={`col-sm-1 radio-button ${this.state.category === "Textbooks" ? "radio-active" : "" }`}>Textbooks</div>
-              <div onClick={this.categoryRadioUpdate} className={`col-sm-1 radio-button ${this.state.category === "Clothing" ? "radio-active" : "" }`}>Clothing</div>
-              <div onClick={this.categoryRadioUpdate} className={`col-sm-1 radio-button ${this.state.category === "Furniture" ? "radio-active" : "" }`}>Furniture</div>
-              <div onClick={this.categoryRadioUpdate} className={`col-sm-1 radio-button ${this.state.category === "Electronics" ? "radio-active" : "" }`}>Electronics</div>
-              <div onClick={this.categoryRadioUpdate} className={`col-sm-1 radio-button ${this.state.category === "Kitchenware" ? "radio-active" : "" }`}>Kitchenware</div>
-              <div onClick={this.categoryRadioUpdate} className={`col-sm-1 radio-button ${this.state.category === "Games" ? "radio-active" : "" }`}>Games</div>
-          </div>
+          <Categories categoryRadioUpdate={this.categoryRadioUpdate} category={this.state.category} />
+
           <div className="form-group radio-group" style={morePadding}>
             <label style={labelStyle} htmlFor="inputCondition3" className="col-sm-2 control-label-custom">Condition</label>
               <div onClick={this.conditionRadioUpdate} className={`col-sm-3 radio-button ${this.state.condition === "Brand New" ? "radio-active" : "" }`}>Brand New</div>
