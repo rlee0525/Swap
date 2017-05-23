@@ -82,12 +82,7 @@ class PostForm extends React.Component<any, IState> {
     }
   }
 
-  // when a new image is uploaded, old image is replaced???
   public onImageDrop(files) {
-    this.setState({
-      uploadedFile: files[0]
-    });
-
     this.handleImageUpload(files[0]);
   }
 
@@ -307,10 +302,9 @@ class PostForm extends React.Component<any, IState> {
 
           {/* Submit button */}
           <div className="form-group">
-            <div className="col-sm-2"></div>
-            <div className="col-sm-9">
+            <div className="col-sm-9 col-sm-offset-2">
               <button onClick={this.submitForm} type="button" className="btn btn-primary btn-lg btn-block">
-                {typeof this.props.params.id === "undefined" ? "Create" : "Update"}
+                {this.props.params.id ? "Update" : "Create"}
               </button>
               <br/>
             </div>

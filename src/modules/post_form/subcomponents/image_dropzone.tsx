@@ -9,6 +9,7 @@ const ImageDropzone = ({ img_url, onImageDrop }) => (
       id="img_url1"
       className="dropzone-upload form-control"
       multiple={ false }
+      style={{ cursor: "pointer" }}
       accept="image/*"
       onDrop={onImageDrop}>
       {img_url === '' ? <div>Click or drop image here<br />(330 x 330)</div> :
