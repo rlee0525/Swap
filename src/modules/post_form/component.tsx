@@ -3,6 +3,15 @@ import Dropzone from 'react-dropzone';
 import request from 'superagent';
 
 import { ImageDropzone } from './subcomponents';
+import { 
+  borderStyle, 
+  noBorder, 
+  labelStyle, 
+  widthFull, 
+  paddingLeft,
+  morePadding,
+  paddingBottom,
+  paddingAll } from './styles';
 
 declare var $;
 const CLOUDINARY_UPLOAD_PRESET = 'xmfenamw';
@@ -249,122 +258,87 @@ class PostForm extends React.Component<any, State> {
   }
 
   public render() {
-    
-    const borderStyle = {
-      borderRadius: '4px 0 0 4px'
-    };
-
-    const noBorder = {
-      borderRadius: 0
-    };
-
-    const labelStyle = {
-      paddingRight: 25,
-      paddingTop: 7
-    };
-
-    const widthFull = {
-      width: 'auto',
-      height: '100%'
-    };
-
-    const paddingLeft = {
-      paddingLeft: 50
-    };
-
-    const morePadding = {
-      padding: '0 10px'
-    };
-
-    const paddingBottom = {
-      padding: '0 10px 10px 10px'
-    };
-
-    const paddingAll = {
-      padding: '5px 10px'
-    };
-
-    console.log(this.state);
-    
 
     return (
-      <div>
-        <div className="container">
+      <div className="container">
         {this.renderErrors()}
-        <h1 style={paddingLeft} id="heading-custom">{typeof this.props.params.id === "undefined" ? "Create a new post" : `Edit post ${this.state.id}`}</h1><br/><br/>
-          <form className="form-horizontal">
-            <div className="form-group radio-group" style={morePadding}>
-              <label style={labelStyle} htmlFor="inputCategory3" className="col-sm-2 control-label-custom">Category</label>
-                <div onClick={this.categoryRadioUpdate} className={`col-sm-1 radio-button ${this.state.category === "Textbooks" ? "radio-active" : "" }`}>Textbooks</div>
-                <div onClick={this.categoryRadioUpdate} className={`col-sm-1 radio-button ${this.state.category === "Clothing" ? "radio-active" : "" }`}>Clothing</div>
-                <div onClick={this.categoryRadioUpdate} className={`col-sm-1 radio-button ${this.state.category === "Furniture" ? "radio-active" : "" }`}>Furniture</div>
-                <div onClick={this.categoryRadioUpdate} className={`col-sm-1 radio-button ${this.state.category === "Electronics" ? "radio-active" : "" }`}>Electronics</div>
-                <div onClick={this.categoryRadioUpdate} className={`col-sm-1 radio-button ${this.state.category === "Kitchenware" ? "radio-active" : "" }`}>Kitchenware</div>
-                <div onClick={this.categoryRadioUpdate} className={`col-sm-1 radio-button ${this.state.category === "Games" ? "radio-active" : "" }`}>Games</div>
+        <h1 style={paddingLeft} id="heading-custom">
+          {typeof this.props.params.id === "undefined" ? "Create a new post" : `Edit post ${this.state.id}`}
+        </h1>
+        <br/>
+        <br/>
+        <form className="form-horizontal">
+          <div className="form-group radio-group" style={morePadding}>
+            <label style={labelStyle} htmlFor="inputCategory3" className="col-sm-2 control-label-custom">Category</label>
+              <div onClick={this.categoryRadioUpdate} className={`col-sm-1 radio-button ${this.state.category === "Textbooks" ? "radio-active" : "" }`}>Textbooks</div>
+              <div onClick={this.categoryRadioUpdate} className={`col-sm-1 radio-button ${this.state.category === "Clothing" ? "radio-active" : "" }`}>Clothing</div>
+              <div onClick={this.categoryRadioUpdate} className={`col-sm-1 radio-button ${this.state.category === "Furniture" ? "radio-active" : "" }`}>Furniture</div>
+              <div onClick={this.categoryRadioUpdate} className={`col-sm-1 radio-button ${this.state.category === "Electronics" ? "radio-active" : "" }`}>Electronics</div>
+              <div onClick={this.categoryRadioUpdate} className={`col-sm-1 radio-button ${this.state.category === "Kitchenware" ? "radio-active" : "" }`}>Kitchenware</div>
+              <div onClick={this.categoryRadioUpdate} className={`col-sm-1 radio-button ${this.state.category === "Games" ? "radio-active" : "" }`}>Games</div>
+          </div>
+          <div className="form-group radio-group" style={morePadding}>
+            <label style={labelStyle} htmlFor="inputCondition3" className="col-sm-2 control-label-custom">Condition</label>
+              <div onClick={this.conditionRadioUpdate} className={`col-sm-3 radio-button ${this.state.condition === "Brand New" ? "radio-active" : "" }`}>Brand New</div>
+              <div onClick={this.conditionRadioUpdate} className={`col-sm-3 radio-button ${this.state.condition === "Like New" ? "radio-active" : "" }`}>Like New</div>
+              <div onClick={this.conditionRadioUpdate} className={`col-sm-3 radio-button ${this.state.condition === "Used" ? "radio-active" : "" }`}>Used</div>
+          </div>
+          <div className={`form-group ${this.state.category !== "Textbooks" ? "hidden" : ""}`}>
+            <label style={labelStyle} htmlFor="inputCourse3" className="col-sm-2 control-label-custom">Course</label>
+            <div className="col-sm-9 input-group" style={paddingAll}>
+              <input maxLength={50} value={this.state.course} onChange={ this.updateState } type="text" className="form-control" id="course" style={borderStyle} placeholder="Type to autocomplete"/>
             </div>
-            <div className="form-group radio-group" style={morePadding}>
-              <label style={labelStyle} htmlFor="inputCondition3" className="col-sm-2 control-label-custom">Condition</label>
-                <div onClick={this.conditionRadioUpdate} className={`col-sm-3 radio-button ${this.state.condition === "Brand New" ? "radio-active" : "" }`}>Brand New</div>
-                <div onClick={this.conditionRadioUpdate} className={`col-sm-3 radio-button ${this.state.condition === "Like New" ? "radio-active" : "" }`}>Like New</div>
-                <div onClick={this.conditionRadioUpdate} className={`col-sm-3 radio-button ${this.state.condition === "Used" ? "radio-active" : "" }`}>Used</div>
+          </div>
+          <div className="form-group">
+            <label style={labelStyle} htmlFor="inputTitle3" className="col-sm-2 control-label-custom">Title</label>
+            <div className="col-sm-9 input-group" style={morePadding}>
+              <input maxLength={50} value={this.state.title} onChange={this.updateState} type="text" className="form-control" id="title" required />
+              <span className="pull-right" id="character-count">&nbsp;{50 - this.state.title.length} / 50</span>
             </div>
-            <div className={`form-group ${this.state.category !== "Textbooks" ? "hidden" : ""}`}>
-              <label style={labelStyle} htmlFor="inputCourse3" className="col-sm-2 control-label-custom">Course</label>
-              <div className="col-sm-9 input-group" style={paddingAll}>
-                <input maxLength={50} value={this.state.course} onChange={ this.updateState } type="text" className="form-control" id="course" style={borderStyle} placeholder="Type to autocomplete"/>
-              </div>
+          </div>
+          <div className="form-group">
+            <label style={labelStyle} htmlFor="inputDescription3" className="col-sm-2 control-label-custom">Description</label>
+            <div className="col-sm-9 input-group" style={morePadding}>
+              <textarea maxLength={250} value={this.state.description} onChange={this.updateState} className="form-control" id="description" rows={3}></textarea>
+              <span className="pull-right" id="character-count">{250 - this.state.description.length} / 250</span>
             </div>
-            <div className="form-group">
-              <label style={labelStyle} htmlFor="inputTitle3" className="col-sm-2 control-label-custom">Title</label>
-              <div className="col-sm-9 input-group" style={morePadding}>
-                <input maxLength={50} value={this.state.title} onChange={this.updateState} type="text" className="form-control" id="title" required />
-                <span className="pull-right" id="character-count">&nbsp;{50 - this.state.title.length} / 50</span>
-              </div>
+          </div>
+          <div className="form-group">
+            <label style={labelStyle} htmlFor="inputPrice3" className="col-sm-2 control-label-custom">Price</label>
+            <div className="col-sm-9 input-group" id="fixed-price" style={paddingBottom}>
+              <span className="input-group-addon" id="basic-addon1">$</span>
+              <input
+                value={this.state.price}
+                onChange={ this.updateState }
+                className="form-control"
+                id="price"
+                placeholder="10"
+                onKeyDown={e => this.checkKey(e)}
+                onKeyUp={e => this.checkKey(e)}
+              />
+              <span className="input-group-addon" id="basic-addon1" style={noBorder}>.00</span>
             </div>
-            <div className="form-group">
-              <label style={labelStyle} htmlFor="inputDescription3" className="col-sm-2 control-label-custom">Description</label>
-              <div className="col-sm-9 input-group" style={morePadding}>
-                <textarea maxLength={250} value={this.state.description} onChange={this.updateState} className="form-control" id="description" rows={3}></textarea>
-                <span className="pull-right" id="character-count">{250 - this.state.description.length} / 250</span>
-              </div>
-            </div>
-            <div className="form-group">
-              <label style={labelStyle} htmlFor="inputPrice3" className="col-sm-2 control-label-custom">Price</label>
-              <div className="col-sm-9 input-group" id="fixed-price" style={paddingBottom}>
-                <span className="input-group-addon" id="basic-addon1">$</span>
-                <input
-                  value={this.state.price}
-                  onChange={ this.updateState }
-                  className="form-control"
-                  id="price"
-                  placeholder="10"
-                  onKeyDown={e => this.checkKey(e)}
-                  onKeyUp={e => this.checkKey(e)}
-                />
-                <span className="input-group-addon" id="basic-addon1" style={noBorder}>.00</span>
-              </div>
-            </div>
-            <div className="form-group">
-              <label style={labelStyle} htmlFor="inputImage3" className="col-sm-2 control-label-custom">
-                Image(s) <br/> (required 1)
-              </label>
-              
-              <ImageDropzone img_url={this.state.img_url1} onImageDrop={this.onImageDrop} />
-              <ImageDropzone img_url={this.state.img_url2} onImageDrop={this.onImageDrop} />
-              <ImageDropzone img_url={this.state.img_url3} onImageDrop={this.onImageDrop} />
+          </div>
+          <div className="form-group">
+            <label style={labelStyle} htmlFor="inputImage3" className="col-sm-2 control-label-custom">
+              Image(s) <br/> (required 1)
+            </label>
+            
+            <ImageDropzone img_url={this.state.img_url1} onImageDrop={this.onImageDrop} />
+            <ImageDropzone img_url={this.state.img_url2} onImageDrop={this.onImageDrop} />
+            <ImageDropzone img_url={this.state.img_url3} onImageDrop={this.onImageDrop} />
 
+          </div>
+          <div className="form-group">
+            <div className="col-sm-2"></div>
+            <div className="col-sm-9">
+              <button onClick={this.submitForm} type="button" className="btn btn-primary btn-lg btn-block">
+                {typeof this.props.params.id === "undefined" ? "Create" : "Update"}
+              </button>
+              <br/>
             </div>
-            <div className="form-group">
-              <div className="col-sm-2"></div>
-              <div className="col-sm-9">
-                <button onClick={this.submitForm} type="button" className="btn btn-primary btn-lg btn-block">
-                  {typeof this.props.params.id === "undefined" ? "Create" : "Update"}
-                </button>
-                <br/>
-              </div>
-            </div>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
     );
   }
