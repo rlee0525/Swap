@@ -211,10 +211,6 @@ class PostForm extends React.Component<any, IState> {
   }
 
   public render() {
-
-    console.log(this.state);
-    
-
     const categories = ['Textbooks', 'Clothing', 'Furniture', 'Electronics', 'Kitchenware', 'Games'];
     const conditions = ['Brand New', "Like New", "Used"];
 
