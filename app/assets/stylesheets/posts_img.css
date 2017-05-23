@@ -64,6 +64,7 @@
   font-weight: 300;
   line-height: normal;
   font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  word-wrap: break-word;
 }
 
 #grid-caption {

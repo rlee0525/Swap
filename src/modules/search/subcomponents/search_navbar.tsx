@@ -2,6 +2,7 @@ import React from 'react';
 
 interface Props {
   search(query: string) : void;
+  props: object;
 }
 
 interface State {
@@ -21,9 +22,17 @@ class SearchNavbar extends React.Component<Props, State> {
     this.renderCateogryMenu = this.renderCateogryMenu.bind(this);
   }
 
+  public componentWillReceiveProps(nextProps) {
+    if (nextProps.props.location.pathname === "/recent") {
+      this.setState({label: "Recent"});
+    }
+  }
+
   public componentWillMount() {
     let label = window.location.hash.slice(2);
-
+    if (label === "lostandfound") {
+      label = "Lost & Found";
+    }
     if (!(label as any).includes("/")) {
       label = label.charAt(0).toUpperCase() + label.slice(1);
 
@@ -68,7 +77,7 @@ class SearchNavbar extends React.Component<Props, State> {
             <li><a href="#/bikes" onClick={() => this.renderCateogryMenu("Bikes")}>Bikes</a></li>
             <li><a href="#/games" onClick={() => this.renderCateogryMenu("Games")}>Games</a></li>
             <li><a href="#/others" onClick={() => this.renderCateogryMenu("Others")}>Others</a></li>
-            <li><a href="#/lostandfound" onClick={() => this.renderCateogryMenu("Lostandfound")}>Lost & found</a></li>
+            <li><a href="#/lostandfound" onClick={() => this.renderCateogryMenu("Lost & Found")}>Lost & Found</a></li>
           </ul>
         </div>
       </div>

@@ -292,7 +292,7 @@ class PostDetail extends React.Component<any, any> {
 
     return (
       <div className="container" id="container-body">
-        <SearchNavbar search={this.props.search} />
+        <SearchNavbar props={this.props} search={this.props.search} />
         <nav className="breadcrumb">
           <a className="breadcrumb-item" href="#/recent">All</a>
           <a className="breadcrumb-item" href={`#/${link}`}>{category}</a>
