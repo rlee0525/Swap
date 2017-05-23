@@ -1,0 +1,29 @@
+import React from 'react';
+import { capitalize } from 'helpers';
+import { morePadding, labelStyle } from '../styles';
+
+interface Props {
+  type: string;
+  list: string[];
+  clickAction: any;
+  currentValue: string;
+}
+
+const RadioButtons: React.SFC<Props> = ({ type, list, clickAction, currentValue}) => (
+  <div className="form-group radio-group" style={morePadding}>
+    <label style={labelStyle} htmlFor="inputCategory3" className="col-sm-2 control-label-custom">
+      { capitalize(type) }
+    </label>
+
+    { list.map(item => (
+        <div 
+          onClick={clickAction}
+          className={`col-sm-1 radio-button ${currentValue === item ? "radio-active" : "" }`}
+        >
+          { item }
+        </div>
+      ))}      
+  </div>
+);
+
+export { RadioButtons };

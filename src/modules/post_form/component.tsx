@@ -2,7 +2,7 @@ import React from 'react';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
 
-import { ImageDropzone, Categories, Conditions } from './subcomponents';
+import { ImageDropzone, Categories, Conditions, RadioButtons } from './subcomponents';
 import { 
   borderStyle, 
   noBorder, 
@@ -259,6 +259,9 @@ class PostForm extends React.Component<any, State> {
 
   public render() {
 
+    const categories = ['Textbooks', 'Clothing', 'Furniture', 'Electronics', 'Kitchenware', 'Games'];
+    const conditions = ['Brand New', "Like New", "Used"];
+
     return (
       <div className="container">
         {this.renderErrors()}
@@ -268,9 +271,20 @@ class PostForm extends React.Component<any, State> {
         <br/>
         <br/>
         <form className="form-horizontal">
-          <Categories categoryRadioUpdate={this.categoryRadioUpdate} category={this.state.category} />
+          
+          <RadioButtons 
+            type="category" 
+            list={categories} 
+            clickAction={this.categoryRadioUpdate}
+            currentValue={this.state.category}
+          />
 
-          <Conditions conditionRadioUpdate={this.conditionRadioUpdate} condition={this.state.condition} />
+          <RadioButtons
+            type="condition"
+            list={conditions}
+            clickAction={this.conditionRadioUpdate}
+            currentValue={this.state.condition}
+          />
 
           <div className={`form-group ${this.state.category !== "Textbooks" ? "hidden" : ""}`}>
             <label style={labelStyle} htmlFor="inputCourse3" className="col-sm-2 control-label-custom">Course</label>
