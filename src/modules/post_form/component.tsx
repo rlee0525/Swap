@@ -2,6 +2,7 @@ import React from 'react';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
 
+import { IState, _defaultState } from './typings';
 import { ImageDropzone, RadioButtons } from './subcomponents';
 import { 
   borderStyle, 
@@ -17,38 +18,7 @@ declare var $;
 const CLOUDINARY_UPLOAD_PRESET = 'xmfenamw';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/dkympkwdz/upload';
 
-interface State {
-  id?: number;
-  title: string;
-  description: string;
-  category: string;
-  condition: string;
-  course?: string;
-  price: string;
-  img_url1?: string;
-  img_url2?: string;
-  img_url3?: string;
-  courses: object[];
-  errors?: string[];
-  uploadedFile: any;
-}
-
-let defaultState = {
-  id: null,
-  title: "",
-  description: "",
-  category: "Textbooks",
-  condition: "Brand New",
-  course: "",
-  price: "",
-  img_url1: "",
-  img_url2: "",
-  img_url3: "",
-  courses: null,
-  uploadedFile: null
-}
-
-class PostForm extends React.Component<any, State> {
+class PostForm extends React.Component<any, IState> {
   constructor(props: any) {
     super(props);
     this.updateState = this.updateState.bind(this);
@@ -65,7 +35,7 @@ class PostForm extends React.Component<any, State> {
       ...defaultState
     }
 
-    if (typeof props.params.id !== "undefined") {
+    if (props.params.id) {
       this.fetchPost(props.params.id)
     }
   }
