@@ -284,6 +284,9 @@ class PostForm extends React.Component<any, State> {
       padding: '5px 10px'
     };
 
+    console.log(this.state);
+    
+
     return (
       <div>
         <div className="container">
@@ -342,45 +345,22 @@ class PostForm extends React.Component<any, State> {
               </div>
             </div>
             <div className="form-group">
-              <label style={labelStyle} htmlFor="inputImage3" className="col-sm-2 control-label-custom">Image(s) <br/> (required 1)</label>
-              <div className="col-sm-3 FileUpload">
-                <Dropzone
-                  id="img_url1"
-                  className="dropzone-upload form-control"
-                  multiple={ false }
-                  accept="image/*"
-                  onDrop={this.onImageDrop}>
-                  {this.state.img_url1 === '' ? <div>Click or drop image here<br />(330 x 330)</div> :
-                    <img className="img-responsive center-block" style={widthFull} src={this.state.img_url1} />}
-                </Dropzone>
-              </div>
-              <div className="col-sm-3 FileUpload">
-                <Dropzone
-                  id="img_url1"
-                  className="dropzone-upload form-control"
-                  multiple={ false }
-                  accept="image/*"
-                  onDrop={this.onImageDrop}>
-                  {this.state.img_url2 === '' ? <div>Click or drop image here<br />(330 x 330)</div> :
-                    <img className="img-responsive center-block" style={widthFull} src={this.state.img_url2} />}
-                </Dropzone>
-              </div>
-              <div className="col-sm-3 FileUpload">
-                <Dropzone
-                  id="img_url1"
-                  className="dropzone-upload form-control"
-                  multiple={ false }
-                  accept="image/*"
-                  onDrop={this.onImageDrop}>
-                  {this.state.img_url3 === '' ? <div>Click or drop image here<br />(330 x 330)</div> :
-                    <img className="img-responsive center-block" style={widthFull} src={this.state.img_url3} />}
-                </Dropzone>
-              </div>
+              <label style={labelStyle} htmlFor="inputImage3" className="col-sm-2 control-label-custom">
+                Image(s) <br/> (required 1)
+              </label>
+              
+              <ImageDropzone img_url={this.state.img_url1} onImageDrop={this.onImageDrop} />
+              <ImageDropzone img_url={this.state.img_url2} onImageDrop={this.onImageDrop} />
+              <ImageDropzone img_url={this.state.img_url3} onImageDrop={this.onImageDrop} />
+
             </div>
             <div className="form-group">
               <div className="col-sm-2"></div>
               <div className="col-sm-9">
-                <button onClick={this.submitForm} type="button" className="btn btn-primary btn-lg btn-block">{typeof this.props.params.id === "undefined" ? "Create" : "Update"}</button><br/>
+                <button onClick={this.submitForm} type="button" className="btn btn-primary btn-lg btn-block">
+                  {typeof this.props.params.id === "undefined" ? "Create" : "Update"}
+                </button>
+                <br/>
               </div>
             </div>
           </form>
