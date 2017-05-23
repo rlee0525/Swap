@@ -2,7 +2,7 @@ import React from 'react';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
 
-import { ImageDropzone, Categories, Conditions, RadioButtons } from './subcomponents';
+import { ImageDropzone, RadioButtons } from './subcomponents';
 import { 
   borderStyle, 
   noBorder, 
@@ -18,6 +18,7 @@ const CLOUDINARY_UPLOAD_PRESET = 'xmfenamw';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/dkympkwdz/upload';
 
 interface State {
+  id?: number;
   title: string;
   description: string;
   category: string;
@@ -29,6 +30,22 @@ interface State {
   img_url3?: string;
   courses: object[];
   errors?: string[];
+  uploadedFile: any;
+}
+
+let defaultState = {
+  id: null,
+  title: "",
+  description: "",
+  category: "Textbooks",
+  condition: "Brand New",
+  course: "",
+  price: "",
+  img_url1: "",
+  img_url2: "",
+  img_url3: "",
+  courses: null,
+  uploadedFile: null
 }
 
 class PostForm extends React.Component<any, State> {
@@ -46,16 +63,7 @@ class PostForm extends React.Component<any, State> {
     this.checkKey = this.checkKey.bind(this);
 
     this.state = {
-      title: "",
-      description: "",
-      category: "Textbooks",
-      condition: "Brand New",
-      course: "",
-      price: "",
-      img_url1: "",
-      img_url2: "",
-      img_url3: "",
-      courses: null
+      ...defaultState
     }
 
     if (typeof props.params.id !== "undefined") {
@@ -102,16 +110,7 @@ class PostForm extends React.Component<any, State> {
       this.fetchPost(nextProps.params.id)
     } else {
       this.setState({
-        title: "",
-        description: "",
-        category: "Textbooks",
-        condition: "Brand New",
-        course: "",
-        price: "",
-        img_url1: "",
-        img_url2: "",
-        img_url3: "",
-        courses: null
+        ...defaultState
       })
     }
   }
