@@ -5,11 +5,8 @@ import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import App from 'core';
 import Home from 'modules/home';
 import Search from 'modules/search';
-import About from 'modules/about';
 import Post from 'modules/post';
-import Careers from 'modules/careers';
-import FAQ from 'modules/faq';
-import Contact from 'modules/contact';
+import Infos from 'modules/infos';
 import Terms from 'modules/terms';
 import Bookmarks from 'modules/bookmarks';
 import MyPosts from 'modules/my_posts';
@@ -41,10 +38,7 @@ const Root: React.SFC<RootProps> = ({ store }) => {
           <Route path="/search" component={Search} />
 
           {/* Information routes */}
-          <Route path="/about" component={About} />
-          <Route path="/careers" component={Careers} />
-          <Route path="/faq" component={FAQ} />
-          <Route path="/contact" component={Contact} />
+          <Route path="/infos" component={Infos} />
           <Route path="/terms" component={Terms} />
 
           {/* Post routes */}

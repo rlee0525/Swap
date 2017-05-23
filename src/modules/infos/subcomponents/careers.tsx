@@ -22,4 +22,4 @@ class Careers extends React.Component<any, any> {
   }
 }
 
-export default Careers;
+export { Careers };
