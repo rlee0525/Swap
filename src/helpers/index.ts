@@ -1,5 +1,3 @@
-export * from './interfaces';
-
 export const timeFromNow = (date: string) : string => {
   let durationsInSeconds: object = {
     year: 31536000,

@@ -1,5 +1,6 @@
 import React from 'react';
-import { shortenString, timeFromNow, IPost } from 'helpers';
+import { shortenString, timeFromNow } from 'helpers';
+import { IPost } from 'interfaces';
 import { Pagination } from './';
 declare var $;
 
