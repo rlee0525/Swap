@@ -7,7 +7,7 @@ interface Post {
   description: string;
   price: number;
   course: string;
-  created_at: string;
+  updated_at: string;
   img_url1: string;
   img_url2: string;
   img_url3: string;
@@ -25,22 +25,23 @@ interface State {
   description: any;
   price: any;
   course: any;
-  created_at: any;
+  updated_at: any;
   myPost: Post;
 }
 
 class MyPosts extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
+
     this.state = {
       myPosts: [],
       title: -1,
       description: -1,
       price: -1,
       course: -1,
-      created_at: -1,
+      updated_at: -1,
       myPost: null
-    }
+    };
 
     this.getMyPosts = this.getMyPosts.bind(this);
     this.editPost = this.editPost.bind(this);
@@ -59,37 +60,41 @@ class MyPosts extends React.Component<Props, State> {
       method: "GET",
       url: "api/posts",
       data: { access_token: this.props.user.auth.accessToken }
-    }).then(myPosts => this.setState({ myPosts }))
+    }).then(myPosts => this.setState({ myPosts }));
   }
 
   public deletePost(e, id) {
     e.stopPropagation();
+
     const access_token = this.props.user.auth.access_token;
+
     $.ajax({
       type: "PATCH",
       url: `api/posts/${id}`,
       data: { access_token, method: "delete" }
-    }).then(() => this.getMyPosts())
+    }).then(() => this.getMyPosts());
   }
 
   public loadPost(id) {
-    window.location.href = `#/posts/${id}`
+    window.location.href = `#/posts/${id}`;
   }
 
   public editPost(e, id) {
     e.stopPropagation();
-    window.location.href = `#/posts/edit/${id}`
+    window.location.href = `#/posts/edit/${id}`;
   }
 
   public toggleActivation(e, id, polarity) {
-    let method = polarity == true ? "deactivate" : "activate";
     e.stopPropagation();
+
+    let method = polarity == true ? "deactivate" : "activate";
     const access_token = this.props.user.auth.access_token;
+
     $.ajax({
       type: "PATCH",
       url: `api/posts/${id}`,
       data: { access_token, method }
-    }).then(() => this.getMyPosts())
+    }).then(() => this.getMyPosts());
   }
 
   public renderListItem() {
@@ -99,7 +104,7 @@ class MyPosts extends React.Component<Props, State> {
         <td className="hidden-xs">{shortenString(myPost.title, 30)}</td>
         <td className="hidden-xs" id="hide-description">{shortenString(myPost.description, 30)}</td>
         <td className="hidden-xs">${Number(myPost.price).toLocaleString()}</td>
-        <td className="hidden-xs">{timeFromNow(myPost.created_at)}</td>
+        <td className="hidden-xs">{timeFromNow(myPost.updated_at)}</td>
         <td><button type="button" id="action-button" className="btn btn-xs btn-primary" onClick={(e) => this.editPost(e, myPost.id)}>Edit</button></td>
         <td><button type="button" id="action-button" className={`btn btn-xs ${myPost.active ? "btn-primary" : "btn-warning"}`} onClick={(e) => this.toggleActivation(e, myPost.id, myPost.active)}>{myPost.active ? "Active" : "Inactive"}</button></td>
         <td><button type="button" id="action-button" className="btn btn-xs btn-secondary" onClick={(e) => this.deletePost(e, myPost.id)}>Delete</button></td>
@@ -113,7 +118,8 @@ class MyPosts extends React.Component<Props, State> {
       if (a[key] < b[key]) return (-1 * polarity);
       if (a[key] > b[key]) return (1 * polarity);
       return 0;
-    })
+    });
+
     let newPolarity = (polarity === -1 ? 1 : -1);
     this.setState({
       myPosts: newArray,
@@ -133,7 +139,7 @@ class MyPosts extends React.Component<Props, State> {
                   <th onClick={() => this.sortBy("title")} className="hidden-xs">Title<a onClick={() => this.sortBy("title")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
                   <th onClick={() => this.sortBy("description")} className="hidden-xs" id="hide-description">Description<a onClick={() => this.sortBy("description")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
                   <th onClick={() => this.sortBy("price")} className="hidden-xs">Price<a onClick={() => this.sortBy("price")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
-                  <th onClick={() => this.sortBy("created_at")} className="hidden-xs">Posted<a onClick={() => this.sortBy("created_at")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
+                  <th onClick={() => this.sortBy("updated_at")} className="hidden-xs">Posted<a onClick={() => this.sortBy("updated_at")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
                 </tr>
               </thead>
               <tbody>

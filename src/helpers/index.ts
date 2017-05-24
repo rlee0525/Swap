@@ -38,7 +38,7 @@ export const capitalize = (string: string) : string => {
 
 export const searchParams = (query: string, category: string) => {
   let sort_by = "Posting Date";
-  let polarity = 1;
+  let polarity = -1;
   let page_idx = 1;
 
   return {query, category, sort_by, polarity, page_idx};

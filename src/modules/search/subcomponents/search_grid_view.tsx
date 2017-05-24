@@ -13,7 +13,7 @@ interface State {
   title?: number;
   description?: number;
   price?: number;
-  created_at?: number;
+  updated_at?: number;
   condition?: number;
   maxPages?: number;
   currentPage?: number;
@@ -31,7 +31,7 @@ class SearchGridView extends React.Component<Props, State> {
       title: -1,
       description: -1,
       price: -1,
-      created_at: 1,
+      updated_at: 1,
       condition: -1,
       views: -1,
       results,
@@ -89,8 +89,8 @@ class SearchGridView extends React.Component<Props, State> {
   }
 
   renderGridItem(post: IPost) {
-    let createdDate: number | string= Date.parse(post.created_at);
-    createdDate = Date.now() - createdDate <= 86400000 ? timeFromNow(post.created_at) : "";
+    let updatedDate: number | string= Date.parse(post.updated_at);
+    updatedDate = Date.now() - updatedDate <= 86400000 ? timeFromNow(post.updated_at) : "";
     
     return (
       <div className="col-sm-6 col-md-3" key={Math.random() * post.id}
@@ -98,7 +98,7 @@ class SearchGridView extends React.Component<Props, State> {
         <div className="thumbnail col-md-12">
           <a id={post.id}>
             <img src={post.img_url1} alt={post.title} />
-            <div className="thumbnail-caption-top-right">{createdDate}</div>
+            <div className="thumbnail-caption-top-right">{updatedDate}</div>
           </a>
           <div className="caption" id="grid-caption">
             <span id="grid-title">${Number(post.price).toLocaleString()}&nbsp; | &nbsp;{post.title}</span>

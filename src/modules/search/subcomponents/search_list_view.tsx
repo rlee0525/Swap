@@ -13,7 +13,7 @@ interface State {
   title?: number;
   description?: number;
   price?: number;
-  created_at?: number;
+  updated_at?: number;
   condition?: number;
   maxPages?: number;
   currentPage?: number;
@@ -32,7 +32,7 @@ class SearchListView extends React.Component<Props, any> {
       title: -1,
       description: -1,
       price: -1,
-      created_at: -1,
+      updated_at: -1,
       condition: -1,
       views: -1,
       currentPage: 1,
@@ -54,8 +54,7 @@ class SearchListView extends React.Component<Props, any> {
         <td>{post.title}</td>
         <td className="hidden-xs" id="hide-description">{shortenString(post.description, 30)}</td>
         <td>${Number(post.price).toLocaleString()}</td>
-        <td className="hidden-xs">{timeFromNow(post.created_at)}</td>
-        <td className="hidden-xs">{post.condition}</td>
+        <td className="hidden-xs">{timeFromNow(post.updated_at)}</td>
         <td className="hidden-xs">{post.views}</td>
       </tr>
     )
@@ -87,8 +86,7 @@ class SearchListView extends React.Component<Props, any> {
               <th onClick={() => this.sortBy("title")}>Title<a onClick={() => this.sortBy("title")} className="btn btn-xs" id="caret-container" ><span className="caret" /></a></th>
               <th onClick={() => this.sortBy("description")} className="hidden-xs" id="hide-description">Description<a onClick={() => this.sortBy("description")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
               <th onClick={() => this.sortBy("price")}>Price<a onClick={() => this.sortBy("price")} className="btn btn-xs" id="caret-container" ><span className="caret" /></a></th>
-              <th onClick={() => this.sortBy("created_at")} className="hidden-xs">Posted<a onClick={() => this.sortBy("created_at")} className="btn btn-xs" id="caret-container" ><span className="caret" /></a></th>
-              <th onClick={() => this.sortBy("condition")} className="hidden-xs">Condition<a onClick={() => this.sortBy("condition")} className="btn btn-xs" id="caret-container" ><span className="caret" /></a></th>
+              <th onClick={() => this.sortBy("updated_at")} className="hidden-xs">Posted<a onClick={() => this.sortBy("updated_at")} className="btn btn-xs" id="caret-container" ><span className="caret" /></a></th>
               <th onClick={() => this.sortBy("views")} className="hidden-xs">Views<a onClick={() => this.sortBy("views")} className="btn btn-xs" id="caret-container" ><span className="caret" /></a></th>
             </tr>
           </thead>
