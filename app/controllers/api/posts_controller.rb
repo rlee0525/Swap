@@ -9,22 +9,13 @@ class Api::PostsController < ApplicationController
     user = fb_auth_user(params[:access_token])
     @post = Post.new(post_params)
     course = Course.find_by(course_number: params[:course][:course])
-    category = Category.find_by(name: params[:category][:category])
-    @post.category = category
     @post.user = user
-
-    # // TODO remove zip_code?
-    @post.zip_code = "99999"
-    # // TODO
 
     if @post.save
       @post.update(course: course) if course
       render "api/posts/show", status: 200
     else
-      @post.errors.full_messages
-      errors = @post.errors.full_messages
-      errors << "Course can't be blank"
-      render json: errors, status: 422
+      render json: @post.errors.full_messages, status: 422
     end
   end
 
@@ -59,12 +50,10 @@ class Api::PostsController < ApplicationController
       return render "api/posts/show", status: 200
     end
 
-    category_name = params[:category][:category]
     course_number = params[:course][:course]
 
-    category = Category.find_by(name: category_name)
     course = Course.find_by(course_number: course_number)
-    update_params = post_params.merge(category: category, course: course)
+    update_params = post_params.merge(course: course)
 
     if @post && @post.user == user && @post.update(update_params)
       render "api/posts/show", status: 200
@@ -76,7 +65,7 @@ class Api::PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :price,
-                                 :description, :img_url1, :img_url2, :img_url3)
+    params.require(:post)
+          .permit(:title, :price, :description, :category, :img_url1, :img_url2, :img_url3)
   end
 end

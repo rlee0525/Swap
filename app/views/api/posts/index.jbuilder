@@ -9,9 +9,8 @@ json.array! @posts do |post|
                 :img_url1,
                 :img_url2,
                 :img_url3,
-                :category_id,
+                :category,
                 :course_id,
-                :zip_code,
                 :created_at,
                 :active
   json.course post.course.course_number if post.course

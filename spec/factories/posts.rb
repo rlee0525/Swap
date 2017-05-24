@@ -4,19 +4,19 @@
 #
 #  id          :integer          not null, primary key
 #  user_id     :integer          not null
+#  title       :string           not null
 #  description :text             not null
+#  category    :string           not null
 #  price       :integer          not null
 #  img_url1    :string           not null
 #  img_url2    :string
-#  category_id :integer          not null
-#  course_id   :integer
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  title       :string           not null
 #  img_url3    :string
+#  course_id   :integer
 #  views       :integer          default(1)
 #  active      :boolean          default(TRUE)
 #  deleted     :boolean          default(FALSE)
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
 #
 
 FactoryGirl.define do
@@ -28,8 +28,7 @@ FactoryGirl.define do
     img_url1 "some_url"
     img_url2 "some_url"
     img_url3 "some_url"
-    category
+    category "Course Material"
     course
-    zip_code "99999"
   end
 end

@@ -4,28 +4,27 @@
 #
 #  id          :integer          not null, primary key
 #  user_id     :integer          not null
+#  title       :string           not null
 #  description :text             not null
+#  category    :string           not null
 #  price       :integer          not null
 #  img_url1    :string           not null
 #  img_url2    :string
-#  category_id :integer          not null
-#  course_id   :integer
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  title       :string           not null
 #  img_url3    :string
+#  course_id   :integer
 #  views       :integer          default(1)
 #  active      :boolean          default(TRUE)
 #  deleted     :boolean          default(FALSE)
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
 #
 
 class Post < ApplicationRecord
   validates :user, :description,
-            :price, :img_url1, :category,
-            :zip_code, :title, presence: true
+            :price, :img_url1,
+            :title, presence: true
 
   has_many :bookmarks
-  belongs_to :category
   belongs_to :course, inverse_of: :posts, optional: true
   belongs_to :user
 
@@ -48,9 +47,6 @@ class Post < ApplicationRecord
   private
 
   def calc_score(post, query)
-    categories = ['Course Material', 'Clothing', 'Furniture', 'Electronics',
-                  'Lost & Found', 'Games', 'Bikes', 'Housing', 'Others']
-
     query = query.split(' ')
     score = 0
     max = 0
@@ -59,8 +55,6 @@ class Post < ApplicationRecord
       max += word.length
       if post['title'].downcase.include? word.downcase
         score += word.length
-      elsif categories[post['category_id'] + 1] == word.capitalize
-        score += 10
       end
     end
 
