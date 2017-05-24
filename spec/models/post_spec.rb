@@ -10,7 +10,6 @@
 #  img_url2    :string
 #  category_id :integer          not null
 #  course_id   :integer
-#  zip_code    :string
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  title       :string           not null

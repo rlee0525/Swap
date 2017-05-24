@@ -21,7 +21,10 @@ class Api::PostsController < ApplicationController
       @post.update(course: course) if course
       render "api/posts/show", status: 200
     else
-      render json: @post.errors.full_messages, status: 422
+      @post.errors.full_messages
+      errors = @post.errors.full_messages
+      errors << "Course can't be blank"
+      render json: errors, status: 422
     end
   end
 
