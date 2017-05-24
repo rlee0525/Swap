@@ -35,6 +35,7 @@ class Pagination extends React.Component<any, any> {
   }
 
   public render() {
+    $(".pagination").rPage();
     const current = this.props.currentPage;
     const max = this.props.maxPages + 1;
     let range = _.range(1, max);

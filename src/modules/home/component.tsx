@@ -10,7 +10,7 @@ class Home extends React.Component<any, any> {
   }
 
   public componentDidMount() {
-    
+
   }
 
   public viewDescription(e) {

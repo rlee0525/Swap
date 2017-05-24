@@ -1,5 +1,5 @@
 import React from 'react';
-import { shortenString, timeFromNow, IPost } from 'helpers';
+import { shortenString, timeFromNow, IPost, capitalize } from 'helpers';
 import { Pagination } from './';
 declare var $;
 
@@ -17,6 +17,7 @@ interface State {
   maxPages?: number;
   currentPage?: number;
   views?: number;
+  sortBy?: string;
 }
 
 class SearchGridView extends React.Component<Props, State> {
@@ -34,7 +35,8 @@ class SearchGridView extends React.Component<Props, State> {
       views: -1,
       results,
       maxPages,
-      currentPage: 1
+      currentPage: 1,
+      sortBy: "Posting Date"
     };
 
     this.sortBy = this.sortBy.bind(this);
@@ -58,6 +60,7 @@ class SearchGridView extends React.Component<Props, State> {
 
   public sortBy(key: string) {
     let polarity = this.state[key];
+    let sortBy = capitalize(key);
     let newArray: IPost[] = this.state.results.sort(function(a:object, b:object) {
       if (a[key] < b[key]) return (-1 * polarity);
       if (a[key] > b[key]) return (1 * polarity);
@@ -67,7 +70,8 @@ class SearchGridView extends React.Component<Props, State> {
 
     this.setState({
       results: newArray,
-      [key]: newPolarity
+      [key]: newPolarity,
+      sortBy
     });
   }
 
@@ -97,7 +101,7 @@ class SearchGridView extends React.Component<Props, State> {
           </div>
         </div>
       </div>
-    )
+    );
   }
 
   render() {
@@ -109,15 +113,16 @@ class SearchGridView extends React.Component<Props, State> {
         <div className="row">
           <div className="sort-by-panel">
             <div className="btn-group">
+              <div id="sort-by-div">
+                Sort By: 
+              </div>
               <button type="button" className="btn btn-default btn-md dropdown-toggle btn-special-size" id="margin-right" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Sort By <span className="caret"></span>
+                {this.state.sortBy}&nbsp;<span className="caret"></span>
               </button>
               <ul className="dropdown-menu dropdown-menu-right">
                 <li><a onClick={() => this.sortBy("title")} >Title</a></li>
-                <li><a onClick={() => this.sortBy("description")} >Description</a></li>
                 <li><a onClick={() => this.sortBy("price")} >Price</a></li>
                 <li><a onClick={() => this.sortBy("created_at")} >Posting Date</a></li>
-                <li><a onClick={() => this.sortBy("condition")} >Condition</a></li>
                 <li><a onClick={() => this.sortBy("views")} >View Count</a></li>
               </ul>
             </div>
