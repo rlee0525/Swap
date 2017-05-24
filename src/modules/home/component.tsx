@@ -1,6 +1,5 @@
 import React from 'react';
 import { IUser } from 'common/interfaces';
-
 import { SearchNavbar } from 'modules/search/subcomponents';
 import { CategoryBox } from './subcomponents';
 
