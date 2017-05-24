@@ -2,12 +2,14 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'react-redux';
 import { IUser, IStoreState } from 'common/interfaces';
 import Home from './component';
+import { search } from 'modules/search/actions';
 
 interface StateProps {
-  user: IUser;
+  user : IUser;
 }
 
 interface DispatchProps {
+  search : (query: string) => void;
 }
 
 const mapStateToProps = (state: IStoreState, ownProp?: any): StateProps => ({
@@ -15,6 +17,7 @@ const mapStateToProps = (state: IStoreState, ownProp?: any): StateProps => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<IStoreState>): DispatchProps => ({
+  search: query => dispatch(search(query))
 });
 
 export default connect(

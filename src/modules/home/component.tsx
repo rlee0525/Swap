@@ -1,17 +1,24 @@
 import React from 'react';
+import { IUser } from 'common/interfaces';
+
 import { SearchNavbar } from 'modules/search/subcomponents';
 import { CategoryBox } from './subcomponents';
 
 const categories = require('./categories.json');
 
-class Home extends React.Component<any, any> {
+interface Props {
+  user : IUser;
+  search : (query : string) => void;
+}
+
+class Home extends React.Component<any, {}> {
   constructor(props) {
     super(props);
     this.viewDescription = this.viewDescription.bind(this);
     this.hideDescription = this.hideDescription.bind(this);
   }
 
-  public viewDescription(e) {
+  private viewDescription(e) {
     e.currentTarget.querySelectorAll('img')[0].classList.add("thumbnail-backdrop");
     let title = e.currentTarget.querySelectorAll('h3')[0];
     let description = e.currentTarget.querySelectorAll('p')[0];
@@ -24,7 +31,7 @@ class Home extends React.Component<any, any> {
     title.classList.add("slideInDown");
   }
 
-  public hideDescription(e) {
+  private hideDescription(e) {
     e.currentTarget.querySelectorAll('img')[0].classList.remove("thumbnail-backdrop");
     let title = e.currentTarget.querySelectorAll('h3')[0];
     let description = e.currentTarget.querySelectorAll('p')[0];
