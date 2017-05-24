@@ -1,0 +1,56 @@
+ [
+   {
+     "link": "textbooks",
+     "title": "Textbooks",
+     "description": "Stop overpaying for used textbooks",
+     "image": "http://res.cloudinary.com/rlee0525/image/upload/c_pad,h_500,w_500/v1494382616/textbooks_cgpwt3.jpg"
+   },
+   {
+     "link": "furniture",
+     "title": "Furniture",
+     "description": "Shop for furnitures you need",
+     "image": "http://res.cloudinary.com/rlee0525/image/upload/c_pad,h_500,w_500/v1494383271/furniture_crbpql.jpg"
+   },
+   {
+     "link": "clothing",
+     "title": "Clothing",
+     "description": "Swap clothings with your colleagues",
+     "image": "http://res.cloudinary.com/rlee0525/image/upload/c_fill,h_500,w_500/v1494384935/clothing_xjdmxd.png"
+   },
+   {
+     "link": "electronics",
+     "title": "Electronics",
+     "description": "Buy all your electronics at a much cheaper price",
+     "image": "http://res.cloudinary.com/rlee0525/image/upload/c_pad,h_500,w_500/v1494385670/electronics_fqplnz.jpg"
+   },
+   {
+     "link": "housing",
+     "title": "Housing",
+     "description": "Find a place to sublet or lease",
+     "image": "http://res.cloudinary.com/rlee0525/image/upload/c_pad,h_500,w_500/v1495410124/housing_hf5hbm.jpg"
+   },
+   {
+     "link": "bikes",
+     "title": "Bikes",
+     "description": "Buy all your bikes at a much cheaper price",
+     "image": "http://res.cloudinary.com/rlee0525/image/upload/c_pad,h_500,w_500/v1495410621/bikes_j1jaqe.jpg"
+   },
+   {
+     "link": "games",
+     "title": "Games",
+     "description": "Stop wasting money at GameStop",
+     "image": "http://res.cloudinary.com/rlee0525/image/upload/c_pad,h_500,w_500/v1494386061/games_sn1bay.png"
+   },
+   {
+     "link": "others",
+     "title": "Others",
+     "description": "Everything else you need",
+     "image": "http://res.cloudinary.com/rlee0525/image/upload/c_pad,h_500,w_500/v1494385420/kitchenware_brijih.jpg"
+   },
+   {
+     "link": "lostandfound",
+     "title": "Lost & Found",
+     "description": "Help out your colleagues",
+     "image": "http://res.cloudinary.com/rlee0525/image/upload/c_pad,h_500,w_500/v1495410547/lostandfound_mphhqx.jpg"
+   }
+ ]

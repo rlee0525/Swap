@@ -1,21 +1,12 @@
 import React from 'react';
 import Clipboard from 'clipboard';
+import { IUser, IPost } from 'common/interfaces';
+import { TableHeaders, DashboardHeaders } from 'common/components';
 import { shortenString, timeFromNow } from 'helpers';
 declare var window;
 
-interface Post {
-  title: string;
-  description: string;
-  price: number;
-  created_at: string;
-  condition: string;
-  img_url1: string;
-  img_url2: string;
-  img_url3: string;
-}
-
 interface State {
-  bookmarkedPosts: Post [];
+  bookmarkedPosts: IPost [];
   title: any;
   description: any;
   price: any;
@@ -23,7 +14,7 @@ interface State {
   condition: any;
 }
 
-class Bookmarks extends React.Component<any, any> {
+class Bookmarks extends React.Component<any, State> {
   constructor(props) {
     super(props);
     
@@ -39,7 +30,6 @@ class Bookmarks extends React.Component<any, any> {
     this.initializeClipboard = this.initializeClipboard.bind(this);
     this.fetchBookmarkedPosts = this.fetchBookmarkedPosts.bind(this);
     this.deleteBookmarkedPost = this.deleteBookmarkedPost.bind(this);
-    this.sortBy = this.sortBy.bind(this);
   }
 
   public fetchBookmarkedPosts() {
@@ -57,7 +47,7 @@ class Bookmarks extends React.Component<any, any> {
       type: "DELETE",
       url: `api/bookmarks/${postId}`,
       data: { access_token: this.props.user.auth.accessToken }
-    }).then(() => this.fetchBookmarkedPosts())
+    }).then(this.fetchBookmarkedPosts)
   }
 
   public componentDidMount() {
@@ -93,45 +83,19 @@ class Bookmarks extends React.Component<any, any> {
     ))
   }
 
-  public sortBy(key) {
-    let polarity = this.state[key];
-    let newArray = this.state.bookmarkedPosts.sort(function(a: object, b: object) {
-      if (a[key] < b[key]) return (-1 * polarity);
-      if (a[key] > b[key]) return (1 * polarity);
-      return 0;
-    })
-    let newPolarity = (polarity === -1 ? 1 : -1);
-    this.setState({
-      bookmarkedPosts: newArray,
-      [key]: newPolarity
-    });
-  }
-
   public render() {
+    const headers = ['title', 'price', 'created_at', 'condition'];
+    
     return (
       <div>
         <div className="container">
-          <ul className="nav nav-tabs">
-            <li role="presentation" id="dashboard-nav-title"><a href="#/dashboard/posts">Posts</a></li>
-            <li role="presentation" id="dashboard-nav-title" className="active"><a href="#/dashboard/bookmarks">Bookmarks</a></li>
-            <li role="presentation" id="dashboard-nav-title"><a href="#/dashboard/rfps">Alerts</a></li>
-          </ul>
+          <DashboardHeaders />
           <div>
             <div className="panel panel-default">
               <div className="panel-body">
                 <table className="table table-hover">
-                  <thead>
-                    <tr>
-                      <th id="th-no-caret"></th>
-                      <th onClick={() => this.sortBy("title")} className="hidden-xs">Title<a onClick={() => this.sortBy("title")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
-                      <th onClick={() => this.sortBy("description")} className="hidden-xs" id="hide-description">Description<a onClick={() => this.sortBy("description")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
-                      <th onClick={() => this.sortBy("price")} className="hidden-xs">Price<a onClick={() => this.sortBy("price")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
-                      <th onClick={() => this.sortBy("created_at")} className="hidden-xs">Posted<a onClick={() => this.sortBy("created_at")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
-                      <th onClick={() => this.sortBy("condition")} className="hidden-xs">Condition<a onClick={() => this.sortBy("condition")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
-                      <th id="th-no-caret">Copy</th>
-                      <th id="th-no-caret">Delete</th>
-                    </tr>
-                  </thead>
+                  <TableHeaders context={this} array={this.state.bookmarkedPosts} headers={headers} />
+                  
                   <tbody>
                     {this.renderListItems()}
                   </tbody>
