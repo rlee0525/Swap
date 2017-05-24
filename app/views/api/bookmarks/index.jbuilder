@@ -10,6 +10,6 @@ json.array! @bookmarked_posts do |bookmarked_post|
                 :img_url3,
                 :category,
                 :course_id,
-                :created_at,
+                :updated_at,
                 :active
 end
