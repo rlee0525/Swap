@@ -8,9 +8,8 @@ json.array! @bookmarked_posts do |bookmarked_post|
                 :img_url1,
                 :img_url2,
                 :img_url3,
-                :category_id,
+                :category,
                 :course_id,
-                :zip_code,
                 :created_at,
                 :active
 end

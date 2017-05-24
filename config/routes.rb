@@ -7,7 +7,6 @@ Rails.application.routes.draw do
       resources :universities,    only: [:index, :show]
       resources :posts,           only: [:index, :create, :show, :update]
       resources :courses,         only: [:index, :show]
-      resources :categories,      only: [:index, :show]
       resources :search,          only: [:index]
       resources :bookmarks,       only: [:index, :create, :destroy]
       resources :rfps,            only: [:index, :create, :destroy]

@@ -43,7 +43,7 @@ module Posts
       img_url1: "#{url_prefix}/58.jpg", img_url2: "#{url_prefix}/59.jpg", img_url3: "#{url_prefix}/60.jpg" },
     { title: "BUY/SELL/TRADE VIDEO GAMES FREE", description: "Hello! I have been collecting, trading & selling games for over 10 years! I want to give you CASH for your OLD VIDEO games and consoles.",
       img_url1: "#{url_prefix}/61.jpg", img_url2: nil, img_url3: nil },
-    { title: "Nintendo Wii Video Game System w/16 Games & Accessories", description: "2 Controllers 1- Motion Plus Adapter in Silicone Covers 2-Nunchuks AC Adapter Sensor Bar",
+    { title: "Nintendo Wii Video Game System w/16 Games", description: "2 Controllers 1- Motion Plus Adapter in Silicone Covers 2-Nunchuks AC Adapter Sensor Bar",
       img_url1: "#{url_prefix}/64.jpg", img_url2: "#{url_prefix}/65.jpg", img_url3: "#{url_prefix}/66.jpg" },
     { title: "Various PS2 video games - $5", description: "Various PS2 video games for $5 each.",
       img_url1: "#{url_prefix}/67.jpg", img_url2: nil, img_url3: nil },

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170524160341) do
+ActiveRecord::Schema.define(version: 20170513052840) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,12 +18,6 @@ ActiveRecord::Schema.define(version: 20170524160341) do
   create_table "bookmarks", force: :cascade do |t|
     t.integer  "user_id",    null: false
     t.integer  "post_id",    null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "categories", force: :cascade do |t|
-    t.string   "name",       null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -54,20 +48,20 @@ ActiveRecord::Schema.define(version: 20170524160341) do
 
   create_table "posts", force: :cascade do |t|
     t.integer  "user_id",                     null: false
+    t.string   "title",                       null: false
     t.text     "description",                 null: false
+    t.string   "category",                    null: false
     t.integer  "price",                       null: false
     t.string   "img_url1",                    null: false
     t.string   "img_url2"
-    t.integer  "category_id",                 null: false
-    t.integer  "course_id"
-    t.string   "zip_code"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-    t.string   "title",                       null: false
     t.string   "img_url3"
+    t.integer  "course_id"
     t.integer  "views",       default: 1
     t.boolean  "active",      default: true
     t.boolean  "deleted",     default: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.index ["category"], name: "index_posts_on_category", using: :btree
     t.index ["course_id"], name: "index_posts_on_course_id", using: :btree
     t.index ["user_id"], name: "index_posts_on_user_id", using: :btree
   end
@@ -89,17 +83,15 @@ ActiveRecord::Schema.define(version: 20170524160341) do
 
   create_table "users", force: :cascade do |t|
     t.string   "fb_id",                                   null: false
+    t.boolean  "edu_email_confirmed",     default: false
+    t.string   "edu_email_confirm_token"
+    t.string   "fb_email"
     t.string   "edu_email"
     t.integer  "university_id"
     t.boolean  "marketing_opt_in",        default: true,  null: false
     t.datetime "created_at",                              null: false
     t.datetime "updated_at",                              null: false
-    t.string   "fb_email"
-    t.boolean  "edu_email_confirmed",     default: false
-    t.string   "edu_email_confirm_token"
-    t.index ["edu_email"], name: "index_users_on_edu_email", using: :btree
-    t.index ["fb_id"], name: "index_users_on_fb_id", unique: true, using: :btree
-    t.index ["university_id"], name: "index_users_on_university_id", using: :btree
+    t.index ["fb_id"], name: "index_users_on_fb_id", using: :btree
   end
 
 end
