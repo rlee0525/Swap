@@ -54,6 +54,10 @@ class SearchNavbar extends React.Component<Props, State> {
     this.props.search(e.target.value);
   }
 
+  private searchClick() {
+
+  }
+
   private renderCateogryMenu(label) {
     this.setState({ label });
   }
