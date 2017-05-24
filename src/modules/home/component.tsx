@@ -1,9 +1,15 @@
 import React from 'react';
 import { SearchNavbar } from 'modules/search/subcomponents';
+import { CategoryBox } from './subcomponents';
+
+const categories = require('./categories.json');
 
 class Home extends React.Component<any, any> {
   constructor(props) {
     super(props);
+
+    console.log(categories);
+    
 
     this.viewDescription = this.viewDescription.bind(this);
     this.hideDescription = this.hideDescription.bind(this);
@@ -56,6 +62,15 @@ class Home extends React.Component<any, any> {
         <div>
           <div className="container" id="add-margin-bottom">
             <div className="row">
+
+              { categories.map(box => (
+                <CategoryBox
+                  viewDescription={this.viewDescription}
+                  hideDescription={this.hideDescription}
+                  box={box}
+                />
+              ))}
+
               <div className="col-xs-6 col-md-4">
                 <a href="/#/textbooks" className="thumbnail" onMouseOver={(e) => this.viewDescription(e)} onMouseOut={(e) => this.hideDescription(e)}>
                   <img className="thumbnail-image" src="http://res.cloudinary.com/rlee0525/image/upload/c_pad,h_500,w_500/v1494382616/textbooks_cgpwt3.jpg" alt="..."/>
