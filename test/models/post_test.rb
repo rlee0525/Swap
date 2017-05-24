@@ -15,9 +15,9 @@
 #  updated_at  :datetime         not null
 #  title       :string           not null
 #  img_url3    :string
-#  condition   :string           not null
 #  views       :integer          default(1)
 #  active      :boolean          default(TRUE)
+#  deleted     :boolean          default(FALSE)
 #
 
 require 'test_helper'
