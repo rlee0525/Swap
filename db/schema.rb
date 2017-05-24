@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170522033132) do
+ActiveRecord::Schema.define(version: 20170524160341) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,7 +65,6 @@ ActiveRecord::Schema.define(version: 20170522033132) do
     t.datetime "updated_at",                  null: false
     t.string   "title",                       null: false
     t.string   "img_url3"
-    t.string   "condition",                   null: false
     t.integer  "views",       default: 1
     t.boolean  "active",      default: true
     t.boolean  "deleted",     default: false
