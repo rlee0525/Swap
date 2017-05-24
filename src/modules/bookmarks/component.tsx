@@ -30,7 +30,6 @@ class Bookmarks extends React.Component<any, State> {
     this.initializeClipboard = this.initializeClipboard.bind(this);
     this.fetchBookmarkedPosts = this.fetchBookmarkedPosts.bind(this);
     this.deleteBookmarkedPost = this.deleteBookmarkedPost.bind(this);
-    this.sortBy = this.sortBy.bind(this);
   }
 
   public fetchBookmarkedPosts() {
@@ -84,22 +83,7 @@ class Bookmarks extends React.Component<any, State> {
     ))
   }
 
-  public sortBy(key) {
-    let polarity = this.state[key];
-    let newArray = this.state.bookmarkedPosts.sort(function(a: object, b: object) {
-      if (a[key] < b[key]) return (-1 * polarity);
-      if (a[key] > b[key]) return (1 * polarity);
-      return 0;
-    })
-    let newPolarity = (polarity === -1 ? 1 : -1);
-    this.setState({
-      bookmarkedPosts: newArray,
-      [key]: newPolarity
-    });
-  }
-
   public render() {
-    console.log(this.state);
     const headers = ['title', 'price', 'created_at', 'condition'];
     
     return (
@@ -115,18 +99,7 @@ class Bookmarks extends React.Component<any, State> {
               <div className="panel-body">
                 <table className="table table-hover">
                   <TableHeaders context={this} array={this.state.bookmarkedPosts} headers={headers} />
-                  <thead>
-                    <tr>
-                      <th id="th-no-caret"></th>
-                      <th onClick={() => this.sortBy("title")} className="hidden-xs">Title<a onClick={() => this.sortBy("title")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
-                      <th onClick={() => this.sortBy("description")} className="hidden-xs" id="hide-description">Description<a onClick={() => this.sortBy("description")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
-                      <th onClick={() => this.sortBy("price")} className="hidden-xs">Price<a onClick={() => this.sortBy("price")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
-                      <th onClick={() => this.sortBy("created_at")} className="hidden-xs">Posted<a onClick={() => this.sortBy("created_at")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
-                      <th onClick={() => this.sortBy("condition")} className="hidden-xs">Condition<a onClick={() => this.sortBy("condition")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
-                      <th id="th-no-caret">Copy</th>
-                      <th id="th-no-caret">Delete</th>
-                    </tr>
-                  </thead>
+                  
                   <tbody>
                     {this.renderListItems()}
                   </tbody>
