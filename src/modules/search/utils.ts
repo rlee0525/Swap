@@ -1,9 +1,9 @@
 /* global $ */
 
-export const search = (query: string) => (
+export const search = (data: object) => (
   $.ajax({
     method: 'GET',
     url: 'api/search',
-    data: { query }
+    data
   })
 );

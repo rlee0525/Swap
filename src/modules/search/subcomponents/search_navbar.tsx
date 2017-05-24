@@ -18,8 +18,8 @@ class SearchNavbar extends React.Component<Props, State> {
     }
 
     this.handleKeyPress = this.handleKeyPress.bind(this);
-    this.onChange = this.onChange.bind(this);
     this.renderCateogryMenu = this.renderCateogryMenu.bind(this);
+    this.onClick = this.onClick.bind(this);
   }
 
   public componentWillReceiveProps(nextProps) {
@@ -50,12 +50,15 @@ class SearchNavbar extends React.Component<Props, State> {
     }
   }
 
-  private onChange(e: any) {
-    this.props.search(e.target.value);
-  }
+  private onClick() {
+    //TODO: update
+    let query = document.getElementById("search-query").value;
+    let category = "Textbooks";
+    let sort_by = "Posting Date";
+    let polarity = 1;
+    let page_idx = 1;
 
-  private searchClick() {
-
+    this.props.search({query, category, sort_by, polarity, page_idx});
   }
 
   private renderCateogryMenu(label) {
@@ -84,8 +87,8 @@ class SearchNavbar extends React.Component<Props, State> {
           </ul>
         </div>
         <div className="input-group col-md-10 col-sm-9 col-xs-8" id="phone-search-nav">
-          <input type="text" className="form-control" placeholder="Search" onChange={this.onChange} />
-          <span className="input-group-addon search-icon" id="basic-addon2"><span className="glyphicon glyphicon-search" aria-hidden="true" /></span>
+          <input id="search-query" type="text" className="form-control" placeholder="Search" />
+          <span className="input-group-addon search-icon" id="basic-addon2" onClick={this.onClick}><span className="glyphicon glyphicon-search" aria-hidden="true" /></span>
         </div>
       </div>
     );

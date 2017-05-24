@@ -1,11 +1,10 @@
 import React from 'react';
 import { IPost } from 'common/interfaces';
-import { shortenString } from 'helpers';
+import { shortenString, capitalize } from 'helpers';
 
-import {
-  SearchGridView,
-  SearchListView,
-  SearchNavbar } from './subcomponents';
+import { SearchGridView,
+         SearchListView,
+         SearchNavbar } from './subcomponents';
 
 interface State {
   viewType: string;
@@ -15,10 +14,18 @@ interface State {
 interface Props {
   user: object;
   searchResult: IPost[];
-  search: (query: string) => JQueryXHR;
+  search: (query: object) => JQueryXHR;
   location: any;
   post: any;
 }
+
+const _searchParams = (query: string, category: string) => {
+  let sort_by = "Posting Date";
+  let polarity = 1;
+  let page_idx = 1;
+
+  return {query, category, sort_by, polarity, page_idx};
+};
 
 class Search extends React.Component<Props, State> {
   constructor(props) {
@@ -31,20 +38,24 @@ class Search extends React.Component<Props, State> {
   }
 
   public componentWillMount() {
-    let path = this.props.location.pathname.slice(1);
-    if (path === "recent") {
-      this.props.search('').then(res => {
-        let posts = this.props.searchResult.sort((a: any, b: any) => Date.parse(b.created_at) - Date.parse(a.created_at))
+    let category = this.props.location.pathname.slice(1);
+
+    if (category === "recent") {
+      this.props.search(_searchParams("", "All")).then(res => {
+        let posts = this.props.searchResult;
         this.setState({
           posts: this.props.searchResult
         });
       })
     } else {
-      if (path === "lostandfound") {
-        path = "Lost & Found";
+      if (category === "lostandfound") {
+        category = "Lost & Found";
+      } else {
+        category = capitalize(category);
       }
-      this.props.search(path).then(res => {
-        let posts = this.props.searchResult.sort((a: any, b: any) => Date.parse(b.created_at) - Date.parse(a.created_at))
+      
+      this.props.search(_searchParams("", category)).then(res => {
+        let posts = this.props.searchResult;
         this.setState({
           posts: this.props.searchResult
         });
@@ -53,21 +64,24 @@ class Search extends React.Component<Props, State> {
   }
 
   public componentWillReceiveProps(nextProps: any){
-    let nextLocation = nextProps.location.pathname.slice(1)
-    if (nextLocation !== this.props.location.pathname.slice(1)) {
-      if (nextLocation === "recent") {
-        this.props.search('').then(res => {
-          let posts = this.props.searchResult.sort((a: any, b: any) => Date.parse(b.created_at) - Date.parse(a.created_at))
+    let nextCategory = nextProps.location.pathname.slice(1);
+
+    if (nextCategory !== this.props.location.pathname.slice(1)) {
+      if (nextCategory === "recent") {
+        this.props.search(_searchParams("", "All")).then(res => {
+          let posts = this.props.searchResult;
           this.setState({
             posts: this.props.searchResult
           });
         })
       } else {
-        if (nextLocation === "lostandfound") {
-          nextLocation = "Lost & Found";
+        if (nextCategory === "lostandfound") {
+          nextCategory = "Lost & Found";
         }
-        this.props.search(nextLocation).then(res => {
-          let posts = this.props.searchResult.sort((a: any, b: any) => Date.parse(b.created_at) - Date.parse(a.created_at))
+
+        nextCategory = capitalize(nextCategory);
+        this.props.search(_searchParams("", nextCategory)).then(res => {
+          let posts = this.props.searchResult;
           this.setState({
             posts: this.props.searchResult
           });
