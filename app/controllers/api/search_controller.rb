@@ -13,7 +13,7 @@ class Api::SearchController < ApplicationController
     offset = 16 * (page_idx.to_i - 1)
     limit = 16
     sql_query = query.split(' ').map { |word| "%#{word}%" }
-    sql = 'title ILIKE ANY( array[?] ) OR categories.name ILIKE ANY ( array[?] )'
+    sql = 'title ILIKE ANY( array[?] )'
 
     if (query.nil? || query.empty?) && (category.nil? || category.empty?)
       @posts = Post.where(active: true)
@@ -22,10 +22,9 @@ class Api::SearchController < ApplicationController
                    .offset(offset)
                    .limit(limit)
     elsif (query.nil? || query.empty?)
-      @posts = Post.joins(:category)
-                   .where(active: true)
+      @posts = Post.where(active: true)
                    .where(deleted: false)
-                   .where("categories.name" => category)
+                   .where(category: category)
                    .order("#{sort_by} #{polarity}")
                    .offset(offset)
                    .limit(limit)
@@ -35,16 +34,15 @@ class Api::SearchController < ApplicationController
                    .order("#{sort_by} #{polarity}")
                    .offset(offset)
                    .limit(limit)
-                   .where(sql, sql_query, sql_query)
+                   .where(sql, sql_query)
     else
-      @posts = Post.joins(:category)
-                   .where(active: true)
+      @posts = Post.where(active: true)
                    .where(deleted: false)
-                   .where("categories.name" => category)
+                   .where(category: category)
                    .order("#{sort_by} #{polarity}")
                    .offset(offset)
                    .limit(limit)
-                   .where(sql, sql_query, sql_query)
+                   .where(sql, sql_query)
     end
 
     render 'api/search/index'
@@ -68,11 +66,6 @@ class Api::SearchController < ApplicationController
   #     elsif categories[post['category_id'] + 1] == word.capitalize
   #       score += 10
   #     end
-  #   end
-  #
-  #   case post['condition']
-  #   when 'Like New' then score += 1
-  #   when 'Brand New' then score += 2
   #   end
   #
   #   score

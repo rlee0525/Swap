@@ -1,17 +1,9 @@
 require_relative("posts")
 require("csv")
 
-categories = ['Textbooks', 'Clothing', 'Furniture', 'Electronics',
+categories = ['Course Material', 'Clothing', 'Furniture', 'Electronics',
               'Lost & Found', 'Bikes', 'Housing', 'Games', 'Others']
 universities = [['Berkeley', 'berkeley.edu']]
-conditions = ["Brand New", "Like New", "Used"]
-
-
-categories.each do |name|
-  Category.create!(
-    name: name
-  )
-end
 
 universities.each do |name, email_extension|
   University.create!(
@@ -44,11 +36,10 @@ User.create!(
 )
 
 200.times do |idx|
-  category = Category.find(rand(1..Category.count))
-  if category
+  category = categories.sample
+  course = nil
+  if category == "Course Material"
     course = Course.find(rand(1..Course.count))
-  else
-    course = nil
   end
 
   Post.create!(
@@ -61,8 +52,6 @@ User.create!(
     img_url3: Posts::DATA[idx % 29][:img_url3],
     category: category,
     course: course,
-    zip_code: rand(0..9999).to_s,
-    condition: conditions.sample,
     created_at: rand(0..4320).minutes.ago
   )
 end
