@@ -1,3 +1,9 @@
+export interface IStoreState {
+  user: IUser | null;
+  post: IPost | null;
+  searchResult: IPost[];
+}
+
 export interface IPost {
   active: boolean;
   category_id: number;
