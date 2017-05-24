@@ -21,7 +21,6 @@ class Api::SearchController < ApplicationController
                    .order("#{sort_by} #{polarity}")
                    .offset(offset)
                    .limit(limit)
-      return render 'api/search/index'
     elsif (query.nil? || query.empty?)
       @posts = Post.joins(:category)
                    .where(active: true)
