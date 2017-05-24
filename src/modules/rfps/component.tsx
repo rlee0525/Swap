@@ -101,7 +101,7 @@ class Rfps extends React.Component <Props, State> {
                         <span className="caret" />
                       </a>
                     </th>
-                    <th id="th-no-caret-rfp">Delete</th>
+                    <th id="th-no-caret-rfp"></th>
                   </tr>
                 </thead>
                 <tbody>

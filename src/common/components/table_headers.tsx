@@ -34,7 +34,7 @@ class TableHeaders extends React.Component<Props, State> {
     return (
       <thead>
         <tr>
-          <th id="th-no-caret">Thumbnail</th>
+          <th id="th-no-caret"></th>
           { headers.map(header => (
             <th onClick={() => this.sortBy(header.toLowerCase())} className="hidden-xs">
               { header === 'created_at' ? 'Posted' : header }
@@ -43,8 +43,6 @@ class TableHeaders extends React.Component<Props, State> {
               </a>
             </th>
           ))}
-          <th id="th-no-caret">Copy Link</th>
-          <th id="th-no-caret">Delete</th>
         </tr>
       </thead>
     );

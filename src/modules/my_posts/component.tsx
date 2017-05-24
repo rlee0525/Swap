@@ -129,14 +129,11 @@ class MyPosts extends React.Component<Props, State> {
             <table className="table table-hover">
               <thead>
                 <tr>
-                  <th id="th-no-caret">Thumbnail</th>
+                  <th id="th-no-caret"></th>
                   <th onClick={() => this.sortBy("title")} className="hidden-xs">Title<a onClick={() => this.sortBy("title")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
                   <th onClick={() => this.sortBy("description")} className="hidden-xs" id="hide-description">Description<a onClick={() => this.sortBy("description")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
                   <th onClick={() => this.sortBy("price")} className="hidden-xs">Price<a onClick={() => this.sortBy("price")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
                   <th onClick={() => this.sortBy("created_at")} className="hidden-xs">Posted<a onClick={() => this.sortBy("created_at")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
-                  <th id="th-no-caret">Edit</th>
-                  <th id="th-no-caret">Active</th>
-                  <th id="th-no-caret">Delete</th>
                 </tr>
               </thead>
               <tbody>
