@@ -8,7 +8,6 @@ interface Post {
   price: number;
   course: string;
   created_at: string;
-  condition: string;
   img_url1: string;
   img_url2: string;
   img_url3: string;
@@ -27,7 +26,6 @@ interface State {
   price: any;
   course: any;
   created_at: any;
-  condition: any;
   myPost: Post;
 }
 
@@ -41,7 +39,6 @@ class MyPosts extends React.Component<Props, State> {
       price: -1,
       course: -1,
       created_at: -1,
-      condition: -1,
       myPost: null
     }
 
@@ -103,7 +100,6 @@ class MyPosts extends React.Component<Props, State> {
         <td className="hidden-xs" id="hide-description">{shortenString(myPost.description, 30)}</td>
         <td className="hidden-xs">${Number(myPost.price).toLocaleString()}</td>
         <td className="hidden-xs">{timeFromNow(myPost.created_at)}</td>
-        <td className="hidden-xs">{myPost.condition}</td>
         <td><button type="button" id="action-button" className="btn btn-xs btn-primary" onClick={(e) => this.editPost(e, myPost.id)}>Edit</button></td>
         <td><button type="button" id="action-button" className={`btn btn-xs ${myPost.active ? "btn-primary" : "btn-warning"}`} onClick={(e) => this.toggleActivation(e, myPost.id, myPost.active)}>{myPost.active ? "Active" : "Inactive"}</button></td>
         <td><button type="button" id="action-button" className="btn btn-xs btn-secondary" onClick={(e) => this.deletePost(e, myPost.id)}>Delete</button></td>
@@ -133,12 +129,11 @@ class MyPosts extends React.Component<Props, State> {
             <table className="table table-hover">
               <thead>
                 <tr>
-                  <th id="th-no-caret"></th>
+                  <th id="th-no-caret">Thumbnail</th>
                   <th onClick={() => this.sortBy("title")} className="hidden-xs">Title<a onClick={() => this.sortBy("title")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
                   <th onClick={() => this.sortBy("description")} className="hidden-xs" id="hide-description">Description<a onClick={() => this.sortBy("description")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
                   <th onClick={() => this.sortBy("price")} className="hidden-xs">Price<a onClick={() => this.sortBy("price")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
                   <th onClick={() => this.sortBy("created_at")} className="hidden-xs">Posted<a onClick={() => this.sortBy("created_at")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
-                  <th onClick={() => this.sortBy("condition")} className="hidden-xs">Condition<a onClick={() => this.sortBy("condition")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
                   <th id="th-no-caret">Edit</th>
                   <th id="th-no-caret">Active</th>
                   <th id="th-no-caret">Delete</th>

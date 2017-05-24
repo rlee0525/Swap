@@ -11,20 +11,18 @@ interface State {
   description: any;
   price: any;
   created_at: any;
-  condition: any;
 }
 
 class Bookmarks extends React.Component<any, State> {
   constructor(props) {
     super(props);
-    
+
     this.state = {
       bookmarkedPosts: [],
       title: -1,
       description: -1,
       price: -1,
-      created_at: -1,
-      condition: -1
+      created_at: -1
     }
 
     this.initializeClipboard = this.initializeClipboard.bind(this);
@@ -76,7 +74,6 @@ class Bookmarks extends React.Component<any, State> {
         <td className="hidden-xs" id="hide-description">{shortenString(bookmarkedPost.description, 30)}</td>
         <td className="hidden-xs">${Number(bookmarkedPost.price).toLocaleString()}</td>
         <td className="hidden-xs">{timeFromNow(bookmarkedPost.created_at)}</td>
-        <td className="hidden-xs">{bookmarkedPost.condition}</td>
         <td><button type="button" className="btn btn-xs btn-primary" data-clipboard-text={window.localhost_url + `/#/posts/${bookmarkedPost.id}`} onClick={e => e.stopPropagation()}>Copy Link</button></td>
         <td><button type="button" className="btn btn-xs btn-secondary" onClick={(e) => this.deleteBookmarkedPost(e, bookmarkedPost.id)}>Delete</button></td>
       </tr>
@@ -84,8 +81,8 @@ class Bookmarks extends React.Component<any, State> {
   }
 
   public render() {
-    const headers = ['title', 'price', 'created_at', 'condition'];
-    
+    const headers = ['title', 'description', 'price', 'created_at'];
+
     return (
       <div>
         <div className="container">
@@ -95,7 +92,7 @@ class Bookmarks extends React.Component<any, State> {
               <div className="panel-body">
                 <table className="table table-hover">
                   <TableHeaders context={this} array={this.state.bookmarkedPosts} headers={headers} />
-                  
+
                   <tbody>
                     {this.renderListItems()}
                   </tbody>
