@@ -1,5 +1,3 @@
-export * from './interfaces';
-
 export const timeFromNow = (date: string) : string => {
   let durationsInSeconds: object = {
     year: 31536000,
@@ -34,6 +32,6 @@ export const shortenString = (string: string, maxLength: number) : string => {
   return string;
 };
 
-export const capitalize = (string: string) => {
+export const capitalize = (string: string) : string => {
   return string[0].toUpperCase() + string.slice(1).toLowerCase();
 }
