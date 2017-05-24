@@ -113,17 +113,14 @@ class SearchGridView extends React.Component<Props, State> {
         <div className="row">
           <div className="sort-by-panel">
             <div className="btn-group">
-              <div id="sort-by-div">
-                Sort By: 
-              </div>
               <button type="button" className="btn btn-default btn-md dropdown-toggle btn-special-size" id="margin-right" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {this.state.sortBy}&nbsp;<span className="caret"></span>
               </button>
               <ul className="dropdown-menu dropdown-menu-right">
-                <li><a onClick={() => this.sortBy("title")} >Title</a></li>
-                <li><a onClick={() => this.sortBy("price")} >Price</a></li>
-                <li><a onClick={() => this.sortBy("created_at")} >Posting Date</a></li>
-                <li><a onClick={() => this.sortBy("views")} >View Count</a></li>
+                <li><a onClick={() => this.sortBy("price")}>Price: Low to High</a></li>
+                <li><a onClick={() => this.sortBy("price")}>Price: High to Low</a></li>
+                <li><a onClick={() => this.sortBy("created_at")}>Posting Date</a></li>
+                <li><a onClick={() => this.sortBy("views")}>Popularity</a></li>
               </ul>
             </div>
           </div>

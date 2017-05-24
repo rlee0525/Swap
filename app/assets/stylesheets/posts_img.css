@@ -53,7 +53,7 @@
 }
 
 .btn-special-margin {
-  margin-bottom: 8px !important;
+  margin-bottom: 6px !important;
 }
 
 #grid-title {
@@ -81,5 +81,10 @@
 }
 
 #margin-right {
-  margin-right: 10px !important;
+  margin-right: 9px !important;
+}
+
+#breadcrumb-container {
+  font-size: 14px;
+  padding-top: 5px;
 }

@@ -102,7 +102,7 @@ class Search extends React.Component<Props, State> {
 
             <div className="col-md-12">
               <div id="nav-tools">
-                <nav className="breadcrumb">
+                <nav className="breadcrumb" id="breadcrumb-container">
                   <a className="breadcrumb-item" href="#/recent">All</a>
                   <a className="breadcrumb-item" href={`#/${path}`}>{uppercase}</a>
                 </nav>
