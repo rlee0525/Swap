@@ -1,4 +1,5 @@
 import React from 'react';
+import { SearchNavbar } from 'modules/search/subcomponents';
 
 class Home extends React.Component<any, any> {
   constructor(props) {
@@ -9,7 +10,7 @@ class Home extends React.Component<any, any> {
   }
 
   public componentDidMount() {
-
+    
   }
 
   public viewDescription(e) {
@@ -47,6 +48,11 @@ class Home extends React.Component<any, any> {
             <p className="lead m-b-lg p-b-md">Best marketplace. For students, exclusively.</p>
           </div>
         </div>
+
+        <div>
+          <SearchNavbar props={this.props} search={this.props.search} />
+        </div>
+
         <div>
           <div className="container" id="add-margin-bottom">
             <div className="row">

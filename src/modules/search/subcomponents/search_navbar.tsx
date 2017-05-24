@@ -32,6 +32,8 @@ class SearchNavbar extends React.Component<Props, State> {
     let label = window.location.hash.slice(2);
     if (label === "lostandfound") {
       label = "Lost & Found";
+    } else if (label === "") {
+      label = "Recent";
     }
     if (!(label as any).includes("/")) {
       label = label.charAt(0).toUpperCase() + label.slice(1);
