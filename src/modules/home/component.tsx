@@ -1,6 +1,5 @@
 import React from 'react';
 import { IUser } from 'common/interfaces';
-
 import { SearchNavbar } from 'modules/search/subcomponents';
 import { CategoryBox } from './subcomponents';
 
@@ -61,7 +60,6 @@ class Home extends React.Component<any, {}> {
         <div>
           <div className="container" id="add-margin-bottom">
             <div className="row">
-
               { categories.map(category => (
                 <CategoryBox
                   viewDescription={this.viewDescription}
@@ -69,7 +67,6 @@ class Home extends React.Component<any, {}> {
                   category={category}
                 />
               ))}
-
             </div>
           </div>
         </div>

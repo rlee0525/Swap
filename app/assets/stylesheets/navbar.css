@@ -17,10 +17,6 @@
   width: 100%;
 }
 
-#search-input {
-  border-radius: 5px !important;
-}
-
 #search-navbar-container {
   margin-bottom: 30px;
   display: flex;
@@ -46,4 +42,10 @@
 #special-caret {
   margin-left: 10px !important;
   margin-bottom: 1px !important;
+}
+
+.search-icon {
+  cursor: pointer;
+  min-width: 80px;
+  background: #eee;
 }
