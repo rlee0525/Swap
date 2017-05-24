@@ -1,20 +1,23 @@
 import { connect } from 'react-redux';
+import { Dispatch } from 'react-redux';
+import { IUser, IStoreState } from 'common/interfaces';
 import Home from './component';
+import { search } from 'modules/search/actions';
 
 interface StateProps {
-  user: any;
+  user : IUser;
 }
 
 interface DispatchProps {
-  onClick1: () => void;
+  search : (query: string) => void;
 }
 
-const mapStateToProps = (state: any, ownProp?: any): StateProps => ({
+const mapStateToProps = (state: IStoreState, ownProp?: any): StateProps => ({
   user: state.user
 });
 
-const mapDispatchToProps = (dispatch: any): DispatchProps => ({
-  onClick1: () => { console.log("hi"); }
+const mapDispatchToProps = (dispatch: Dispatch<IStoreState>): DispatchProps => ({
+  search: query => dispatch(search(query))
 });
 
 export default connect(
