@@ -36,6 +36,8 @@ class SearchNavbar extends React.Component<Props, State> {
     let label = window.location.hash.slice(2);
     if (label === "lostandfound") {
       label = "Lost & Found";
+    } else if (label == "coursematerial") {
+      label = "Course Material";
     } else if (label === "") {
       label = "All";
     }
@@ -83,7 +85,7 @@ class SearchNavbar extends React.Component<Props, State> {
           </button>
           <ul className="dropdown-menu col-md-2" aria-labelledby="dropdownMenu1">
             <li><a href="#/recent" onClick={() => this.renderCateogryMenu("All")}>All</a></li>
-            <li><a href="#/textbooks" onClick={() => this.renderCateogryMenu("Textbooks")}>Textbooks</a></li>
+            <li><a href="#/coursematerial" onClick={() => this.renderCateogryMenu("Course Material")}>Course Material</a></li>
             <li><a href="#/furniture" onClick={() => this.renderCateogryMenu("Furniture")}>Furniture</a></li>
             <li><a href="#/clothing" onClick={() => this.renderCateogryMenu("Clothing")}>Clothing</a></li>
             <li><a href="#/electronics" onClick={() => this.renderCateogryMenu("Electronics")}>Electronics</a></li>

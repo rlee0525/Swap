@@ -44,6 +44,8 @@ class Search extends React.Component<Props, State> {
     } else {
       if (category === "lostandfound") {
         category = "Lost & Found";
+      } else if (category === "coursematerial") {
+        category = "Course Material";
       } else {
         category = capitalize(category);
       }
@@ -71,9 +73,12 @@ class Search extends React.Component<Props, State> {
       } else {
         if (nextCategory === "lostandfound") {
           nextCategory = "Lost & Found";
+        } else if (nextCategory === "coursematerial") {
+          nextCategory = "Course Material";
+        } else {
+          nextCategory = capitalize(nextCategory);
         }
 
-        nextCategory = capitalize(nextCategory);
         this.props.search(searchParams("", nextCategory)).then(res => {
           let posts = this.props.searchResult;
           this.setState({
@@ -98,10 +103,16 @@ class Search extends React.Component<Props, State> {
 
   public render() {
     let path = this.props.location.pathname.slice(1);
-    if (path == "lostandfound") {
-      path = "Lost & Found";
+    let uppercase;
+
+    if (path === "lostandfound") {
+      uppercase = "Lost & Found";
+    } else if (path === "coursematerial") {
+      uppercase = "Course Material";
+    } else {
+      uppercase = path[0].toUpperCase() + path.slice(1, path.length);
     }
-    const uppercase = path[0].toUpperCase() + path.slice(1, path.length);
+    
     return (
       <div>
         <div className="container">

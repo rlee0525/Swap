@@ -288,7 +288,13 @@ class PostDetail extends React.Component<any, any> {
   public render() {
     if (!this.props.post) return null;
     let { link, category, title } = this.props.post;
-    link = category.toLowerCase();
+    link = category.toLowerCase()
+
+    if (category === "Lost & Found") {
+      link = "lostandfound";
+    } else if (category === "Course Material") {
+      link = "coursematerial";
+    }
 
     return (
       <div className="container" id="container-body">
