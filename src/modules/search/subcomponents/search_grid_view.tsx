@@ -90,7 +90,8 @@ class SearchGridView extends React.Component<Props, State> {
 
   renderGridItem(post: IPost) {
     let createdDate: number | string= Date.parse(post.created_at);
-    createdDate = Date.now() - createdDate <= 86400000 ? timeFromNow(post.created_at) : ""
+    createdDate = Date.now() - createdDate <= 86400000 ? timeFromNow(post.created_at) : "";
+    
     return (
       <div className="col-sm-6 col-md-3" key={Math.random() * post.id}
            onClick={() => window.location.href = `#/posts/${post.id}`}>

@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface Props {
-  search(query: string) : void;
+  search(query: object) : void;
   props: object;
 }
 
@@ -46,13 +46,14 @@ class SearchNavbar extends React.Component<Props, State> {
 
   private handleKeyPress(e: any) {
     if (e.key === 'Enter') {
+      let query = e.target.value;
+
       this.props.search(e.target.value);
     }
   }
 
   private onClick() {
-    //TODO: update
-    let query = document.getElementById("search-query").value;
+    let query = document.getElementById("search-query")["value"];
     let category = "Textbooks";
     let sort_by = "Posting Date";
     let polarity = 1;
