@@ -1,7 +1,7 @@
 require_relative("posts")
 require("csv")
 
-categories = ['Textbooks', 'Clothing', 'Furniture', 'Electronics',
+categories = ['Course Material', 'Clothing', 'Furniture', 'Electronics',
               'Lost & Found', 'Bikes', 'Housing', 'Games', 'Others']
 universities = [['Berkeley', 'berkeley.edu']]
 conditions = ["Brand New", "Like New", "Used"]
