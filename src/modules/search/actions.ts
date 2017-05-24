@@ -14,7 +14,7 @@ export const receiveSearch = (result: object[]) => ({
   result
 });
 
-export const search = (query: string) => (dispatch: any) => {
+export const search = (query: object) => (dispatch: any) => {
   return SearchAPI.search(query).then(
     (res: object[]) => dispatch(receiveSearch(res))
   );

@@ -35,3 +35,11 @@ export const shortenString = (string: string, maxLength: number) : string => {
 export const capitalize = (string: string) : string => {
   return string[0].toUpperCase() + string.slice(1).toLowerCase();
 }
+
+export const searchParams = (query: string, category: string) => {
+  let sort_by = "Posting Date";
+  let polarity = 1;
+  let page_idx = 1;
+
+  return {query, category, sort_by, polarity, page_idx};
+};

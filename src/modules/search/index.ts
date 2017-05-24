@@ -8,7 +8,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  search: (query: string) => void;
+  search: (query: object) => void;
 }
 
 const mapStateToProps = (state: StateProps, ownProp?: any): StateProps => ({

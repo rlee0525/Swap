@@ -1,6 +1,8 @@
 import React from 'react';
 import { IPost } from 'common/interfaces';
-import { shortenString, capitalize } from 'helpers';
+import { shortenString, 
+         capitalize,
+         searchParams } from 'helpers';
 
 import { SearchGridView,
          SearchListView,
@@ -19,14 +21,6 @@ interface Props {
   post: any;
 }
 
-const _searchParams = (query: string, category: string) => {
-  let sort_by = "Posting Date";
-  let polarity = 1;
-  let page_idx = 1;
-
-  return {query, category, sort_by, polarity, page_idx};
-};
-
 class Search extends React.Component<Props, State> {
   constructor(props) {
     super(props);
@@ -41,7 +35,7 @@ class Search extends React.Component<Props, State> {
     let category = this.props.location.pathname.slice(1);
 
     if (category === "recent") {
-      this.props.search(_searchParams("", "All")).then(res => {
+      this.props.search(searchParams("", "All")).then(res => {
         let posts = this.props.searchResult;
         this.setState({
           posts: this.props.searchResult
@@ -54,7 +48,7 @@ class Search extends React.Component<Props, State> {
         category = capitalize(category);
       }
       
-      this.props.search(_searchParams("", category)).then(res => {
+      this.props.search(searchParams("", category)).then(res => {
         let posts = this.props.searchResult;
         this.setState({
           posts: this.props.searchResult
@@ -68,7 +62,7 @@ class Search extends React.Component<Props, State> {
 
     if (nextCategory !== this.props.location.pathname.slice(1)) {
       if (nextCategory === "recent") {
-        this.props.search(_searchParams("", "All")).then(res => {
+        this.props.search(searchParams("", "All")).then(res => {
           let posts = this.props.searchResult;
           this.setState({
             posts: this.props.searchResult
@@ -80,7 +74,7 @@ class Search extends React.Component<Props, State> {
         }
 
         nextCategory = capitalize(nextCategory);
-        this.props.search(_searchParams("", nextCategory)).then(res => {
+        this.props.search(searchParams("", nextCategory)).then(res => {
           let posts = this.props.searchResult;
           this.setState({
             posts: this.props.searchResult
