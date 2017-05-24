@@ -1,18 +1,19 @@
-import { connect } from 'react-redux';
+import { connect, Dispatch } from 'react-redux';
+import { IStoreState, IUser } from 'common/interfaces';
 import Bookmarks from './component';
 
 interface StateProps {
-  user: any;
+  user: IUser;
 }
 
 interface DispatchProps {
 }
 
-const mapStateToProps = (state: any, ownProp?: any): StateProps => ({
+const mapStateToProps = (state: IStoreState, ownProp?: any): StateProps => ({
   user: state.user
 });
 
-const mapDispatchToProps = (dispatch: any): DispatchProps => ({
+const mapDispatchToProps = (dispatch: Dispatch<IStoreState>): DispatchProps => ({
 });
 
 export default connect(
