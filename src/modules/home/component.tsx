@@ -7,16 +7,8 @@ const categories = require('./categories.json');
 class Home extends React.Component<any, any> {
   constructor(props) {
     super(props);
-
-    console.log(categories);
-    
-
     this.viewDescription = this.viewDescription.bind(this);
     this.hideDescription = this.hideDescription.bind(this);
-  }
-
-  public componentDidMount() {
-    
   }
 
   public viewDescription(e) {
@@ -63,95 +55,14 @@ class Home extends React.Component<any, any> {
           <div className="container" id="add-margin-bottom">
             <div className="row">
 
-              { categories.map(box => (
+              { categories.map(category => (
                 <CategoryBox
                   viewDescription={this.viewDescription}
                   hideDescription={this.hideDescription}
-                  box={box}
+                  category={category}
                 />
               ))}
 
-              <div className="col-xs-6 col-md-4">
-                <a href="/#/textbooks" className="thumbnail" onMouseOver={(e) => this.viewDescription(e)} onMouseOut={(e) => this.hideDescription(e)}>
-                  <img className="thumbnail-image" src="http://res.cloudinary.com/rlee0525/image/upload/c_pad,h_500,w_500/v1494382616/textbooks_cgpwt3.jpg" alt="..."/>
-                  <div className="carousel-caption">
-                    <h3 className="category-title">Textbooks</h3>
-                    <p className="category-description hide">Stop overpaying for used textbooks</p>
-                  </div>
-                </a>
-              </div>
-              <div className="col-xs-6 col-md-4">
-                <a href="/#/furniture" className="thumbnail" onMouseOver={(e) => this.viewDescription(e)} onMouseOut={(e) => this.hideDescription(e)}>
-                  <img className="thumbnail-image" src="http://res.cloudinary.com/rlee0525/image/upload/c_pad,h_500,w_500/v1494383271/furniture_crbpql.jpg" alt="..."/>
-                  <div className="carousel-caption">
-                    <h3 className="category-title">Furniture</h3>
-                    <p className="category-description hide">Shop for furnitures you need</p>
-                  </div>
-                </a>
-              </div>
-              <div className="col-xs-6 col-md-4">
-                <a href="/#/clothing" className="thumbnail" onMouseOver={(e) => this.viewDescription(e)} onMouseOut={(e) => this.hideDescription(e)}>
-                  <img className="thumbnail-image" src="http://res.cloudinary.com/rlee0525/image/upload/c_fill,h_500,w_500/v1494384935/clothing_xjdmxd.png" alt="..."/>
-                  <div className="carousel-caption">
-                    <h3 className="category-title">Clothing</h3>
-                    <p className="category-description hide">Swap clothings with your colleagues</p>
-                  </div>
-                </a>
-              </div>
-              <div className="col-xs-6 col-md-4">
-                <a href="/#/electronics" className="thumbnail" onMouseOver={(e) => this.viewDescription(e)} onMouseOut={(e) => this.hideDescription(e)}>
-                  <img className="thumbnail-image" src="http://res.cloudinary.com/rlee0525/image/upload/c_pad,h_500,w_500/v1494385670/electronics_fqplnz.jpg" alt="..."/>
-                  <div className="carousel-caption">
-                    <h3 className="category-title">Electronics</h3>
-                    <p className="category-description hide">Buy all your electronics at a much cheaper price</p>
-                  </div>
-                </a>
-              </div>
-              <div className="col-xs-6 col-md-4">
-                <a href="/#/housing" className="thumbnail" onMouseOver={(e) => this.viewDescription(e)} onMouseOut={(e) => this.hideDescription(e)}>
-                  <img className="thumbnail-image" src="http://res.cloudinary.com/rlee0525/image/upload/c_pad,h_500,w_500/v1495410124/housing_hf5hbm.jpg" alt="..."/>
-                  <div className="carousel-caption">
-                    <h3 className="category-title">Housing</h3>
-                    <p className="category-description hide">Find a place to sublet or lease</p>
-                  </div>
-                </a>
-              </div>
-              <div className="col-xs-6 col-md-4">
-                <a href="/#/bikes" className="thumbnail" onMouseOver={(e) => this.viewDescription(e)} onMouseOut={(e) => this.hideDescription(e)}>
-                  <img className="thumbnail-image" src="http://res.cloudinary.com/rlee0525/image/upload/c_pad,h_500,w_500/v1495410621/bikes_j1jaqe.jpg" alt="..."/>
-                  <div className="carousel-caption">
-                    <h3 className="category-title">Bikes</h3>
-                    <p className="category-description hide">Buy all your bikes at a much cheaper price</p>
-                  </div>
-                </a>
-              </div>
-              <div className="col-xs-6 col-md-4">
-                <a href="/#/games" className="thumbnail" onMouseOver={(e) => this.viewDescription(e)} onMouseOut={(e) => this.hideDescription(e)}>
-                  <img className="thumbnail-image" src="http://res.cloudinary.com/rlee0525/image/upload/c_pad,h_500,w_500/v1494386061/games_sn1bay.png" alt="..."/>
-                  <div className="carousel-caption">
-                    <h3 className="category-title">Games</h3>
-                    <p className="category-description hide">Stop wasting money at GameStop</p>
-                  </div>
-                </a>
-              </div>
-              <div className="col-xs-6 col-md-4">
-                <a href="/#/others" className="thumbnail" onMouseOver={(e) => this.viewDescription(e)} onMouseOut={(e) => this.hideDescription(e)}>
-                  <img className="thumbnail-image" src="http://res.cloudinary.com/rlee0525/image/upload/c_pad,h_500,w_500/v1494385420/kitchenware_brijih.jpg" alt="..."/>
-                  <div className="carousel-caption">
-                    <h3 className="category-title">Others</h3>
-                    <p className="category-description hide">Everything else you need</p>
-                  </div>
-                </a>
-              </div>
-              <div className="col-xs-6 col-md-4">
-                <a href="/#/lostandfound" className="thumbnail" onMouseOver={(e) => this.viewDescription(e)} onMouseOut={(e) => this.hideDescription(e)}>
-                  <img className="thumbnail-image" src="http://res.cloudinary.com/rlee0525/image/upload/c_pad,h_500,w_500/v1495410547/lostandfound_mphhqx.jpg" alt="..."/>
-                  <div className="carousel-caption">
-                    <h3 className="category-title">Lost & Found</h3>
-                    <p className="category-description hide">Help out your colleagues</p>
-                  </div>
-                </a>
-              </div>
             </div>
           </div>
         </div>

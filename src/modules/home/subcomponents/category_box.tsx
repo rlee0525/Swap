@@ -1,7 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 interface ICategory {
-  category: string;
+  link: string;
   title: string;
   description: string;
   image: string;
@@ -10,21 +11,19 @@ interface ICategory {
 interface Props {
   viewDescription: (e: any) => void;
   hideDescription: (e: any) => void;
-  box: ICategory;
+  category: ICategory;
 }
 
-interface State {
-}
-
-const CategoryBox: React.SFC<Props> = ({ viewDescription, hideDescription, box }) => (
+const CategoryBox: React.SFC<Props> = ({ viewDescription, hideDescription, category }) => (
   <div className="col-xs-6 col-md-4">
-    <a href="/#/textbooks" className="thumbnail" onMouseOver={viewDescription} onMouseOut={hideDescription}>
-      <img className="thumbnail-image" src="http://res.cloudinary.com/rlee0525/image/upload/c_pad,h_500,w_500/v1494382616/textbooks_cgpwt3.jpg" alt="..."/>
+    <Link to={category.link} className="thumbnail" onMouseOver={viewDescription} onMouseOut={hideDescription}>
+      <img className="thumbnail-image" src={ category.image } alt="..."/>
       <div className="carousel-caption">
-        <h3 className="category-title">Textbooks</h3>
-        <p className="category-description hide">Stop overpaying for used textbooks</p>
+        <h3 className="category-title">{ category.title }</h3>
+        <p className="category-description hide">{ category.description }</p>
       </div>
-    </a>
+    </Link>
   </div>
 );
+
 export { CategoryBox };
