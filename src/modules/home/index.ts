@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
-import { IUser } from 'interfaces';
+import { Dispatch } from 'react-redux';
+import { IUser, IStoreState } from 'common/interfaces';
 import Home from './component';
 
 interface StateProps {
@@ -9,11 +10,11 @@ interface StateProps {
 interface DispatchProps {
 }
 
-const mapStateToProps = (state: any, ownProp?: any): StateProps => ({
+const mapStateToProps = (state: IStoreState, ownProp?: any): StateProps => ({
   user: state.user
 });
 
-const mapDispatchToProps = (dispatch: any): DispatchProps => ({
+const mapDispatchToProps = (dispatch: Dispatch<IStoreState>): DispatchProps => ({
 });
 
 export default connect(

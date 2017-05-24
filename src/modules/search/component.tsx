@@ -1,5 +1,5 @@
 import React from 'react';
-import { IPost } from 'interfaces';
+import { IPost } from 'common/interfaces';
 import { shortenString } from 'helpers';
 
 import {
