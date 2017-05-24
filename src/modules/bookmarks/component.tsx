@@ -1,21 +1,12 @@
 import React from 'react';
 import Clipboard from 'clipboard';
+import { IUser, IPost } from 'common/interfaces';
+import { TableHeaders } from 'common/components';
 import { shortenString, timeFromNow } from 'helpers';
 declare var window;
 
-interface Post {
-  title: string;
-  description: string;
-  price: number;
-  created_at: string;
-  condition: string;
-  img_url1: string;
-  img_url2: string;
-  img_url3: string;
-}
-
 interface State {
-  bookmarkedPosts: Post [];
+  bookmarkedPosts: IPost [];
   title: any;
   description: any;
   price: any;
@@ -23,7 +14,7 @@ interface State {
   condition: any;
 }
 
-class Bookmarks extends React.Component<any, any> {
+class Bookmarks extends React.Component<any, State> {
   constructor(props) {
     super(props);
     
@@ -57,7 +48,7 @@ class Bookmarks extends React.Component<any, any> {
       type: "DELETE",
       url: `api/bookmarks/${postId}`,
       data: { access_token: this.props.user.auth.accessToken }
-    }).then(() => this.fetchBookmarkedPosts())
+    }).then(this.fetchBookmarkedPosts)
   }
 
   public componentDidMount() {
@@ -108,6 +99,9 @@ class Bookmarks extends React.Component<any, any> {
   }
 
   public render() {
+    console.log(this.state);
+    const headers = ['title', 'price', 'created_at', 'condition'];
+    
     return (
       <div>
         <div className="container">
@@ -120,6 +114,7 @@ class Bookmarks extends React.Component<any, any> {
             <div className="panel panel-default">
               <div className="panel-body">
                 <table className="table table-hover">
+                  <TableHeaders context={this} array={this.state.bookmarkedPosts} headers={headers} />
                   <thead>
                     <tr>
                       <th id="th-no-caret"></th>
