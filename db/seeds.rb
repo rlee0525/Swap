@@ -43,7 +43,7 @@ User.create!(
   university: University.first
 )
 
-100.times do |idx|
+200.times do |idx|
   category = Category.find(rand(1..Category.count))
   if category
     course = Course.find(rand(1..Course.count))
