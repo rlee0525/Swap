@@ -16,3 +16,5 @@ const DashboardHeaders = () => (
     </li>
   </ul>
 );
+
+export { DashboardHeaders };

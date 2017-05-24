@@ -1,7 +1,7 @@
 import React from 'react';
 import Clipboard from 'clipboard';
 import { IUser, IPost } from 'common/interfaces';
-import { TableHeaders } from 'common/components';
+import { TableHeaders, DashboardHeaders } from 'common/components';
 import { shortenString, timeFromNow } from 'helpers';
 declare var window;
 
@@ -89,11 +89,7 @@ class Bookmarks extends React.Component<any, State> {
     return (
       <div>
         <div className="container">
-          <ul className="nav nav-tabs">
-            <li role="presentation" id="dashboard-nav-title"><a href="#/dashboard/posts">Posts</a></li>
-            <li role="presentation" id="dashboard-nav-title" className="active"><a href="#/dashboard/bookmarks">Bookmarks</a></li>
-            <li role="presentation" id="dashboard-nav-title"><a href="#/dashboard/rfps">Alerts</a></li>
-          </ul>
+          <DashboardHeaders />
           <div>
             <div className="panel panel-default">
               <div className="panel-body">
