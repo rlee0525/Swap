@@ -11,7 +11,7 @@ class Api::SchedulesController < ApplicationController
 
   def create
     user = fb_auth_user(params[:access_token])
-    @course = Course.find_by(name: params[:course])
+    @course = Course.find_by(course_number: params[:course])
 
     return render json: ["Not authorized"], status: 403 if !user
     return render json: ["Course not found"], status: 404 if !@course
@@ -27,7 +27,7 @@ class Api::SchedulesController < ApplicationController
 
   def destroy
     user = fb_auth_user(params[:access_token])
-    @course = Course.find_by(name: params[:course])
+    @course = Course.find_by(course_number: params[:course])
 
     return render json: ["Not authorized"], status: 403 if !user
     return render json: ["Course not found"], status: 404 if !@course
