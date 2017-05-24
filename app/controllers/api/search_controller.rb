@@ -70,11 +70,6 @@ class Api::SearchController < ApplicationController
   #     end
   #   end
   #
-  #   case post['condition']
-  #   when 'Like New' then score += 1
-  #   when 'Brand New' then score += 2
-  #   end
-  #
   #   score
   # end
 

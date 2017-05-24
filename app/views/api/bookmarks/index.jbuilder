@@ -12,6 +12,5 @@ json.array! @bookmarked_posts do |bookmarked_post|
                 :course_id,
                 :zip_code,
                 :created_at,
-                :condition,
                 :active
 end

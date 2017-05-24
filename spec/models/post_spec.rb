@@ -15,9 +15,9 @@
 #  updated_at  :datetime         not null
 #  title       :string           not null
 #  img_url3    :string
-#  condition   :string           not null
 #  views       :integer          default(1)
 #  active      :boolean          default(TRUE)
+#  deleted     :boolean          default(FALSE)
 #
 
 require 'rails_helper'
@@ -28,10 +28,8 @@ RSpec.describe Post, type: :model do
     it { should validate_presence_of(:description) }
     it { should validate_presence_of(:price) }
     it { should validate_presence_of(:img_url1) }
-    it { should validate_presence_of(:condition) }
     it { should validate_presence_of(:category) }
     it { should validate_presence_of(:zip_code) }
-    it { should validate_inclusion_of(:condition).in_array(["Brand New", "Like New", "Used"]) }
   end
 
   describe "associations" do

@@ -34,17 +34,17 @@ class TableHeaders extends React.Component<Props, State> {
     return (
       <thead>
         <tr>
-          <th id="th-no-caret"></th>
-
+          <th id="th-no-caret">Thumbnail</th>
           { headers.map(header => (
             <th onClick={() => this.sortBy(header.toLowerCase())} className="hidden-xs">
               { header === 'created_at' ? 'Posted' : header }
               <a onClick={() => this.sortBy(header.toLowerCase())} className="btn btn-xs" id="caret-container">
                 <span className="caret" />
               </a>
-            </th>    
+            </th>
           ))}
-        
+          <th id="th-no-caret">Copy Link</th>
+          <th id="th-no-caret">Delete</th>
         </tr>
       </thead>
     );

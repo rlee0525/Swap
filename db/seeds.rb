@@ -1,11 +1,9 @@
 require_relative("posts")
 require("csv")
 
-categories = ['Textbooks', 'Clothing', 'Furniture', 'Electronics',
+categories = ['Course Material', 'Clothing', 'Furniture', 'Electronics',
               'Lost & Found', 'Bikes', 'Housing', 'Games', 'Others']
 universities = [['Berkeley', 'berkeley.edu']]
-conditions = ["Brand New", "Like New", "Used"]
-
 
 categories.each do |name|
   Category.create!(
@@ -62,7 +60,6 @@ User.create!(
     category: category,
     course: course,
     zip_code: rand(0..9999).to_s,
-    condition: conditions.sample,
     created_at: rand(0..4320).minutes.ago
   )
 end
