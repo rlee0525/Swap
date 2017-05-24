@@ -59,7 +59,20 @@ class SearchGridView extends React.Component<Props, State> {
   }
 
   public sortBy(key: string, polarity: number) {
-    let sortBy = capitalize(key);
+    let sortBy;
+
+    if (key == "views") {
+      sortBy = "Popularity";
+    } else if (key == "updated_at") {
+      sortBy = "Posting Date"
+    } else {
+      if (polarity == 1) {
+        sortBy = "Price: Low to High"
+      } else {
+        sortBy = "Price: High to Low"
+      }
+    }
+
     let newArray: IPost[] = this.state.results.sort(function(a:object, b:object) {
       if (a[key] < b[key]) return (-1 * polarity);
       if (a[key] > b[key]) return (1 * polarity);
@@ -113,11 +126,11 @@ class SearchGridView extends React.Component<Props, State> {
           <div className="sort-by-panel">
             <div className="btn-group">
               <button type="button" className="btn btn-default btn-md dropdown-toggle btn-special-size" id="margin-right" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {this.state.sortBy}&nbsp;<span className="caret"></span>
+                {this.state.sortBy}&nbsp;&nbsp;<span className="caret"></span>
               </button>
               <ul className="dropdown-menu dropdown-menu-right">
                 <li><a onClick={() => this.sortBy("views", -1)}>Popularity</a></li>
-                <li><a onClick={() => this.sortBy("created_at", -1)}>Posting Date</a></li>
+                <li><a onClick={() => this.sortBy("updated_at", -1)}>Posting Date</a></li>
                 <li><a onClick={() => this.sortBy("price", 1)}>Price: Low to High</a></li>
                 <li><a onClick={() => this.sortBy("price", -1)}>Price: High to Low</a></li>
               </ul>
