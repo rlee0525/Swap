@@ -3,7 +3,7 @@ import { searchParams } from 'helpers';
 
 interface Props {
   search(query: object) : void;
-  props: object;
+  props: any;
 }
 
 interface State {
@@ -21,7 +21,7 @@ class SearchNavbar extends React.Component<Props, State> {
     }
 
     this.checkKey = this.checkKey.bind(this);
-    this.renderCateogryMenu = this.renderCateogryMenu.bind(this);
+    this.renderCategoryMenu = this.renderCategoryMenu.bind(this);
     this.onClick = this.onClick.bind(this);
     this.onChange = this.onChange.bind(this);
   }
@@ -51,10 +51,10 @@ class SearchNavbar extends React.Component<Props, State> {
   }
 
   private checkKey(e: any) {
-    if (e.keyCode === 13 && this.state.query !== "") {
+    if (e.keyCode === 13) {
       let query = e.target.value;
       let category = this.state.label;
-
+      this.props.props.saveQuery(query);
       this.props.search(searchParams(query, category));
     }
   }
@@ -71,7 +71,7 @@ class SearchNavbar extends React.Component<Props, State> {
     this.props.search(searchParams(query, category));
   }
 
-  private renderCateogryMenu(label) {
+  private renderCategoryMenu(label) {
     this.setState({ label });
   }
 
@@ -84,16 +84,16 @@ class SearchNavbar extends React.Component<Props, State> {
             <span className="caret" id="special-caret"></span>
           </button>
           <ul className="dropdown-menu col-md-2" aria-labelledby="dropdownMenu1">
-            <li><a href="#/recent" onClick={() => this.renderCateogryMenu("All")}>All</a></li>
-            <li><a href="#/coursematerial" onClick={() => this.renderCateogryMenu("Course Material")}>Course Material</a></li>
-            <li><a href="#/furniture" onClick={() => this.renderCateogryMenu("Furniture")}>Furniture</a></li>
-            <li><a href="#/clothing" onClick={() => this.renderCateogryMenu("Clothing")}>Clothing</a></li>
-            <li><a href="#/electronics" onClick={() => this.renderCateogryMenu("Electronics")}>Electronics</a></li>
-            <li><a href="#/housing" onClick={() => this.renderCateogryMenu("Housing")}>Housing</a></li>
-            <li><a href="#/bikes" onClick={() => this.renderCateogryMenu("Bikes")}>Bikes</a></li>
-            <li><a href="#/games" onClick={() => this.renderCateogryMenu("Games")}>Games</a></li>
-            <li><a href="#/others" onClick={() => this.renderCateogryMenu("Others")}>Others</a></li>
-            <li><a href="#/lostandfound" onClick={() => this.renderCateogryMenu("Lost & Found")}>Lost & Found</a></li>
+            <li><a href="#/recent" onClick={() => this.renderCategoryMenu("All")}>All</a></li>
+            <li><a href="#/coursematerial" onClick={() => this.renderCategoryMenu("Course Material")}>Course Material</a></li>
+            <li><a href="#/furniture" onClick={() => this.renderCategoryMenu("Furniture")}>Furniture</a></li>
+            <li><a href="#/clothing" onClick={() => this.renderCategoryMenu("Clothing")}>Clothing</a></li>
+            <li><a href="#/electronics" onClick={() => this.renderCategoryMenu("Electronics")}>Electronics</a></li>
+            <li><a href="#/housing" onClick={() => this.renderCategoryMenu("Housing")}>Housing</a></li>
+            <li><a href="#/bikes" onClick={() => this.renderCategoryMenu("Bikes")}>Bikes</a></li>
+            <li><a href="#/games" onClick={() => this.renderCategoryMenu("Games")}>Games</a></li>
+            <li><a href="#/others" onClick={() => this.renderCategoryMenu("Others")}>Others</a></li>
+            <li><a href="#/lostandfound" onClick={() => this.renderCategoryMenu("Lost & Found")}>Lost & Found</a></li>
           </ul>
         </div>
         <div className="input-group col-md-10 col-sm-9 col-xs-8" id="phone-search-nav">

@@ -1,8 +1,9 @@
 import React from 'react';
 import { IPost } from 'common/interfaces';
-import { shortenString, 
+import { shortenString,
          capitalize,
-         searchParams } from 'helpers';
+         searchParams,
+         getCategory } from 'helpers';
 
 import { SearchGridView,
          SearchListView,
@@ -15,7 +16,7 @@ interface State {
 
 interface Props {
   user: object;
-  searchResult: IPost[];
+  searchResult: any;
   search: (query: object) => JQueryXHR;
   location: any;
   post: any;
@@ -26,37 +27,16 @@ class Search extends React.Component<Props, State> {
     super(props);
 
     this.state = {
-      viewType: 'grid',
-      posts: null
+      viewType: 'grid'
     };
   }
 
   public componentWillMount() {
+    const that = this;
     let category = this.props.location.pathname.slice(1);
-
-    if (category === "recent") {
-      this.props.search(searchParams("", "All")).then(res => {
-        let posts = this.props.searchResult;
-        this.setState({
-          posts: this.props.searchResult
-        });
-      })
-    } else {
-      if (category === "lostandfound") {
-        category = "Lost & Found";
-      } else if (category === "coursematerial") {
-        category = "Course Material";
-      } else {
-        category = capitalize(category);
-      }
-      
-      this.props.search(searchParams("", category)).then(res => {
-        let posts = this.props.searchResult;
-        this.setState({
-          posts: this.props.searchResult
-        });
-      })
-    }
+    category = getCategory(this.props.location);
+    console.log(category)
+    this.props.search(searchParams("", category));
   }
 
   public componentWillReceiveProps(nextProps: any){
@@ -112,7 +92,7 @@ class Search extends React.Component<Props, State> {
     } else {
       uppercase = path[0].toUpperCase() + path.slice(1, path.length);
     }
-    
+
     return (
       <div>
         <div className="container">

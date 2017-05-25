@@ -1,7 +1,7 @@
 import { merge } from 'lodash';
 import { Action, RECEIVE_SEARCH } from "./actions";
 
-let _defaultState: object[] = [];
+let _defaultState: any = { posts: [], max_pages: 1 };
 
 const searchResultReducer = (state = _defaultState, action: Action<any>) => {
   Object.freeze(state);

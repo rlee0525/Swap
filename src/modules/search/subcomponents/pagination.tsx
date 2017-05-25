@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
+declare var $;
 
 class Pagination extends React.Component<any, any> {
   constructor(props) {
