@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
+import { merge } from 'lodash';
 declare var $;
 
 class Pagination extends React.Component<any, any> {
@@ -18,20 +19,29 @@ class Pagination extends React.Component<any, any> {
 
   public goPrevious() {
     if (this.props.currentPage > 1) {
-      this.props.that.setState({currentPage: this.props.currentPage - 1})
+      const currentQuery = this.props.props.currentQuery;
+      const nextQuery = merge({}, currentQuery, {page_idx: this.props.currentPage - 1});
+      this.props.props.saveQuery(nextQuery);
+      this.props.props.search(nextQuery);
       window.scrollTo(0, 0);
     }
   }
 
   public goNext() {
     if (this.props.currentPage < this.props.maxPages) {
-      this.props.that.setState({currentPage: this.props.currentPage + 1})
+      const currentQuery = this.props.props.currentQuery;
+      const nextQuery = merge({}, currentQuery, {page_idx: this.props.currentPage + 1});
+      this.props.props.saveQuery(nextQuery);
+      this.props.props.search(nextQuery);
       window.scrollTo(0, 0);
     }
   }
 
-  public setCurrentPage(page) {
-    this.props.that.setState({currentPage: page})
+  public setCurrentPage(page_idx) {
+    const currentQuery = this.props.props.currentQuery;
+    const nextQuery = merge({}, currentQuery, {page_idx});
+    this.props.props.saveQuery(nextQuery);
+    this.props.props.search(nextQuery);
     window.scrollTo(0, 0);
   }
 

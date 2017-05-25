@@ -66,13 +66,17 @@ class SearchNavbar extends React.Component<Props, State> {
   }
 
   private enterSearchQuery() {
-    this.props.search(this.props.props.currentQuery);
+    const currentQuery = this.props.props.currentQuery;
+    const nextQuery = merge({}, currentQuery, {page_idx: 1});
+    this.props.props.saveQuery(nextQuery);
+    this.props.search(nextQuery);
   }
 
   private renderCategoryMenu(label) {
     const currentQuery = this.props.props.currentQuery;
-    const nextQuery = merge({}, currentQuery, {category: label});
+    const nextQuery = merge({}, currentQuery, {category: label, page_idx: 1});
     this.props.props.saveQuery(nextQuery);
+    this.props.search(nextQuery);
     $('#search-query').focus();
   }
 

@@ -4,12 +4,14 @@ import { shortenString,
          getCategory } from 'helpers';
 import { IPost } from 'common/interfaces';
 import { Pagination } from './';
+import { merge } from 'lodash';
 declare var $;
 
 interface Props {
   searchResult: IPost [];
   search: (query: object) => JQueryXHR;
   location: string;
+  props: any;
 }
 
 interface State {
@@ -52,29 +54,11 @@ class SearchGridView extends React.Component<Props, State> {
   //   }
   // }
 
-  public sort_by(key: string, polarity: number) {
-    let sort_by;
-
-    if (key == "views") {
-      sort_by = "Views";
-    } else if (key == "updated_at") {
-      sort_by = "Posting Date"
-    } else {
-      sort_by = "Price"
-    }
-
-    let query = "";
-    let category = getCategory(this.props.location);
-    let page_idx = this.state.page_idx;
-
-    let searchParams = { query, category, sort_by, polarity, page_idx };
-
-    this.props.search(searchParams).then(results => {
-      this.setState({
-        results: results.result,
-        sort_by
-      });
-    })
+  public sort_by(sort_by: string, polarity: number) {
+    const currentQuery = this.props.props.currentQuery;
+    const nextQuery = merge({}, currentQuery, {sort_by, polarity});
+    this.props.props.saveQuery(nextQuery);
+    this.props.props.search(nextQuery);
   }
 
   renderGridItem(post: IPost) {
@@ -105,7 +89,7 @@ class SearchGridView extends React.Component<Props, State> {
           <div className="sort-by-panel">
             <div className="btn-group">
               <button type="button" className="btn btn-default btn-md dropdown-toggle btn-special-size" id="margin-right" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {this.state.sort_by}&nbsp;&nbsp;<span className="caret"></span>
+                {this.props.props.currentQuery.sort_by}&nbsp;&nbsp;<span className="caret"></span>
               </button>
               <ul className="dropdown-menu dropdown-menu-right">
                 <li><a onClick={() => this.sort_by("views", -1)}>Popularity</a></li>
@@ -115,9 +99,9 @@ class SearchGridView extends React.Component<Props, State> {
               </ul>
             </div>
           </div>
-          { this.state.results ? this.state.results.map(post => this.renderGridItem(post)) : null}
+          { this.props.props.searchResult.posts ? this.props.props.searchResult.posts.map(post => this.renderGridItem(post)) : null}
         </div>
-        <Pagination that={this} maxPages={this.state.maxPages} currentPage={this.state.page_idx} />
+        <Pagination props={this.props.props} maxPages={this.props.props.searchResult.max_pages} currentPage={this.props.props.currentQuery.page_idx} />
       </div>
     );
   }

@@ -38,17 +38,20 @@ class Search extends React.Component<Props, State> {
   public componentWillMount() {
     let category = getCategory(this.props.location);
     const currentQuery = this.props.currentQuery;
-    const nextQuery = merge({}, currentQuery, {category});
+    const nextQuery = merge({}, currentQuery, {category, page_idx: 1});
+    this.props.saveQuery(nextQuery);
     this.props.search(nextQuery);
   }
 
   public componentWillReceiveProps(nextProps: any){
     if (this.props.currentQuery.category != nextProps.currentQuery.category) {
+      this.props.saveQuery(nextProps.currentQuery);
       this.props.search(nextProps.currentQuery);
     } else if (this.props.location != nextProps.location) {
       let category = getCategory(nextProps.location);
       const currentQuery = this.props.currentQuery;
-      const nextQuery = merge({}, currentQuery, {category});
+      const nextQuery = merge({}, currentQuery, {category, page_idx: 1});
+      this.props.saveQuery(nextQuery);
       this.props.search(nextQuery);
     }
   }
@@ -59,9 +62,13 @@ class Search extends React.Component<Props, State> {
 
   private renderView() {
     if (this.state.viewType === 'grid') {
-      return <SearchGridView searchResult={this.props.searchResult} search={this.props.search} location={this.props.location} />;
+      return <SearchGridView props={this.props}
+        searchResult={this.props.searchResult}
+        search={this.props.search} location={this.props.location} />;
     } else {
-      return <SearchListView searchResult={this.props.searchResult} search={this.props.search} location={this.props.location} />;
+      return <SearchListView props={this.props}
+        searchResult={this.props.searchResult}
+        search={this.props.search} location={this.props.location} />;
     }
   }
 
