@@ -17,6 +17,7 @@ interface State {
   maxPages?: number;
   sortBy?: string;
   pageIdx?: number;
+  currentPage?: number;
 }
 
 class SearchGridView extends React.Component<Props, State> {
@@ -28,8 +29,9 @@ class SearchGridView extends React.Component<Props, State> {
     this.state = {
       results,
       maxPages,
-      pageIdx: 1
+      pageIdx: 1,
       sortBy: "Posting Date",
+      currentPage: 1
     };
 
     this.sortBy = this.sortBy.bind(this);
