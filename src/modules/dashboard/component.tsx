@@ -1,12 +1,14 @@
 import React from 'react';
-import { DashboardHeaders } from './subcomponents';
+import { IUser } from 'common/interfaces';
+import { DashboardHeaders, Bookmarks } from './subcomponents';
 
 const data = require('./dashboard_data.json');
 
 interface Props {
   location: {
     search: string;
-  }
+  },
+  user: IUser;
 }
 
 interface State {
@@ -15,7 +17,6 @@ interface State {
 class Dashboard extends React.Component<Props, State> {
   constructor(props) {
     super(props);
-    props.fetchBookmarks(this.props.user.auth.accessToken)
   }
 
   renderSubcomponent() {
@@ -23,7 +24,13 @@ class Dashboard extends React.Component<Props, State> {
 
     switch (page) {
       case 'bookmarks':
-        return <div>bookmarks</div>
+        return (
+          <Bookmarks
+            bookmarks={this.props.dashboard.bookmarks}
+            fetchBookmarks={this.props.fetchBookmarks}
+            user={this.props.user}
+          />
+        );
       case 'rfps':
         return <div>rfps</div>
       default:
