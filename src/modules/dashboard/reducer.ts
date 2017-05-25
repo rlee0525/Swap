@@ -18,6 +18,8 @@ let _defaultState = {
 
 const dashboardReducer = (state = _defaultState, action) => {
   Object.freeze(state);
+  console.log(action);
+  
   switch (action.type) {
     case DASHBOARD.MY_POSTS:
       return merge({}, state, {
@@ -33,6 +35,15 @@ const dashboardReducer = (state = _defaultState, action) => {
           list: state.bookmarks.list.concat(action.bookmarks)
         }
       });
+    case DASHBOARD.DELETE_BOOKMARK:
+
+      let newState = merge({}, state);
+
+      newState.bookmarks.list = newState.bookmarks.list.filter(bookmark => {
+        return bookmark.id !== action.id
+      });
+
+      return newState;
     case DASHBOARD.RFPS:
       return merge({}, state, {
         rfps: {
