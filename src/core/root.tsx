@@ -12,6 +12,7 @@ import Bookmarks from 'modules/bookmarks';
 import MyPosts from 'modules/my_posts';
 import Rfps from 'modules/rfps';
 import PostForm from 'modules/post_form';
+import Dashboard from 'modules/dashboard';
 
 interface RootProps {
   store: Store<any>;
@@ -51,11 +52,12 @@ const Root: React.SFC<RootProps> = ({ store }) => {
           </Route>
 
           {/* Dashboard routes */}
-          <Route path="/dashboard">
+          <Route path="/dashboard" component={Dashboard} />
+          {/*<Route path="/dashboard">
             <Route path="posts" component={MyPosts} />
             <Route path="bookmarks" component={Bookmarks} />
             <Route path="rfps" component={Rfps} />
-          </Route>
+          </Route>*/}
           
         </Route>
       </Router>
