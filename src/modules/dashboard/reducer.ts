@@ -7,7 +7,7 @@ let _defaultState = {
   rfps: []
 };
 
-const postReducer = (state = _defaultState, action) => {
+const dashboardReducer = (state = _defaultState, action) => {
   Object.freeze(state);
   switch (action.type) {
     case DASHBOARD.MY_POSTS:
@@ -27,4 +27,4 @@ const postReducer = (state = _defaultState, action) => {
   }
 };
 
-export default postReducer;
+export default dashboardReducer;

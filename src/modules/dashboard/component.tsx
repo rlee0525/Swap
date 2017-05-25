@@ -13,7 +13,9 @@ class Dashboard extends React.Component<Props, State> {
 
   render() {
     return (
-      Content
+      <div>
+        Dashboard
+      </div>
     );
   }
 }
