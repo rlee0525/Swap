@@ -1,0 +1,16 @@
+{
+  "dashboardHeaders": [
+    {
+      "title": "Posts",
+      "link": "posts"
+    },
+    {
+      "title": "Bookmarks",
+      "link": "bookmarks"
+    },
+    {
+      "title": "alerts",
+      "link": "rfps"
+    }
+  ]
+}

@@ -1,6 +1,8 @@
 import React from 'react';
 import { DashboardHeaders } from './subcomponents';
 
+const data = require('./dashboard_data.json');
+
 interface Props {
   location: {
     search: string;
@@ -31,27 +33,11 @@ class Dashboard extends React.Component<Props, State> {
 
   render() {
     let page = this.props.location.search.slice(1);
-    let headers = [
-      { 
-        title: 'Posts',
-        link: 'posts',
-        active: page === 'posts'
-      },
-      {
-        title: 'Bookmarks',
-        link: 'bookmarks',
-        active: page === 'bookmarks'
-      },
-      {
-        title: 'alerts',
-        link: 'rfps',
-        active: page === 'rfps'
-      }
-    ];
 
     return (
       <div className="container">
-        <DashboardHeaders headers={headers} />
+        <DashboardHeaders headers={data.dashboardHeaders} active={page} />
+        { this.renderSubcomponent() }
       </div>
     );
   }
