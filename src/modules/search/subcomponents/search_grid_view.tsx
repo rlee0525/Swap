@@ -14,16 +14,10 @@ interface Props {
 
 interface State {
   results: IPost[];
-  title?: number;
-  description?: number;
-  price?: number;
-  updated_at?: number;
-  condition?: number;
   maxPages?: number;
-  currentPage?: number;
-  views?: number;
   sortBy?: string;
   pageIdx?: number;
+  currentPage?: number;
 }
 
 class SearchGridView extends React.Component<Props, State> {
@@ -35,9 +29,9 @@ class SearchGridView extends React.Component<Props, State> {
     this.state = {
       results,
       maxPages,
-      currentPage: 1,
+      pageIdx: 1,
       sortBy: "Posting Date",
-      pageIdx: 1
+      currentPage: 1
     };
 
     this.sortBy = this.sortBy.bind(this);
@@ -98,17 +92,8 @@ class SearchGridView extends React.Component<Props, State> {
             <div className="thumbnail-caption-top-right">{updatedDate}</div>
           </a>
           <div className="caption" id="grid-caption">
-            <span id="grid-title">${Number(post.price).toLocaleString()}&nbsp; | &nbsp;{post.title}</span>
-
-            <div className="grid-bottom">
-              <span className={`label label-${this.buttonClass(post.condition)}`} id="label-micro">
-                {post.condition}
-              </span>
-              <span className="red">
-                <span className="glyphicon glyphicon-fire" id="condition-views-grid"></span>
-                {post.views} Views
-              </span>
-            </div>
+            <span id="grid-title">{post.title}</span>
+            <span className="bottom-right-corner">${Number(post.price).toLocaleString()}</span>
           </div>
         </div>
       </div>

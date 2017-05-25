@@ -322,3 +322,11 @@
 #detail-body h3 {
   word-wrap: break-word;
 }
+
+.bottom-right-corner {
+  position: absolute;
+  right: 15px;
+  bottom: 7px;
+  font-size: 20px !important;
+  color: lightseagreen;
+}

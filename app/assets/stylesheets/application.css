@@ -32,12 +32,13 @@
 .thumbnail-caption-top-right {
   text-align: center;
   color: white;
-  border-radius: 2px;
-  background-color: lightcoral;
+  background-color: darkslategray;
   padding: 0 5px 0 5px;
   position: absolute !important;
   top: 4px;
   right: 4px;
+  font-size: 13px;
+  letter-spacing: 0.01em;
 }
 
 .thumbnail-caption-top-left {
@@ -73,7 +74,7 @@ ul.nav {
 }
 
 .grid-bottom {
-  position: absolute;
+  position: relative;
   bottom: 10px;
 }
 

@@ -44,7 +44,6 @@ export const searchParams = (query: string, category: string) => {
 };
 
 export const getCategory = (location) => {
-  console.log(location);
   let category = location.pathname.slice(1);
 
   if (category === "recent") {
