@@ -12,15 +12,10 @@ interface Props {
 
 interface State {
   results: IPost[];
-  title?: number;
-  description?: number;
-  price?: number;
-  updated_at?: number;
-  condition?: number;
   maxPages?: number;
   currentPage?: number;
-  views?: number;
-  firstTime?: number;
+  sortBy?: string;
+  pageIdx?: number;
 }
 
 class SearchListView extends React.Component<Props, any> {

@@ -14,14 +14,8 @@ interface Props {
 
 interface State {
   results: IPost[];
-  title?: number;
-  description?: number;
-  price?: number;
-  updated_at?: number;
-  condition?: number;
   maxPages?: number;
   currentPage?: number;
-  views?: number;
   sortBy?: string;
   pageIdx?: number;
 }
