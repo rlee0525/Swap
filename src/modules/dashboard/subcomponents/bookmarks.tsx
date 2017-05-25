@@ -1,7 +1,7 @@
 import React from 'react';
 import Clipboard from 'clipboard';
 import { IUser, IPost } from 'common/interfaces';
-import { TableHeaders, DashboardHeaders } from 'common/components';
+import { TableHeaders } from 'common/components';
 import { shortenString, timeFromNow } from 'helpers';
 declare var window;
 
@@ -13,7 +13,13 @@ interface State {
   updated_at: any;
 }
 
-class Bookmarks extends React.Component<any, State> {
+interface Props {
+  user: IUser;
+  bookmarks: any[];
+  fetchBookmarks : (accessToken: string) => void;
+}
+
+class Bookmarks extends React.Component<Props, State> {
   constructor(props) {
     super(props);
 
@@ -26,31 +32,27 @@ class Bookmarks extends React.Component<any, State> {
     }
 
     this.initializeClipboard = this.initializeClipboard.bind(this);
-    this.fetchBookmarkedPosts = this.fetchBookmarkedPosts.bind(this);
     this.deleteBookmarkedPost = this.deleteBookmarkedPost.bind(this);
-  }
-
-  public fetchBookmarkedPosts() {
-    $.ajax({
-      method: "GET",
-      url: "api/bookmarks",
-      data: { access_token: this.props.user.auth.accessToken }
-    }).then(bookmarkedPosts => this.setState({ bookmarkedPosts }))
   }
 
   public deleteBookmarkedPost(e, postId) {
     e.stopPropagation();
 
-    $.ajax({
-      type: "DELETE",
-      url: `api/bookmarks/${postId}`,
-      data: { access_token: this.props.user.auth.accessToken }
-    }).then(this.fetchBookmarkedPosts);
+    // $.ajax({
+    //   type: "DELETE",
+    //   url: `api/bookmarks/${postId}`,
+    //   data: { access_token: this.props.user.auth.accessToken }
+    // }).then(this.fetchBookmarkedPosts);
   }
 
   public componentDidMount() {
     this.initializeClipboard();
-    this.fetchBookmarkedPosts();
+
+    let { bookmarks, user, fetchBookmarks } = this.props;
+
+    if (!bookmarks.fetched) {
+      fetchBookmarks(user.auth.accessToken);
+    }
   }
 
   public initializeClipboard() {
@@ -67,7 +69,7 @@ class Bookmarks extends React.Component<any, State> {
   }
 
   public renderListItems() {
-    return this.state.bookmarkedPosts.map(bookmarkedPost => (
+    return this.props.bookmarks.list.map(bookmarkedPost => (
       <tr key={`post${bookmarkedPost.id}`} onClick={() => this.loadPost(bookmarkedPost.id)}>
         <td><a href={`#/posts/${bookmarkedPost.id}`} ><img className="img img-responsive img-thumbnail-size" src={bookmarkedPost.img_url1}/></a></td>
         <td className="hidden-xs">{shortenString(bookmarkedPost.title, 25)}</td>
@@ -84,26 +86,19 @@ class Bookmarks extends React.Component<any, State> {
     const headers = ['title', 'description', 'price', 'updated_at'];
 
     return (
-      <div>
-        <div className="container">
-          <DashboardHeaders />
-          <div>
-            <div className="panel panel-default">
-              <div className="panel-body">
-                <table className="table table-hover">
-                  <TableHeaders context={this} array={this.state.bookmarkedPosts} headers={headers} />
+      <div className="panel panel-default">
+        <div className="panel-body">
+          <table className="table table-hover">
+            <TableHeaders context={this} array={this.props.bookmarks} headers={headers} />
 
-                  <tbody>
-                    {this.renderListItems()}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
+            <tbody>
+              {this.renderListItems()}
+            </tbody>
+          </table>
         </div>
       </div>
     );
   }
 }
 
-export default Bookmarks;
+export { Bookmarks };
