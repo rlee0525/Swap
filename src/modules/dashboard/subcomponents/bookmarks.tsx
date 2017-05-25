@@ -40,7 +40,9 @@ class Bookmarks extends React.Component<Props, State> {
 
     let { deleteBookmark, user } = this.props;
 
-    deleteBookmark(id, user.auth.accessToken);
+    deleteBookmark(id, user.auth.accessToken).then(
+      () => this.setState({ bookmarks: this.props.bookmarks.list })
+    );
   }
 
   public componentDidMount() {
