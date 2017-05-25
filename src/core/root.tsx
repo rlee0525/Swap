@@ -53,11 +53,6 @@ const Root: React.SFC<RootProps> = ({ store }) => {
 
           {/* Dashboard routes */}
           <Route path="/dashboard" component={Dashboard} />
-          {/*<Route path="/dashboard">
-            <Route path="posts" component={MyPosts} />
-            <Route path="bookmarks" component={Bookmarks} />
-            <Route path="rfps" component={Rfps} />
-          </Route>*/}
           
         </Route>
       </Router>
