@@ -130,7 +130,7 @@ class NavBar extends React.Component<any, any> {
         <div className="navbar-collapse collapse" id={id}>
           <ul className="nav navbar-nav navbar-right">
             <li><a href="/#/recent">Browse</a></li>
-            <li><a id="dashboard/posts" onClick={(e) => this.checkVerified(e)}>Dashboard</a></li>
+            <li><a id="dashboard" onClick={(e) => this.checkVerified(e)}>Dashboard</a></li>
             <li><a onClick={this.chooseModal}>{this.props.user.userFB.name}</a></li>
           </ul>
         </div>
