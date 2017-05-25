@@ -15,7 +15,6 @@ interface Props {
 interface State {
   results: IPost[];
   maxPages?: number;
-  currentPage?: number;
   sortBy?: string;
   pageIdx?: number;
 }
@@ -29,9 +28,8 @@ class SearchGridView extends React.Component<Props, State> {
     this.state = {
       results,
       maxPages,
-      currentPage: 1,
-      sortBy: "Posting Date",
       pageIdx: 1
+      sortBy: "Posting Date",
     };
 
     this.sortBy = this.sortBy.bind(this);
