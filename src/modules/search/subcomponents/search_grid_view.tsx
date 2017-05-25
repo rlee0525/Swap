@@ -92,17 +92,8 @@ class SearchGridView extends React.Component<Props, State> {
             <div className="thumbnail-caption-top-right">{updatedDate}</div>
           </a>
           <div className="caption" id="grid-caption">
-            <span id="grid-title">${Number(post.price).toLocaleString()}&nbsp; | &nbsp;{post.title}</span>
-
-            <div className="grid-bottom">
-              <span className={`label label-${this.buttonClass(post.condition)}`} id="label-micro">
-                {post.condition}
-              </span>
-              <span className="red">
-                <span className="glyphicon glyphicon-fire" id="condition-views-grid"></span>
-                {post.views} Views
-              </span>
-            </div>
+            <span id="grid-title">{post.title}</span>
+            <span className="bottom-right-corner">${Number(post.price).toLocaleString()}</span>
           </div>
         </div>
       </div>

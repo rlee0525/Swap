@@ -57,14 +57,15 @@
 }
 
 #grid-title {
-  color: #222;
+  color: #777;
   font-size: 14px;
   margin-top: 4px;
   margin-bottom: 10px;
-  font-weight: 300;
+  font-weight: 400;
   line-height: normal;
   font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
   word-wrap: break-word;
+  letter-spacing: 0.02em;
 }
 
 #grid-caption {
