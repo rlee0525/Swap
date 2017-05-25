@@ -18,8 +18,7 @@ let _defaultState = {
 
 const dashboardReducer = (state = _defaultState, action) => {
   Object.freeze(state);
-  console.log(action);
-  
+
   switch (action.type) {
     case DASHBOARD.MY_POSTS:
       return merge({}, state, {

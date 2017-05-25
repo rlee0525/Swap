@@ -1,5 +1,5 @@
 import React from 'react';
-import { IUser } from 'common/interfaces';
+import { IUser, IDashboard } from 'common/interfaces';
 import { DashboardHeaders, Bookmarks } from './subcomponents';
 
 const data = require('./dashboard_data.json');
@@ -9,6 +9,9 @@ interface Props {
     search: string;
   },
   user: IUser;
+  dashboard: IDashboard;
+  fetchBookmarks : (accessToken: string) => JQueryPromise<void>;
+  deleteBookmark : (id: number, accessToken: string) => JQueryPromise<void>;
 }
 
 interface State {

@@ -47,3 +47,18 @@ export interface IUser {
     }
   }
 }
+
+export interface IDashboard {
+  bookmarks: {
+    fetched: boolean;
+    list: IPost [];
+  },
+  myPosts: {
+    fetched: boolean;
+    list: IPost [];
+  },
+  rfps: {
+    fetched: boolean;
+    list: any[];
+  }
+}

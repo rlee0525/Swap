@@ -8,9 +8,6 @@ import Search from 'modules/search';
 import Post from 'modules/post';
 import Infos from 'modules/infos';
 import Terms from 'modules/terms';
-import Bookmarks from 'modules/bookmarks';
-import MyPosts from 'modules/my_posts';
-import Rfps from 'modules/rfps';
 import PostForm from 'modules/post_form';
 import Dashboard from 'modules/dashboard';
 

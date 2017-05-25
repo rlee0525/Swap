@@ -6,7 +6,7 @@ import { shortenString, timeFromNow } from 'helpers';
 declare var window;
 
 interface State {
-  bookmarkedPosts: IPost [];
+  bookmarks: IPost [];
   title: any;
   description: any;
   price: any;
@@ -15,8 +15,12 @@ interface State {
 
 interface Props {
   user: IUser;
-  bookmarks: any[];
-  fetchBookmarks : (accessToken: string) => void;
+  bookmarks: {
+    fetched: boolean;
+    list: IPost[];
+  };
+  fetchBookmarks : (accessToken: string) => JQueryPromise<void>;
+  deleteBookmark : (id: number, accessToken: string) => JQueryPromise<void>;
 }
 
 class Bookmarks extends React.Component<Props, State> {
@@ -24,7 +28,7 @@ class Bookmarks extends React.Component<Props, State> {
     super(props);
 
     this.state = {
-      bookmarkedPosts: props.bookmarks.list,
+      bookmarks: props.bookmarks.list,
       title: -1,
       description: -1,
       price: -1,

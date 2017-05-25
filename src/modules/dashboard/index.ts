@@ -11,7 +11,7 @@ interface StateProps {
 
 interface DispatchProps {
   fetchBookmarks: (accessToken: string) => void;
-  deleteBookmarks: (id: number, accessToken: string) => void;
+  deleteBookmark: (id: number, accessToken: string) => void;
 }
 
 const mapStateToProps = (state: IStoreState, ownProp?: any): StateProps => ({
@@ -20,7 +20,7 @@ const mapStateToProps = (state: IStoreState, ownProp?: any): StateProps => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<IStoreState>): DispatchProps => ({
-  fetchBookmarks: accessToken => dispatch(fetchBookmarks(accessToken))
+  fetchBookmarks: accessToken => dispatch(fetchBookmarks(accessToken)),
   deleteBookmark: (id, accessToken) => dispatch(deleteBookmark(id, accessToken))
 });
 
