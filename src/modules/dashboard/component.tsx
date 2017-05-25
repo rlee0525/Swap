@@ -28,6 +28,7 @@ class Dashboard extends React.Component<Props, State> {
           <Bookmarks
             bookmarks={this.props.dashboard.bookmarks}
             fetchBookmarks={this.props.fetchBookmarks}
+            deleteBookmark={this.props.deleteBookmark}
             user={this.props.user}
           />
         );

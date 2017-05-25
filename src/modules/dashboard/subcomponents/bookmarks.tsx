@@ -24,7 +24,7 @@ class Bookmarks extends React.Component<Props, State> {
     super(props);
 
     this.state = {
-      bookmarkedPosts: [],
+      bookmarkedPosts: props.bookmarks.list,
       title: -1,
       description: -1,
       price: -1,
@@ -32,17 +32,15 @@ class Bookmarks extends React.Component<Props, State> {
     }
 
     this.initializeClipboard = this.initializeClipboard.bind(this);
-    this.deleteBookmarkedPost = this.deleteBookmarkedPost.bind(this);
+    // this.deleteBookmarkedPost = this.deleteBookmarkedPost.bind(this);
   }
 
-  public deleteBookmarkedPost(e, postId) {
+  public deleteBookmark(e, id) {
     e.stopPropagation();
 
-    // $.ajax({
-    //   type: "DELETE",
-    //   url: `api/bookmarks/${postId}`,
-    //   data: { access_token: this.props.user.auth.accessToken }
-    // }).then(this.fetchBookmarkedPosts);
+    let { deleteBookmark, user } = this.props;
+
+    deleteBookmark(id, user.auth.accessToken);
   }
 
   public componentDidMount() {
@@ -51,7 +49,9 @@ class Bookmarks extends React.Component<Props, State> {
     let { bookmarks, user, fetchBookmarks } = this.props;
 
     if (!bookmarks.fetched) {
-      fetchBookmarks(user.auth.accessToken);
+      fetchBookmarks(user.auth.accessToken).then(
+        () => this.setState({ bookmarks: this.props.bookmarks.list })
+      );
     }
   }
 
@@ -68,28 +68,42 @@ class Bookmarks extends React.Component<Props, State> {
     window.location.href = `#/posts/${id}`;
   }
 
-  public renderListItems() {
+  private renderListItems() {
     return this.props.bookmarks.list.map(bookmarkedPost => (
       <tr key={`post${bookmarkedPost.id}`} onClick={() => this.loadPost(bookmarkedPost.id)}>
-        <td><a href={`#/posts/${bookmarkedPost.id}`} ><img className="img img-responsive img-thumbnail-size" src={bookmarkedPost.img_url1}/></a></td>
+        <td>
+          <a href={`#/posts/${bookmarkedPost.id}`} >
+            <img className="img img-responsive img-thumbnail-size" src={bookmarkedPost.img_url1}/>
+          </a>
+        </td>
+
         <td className="hidden-xs">{shortenString(bookmarkedPost.title, 25)}</td>
-        <td className="hidden-xs" id="hide-description">{shortenString(bookmarkedPost.description, 30)}</td>
         <td className="hidden-xs">${Number(bookmarkedPost.price).toLocaleString()}</td>
         <td className="hidden-xs">{timeFromNow(bookmarkedPost.updated_at)}</td>
-        <td><button type="button" className="btn btn-xs btn-primary" data-clipboard-text={window.localhost_url + `/#/posts/${bookmarkedPost.id}`} onClick={e => e.stopPropagation()}>Copy Link</button></td>
-        <td><button type="button" className="btn btn-xs btn-secondary" onClick={(e) => this.deleteBookmarkedPost(e, bookmarkedPost.id)}>Delete</button></td>
+
+        <td>
+          <button type="button" className="btn btn-xs btn-primary" data-clipboard-text={window.localhost_url + `/#/posts/${bookmarkedPost.id}`} onClick={e => e.stopPropagation()}>
+            Copy Link
+          </button>
+        </td>
+
+        <td>
+          <button type="button" className="btn btn-xs btn-secondary" onClick={(e) => this.deleteBookmark(e, bookmarkedPost.id)}>
+            Delete
+          </button>
+        </td>
       </tr>
     ))
   }
 
   public render() {
-    const headers = ['title', 'description', 'price', 'updated_at'];
+    const headers = ['title', 'price', 'updated_at'];
 
     return (
       <div className="panel panel-default">
         <div className="panel-body">
           <table className="table table-hover">
-            <TableHeaders context={this} array={this.props.bookmarks} headers={headers} />
+            <TableHeaders context={this} array={this.state.bookmarks} headers={headers} />
 
             <tbody>
               {this.renderListItems()}
