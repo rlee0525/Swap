@@ -61,25 +61,23 @@ class SearchGridView extends React.Component<Props, State> {
     let sortBy;
 
     if (key == "views") {
-      sortBy = "Popularity";
+      sortBy = "Views";
     } else if (key == "updated_at") {
       sortBy = "Posting Date"
     } else {
-      if (polarity == -1) {
-        sortBy = "Price: Low to High"
-      } else {
-        sortBy = "Price: High to Low"
-      }
+      sortBy = "Price"
     }
 
     let query = "";
     let category = getCategory(this.props.location);
-    let sort_by = "Posting Date";
+    let sort_by = sortBy;
     let page_idx = this.state.pageIdx;
 
     let searchParams = { query, category, sort_by, polarity, page_idx };
+    console.log(searchParams);
 
     this.props.search(searchParams).then(results => {
+      console.log(results);
       this.setState({
         results: results.result,
         sortBy
@@ -129,8 +127,8 @@ class SearchGridView extends React.Component<Props, State> {
               <ul className="dropdown-menu dropdown-menu-right">
                 <li><a onClick={() => this.sortBy("views", -1)}>Popularity</a></li>
                 <li><a onClick={() => this.sortBy("updated_at", -1)}>Posting Date</a></li>
-                <li><a onClick={() => this.sortBy("price", -1)}>Price: Low to High</a></li>
-                <li><a onClick={() => this.sortBy("price", 1)}>Price: High to Low</a></li>
+                <li><a onClick={() => this.sortBy("price", 1)}>Price: Low to High</a></li>
+                <li><a onClick={() => this.sortBy("price", -1)}>Price: High to Low</a></li>
               </ul>
             </div>
           </div>
