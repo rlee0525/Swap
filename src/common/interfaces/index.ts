@@ -2,7 +2,7 @@ export interface IStoreState {
   user: IUser | null;
   post: IPost | null;
   searchResult: IPost[];
-  dashboard: any;
+  dashboard: IDashboard;
 }
 
 export interface IPost {

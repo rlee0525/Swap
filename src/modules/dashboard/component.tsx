@@ -14,10 +14,7 @@ interface Props {
   deleteBookmark : (id: number, accessToken: string) => JQueryPromise<void>;
 }
 
-interface State {
-}
-
-class Dashboard extends React.Component<Props, State> {
+class Dashboard extends React.Component<Props, {}> {
   renderSubcomponent() {
     let page = this.props.location.search.slice(1);
 
