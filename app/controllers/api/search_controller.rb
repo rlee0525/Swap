@@ -14,28 +14,54 @@ class Api::SearchController < ApplicationController
     limit = 16
     sql_query = query.split(' ').map { |word| "%#{word}%" }
     sql = 'title ILIKE ANY( array[?] )'
-
+    
     if (query.nil? || query.empty?) && (category.nil? || category.empty?)
+      length = Post.where(active: true)
+                   .where(deleted: false)
+                   .count
+
       @posts = Post.where(active: true)
                    .where(deleted: false)
                    .order("#{sort_by} #{polarity}")
                    .offset(offset)
                    .limit(limit)
+
+      @max_pages = (length / limit).ceil
     elsif (query.nil? || query.empty?)
+      length = Post.where(active: true)
+                   .where(deleted: false)
+                   .where(category: category)
+                   .count
+
       @posts = Post.where(active: true)
                    .where(deleted: false)
                    .where(category: category)
                    .order("#{sort_by} #{polarity}")
                    .offset(offset)
                    .limit(limit)
+
+      @max_pages = (length / limit).ceil
     elsif (category.nil? || category.empty?)
+      length = Post.where(active: true)
+                   .where(deleted: false)
+                   .where(sql, sql_query)
+                   .count
+
       @posts = Post.where(active: true)
                    .where(deleted: false)
                    .order("#{sort_by} #{polarity}")
                    .offset(offset)
                    .limit(limit)
                    .where(sql, sql_query)
+
+      @max_pages = (length / limit).ceil
     else
+      length = Post.where(active: true)
+                   .where(deleted: false)
+                   .where(category: category)
+                   .where(sql, sql_query)
+                   .count
+
       @posts = Post.where(active: true)
                    .where(deleted: false)
                    .where(category: category)
@@ -43,8 +69,11 @@ class Api::SearchController < ApplicationController
                    .offset(offset)
                    .limit(limit)
                    .where(sql, sql_query)
+
+      @max_pages = (length / limit).ceil
     end
 
+    @max_pages = 2
     render 'api/search/index'
   end
 
