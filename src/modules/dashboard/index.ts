@@ -5,13 +5,15 @@ import Dashboard from './component';
 
 interface StateProps {
   user : IUser;
+  dashboard: any; // TODO: update
 }
 
 interface DispatchProps {
 }
 
 const mapStateToProps = (state: IStoreState, ownProp?: any): StateProps => ({
-  user: state.user
+  user: state.user,
+  dashboard: state.dashboard
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<IStoreState>): DispatchProps => ({
