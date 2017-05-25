@@ -15,21 +15,19 @@ interface State {
 }
 
 class Dashboard extends React.Component<Props, State> {
-  constructor(props) {
-    super(props);
-  }
-
   renderSubcomponent() {
     let page = this.props.location.search.slice(1);
+
+    let { dashboard, user, fetchBookmarks, deleteBookmark } = this.props;
 
     switch (page) {
       case 'bookmarks':
         return (
           <Bookmarks
-            bookmarks={this.props.dashboard.bookmarks}
-            fetchBookmarks={this.props.fetchBookmarks}
-            deleteBookmark={this.props.deleteBookmark}
-            user={this.props.user}
+            bookmarks={dashboard.bookmarks}
+            fetchBookmarks={fetchBookmarks}
+            deleteBookmark={deleteBookmark}
+            user={user}
           />
         );
       case 'rfps':
