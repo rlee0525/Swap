@@ -1,11 +1,15 @@
 import React from 'react';
-import { shortenString, timeFromNow } from 'helpers';
+import { shortenString, 
+         timeFromNow,
+         getCategory } from 'helpers';
 import { IPost } from 'common/interfaces';
 import { Pagination } from './';
 declare var $;
 
 interface Props {
   searchResult: IPost [];
+  search: (query: object) => JQueryXHR;
+  location: string;
 }
 
 interface State {
@@ -13,12 +17,13 @@ interface State {
   title?: number;
   description?: number;
   price?: number;
-  created_at?: number;
+  updated_at?: number;
   condition?: number;
   maxPages?: number;
   currentPage?: number;
   views?: number;
   sortBy?: string;
+  pageIdx?: number;
 }
 
 class SearchGridView extends React.Component<Props, State> {
@@ -28,16 +33,11 @@ class SearchGridView extends React.Component<Props, State> {
     let maxPages = props.searchResult.length > 0 ? Math.ceil(props.searchResult.length / 16) : 1;
 
     this.state = {
-      title: -1,
-      description: -1,
-      price: -1,
-      created_at: 1,
-      condition: -1,
-      views: -1,
       results,
       maxPages,
       currentPage: 1,
-      sortBy: "Posting Date"
+      sortBy: "Posting Date",
+      pageIdx: 1
     };
 
     this.sortBy = this.sortBy.bind(this);
@@ -63,41 +63,39 @@ class SearchGridView extends React.Component<Props, State> {
     let sortBy;
 
     if (key == "views") {
-      sortBy = "Popularity";
+      sortBy = "Views";
     } else if (key == "updated_at") {
       sortBy = "Posting Date"
     } else {
-      if (polarity == 1) {
-        sortBy = "Price: Low to High"
-      } else {
-        sortBy = "Price: High to Low"
-      }
+      sortBy = "Price"
     }
 
-    let newArray: IPost[] = this.state.results.sort(function(a:object, b:object) {
-      if (a[key] < b[key]) return (-1 * polarity);
-      if (a[key] > b[key]) return (1 * polarity);
-      return 0;
-    });
-    let newPolarity: number = -1 * polarity;
+    let query = "";
+    let category = getCategory(this.props.location);
+    let sort_by = sortBy;
+    let page_idx = this.state.pageIdx;
 
-    this.setState({
-      results: newArray,
-      [key]: newPolarity,
-      sortBy
-    });
+    let searchParams = { query, category, sort_by, polarity, page_idx };
+
+    this.props.search(searchParams).then(results => {
+      this.setState({
+        results: results.result,
+        sortBy
+      });
+    })
   }
 
   renderGridItem(post: IPost) {
-    let createdDate: number | string= Date.parse(post.created_at);
-    createdDate = Date.now() - createdDate <= 86400000 ? timeFromNow(post.created_at) : ""
+    let updatedDate: number | string= Date.parse(post.updated_at);
+    updatedDate = Date.now() - updatedDate <= 86400000 ? timeFromNow(post.updated_at) : "";
+    
     return (
       <div className="col-sm-6 col-md-3" key={Math.random() * post.id}
            onClick={() => window.location.href = `#/posts/${post.id}`}>
         <div className="thumbnail col-md-12">
           <a id={post.id}>
             <img src={post.img_url1} alt={post.title} />
-            <div className="thumbnail-caption-top-right">{createdDate}</div>
+            <div className="thumbnail-caption-top-right">{updatedDate}</div>
           </a>
           <div className="caption" id="grid-caption">
             <span id="grid-title">${Number(post.price).toLocaleString()}&nbsp; | &nbsp;{post.title}</span>
@@ -118,9 +116,6 @@ class SearchGridView extends React.Component<Props, State> {
   }
 
   render() {
-    let pageStart: number = (this.state.currentPage - 1) * 16;
-    let pageEnd: number = this.state.currentPage * 16;
-
     return (
       <div>
         <div className="row">
@@ -137,7 +132,7 @@ class SearchGridView extends React.Component<Props, State> {
               </ul>
             </div>
           </div>
-          { this.state.results ? this.state.results.slice(pageStart, pageEnd).map(post => this.renderGridItem(post)) : null}
+          { this.state.results ? this.state.results.map(post => this.renderGridItem(post)) : null}
         </div>
         <Pagination that={this} maxPages={this.state.maxPages} currentPage={this.state.currentPage} />
       </div>

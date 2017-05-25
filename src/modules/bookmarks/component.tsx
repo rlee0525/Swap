@@ -10,7 +10,7 @@ interface State {
   title: any;
   description: any;
   price: any;
-  created_at: any;
+  updated_at: any;
 }
 
 class Bookmarks extends React.Component<any, State> {
@@ -22,7 +22,7 @@ class Bookmarks extends React.Component<any, State> {
       title: -1,
       description: -1,
       price: -1,
-      created_at: -1
+      updated_at: -1
     }
 
     this.initializeClipboard = this.initializeClipboard.bind(this);
@@ -45,7 +45,7 @@ class Bookmarks extends React.Component<any, State> {
       type: "DELETE",
       url: `api/bookmarks/${postId}`,
       data: { access_token: this.props.user.auth.accessToken }
-    }).then(this.fetchBookmarkedPosts)
+    }).then(this.fetchBookmarkedPosts);
   }
 
   public componentDidMount() {
@@ -56,14 +56,14 @@ class Bookmarks extends React.Component<any, State> {
   public initializeClipboard() {
     var clipboard = new Clipboard('.btn');
     clipboard.on('success', function(e) {
-      $(e.trigger).text("copied!")
-      setTimeout(function(){ $(e.trigger).text("Copy Link"); }, 1000)
+      $(e.trigger).text("copied!");
+      setTimeout(function(){ $(e.trigger).text("Copy Link"); }, 1000);
       e.clearSelection();
     });
   }
 
   public loadPost(id) {
-    window.location.href = `#/posts/${id}`
+    window.location.href = `#/posts/${id}`;
   }
 
   public renderListItems() {
@@ -73,7 +73,7 @@ class Bookmarks extends React.Component<any, State> {
         <td className="hidden-xs">{shortenString(bookmarkedPost.title, 25)}</td>
         <td className="hidden-xs" id="hide-description">{shortenString(bookmarkedPost.description, 30)}</td>
         <td className="hidden-xs">${Number(bookmarkedPost.price).toLocaleString()}</td>
-        <td className="hidden-xs">{timeFromNow(bookmarkedPost.created_at)}</td>
+        <td className="hidden-xs">{timeFromNow(bookmarkedPost.updated_at)}</td>
         <td><button type="button" className="btn btn-xs btn-primary" data-clipboard-text={window.localhost_url + `/#/posts/${bookmarkedPost.id}`} onClick={e => e.stopPropagation()}>Copy Link</button></td>
         <td><button type="button" className="btn btn-xs btn-secondary" onClick={(e) => this.deleteBookmarkedPost(e, bookmarkedPost.id)}>Delete</button></td>
       </tr>
@@ -81,7 +81,7 @@ class Bookmarks extends React.Component<any, State> {
   }
 
   public render() {
-    const headers = ['title', 'description', 'price', 'created_at'];
+    const headers = ['title', 'description', 'price', 'updated_at'];
 
     return (
       <div>

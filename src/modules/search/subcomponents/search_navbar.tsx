@@ -1,12 +1,14 @@
 import React from 'react';
+import { searchParams } from 'helpers';
 
 interface Props {
-  search(query: string) : void;
+  search(query: object) : void;
   props: object;
 }
 
 interface State {
   label: string;
+  query: string;
 }
 
 class SearchNavbar extends React.Component<Props, State> {
@@ -14,12 +16,14 @@ class SearchNavbar extends React.Component<Props, State> {
     super(props);
 
     this.state = {
-      label: "All"
+      label: "All",
+      query: ""
     }
 
-    this.handleKeyPress = this.handleKeyPress.bind(this);
-    this.onChange = this.onChange.bind(this);
+    this.checkKey = this.checkKey.bind(this);
     this.renderCateogryMenu = this.renderCateogryMenu.bind(this);
+    this.onClick = this.onClick.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
   public componentWillReceiveProps(nextProps) {
@@ -32,6 +36,8 @@ class SearchNavbar extends React.Component<Props, State> {
     let label = window.location.hash.slice(2);
     if (label === "lostandfound") {
       label = "Lost & Found";
+    } else if (label == "coursematerial") {
+      label = "Course Material";
     } else if (label === "") {
       label = "All";
     }
@@ -44,18 +50,25 @@ class SearchNavbar extends React.Component<Props, State> {
     }
   }
 
-  private handleKeyPress(e: any) {
-    if (e.key === 'Enter') {
-      this.props.search(e.target.value);
+  private checkKey(e: any) {
+    if (e.keyCode === 13 && this.state.query !== "") {
+      let query = e.target.value;
+      let category = this.state.label;
+
+      this.props.search(searchParams(query, category));
     }
   }
 
   private onChange(e: any) {
-    this.props.search(e.target.value);
+    this.setState({ query: e.target.value });
   }
 
-  private searchClick() {
+  private onClick() {
+    let input: any = document.getElementById("search-query");
+    let query: string = input.value;
+    let category = this.state.label;
 
+    this.props.search(searchParams(query, category));
   }
 
   private renderCateogryMenu(label) {
@@ -72,7 +85,7 @@ class SearchNavbar extends React.Component<Props, State> {
           </button>
           <ul className="dropdown-menu col-md-2" aria-labelledby="dropdownMenu1">
             <li><a href="#/recent" onClick={() => this.renderCateogryMenu("All")}>All</a></li>
-            <li><a href="#/textbooks" onClick={() => this.renderCateogryMenu("Textbooks")}>Textbooks</a></li>
+            <li><a href="#/coursematerial" onClick={() => this.renderCateogryMenu("Course Material")}>Course Material</a></li>
             <li><a href="#/furniture" onClick={() => this.renderCateogryMenu("Furniture")}>Furniture</a></li>
             <li><a href="#/clothing" onClick={() => this.renderCateogryMenu("Clothing")}>Clothing</a></li>
             <li><a href="#/electronics" onClick={() => this.renderCateogryMenu("Electronics")}>Electronics</a></li>
@@ -84,8 +97,9 @@ class SearchNavbar extends React.Component<Props, State> {
           </ul>
         </div>
         <div className="input-group col-md-10 col-sm-9 col-xs-8" id="phone-search-nav">
-          <input type="text" className="form-control" placeholder="Search" onChange={this.onChange} />
-          <span className="input-group-addon search-icon" id="basic-addon2"><span className="glyphicon glyphicon-search" aria-hidden="true" /></span>
+          <input id="search-query" type="text" className="form-control" placeholder="Search" onChange={e => this.onChange(e)} onKeyDown={e => this.checkKey(e)}
+                onKeyUp={e => this.checkKey(e)}/>
+          <span className="input-group-addon search-icon" id="basic-addon2" onClick={this.onClick}><span className="glyphicon glyphicon-search" aria-hidden="true" /></span>
         </div>
       </div>
     );

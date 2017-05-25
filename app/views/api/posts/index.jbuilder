@@ -11,7 +11,7 @@ json.array! @posts do |post|
                 :img_url3,
                 :category,
                 :course_id,
-                :created_at,
+                :updated_at,
                 :active
   json.course post.course.course_number if post.course
 end

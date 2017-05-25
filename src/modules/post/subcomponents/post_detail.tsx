@@ -28,8 +28,9 @@ class PostDetail extends React.Component<any, any> {
   public initializePost() {
     const accessToken = this.props.user.auth.accessToken;
     const id = this.props.id;
-    this.props.getPost(id, accessToken)
-    .then(res => { this.fetchAuthor() });
+    this.props.getPost(id, accessToken).then(
+      res => { this.fetchAuthor() }
+    );
   }
 
   public componentDidMount() {
@@ -91,6 +92,7 @@ class PostDetail extends React.Component<any, any> {
     const bookmark = {
       post_id: id
     };
+
     if (this.props.post.is_bookmarked) {
       $.ajax({
         type: "DELETE",
@@ -112,6 +114,7 @@ class PostDetail extends React.Component<any, any> {
 
   public initializeClipboard() {
     var clipboard = new Clipboard('#copy-template');
+    
     clipboard.on('success', function(e) {
       $(e.trigger).text("copied!")
       setTimeout(function(){ $(e.trigger).text("Copy Link"); }, 1000)
@@ -121,15 +124,16 @@ class PostDetail extends React.Component<any, any> {
 
   public deletePost(id) {
     const access_token = this.props.user.auth.access_token;
+
     $.ajax({
       type: "PATCH",
       url: `api/posts/${id}`,
       data: { access_token, method: "delete" }
-    }).then(() => window.location.href = `#/recent`)
+    }).then(() => window.location.href = `#/recent`);
   }
 
   public editPost(id) {
-    window.location.href = `#/posts/edit/${id}`
+    window.location.href = `#/posts/edit/${id}`;
   }
 
   public buttonClass(condition: string) {
@@ -144,15 +148,18 @@ class PostDetail extends React.Component<any, any> {
 
   public renderCarouselIndicators() {
     if (!this.props.post) return null;
+
     let { img_url1, img_url2, img_url3 } = this.props.post;
     let imageArray = [img_url1, img_url2, img_url3].filter(el => el !== null);
+    
     imageArray = imageArray.map((el, idx) => (
       <li key={idx} data-target="#carousel-example-generic-2"
         data-slide-to={idx} className={idx === 0 ? "active" : ""}></li>
-    ))
+    ));
+
     return (
       <ol className="carousel-indicators">{imageArray}</ol>
-    )
+    );
   }
 
   public renderCarousel() {
@@ -288,7 +295,13 @@ class PostDetail extends React.Component<any, any> {
   public render() {
     if (!this.props.post) return null;
     let { link, category, title } = this.props.post;
-    link = category.toLowerCase();
+    link = category.toLowerCase()
+
+    if (category === "Lost & Found") {
+      link = "lostandfound";
+    } else if (category === "Course Material") {
+      link = "coursematerial";
+    }
 
     return (
       <div className="container" id="container-body">

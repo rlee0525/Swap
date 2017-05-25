@@ -21,7 +21,7 @@ class TableHeaders extends React.Component<Props, State> {
       if (a[key] < b[key]) return (-1 * polarity);
       if (a[key] > b[key]) return (1 * polarity);
       return 0;
-    })
+    });
     let newPolarity = (polarity === -1 ? 1 : -1);
     context.setState({
       bookmarkedPosts: newArray,
@@ -34,17 +34,15 @@ class TableHeaders extends React.Component<Props, State> {
     return (
       <thead>
         <tr>
-          <th id="th-no-caret">Thumbnail</th>
+          <th id="th-no-caret"></th>
           { headers.map(header => (
             <th onClick={() => this.sortBy(header.toLowerCase())} className="hidden-xs">
-              { header === 'created_at' ? 'Posted' : header }
+              { header === 'updated_at' ? 'Posted' : header }
               <a onClick={() => this.sortBy(header.toLowerCase())} className="btn btn-xs" id="caret-container">
                 <span className="caret" />
               </a>
             </th>
           ))}
-          <th id="th-no-caret">Copy Link</th>
-          <th id="th-no-caret">Delete</th>
         </tr>
       </thead>
     );

@@ -26,7 +26,7 @@ const Root: React.SFC<RootProps> = ({ store }) => {
 
           {/* Search routes */}
           <Route path="/recent" component={Search} />
-          <Route path="/textbooks" component={Search} />
+          <Route path="/coursematerial" component={Search} />
           <Route path="/furniture" component={Search} />
           <Route path="/clothing" component={Search} />
           <Route path="/electronics" component={Search} />

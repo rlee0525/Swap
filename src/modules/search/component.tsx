@@ -1,11 +1,12 @@
 import React from 'react';
 import { IPost } from 'common/interfaces';
-import { shortenString } from 'helpers';
+import { shortenString, 
+         capitalize,
+         searchParams } from 'helpers';
 
-import {
-  SearchGridView,
-  SearchListView,
-  SearchNavbar } from './subcomponents';
+import { SearchGridView,
+         SearchListView,
+         SearchNavbar } from './subcomponents';
 
 interface State {
   viewType: string;
@@ -15,7 +16,7 @@ interface State {
 interface Props {
   user: object;
   searchResult: IPost[];
-  search: (query: string) => JQueryXHR;
+  search: (query: object) => JQueryXHR;
   location: any;
   post: any;
 }
@@ -31,20 +32,26 @@ class Search extends React.Component<Props, State> {
   }
 
   public componentWillMount() {
-    let path = this.props.location.pathname.slice(1);
-    if (path === "recent") {
-      this.props.search('').then(res => {
-        let posts = this.props.searchResult.sort((a: any, b: any) => Date.parse(b.created_at) - Date.parse(a.created_at))
+    let category = this.props.location.pathname.slice(1);
+
+    if (category === "recent") {
+      this.props.search(searchParams("", "All")).then(res => {
+        let posts = this.props.searchResult;
         this.setState({
           posts: this.props.searchResult
         });
       })
     } else {
-      if (path === "lostandfound") {
-        path = "Lost & Found";
+      if (category === "lostandfound") {
+        category = "Lost & Found";
+      } else if (category === "coursematerial") {
+        category = "Course Material";
+      } else {
+        category = capitalize(category);
       }
-      this.props.search(path).then(res => {
-        let posts = this.props.searchResult.sort((a: any, b: any) => Date.parse(b.created_at) - Date.parse(a.created_at))
+      
+      this.props.search(searchParams("", category)).then(res => {
+        let posts = this.props.searchResult;
         this.setState({
           posts: this.props.searchResult
         });
@@ -53,21 +60,27 @@ class Search extends React.Component<Props, State> {
   }
 
   public componentWillReceiveProps(nextProps: any){
-    let nextLocation = nextProps.location.pathname.slice(1)
-    if (nextLocation !== this.props.location.pathname.slice(1)) {
-      if (nextLocation === "recent") {
-        this.props.search('').then(res => {
-          let posts = this.props.searchResult.sort((a: any, b: any) => Date.parse(b.created_at) - Date.parse(a.created_at))
+    let nextCategory = nextProps.location.pathname.slice(1);
+
+    if (nextCategory !== this.props.location.pathname.slice(1)) {
+      if (nextCategory === "recent") {
+        this.props.search(searchParams("", "All")).then(res => {
+          let posts = this.props.searchResult;
           this.setState({
             posts: this.props.searchResult
           });
         })
       } else {
-        if (nextLocation === "lostandfound") {
-          nextLocation = "Lost & Found";
+        if (nextCategory === "lostandfound") {
+          nextCategory = "Lost & Found";
+        } else if (nextCategory === "coursematerial") {
+          nextCategory = "Course Material";
+        } else {
+          nextCategory = capitalize(nextCategory);
         }
-        this.props.search(nextLocation).then(res => {
-          let posts = this.props.searchResult.sort((a: any, b: any) => Date.parse(b.created_at) - Date.parse(a.created_at))
+
+        this.props.search(searchParams("", nextCategory)).then(res => {
+          let posts = this.props.searchResult;
           this.setState({
             posts: this.props.searchResult
           });
@@ -82,18 +95,25 @@ class Search extends React.Component<Props, State> {
 
   private renderView() {
     if (this.state.viewType === 'grid') {
-      return <SearchGridView searchResult={this.props.searchResult} />;
+      console.log(this.props.searchResult)
+      return <SearchGridView searchResult={this.props.searchResult} search={this.props.search} location={this.props.location} />;
     } else {
-      return <SearchListView searchResult={this.props.searchResult} />;
+      return <SearchListView searchResult={this.props.searchResult} search={this.props.search} location={this.props.location} />;
     }
   }
 
   public render() {
     let path = this.props.location.pathname.slice(1);
-    if (path == "lostandfound") {
-      path = "Lost & Found";
+    let uppercase;
+
+    if (path === "lostandfound") {
+      uppercase = "Lost & Found";
+    } else if (path === "coursematerial") {
+      uppercase = "Course Material";
+    } else {
+      uppercase = path[0].toUpperCase() + path.slice(1, path.length);
     }
-    const uppercase = path[0].toUpperCase() + path.slice(1, path.length);
+    
     return (
       <div>
         <div className="container">
