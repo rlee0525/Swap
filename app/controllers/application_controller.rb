@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :exception
+  # protect_from_forgery with: :exception
 
   def fb_id(access_token)
     graph = Koala::Facebook::API.new(access_token)

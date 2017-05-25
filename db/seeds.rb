@@ -61,3 +61,9 @@ User.all.each do |user|
     Bookmark.create(user: user, post: post)
   end
 end
+
+idx = 0
+5.times do |i|
+  idx += 1 + rand(0..1000)
+  User.first.courses << Course.find(idx)
+end

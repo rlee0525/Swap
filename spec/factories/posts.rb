@@ -30,5 +30,7 @@ FactoryGirl.define do
     img_url3 "some_url"
     category "Course Material"
     course
+    active true
+    deleted false
   end
 end

@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       resources :search,          only: [:index]
       resources :bookmarks,       only: [:index, :create, :destroy]
       resources :rfps,            only: [:index, :create, :destroy]
+      resources :schedules,       only: [:index, :create, :destroy]
     end
   end
 

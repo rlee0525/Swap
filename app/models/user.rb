@@ -23,6 +23,8 @@ class User < ApplicationRecord
   has_many :bookmarked_posts, through: :bookmarks, source: :post
   has_many :rfps
   belongs_to :university, optional: true
+  has_many :users_courses
+  has_many :courses, through: :users_courses
 
   before_create :confirmation_token
 
