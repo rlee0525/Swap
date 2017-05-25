@@ -8,6 +8,8 @@ declare var $;
 
 interface Props {
   searchResult: IPost [];
+  search: (query: object) => JQueryXHR;
+  location: string;
 }
 
 interface State {
@@ -74,10 +76,8 @@ class SearchGridView extends React.Component<Props, State> {
     let page_idx = this.state.pageIdx;
 
     let searchParams = { query, category, sort_by, polarity, page_idx };
-    console.log(searchParams);
 
     this.props.search(searchParams).then(results => {
-      console.log(results);
       this.setState({
         results: results.result,
         sortBy

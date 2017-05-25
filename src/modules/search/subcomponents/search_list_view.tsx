@@ -6,6 +6,8 @@ declare var $;
 
 interface Props {
   searchResult: IPost [];
+  search: (query: object) => JQueryXHR;
+  location: string;
 }
 
 interface State {
