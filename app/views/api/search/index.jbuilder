@@ -3,3 +3,4 @@ json.posts do
 end
 
 json.max_pages @max_pages
+json.result_count @result_count

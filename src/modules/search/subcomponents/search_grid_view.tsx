@@ -41,15 +41,16 @@ class SearchGridView extends React.Component<Props, State> {
     this.setState({ results, maxPages });
   }
 
-  private buttonClass(condition: string) {
-    if (condition === 'Brand New') {
-      return 'info';
-    } else if (condition === 'Like New') {
-      return 'primary';
-    } else {
-      return 'success';
-    }
-  }
+  // OLD CODE Consider Deleting
+  // private buttonClass(condition: string) {
+  //   if (condition === 'Brand New') {
+  //     return 'info';
+  //   } else if (condition === 'Like New') {
+  //     return 'primary';
+  //   } else {
+  //     return 'success';
+  //   }
+  // }
 
   public sort_by(key: string, polarity: number) {
     let sort_by;

@@ -15,7 +15,7 @@ class Api::SearchController < ApplicationController
     sql = 'title ILIKE ANY( array[?] )'
 
     if (query.nil? || query.empty?) && (category.nil? || category.empty?)
-      length = Post.where(active: true)
+      @result_count = Post.where(active: true)
                    .where(deleted: false)
                    .count
 
@@ -25,9 +25,9 @@ class Api::SearchController < ApplicationController
                    .offset(offset)
                    .limit(limit)
 
-      @max_pages = (length / limit.to_f).ceil
+      @max_pages = (@result_count / limit.to_f).ceil
     elsif (query.nil? || query.empty?)
-      length = Post.where(active: true)
+      @result_count = Post.where(active: true)
                    .where(deleted: false)
                    .where(category: category)
                    .count
@@ -39,9 +39,9 @@ class Api::SearchController < ApplicationController
                    .offset(offset)
                    .limit(limit)
 
-      @max_pages = (length / limit.to_f.to_f).ceil
+      @max_pages = (@result_count / limit.to_f.to_f).ceil
     elsif (category.nil? || category.empty?)
-      length = Post.where(active: true)
+      @result_count = Post.where(active: true)
                    .where(deleted: false)
                    .where(sql, sql_query)
                    .count
@@ -53,9 +53,9 @@ class Api::SearchController < ApplicationController
                    .limit(limit)
                    .where(sql, sql_query)
 
-      @max_pages = (length / limit.to_f).ceil
+      @max_pages = (@result_count / limit.to_f).ceil
     else
-      length = Post.where(active: true)
+      @result_count = Post.where(active: true)
                    .where(deleted: false)
                    .where(category: category)
                    .where(sql, sql_query)
@@ -69,7 +69,7 @@ class Api::SearchController < ApplicationController
                    .limit(limit)
                    .where(sql, sql_query)
 
-      @max_pages = (length / limit.to_f).ceil
+      @max_pages = (@result_count / limit.to_f).ceil
     end
 
     render 'api/search/index'

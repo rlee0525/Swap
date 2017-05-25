@@ -9,9 +9,10 @@ import { SearchGridView,
          SearchListView,
          SearchNavbar } from './subcomponents';
 
+import { merge } from 'lodash';
+
 interface State {
   viewType: string;
-  posts: object;
 }
 
 interface Props {
@@ -20,6 +21,8 @@ interface Props {
   search: (query: object) => JQueryXHR;
   location: any;
   post: any;
+  currentQuery: any;
+  saveQuery: any;
 }
 
 class Search extends React.Component<Props, State> {
@@ -29,43 +32,24 @@ class Search extends React.Component<Props, State> {
     this.state = {
       viewType: 'grid'
     };
+    this.renderCategoryMenu = this.renderCategoryMenu.bind(this);
   }
 
   public componentWillMount() {
-    const that = this;
-    let category = this.props.location.pathname.slice(1);
-    category = getCategory(this.props.location);
-    console.log(category)
-    this.props.search(searchParams("", category));
+    let category = getCategory(this.props.location);
+    const currentQuery = this.props.currentQuery;
+    const nextQuery = merge({}, currentQuery, {category});
+    this.props.search(nextQuery);
   }
 
   public componentWillReceiveProps(nextProps: any){
-    let nextCategory = nextProps.location.pathname.slice(1);
-
-    if (nextCategory !== this.props.location.pathname.slice(1)) {
-      if (nextCategory === "recent") {
-        this.props.search(searchParams("", "All")).then(res => {
-          let posts = this.props.searchResult;
-          this.setState({
-            posts: this.props.searchResult
-          });
-        })
-      } else {
-        if (nextCategory === "lostandfound") {
-          nextCategory = "Lost & Found";
-        } else if (nextCategory === "coursematerial") {
-          nextCategory = "Course Material";
-        } else {
-          nextCategory = capitalize(nextCategory);
-        }
-
-        this.props.search(searchParams("", nextCategory)).then(res => {
-          let posts = this.props.searchResult;
-          this.setState({
-            posts: this.props.searchResult
-          });
-        })
-      }
+    if (this.props.currentQuery.category != nextProps.currentQuery.category) {
+      this.props.search(nextProps.currentQuery);
+    } else if (this.props.location != nextProps.location) {
+      let category = getCategory(nextProps.location);
+      const currentQuery = this.props.currentQuery;
+      const nextQuery = merge({}, currentQuery, {category});
+      this.props.search(nextQuery);
     }
   }
 
@@ -81,18 +65,17 @@ class Search extends React.Component<Props, State> {
     }
   }
 
+  private renderCategoryMenu(label) {
+    const currentQuery = this.props.currentQuery;
+    const nextQuery = merge({}, currentQuery, {category: label});
+    this.props.saveQuery(nextQuery);
+    $('#search-query').focus();
+  }
+
   public render() {
     let path = this.props.location.pathname.slice(1);
-    let uppercase;
-
-    if (path === "lostandfound") {
-      uppercase = "Lost & Found";
-    } else if (path === "coursematerial") {
-      uppercase = "Course Material";
-    } else {
-      uppercase = path[0].toUpperCase() + path.slice(1, path.length);
-    }
-
+    let category = getCategory(this.props.location);
+    if (category === "All") category = '';
     return (
       <div>
         <div className="container">
@@ -102,9 +85,10 @@ class Search extends React.Component<Props, State> {
             <div className="col-md-12">
               <div id="nav-tools">
                 <nav className="breadcrumb" id="breadcrumb-container">
-                  <a className="breadcrumb-item" href="#/recent">All</a>
-                  <a className="breadcrumb-item" href={`#/${path}`}>{uppercase}</a>
+                  <a onClick={() => this.renderCategoryMenu("All")} className="breadcrumb-item" href="#/recent">All</a>
+                  <a onClick={() => this.renderCategoryMenu(category)} className="breadcrumb-item" href={`#/${path}`}>{category}</a>
                 </nav>
+                <span>You have {this.props.searchResult.result_count} result(s)</span>
                 <div className="search-icons">
                   <button className="btn btn-link btn-special-size btn-special-margin" id="grid-type" onClick={this.changeView('grid')}>
                     <span className="glyphicon glyphicon-th-large"></span>

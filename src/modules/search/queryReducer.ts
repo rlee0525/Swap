@@ -1,7 +1,7 @@
 import { merge } from 'lodash';
 import { RECEIVE_QUERY } from "./actions";
 
-let _defaultState: string = "";
+let _defaultState: object = { query: "", category: "All", sort_by: "updated_at", polarity: 1, page_idx: 1 };
 
 const queryReducer = (state = _defaultState, action) => {
   Object.freeze(state);
