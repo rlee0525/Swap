@@ -1,5 +1,7 @@
 import React from 'react';
-import { shortenString, timeFromNow } from 'helpers';
+import { shortenString, 
+         timeFromNow,
+         getCategory } from 'helpers';
 import { IPost } from 'common/interfaces';
 import { Pagination } from './';
 declare var $;
@@ -19,6 +21,7 @@ interface State {
   currentPage?: number;
   views?: number;
   sortBy?: string;
+  pageIdx?: number;
 }
 
 class SearchGridView extends React.Component<Props, State> {
@@ -28,16 +31,11 @@ class SearchGridView extends React.Component<Props, State> {
     let maxPages = props.searchResult.length > 0 ? Math.ceil(props.searchResult.length / 16) : 1;
 
     this.state = {
-      title: -1,
-      description: -1,
-      price: -1,
-      updated_at: 1,
-      condition: -1,
-      views: -1,
       results,
       maxPages,
       currentPage: 1,
-      sortBy: "Posting Date"
+      sortBy: "Posting Date",
+      pageIdx: 1
     };
 
     this.sortBy = this.sortBy.bind(this);
@@ -67,25 +65,26 @@ class SearchGridView extends React.Component<Props, State> {
     } else if (key == "updated_at") {
       sortBy = "Posting Date"
     } else {
-      if (polarity == 1) {
+      if (polarity == -1) {
         sortBy = "Price: Low to High"
       } else {
         sortBy = "Price: High to Low"
       }
     }
 
-    let newArray: IPost[] = this.state.results.sort(function(a:object, b:object) {
-      if (a[key] < b[key]) return (-1 * polarity);
-      if (a[key] > b[key]) return (1 * polarity);
-      return 0;
-    });
-    let newPolarity: number = -1 * polarity;
+    let query = "";
+    let category = getCategory(this.props.location);
+    let sort_by = "Posting Date";
+    let page_idx = this.state.pageIdx;
 
-    this.setState({
-      results: newArray,
-      [key]: newPolarity,
-      sortBy
-    });
+    let searchParams = { query, category, sort_by, polarity, page_idx };
+
+    this.props.search(searchParams).then(results => {
+      this.setState({
+        results: results.result,
+        sortBy
+      });
+    })
   }
 
   renderGridItem(post: IPost) {
@@ -119,9 +118,6 @@ class SearchGridView extends React.Component<Props, State> {
   }
 
   render() {
-    let pageStart: number = (this.state.currentPage - 1) * 16;
-    let pageEnd: number = this.state.currentPage * 16;
-
     return (
       <div>
         <div className="row">
@@ -133,12 +129,12 @@ class SearchGridView extends React.Component<Props, State> {
               <ul className="dropdown-menu dropdown-menu-right">
                 <li><a onClick={() => this.sortBy("views", -1)}>Popularity</a></li>
                 <li><a onClick={() => this.sortBy("updated_at", -1)}>Posting Date</a></li>
-                <li><a onClick={() => this.sortBy("price", 1)}>Price: Low to High</a></li>
-                <li><a onClick={() => this.sortBy("price", -1)}>Price: High to Low</a></li>
+                <li><a onClick={() => this.sortBy("price", -1)}>Price: Low to High</a></li>
+                <li><a onClick={() => this.sortBy("price", 1)}>Price: High to Low</a></li>
               </ul>
             </div>
           </div>
-          { this.state.results ? this.state.results.slice(pageStart, pageEnd).map(post => this.renderGridItem(post)) : null}
+          { this.state.results ? this.state.results.map(post => this.renderGridItem(post)) : null}
         </div>
         <Pagination that={this} maxPages={this.state.maxPages} currentPage={this.state.currentPage} />
       </div>

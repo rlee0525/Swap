@@ -23,7 +23,6 @@ export const timeFromNow = (date: string) : string => {
   return 'Just now';
 };
 
-// add ... to strings that are too long
 export const shortenString = (string: string, maxLength: number) : string => {
   if (string.length > maxLength) {
     let idx: number = maxLength - 3;
@@ -43,3 +42,22 @@ export const searchParams = (query: string, category: string) => {
 
   return {query, category, sort_by, polarity, page_idx};
 };
+
+export const getCategory = (location) => {
+  console.log(location);
+  let category = location.pathname.slice(1);
+
+  if (category === "recent") {
+      category = "All";
+  } else {
+    if (category === "lostandfound") {
+      category = "Lost & Found";
+    } else if (category === "coursematerial") {
+      category = "Course Material";
+    } else {
+      category = capitalize(category);
+    }
+  }
+
+  return category;
+}
