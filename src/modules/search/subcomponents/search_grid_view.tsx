@@ -35,6 +35,7 @@ class SearchGridView extends React.Component<Props, State> {
     };
 
     this.sort_by = this.sort_by.bind(this);
+    this.translateSortLabels = this.translateSortLabels.bind(this);
   }
 
   public componentWillReceiveProps(nextProps) {
@@ -42,17 +43,6 @@ class SearchGridView extends React.Component<Props, State> {
     let maxPages = nextProps.searchResult.max_pages;
     this.setState({ results, maxPages });
   }
-
-  // OLD CODE Consider Deleting
-  // private buttonClass(condition: string) {
-  //   if (condition === 'Brand New') {
-  //     return 'info';
-  //   } else if (condition === 'Like New') {
-  //     return 'primary';
-  //   } else {
-  //     return 'success';
-  //   }
-  // }
 
   public sort_by(sort_by: string, polarity: number) {
     const currentQuery = this.props.props.currentQuery;
@@ -82,6 +72,22 @@ class SearchGridView extends React.Component<Props, State> {
     );
   }
 
+  private translateSortLabels() {
+    const label = this.props.props.currentQuery.sort_by;
+    const polarity = this.props.props.currentQuery.polarity;
+    if (label == "views") {
+      return "Popularity";
+    } else if (label == "updated_at") {
+      return "Posting Date"
+    } else if (label == "price" && polarity === -1) {
+      return "Price: Low to High"
+    } else if (label == "price" && polarity === 1) {
+      return "Price: High to Low"
+    }
+    return null
+  }
+
+
   render() {
     return (
       <div>
@@ -89,7 +95,7 @@ class SearchGridView extends React.Component<Props, State> {
           <div className="sort-by-panel">
             <div className="btn-group">
               <button type="button" className="btn btn-default btn-md dropdown-toggle btn-special-size" id="margin-right" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {this.props.props.currentQuery.sort_by}&nbsp;&nbsp;<span className="caret"></span>
+                 {this.translateSortLabels()}&nbsp;&nbsp;<span className="caret"></span>
               </button>
               <ul className="dropdown-menu dropdown-menu-right">
                 <li><a onClick={() => this.sort_by("views", -1)}>Popularity</a></li>
