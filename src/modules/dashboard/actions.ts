@@ -11,17 +11,17 @@ export const receiveMyPosts = posts => ({
   posts
 });
 
-export const fetchBookmarks = accessToken => dispatch => (
-  DashboardAPI.fetchBookmarks(accessToken).then(
-    res => dispatch(receiveMyPosts(res)),
-    err => console.log(err)
-  )
-);
-
-export const receiveBooksmarks = bookmarks => ({
+export const receiveBookmarks = bookmarks => ({
   type: DASHBOARD.BOOKMARKS,
   bookmarks
 });
+
+export const fetchBookmarks = accessToken => dispatch => (
+  DashboardAPI.fetchBookmarks(accessToken).then(
+    res => dispatch(receiveBookmarks(res)),
+    err => console.log(err)
+  )
+);
 
 export const receiveRfps = rfps => ({
   type: DASHBOARD.RFPS,

@@ -15,7 +15,7 @@ interface State {
 class Dashboard extends React.Component<Props, State> {
   constructor(props) {
     super(props);
-    
+    props.fetchBookmarks(this.props.user.auth.accessToken)
   }
 
   renderSubcomponent() {
