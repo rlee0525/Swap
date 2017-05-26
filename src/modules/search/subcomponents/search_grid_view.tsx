@@ -8,47 +8,32 @@ import { merge } from 'lodash';
 declare var $;
 
 interface Props {
-  searchResult: IPost [];
+  searchResult: any;
   search: (query: object) => JQueryXHR;
-  location: string;
-  props: any;
+  saveQuery: any;
 }
 
 interface State {
-  results: IPost[];
-  maxPages: number;
-  sort_by: string;
-  page_idx: number;
 }
 
 class SearchGridView extends React.Component<Props, State> {
   constructor(props) {
     super(props);
-    let results = props.searchResult.posts;
-    let maxPages = props.searchResult.max_pages;
-
-    this.state = {
-      results,
-      maxPages,
-      page_idx: 1,
-      sort_by: "Posting Date"
-    };
 
     this.sort_by = this.sort_by.bind(this);
     this.translateSortLabels = this.translateSortLabels.bind(this);
   }
 
-  public componentWillReceiveProps(nextProps) {
-    let results = nextProps.searchResult.posts;
-    let maxPages = nextProps.searchResult.max_pages;
-    this.setState({ results, maxPages });
+  public componentWillMount() {
+    const currentQuery = this.props.currentQuery;
+    this.props.search(currentQuery);
   }
 
   public sort_by(sort_by: string, polarity: number) {
-    const currentQuery = this.props.props.currentQuery;
-    const nextQuery = merge({}, currentQuery, {sort_by, polarity});
-    this.props.props.saveQuery(nextQuery);
-    this.props.props.search(nextQuery);
+    const currentQuery = this.props.currentQuery;
+    this.props.saveQuery({sort_by, polarity});
+    const nextQuery = merge({}, currentQuery, {sort_by, polarity})
+    this.props.search(nextQuery);
   }
 
   renderGridItem(post: IPost) {
@@ -73,8 +58,8 @@ class SearchGridView extends React.Component<Props, State> {
   }
 
   private translateSortLabels() {
-    const label = this.props.props.currentQuery.sort_by;
-    const polarity = this.props.props.currentQuery.polarity;
+    const label = this.props.currentQuery.sort_by;
+    const polarity = this.props.currentQuery.polarity;
     if (label == "views") {
       return "Popularity";
     } else if (label == "updated_at") {
@@ -105,9 +90,8 @@ class SearchGridView extends React.Component<Props, State> {
               </ul>
             </div>
           </div>
-          { this.props.props.searchResult.posts ? this.props.props.searchResult.posts.map(post => this.renderGridItem(post)) : null}
+          { this.props.searchResult.posts.map(post => this.renderGridItem(post)) }
         </div>
-        <Pagination props={this.props.props} maxPages={this.props.props.searchResult.max_pages} currentPage={this.props.props.currentQuery.page_idx} />
       </div>
     );
   }

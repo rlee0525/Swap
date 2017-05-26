@@ -47,11 +47,17 @@ class Home extends React.Component<any, {}> {
   private renderNavbar() {
     // TODO will break because navbar components take into account their location,
     // need to fix navbar location logic first
-    // return (
-    //   <div>
-    //     <SearchNavbar props={this.props} search={this.props.search} />
-    //   </div>
-    // )
+    return (
+      <div>
+        <SearchNavbar
+          searchResult={this.props.searchResult}
+          search={this.props.search}
+          currentQuery={this.props.currentQuery}
+          saveQuery={this.props.saveQuery}
+          home={true}
+        />
+      </div>
+    )
   }
 
   public render() {

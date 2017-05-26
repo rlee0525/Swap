@@ -1,9 +1,15 @@
 import * as SearchAPI from './utils';
 
-export interface Action<T> {
+export interface SearchAction<T> {
   type: string;
   result: object;
   posts: object [];
+  payload: T;
+}
+
+export interface QueryAction<T> {
+  type: string;
+  query: object;
   payload: T;
 }
 
@@ -27,6 +33,6 @@ const receiveQuery = (query: string) => ({
   query
 });
 
-export const saveQuery = (query: string) => (dispatch: any) => {
-  dispatch(receiveQuery(query))
+export const saveQuery = (query: any) => (dispatch: any) => {
+  dispatch(receiveQuery(query));
 }

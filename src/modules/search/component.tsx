@@ -7,12 +7,13 @@ import { shortenString,
 
 import { SearchGridView,
          SearchListView,
-         SearchNavbar } from './subcomponents';
+         SearchNavbar,
+         Pagination
+       } from './subcomponents';
 
 import { merge } from 'lodash';
 
 interface State {
-  viewType: string;
 }
 
 interface Props {
@@ -28,54 +29,62 @@ interface Props {
 class Search extends React.Component<Props, State> {
   constructor(props) {
     super(props);
-
     this.state = {
-      viewType: 'grid'
-    };
+      categories: [
+        "All", "Course Material", "Furniture", "Clothing",
+        "Electronics", "Housing", "Bikes", "Games", "Others",
+        "Lost & Found"
+      ]
+    }
     this.renderCategoryMenu = this.renderCategoryMenu.bind(this);
   }
 
   public componentWillMount() {
-    let category = getCategory(this.props.location);
-    const currentQuery = this.props.currentQuery;
-    const nextQuery = merge({}, currentQuery, {category, page_idx: 1});
-    this.props.saveQuery(nextQuery);
-    this.props.search(nextQuery);
+    const category = getCategory(this.props.location);
+
+    if (this.state.categories.includes(category)) {
+      this.props.saveQuery({category});
+    }
   }
 
   public componentWillReceiveProps(nextProps: any){
-    if (this.props.currentQuery.category != nextProps.currentQuery.category) {
-      this.props.saveQuery(nextProps.currentQuery);
-      this.props.search(nextProps.currentQuery);
-    } else if (this.props.location != nextProps.location) {
-      let category = getCategory(nextProps.location);
+    const category = getCategory(nextProps.location);
+    if (this.state.categories.includes(category) &&
+        nextProps.location !== this.props.location) {
       const currentQuery = this.props.currentQuery;
-      const nextQuery = merge({}, currentQuery, {category, page_idx: 1});
-      this.props.saveQuery(nextQuery);
+      this.props.saveQuery({category});
+      const nextQuery = merge({}, currentQuery, {category})
       this.props.search(nextQuery);
     }
   }
 
   private changeView(viewType: string) {
-    return () => this.setState({ viewType })
+    const currentQuery = this.props.currentQuery;
+    this.props.saveQuery({viewType});
+    const nextQuery = merge({}, currentQuery, {viewType})
+    this.props.search(nextQuery);
   }
 
   private renderView() {
-    if (this.state.viewType === 'grid') {
-      return <SearchGridView props={this.props}
+    if (this.props.currentQuery.viewType === 'grid') {
+      return <SearchGridView
         searchResult={this.props.searchResult}
-        search={this.props.search} location={this.props.location} />;
+        search={this.props.search}
+        currentQuery={this.props.currentQuery}
+        saveQuery={this.props.saveQuery}
+      />;
     } else {
-      return <SearchListView props={this.props}
+      return <SearchListView
         searchResult={this.props.searchResult}
-        search={this.props.search} location={this.props.location} />;
+        search={this.props.search}
+        currentQuery={this.props.currentQuery}
+        saveQuery={this.props.saveQuery}
+      />;
     }
   }
 
   private renderCategoryMenu(label) {
-    const currentQuery = this.props.currentQuery;
-    const nextQuery = merge({}, currentQuery, {category: label});
-    this.props.saveQuery(nextQuery);
+    this.props.saveQuery({category: label});
     $('#search-query').focus();
   }
 
@@ -87,7 +96,12 @@ class Search extends React.Component<Props, State> {
       <div>
         <div className="container">
           <div className="row">
-            <SearchNavbar props={this.props} search={this.props.search} />
+            <SearchNavbar
+              searchResult={this.props.searchResult}
+              search={this.props.search}
+              currentQuery={this.props.currentQuery}
+              saveQuery={this.props.saveQuery}
+            />
 
             <div className="col-md-12">
               <div id="nav-tools">
@@ -97,15 +111,22 @@ class Search extends React.Component<Props, State> {
                 </nav>
                 <span>You have {this.props.searchResult.result_count} result(s)</span>
                 <div className="search-icons">
-                  <button className="btn btn-link btn-special-size btn-special-margin" id="grid-type" onClick={this.changeView('grid')}>
+                  <button className="btn btn-link btn-special-size btn-special-margin" id="grid-type" onClick={() => this.changeView('grid')}>
                     <span className="glyphicon glyphicon-th-large"></span>
                   </button>
-                  <button className="btn btn-link btn-special-size btn-special-margin" id="list-type" onClick={this.changeView('list')}>
+                  <button className="btn btn-link btn-special-size btn-special-margin" id="list-type" onClick={() => this.changeView('list')}>
                     <span className="glyphicon glyphicon-th-list"></span>
                   </button>
                 </div>
               </div>
               { this.renderView() }
+              <Pagination
+                search={this.props.search}
+                saveQuery={this.props.saveQuery}
+                maxPages={this.props.searchResult.max_pages}
+                currentPage={this.props.currentQuery.page_idx}
+                currentQuery={this.props.currentQuery}
+              />
             </div>
           </div>
         </div>
