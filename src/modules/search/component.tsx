@@ -92,7 +92,8 @@ class Search extends React.Component<Props, State> {
   public render() {
     let path = this.props.location.pathname.slice(1);
     let category = getCategory(this.props.location);
-    if (category === "All") category = '';
+    let label = category;
+    if (category === "All") label = 'Recent';
     return (
       <div>
         <div className="container">
@@ -109,7 +110,7 @@ class Search extends React.Component<Props, State> {
               <div id="nav-tools">
                 <nav className="breadcrumb" id="breadcrumb-container">
                   <a onClick={() => this.renderCategoryMenu("All")} className="breadcrumb-item" href="#/recent">All</a>
-                  <a onClick={() => this.renderCategoryMenu(category)} className="breadcrumb-item" href={`#/${path}`}>{category}</a>
+                  <a onClick={() => this.renderCategoryMenu(category)} className="breadcrumb-item" href={`#/${path}`}>{label}</a>
                 </nav>
                 <span>You have {this.props.searchResult.result_count} result(s)</span>
                 <div className="search-icons">
