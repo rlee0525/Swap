@@ -7,11 +7,14 @@ class Api::MyCoursesController < ApplicationController
 
   def create
     user = fb_auth_user(params[:access_token])
+    course = Course.find_by(course_number: params[:course_number])
+
     @my_course = UsersCourse.new(
       user: user,
-      cours: course
+      course: course
     )
     if @my_course.save
+      @my_course = @my_course.course
       render "api/my_courses/show", status: 200
     else
       render json: @my_course.errors.full_messages, status: 422
