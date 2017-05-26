@@ -39,10 +39,19 @@ class SearchNavbar extends React.Component<Props, State> {
   }
 
   private enterSearchQuery() {
-    if (this.props.home) {
-      window.location = `#/recent`
-    }
     const currentQuery = this.props.currentQuery;
+    if (this.props.home) {
+      let newLocation;
+      let oldLocation = currentQuery.category;
+      if (oldLocation === "All") {
+        newLocation = "recent"
+      } else if (oldLocation === "Lost & Found") {
+        newLocation = "lostandfound"
+      } else {
+        newLocation = oldLocation.toLowerCase().split(" ").join("");
+      }
+      window.location = `#/${newLocation}`;
+    }
     const nextQuery = merge({}, currentQuery, {page_idx: 1});
     this.props.saveQuery(nextQuery);
     this.props.search(nextQuery);

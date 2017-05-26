@@ -14,10 +14,14 @@ class Post extends React.Component<any, any> {
     return (
       <div className="container" style={paddingBot}>
         <PostDetail
+          searchResult={this.props.searchResult}
+          search={this.props.search}
+          currentQuery={this.props.currentQuery}
+          saveQuery={this.props.saveQuery}
           id={this.props.params.id}
           getPost={this.props.getPost}
           post={this.props.post}
-          {...this.props}
+          user={this.props.user}
         />
       </div>
     );

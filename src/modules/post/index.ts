@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import Post from './component';
 import { getPost } from './actions';
-import { search, saveQuery } from './actions';
+import { search, saveQuery } from 'modules/search/actions';
 
 interface StateProps {
   user: any;
