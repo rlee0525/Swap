@@ -75,7 +75,7 @@ class Bookmarks extends React.Component<Props, State> {
   }
 
   private renderListItems() {
-    return this.props.bookmarks.list.map(bookmarkedPost => (
+    return this.state.bookmarks.map(bookmarkedPost => (
       <tr key={`post${bookmarkedPost.id}`} onClick={() => this.loadPost(bookmarkedPost.id)}>
         <td>
           <a href={`#/posts/${bookmarkedPost.id}`} >

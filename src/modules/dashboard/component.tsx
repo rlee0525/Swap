@@ -12,6 +12,8 @@ interface Props {
   dashboard: IDashboard;
   fetchBookmarks : (accessToken: string) => JQueryPromise<void>;
   deleteBookmark : (id: number, accessToken: string) => JQueryPromise<void>;
+  fetchMyPosts : (accessToken: string) => JQueryPromise<void>;
+  deleteMyPost : (id: number, accessToken: string) => JQueryPromise<void>;
 }
 
 class Dashboard extends React.Component<Props, {}> {
@@ -33,10 +35,13 @@ class Dashboard extends React.Component<Props, {}> {
       case 'rfps':
         return <div>rfps</div>
       default:
+        let { fetchMyPosts, deleteMyPost } = this.props;
         return (
           <MyPosts 
             user={user}
             myPosts={dashboard.myPosts}
+            fetchMyPosts={fetchMyPosts}
+            deleteMyPost={deleteMyPost}
           />
         );
     }
