@@ -14,6 +14,10 @@ const DashboardHeaders = () => (
     <li role="presentation" id="dashboard-nav-title">
       <Link to="dashboard/rfps">Alerts</Link>
     </li>
+
+    <li role="presentation" id="dashboard-nav-title">
+      <Link to="dashboard/mycourses">My Courses</Link>
+    </li>
   </ul>
 );
 
