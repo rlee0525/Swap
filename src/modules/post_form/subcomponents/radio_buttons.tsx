@@ -17,7 +17,7 @@ const RadioButtons: React.SFC<Props> = ({ type, list, clickAction, currentValue}
     { list.map(item => (
         <div 
           onClick={clickAction}
-          className={`col-sm-1 col-md-2 radio-button ${currentValue === item ? "radio-active" : "" }`}
+          className={`col-sm-1 radio-button ${currentValue === item ? "radio-active" : "" }`}
         >
           { item }
         </div>
