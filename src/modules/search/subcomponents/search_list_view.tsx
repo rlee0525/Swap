@@ -10,7 +10,8 @@ declare var $;
 interface Props {
   searchResult: any;
   search: (query: object) => JQueryXHR;
-  location: string;
+  saveQuery: any;
+  currentQuery: any;
 }
 
 interface State {

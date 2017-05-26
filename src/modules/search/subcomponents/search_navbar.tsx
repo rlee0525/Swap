@@ -6,7 +6,10 @@ declare var window;
 
 interface Props {
   search(query: object) : void;
-  props: any;
+  searchResult: any;
+  currentQuery: any;
+  saveQuery: any;
+  home: any;
 }
 
 interface State {

@@ -14,6 +14,7 @@ import { SearchGridView,
 import { merge } from 'lodash';
 
 interface State {
+  categories: any;
 }
 
 interface Props {
@@ -101,6 +102,7 @@ class Search extends React.Component<Props, State> {
               search={this.props.search}
               currentQuery={this.props.currentQuery}
               saveQuery={this.props.saveQuery}
+              home={false}
             />
 
             <div className="col-md-12">

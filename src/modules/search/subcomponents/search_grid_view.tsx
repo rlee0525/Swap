@@ -11,6 +11,7 @@ interface Props {
   searchResult: any;
   search: (query: object) => JQueryXHR;
   saveQuery: any;
+  currentQuery: any;
 }
 
 interface State {
