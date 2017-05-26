@@ -211,7 +211,7 @@ class PostForm extends React.Component<any, IState> {
   }
 
   public render() {
-    const categories = [ 'Course Material', 'Furniture', 'Clothing', 
+    const categories = ['Course Material', 'Furniture', 'Clothing', 
                         'Electronics', 'Housing', 'Bikes', 
                         'Games', 'Others', 'Lost & Found'];
 
