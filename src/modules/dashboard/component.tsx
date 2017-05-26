@@ -1,6 +1,6 @@
 import React from 'react';
 import { IUser, IDashboard } from 'common/interfaces';
-import { DashboardHeaders, Bookmarks } from './subcomponents';
+import { DashboardHeaders, Bookmarks, MyPosts } from './subcomponents';
 
 const data = require('./dashboard_data.json');
 
@@ -33,7 +33,12 @@ class Dashboard extends React.Component<Props, {}> {
       case 'rfps':
         return <div>rfps</div>
       default:
-        return <div>posts</div>
+        return (
+          <MyPosts 
+            user={user}
+            myPosts={dashboard.myPosts}
+          />
+        );
     }
   }
 

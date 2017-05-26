@@ -9,6 +9,7 @@ interface Header {
 interface Props {
   headers: Header[];
   active: string;
+  button: null | { text: string; link: string }
 }
 
 const DashboardHeaders : React.SFC<Props> = ({ active, headers }) => (
@@ -18,7 +19,22 @@ const DashboardHeaders : React.SFC<Props> = ({ active, headers }) => (
         <Link to={`dashboard?${header.link}`}>{ header.title }</Link>
       </li>
     ))}
+
+    { this.props.button ?  (
+      <div>
+        <Link to={this.props.button.link} className="btn btn-clear nav-button" id="responsive-create-text">
+          { this.props.button.text }
+        </Link>
+        <Link to={this.props.button.link} className="btn btn-clear nav-button" id="responsive-create-icon">
+          <span className="glyphicon glyphicon-edit" aria-hidden="true" id="create-icon-button"/>
+        </Link>
+      </div>
+    ) : null }
   </ul>
 );
+
+DashboardHeaders.defaultProps = {
+  button: null
+}
 
 export { DashboardHeaders };
