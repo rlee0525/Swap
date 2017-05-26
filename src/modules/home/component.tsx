@@ -18,6 +18,10 @@ class Home extends React.Component<any, {}> {
     this.renderNavbar = this.renderNavbar.bind(this);
   }
 
+  public componentDidMount() {
+    $('#search-query').focus();
+  }
+
   private viewDescription(e) {
     e.currentTarget.querySelectorAll('img')[0].classList.add("thumbnail-backdrop");
     let title = e.currentTarget.querySelectorAll('h3')[0];
