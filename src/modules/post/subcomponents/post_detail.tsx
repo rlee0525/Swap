@@ -32,7 +32,6 @@ class PostDetail extends React.Component<any, any> {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
     if (nextProps.user !== null && this.props.user !== null &&
     this.props.user.auth.accessToken !== nextProps.user.auth.accessToken) {
       this.initializePost();
@@ -42,7 +41,7 @@ class PostDetail extends React.Component<any, any> {
   public initializePost() {
     let accessToken;
     if (this.props.user) {
-       accessToken = this.props.user.auth.accessToken;
+      accessToken = this.props.user.auth.accessToken;
     } else {
       accessToken = null;
     }
@@ -237,7 +236,7 @@ class PostDetail extends React.Component<any, any> {
                 <div className="modal-body text-center">
                   <div>
                     <div id="purchase-msg-template" contentEditable={true} data-toggle="tooltip" data-placement="bottom" title="click to edit">
-                      Hi, {name}, <br/><br/>
+                      Hi {name}, <br/><br/>
                       My name is {this.props.user && this.props.user.userFB.name}. I saw your posting on {this.props.post.title} on Swap.<br/>
                       I would like to purchase it at ${this.props.post.price}.<br/>
                       Please let me know if it's still available.<br/>
