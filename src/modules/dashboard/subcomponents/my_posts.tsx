@@ -15,11 +15,10 @@ interface Props {
 
 interface State {
   myPosts: IPost [];
-  title: any;
-  description: any;
-  price: any;
-  course: any;
-  updated_at: any;
+  title: number;
+  price: number;
+  course: number;
+  updated_at: number;
 }
 
 class MyPosts extends React.Component<Props, State> {
@@ -29,13 +28,11 @@ class MyPosts extends React.Component<Props, State> {
     this.state = {
       myPosts: [],
       title: -1,
-      description: -1,
       price: -1,
       course: -1,
       updated_at: -1
     };
 
-    this.getMyPosts = this.getMyPosts.bind(this);
     this.editPost = this.editPost.bind(this);
     this.deletePost = this.deletePost.bind(this);
     this.renderMyPosts = this.renderMyPosts.bind(this);
@@ -75,14 +72,14 @@ class MyPosts extends React.Component<Props, State> {
   public toggleActivation(e, id, polarity) {
     e.stopPropagation();
 
-    let method = polarity == true ? "deactivate" : "activate";
-    const access_token = this.props.user.auth.accessToken;
+    // let method = polarity == true ? "deactivate" : "activate";
+    // const access_token = this.props.user.auth.accessToken;
 
-    $.ajax({
-      type: "PATCH",
-      url: `api/posts/${id}`,
-      data: { access_token, method }
-    }).then(() => this.getMyPosts());
+    // $.ajax({
+    //   type: "PATCH",
+    //   url: `api/posts/${id}`,
+    //   data: { access_token, method }
+    // }).then(() => this.getMyPosts());
   }
 
   public renderListItem() {

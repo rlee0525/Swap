@@ -7,10 +7,9 @@ declare var window;
 
 interface State {
   bookmarks: IPost [];
-  title: any;
-  description: any;
-  price: any;
-  updated_at: any;
+  title: number;
+  price: number;
+  updated_at: number;
 }
 
 interface Props {
@@ -30,7 +29,6 @@ class Bookmarks extends React.Component<Props, State> {
     this.state = {
       bookmarks: props.bookmarks.list,
       title: -1,
-      description: -1,
       price: -1,
       updated_at: -1
     }
