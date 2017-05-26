@@ -23,14 +23,7 @@ class PostDetail extends React.Component<any, any> {
     this.deletePost = this.deletePost.bind(this);
     this.checkVerifiedContact = this.checkVerifiedContact.bind(this);
     this.checkVerifiedBookmark = this.checkVerifiedBookmark.bind(this);
-  }
-
-  public initializePost() {
-    const accessToken = this.props.user.auth.accessToken;
-    const id = this.props.id;
-    this.props.getPost(id, accessToken).then(
-      res => { this.fetchAuthor() }
-    );
+    this.fetchAuthor = this.fetchAuthor.bind(this);
   }
 
   public componentDidMount() {
@@ -38,7 +31,27 @@ class PostDetail extends React.Component<any, any> {
     this.initializePost();
   }
 
-  public checkVerifiedContact(id) {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.user !== null && this.props.user !== null &&
+    this.props.user.auth.accessToken !== nextProps.user.auth.accessToken) {
+      this.initializePost();
+    }
+  }
+
+  public initializePost() {
+    let accessToken;
+    if (this.props.user) {
+      accessToken = this.props.user.auth.accessToken;
+    } else {
+      accessToken = null;
+    }
+    const id = this.props.id;
+    this.props.getPost(id, accessToken).then(
+      res => { this.fetchAuthor() }
+    );
+  }
+
+  public checkVerifiedContact() {
     let that = this;
 
     FB.getLoginStatus(function(response) {
@@ -79,6 +92,7 @@ class PostDetail extends React.Component<any, any> {
           } else {
             $('#emailVerificationModal').modal('show');
           }
+        }).then(() => {
         }).fail(() => FB.logout(res => console.log(res)))
       } else {
         $('#logInModal').modal('show');
@@ -205,9 +219,8 @@ class PostDetail extends React.Component<any, any> {
   }
 
   public renderModal() {
-    if (!this.state.authorFB) return null;
+    if (!this.state.authorFB || this.state.authorFB.error) return null;
     let { name, link, picture } = this.state.authorFB;
-
     return (
       <div>
         <a id="contactModalTrigger" className="hidden" data-toggle="modal" data-target="#contactModal">Contact Modal Trigger</a>
@@ -223,15 +236,15 @@ class PostDetail extends React.Component<any, any> {
                 <div className="modal-body text-center">
                   <div>
                     <div id="purchase-msg-template" contentEditable={true} data-toggle="tooltip" data-placement="bottom" title="click to edit">
-                      Hi, {name}, <br/><br/>
-                      My name is {this.props.user.userFB.name}. I saw your posting on {this.props.post.title} on Swap.<br/>
+                      Hi {name}, <br/><br/>
+                      My name is {this.props.user && this.props.user.userFB.name}. I saw your posting on {this.props.post.title} on Swap.<br/>
                       I would like to purchase it at ${this.props.post.price}.<br/>
                       Please let me know if it's still available.<br/>
 
                       link: {(window as any).localhost_url}/#/posts/{this.props.post.id}<br/><br/>
 
                       Thanks,<br/>
-                      {this.props.user.userFB.name}
+                      {this.props.user && this.props.user.userFB.name}
                     </div>
                   </div>
                   <button type="button" className="btn btn-sm btn-primary" data-clipboard-target="#purchase-msg-template" id="copy-template">Copy Message</button>
@@ -274,7 +287,7 @@ class PostDetail extends React.Component<any, any> {
       buttons = (
         <div>
           <span disabled={isBookmarked} className="btn btn-warning btn-lg col-md-2 col-sm-2 col-xs-2 bottom-margin-spacing glyphicon glyphicon-bookmark" id="bookmark-btn" onClick={() => this.checkVerifiedBookmark(id)}></span>
-          <a className="btn btn-primary btn-lg col-md-9 col-sm-9 col-xs-9" id="contact-the-seller-btn" onClick={() => {this.checkVerifiedContact(id)}}>Contact the Seller</a>
+          <a className="btn btn-primary btn-lg col-md-9 col-sm-9 col-xs-9" id="contact-the-seller-btn" onClick={this.checkVerifiedContact}>Contact the Seller</a>
         </div>
       )
     }

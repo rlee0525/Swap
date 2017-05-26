@@ -163,7 +163,7 @@
 
 @media screen and (max-width: 768px) {
   #post-description {
-    height: 140px !important;
+    height: 170px !important;
     font-size: 15px !important;
   }
 
@@ -242,6 +242,11 @@
 #detail-body {
   margin-top: 5px;
   padding-left: 10px;
+}
+
+#detail-body p.red {
+  position: relative;
+  left: -14px;
 }
 
 #copy-template {
