@@ -41,7 +41,7 @@ class MyCourses extends React.Component<Props, State> {
   public getMyCourses() {
     $.ajax({
       method: "GET",
-      url: "api/courses",
+      url: "api/my_courses",
       data: { access_token: this.props.user.auth.accessToken }
     }).then(myCourses => this.setState({ myCourses }));
   }
@@ -52,7 +52,7 @@ class MyCourses extends React.Component<Props, State> {
     const access_token = this.props.user.auth.access_token;
     $.ajax({
       type: "DELETE",
-      url: `api/courses/${id}`,
+      url: `api/my_courses/${id}`,
       data: { access_token: this.props.user.auth.accessToken }
     }).then(myCourses => this.setState({ myCourses }));
   }
@@ -60,8 +60,8 @@ class MyCourses extends React.Component<Props, State> {
   public renderListItem() {
     return this.state.myCourses.map(course => (
       <tr key={course.id} >
-        <td className="hidden-xs">{course.course_number}</td>
-        <td className="hidden-xs" id="hide-description">{shortenString(course.course_number, 30)}</td>
+        <td>{course.course_number}</td>
+        <td>{shortenString(course.course_name, 30)}</td>
         <td><button type="button" id="action-button" className="btn btn-xs btn-secondary" onClick={(e) => this.deleteCourse(e, course.id)}>Delete</button></td>
       </tr>
     ))
@@ -90,9 +90,9 @@ class MyCourses extends React.Component<Props, State> {
             <table className="table table-hover">
               <thead>
                 <tr>
-                  <th id="th-no-caret"></th>
-                  <th onClick={() => this.sortBy("course_number")} className="hidden-xs" id="hide-description">Course Number<a onClick={() => this.sortBy("course_number")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
-                  <th onClick={() => this.sortBy("course_name")} className="hidden-xs">Course Name<a onClick={() => this.sortBy("course_name")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
+                  <th onClick={() => this.sortBy("course_number")}>Course Number<a onClick={() => this.sortBy("course_number")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
+                  <th onClick={() => this.sortBy("course_name")}>Course Name<a onClick={() => this.sortBy("course_name")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>

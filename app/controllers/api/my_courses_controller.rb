@@ -10,6 +10,7 @@ class Api::MyCoursesController < ApplicationController
     @my_courses = UsersCourse.where(user: user)
                   .where(course: Course.find(params[:id]))
     @my_courses.each(&:destroy)
-    render json: ["successfully deleted"], status: 200
+    @my_courses = user.courses
+    render "api/my_courses/index", status: 200
   end
 end
