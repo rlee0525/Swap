@@ -149,25 +149,11 @@ class MyPosts extends React.Component<Props, State> {
 
   render() {
     return (
-      <div>
-        <div className="container">
-          <ul className="nav nav-tabs">
-            <li role="presentation" id="dashboard-nav-title" className="active"><a href="#/dashboard/posts">Posts</a></li>
-            <li role="presentation" id="dashboard-nav-title"><a href="#/dashboard/bookmarks">Bookmarks</a></li>
-            <li role="presentation" id="dashboard-nav-title"><a href="#/dashboard/rfps">Alerts</a></li>
-            <div>
-              <a href="#/posts/create" className="btn btn-clear nav-button" id="responsive-create-text">
-                Create Post
-              </a>
-              <a href="#/posts/create" className="btn btn-clear nav-button" id="responsive-create-icon">
-                <span className="glyphicon glyphicon-edit" aria-hidden="true" id="create-icon-button"/>
-              </a>
-            </div>
-          </ul>
-          {this.renderMyPosts()}
-        </div>
+      <div className="container">
+        
+        {this.renderMyPosts()}
       </div>
-    )
+    );
   }
 }
 

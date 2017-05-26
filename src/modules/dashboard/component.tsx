@@ -45,9 +45,21 @@ class Dashboard extends React.Component<Props, {}> {
   render() {
     let page = this.props.location.search.slice(1);
 
+    let button = null;
+
+    if (page === 'rfps') {
+      button = { title: 'Create Alert', link: 'rfps/create' }
+    } else if (page === 'posts') {
+      button = { title: 'Create Post', link: 'posts/create' }
+    }
+    
     return (
       <div className="container">
-        <DashboardHeaders headers={data.dashboardHeaders} active={page} />
+        <DashboardHeaders 
+          headers={data.dashboardHeaders}
+          active={page}
+          button={button}
+        />
         { this.renderSubcomponent() }
       </div>
     );
