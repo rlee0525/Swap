@@ -42,7 +42,7 @@ class PostDetail extends React.Component<any, any> {
   public initializePost() {
     let accessToken;
     if (this.props.user) {
-       accessToken = this.props.user.auth.accessToken;
+      accessToken = this.props.user.auth.accessToken;
     } else {
       accessToken = null;
     }
