@@ -18,7 +18,6 @@ interface State {
   price: any;
   course: any;
   updated_at: any;
-  myPost: IPost;
 }
 
 class MyPosts extends React.Component<Props, State> {
@@ -31,8 +30,7 @@ class MyPosts extends React.Component<Props, State> {
       description: -1,
       price: -1,
       course: -1,
-      updated_at: -1,
-      myPost: null
+      updated_at: -1
     };
 
     this.getMyPosts = this.getMyPosts.bind(this);
@@ -40,7 +38,6 @@ class MyPosts extends React.Component<Props, State> {
     this.deletePost = this.deletePost.bind(this);
     this.renderMyPosts = this.renderMyPosts.bind(this);
     this.toggleActivation = this.toggleActivation.bind(this);
-    this.sortBy = this.sortBy.bind(this);
   }
 
   public componentDidMount() {
@@ -58,7 +55,7 @@ class MyPosts extends React.Component<Props, State> {
   public deletePost(e, id) {
     e.stopPropagation();
 
-    const access_token = this.props.user.auth.access_token;
+    const access_token = this.props.user.auth.accessToken;
 
     $.ajax({
       type: "PATCH",
@@ -104,53 +101,26 @@ class MyPosts extends React.Component<Props, State> {
     ))
   }
 
-  public sortBy(key) {
-    let polarity = this.state[key];
-    let newArray = this.state.myPosts.sort(function(a, b) {
-      if (a[key] < b[key]) return (-1 * polarity);
-      if (a[key] > b[key]) return (1 * polarity);
-      return 0;
-    });
-
-    let newPolarity = (polarity === -1 ? 1 : -1);
-    this.setState({
-      myPosts: newArray,
-      [key]: newPolarity
-    });
-  }
-
   public renderMyPosts() {
-    let headers = ['title', 'description', 'price', 'updated_at']
+    let headers = ['title', 'price', 'updated_at'];
     return (
-      <div>
-        <div className="panel panel-default">
-          <div className="panel-body">
-            <table className="table table-hover">
-              <TableHeaders context={this} array={this.state.myPosts} headers={headers} />
+      <div className="panel panel-default">
+        <div className="panel-body">
+          <table className="table table-hover">
+            <TableHeaders context={this} array={this.state.myPosts} headers={headers} />
 
-              {/*<thead>
-                <tr>
-                  <th id="th-no-caret"></th>
-                  <th onClick={() => this.sortBy("title")} className="hidden-xs">Title<a onClick={() => this.sortBy("title")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
-                  <th onClick={() => this.sortBy("description")} className="hidden-xs" id="hide-description">Description<a onClick={() => this.sortBy("description")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
-                  <th onClick={() => this.sortBy("price")} className="hidden-xs">Price<a onClick={() => this.sortBy("price")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
-                  <th onClick={() => this.sortBy("updated_at")} className="hidden-xs">Posted<a onClick={() => this.sortBy("updated_at")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
-                </tr>
-              </thead>*/}
-              <tbody>
-                {this.renderListItem()}
-              </tbody>
-            </table>
-          </div>
+            <tbody>
+              {this.renderListItem()}
+            </tbody>
+          </table>
         </div>
       </div>
-    )
+    );
   }
 
   render() {
     return (
-      <div className="container">
-        
+      <div className="container">   
         {this.renderMyPosts()}
       </div>
     );
