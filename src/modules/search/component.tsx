@@ -1,5 +1,7 @@
 import React from 'react';
+import { merge } from 'lodash';
 import { IPost } from 'common/interfaces';
+
 import { shortenString,
          capitalize,
          searchParams,
@@ -8,10 +10,7 @@ import { shortenString,
 import { SearchGridView,
          SearchListView,
          SearchNavbar,
-         Pagination
-       } from './subcomponents';
-
-import { merge } from 'lodash';
+         Pagination } from './subcomponents';
 
 interface State {
   categories: any;
@@ -50,10 +49,12 @@ class Search extends React.Component<Props, State> {
 
   public componentWillReceiveProps(nextProps: any){
     const category = getCategory(nextProps.location);
+
     if (this.state.categories.includes(category) &&
         nextProps.location !== this.props.location) {
       const currentQuery = this.props.currentQuery;
       this.props.saveQuery({category});
+
       const nextQuery = merge({}, currentQuery, {category})
       this.props.search(nextQuery);
     }
@@ -62,30 +63,36 @@ class Search extends React.Component<Props, State> {
   private changeView(viewType: string) {
     const currentQuery = this.props.currentQuery;
     this.props.saveQuery({viewType});
+
     const nextQuery = merge({}, currentQuery, {viewType})
     this.props.search(nextQuery);
   }
 
   private renderView() {
     if (this.props.currentQuery.viewType === 'grid') {
-      return <SearchGridView
-        searchResult={this.props.searchResult}
-        search={this.props.search}
-        currentQuery={this.props.currentQuery}
-        saveQuery={this.props.saveQuery}
-      />;
+      return (
+        <SearchGridView
+          searchResult={this.props.searchResult}
+          search={this.props.search}
+          currentQuery={this.props.currentQuery}
+          saveQuery={this.props.saveQuery}
+        />
+      );
     } else {
-      return <SearchListView
-        searchResult={this.props.searchResult}
-        search={this.props.search}
-        currentQuery={this.props.currentQuery}
-        saveQuery={this.props.saveQuery}
-      />;
+      return (
+        <SearchListView
+          searchResult={this.props.searchResult}
+          search={this.props.search}
+          currentQuery={this.props.currentQuery}
+          saveQuery={this.props.saveQuery}
+        />
+      );
     }
   }
 
   private renderCategoryMenu(label) {
     this.props.saveQuery({category: label});
+
     $('#search-query').focus();
   }
 
@@ -93,6 +100,7 @@ class Search extends React.Component<Props, State> {
     let path = this.props.location.pathname.slice(1);
     let category = getCategory(this.props.location);
     if (category === "All") category = '';
+
     return (
       <div>
         <div className="container">
