@@ -24,7 +24,7 @@ class Api::PostsController < ApplicationController
     return render json: ["unauthorized"], status: 401 unless @user
     @post = Post.find_by(id: params[:id])
     if @post && !@post.deleted && @post.active
-      @post.update(views: @post.views + 1)
+      @post.update_columns(views: @post.views + 1)
       render "api/posts/show", status: 200
     elsif @post && !@post.deleted && params[:edit]
       render "api/posts/show", status: 200

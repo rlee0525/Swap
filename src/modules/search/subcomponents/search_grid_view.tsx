@@ -1,88 +1,46 @@
 import React from 'react';
-import { shortenString, 
+import { shortenString,
          timeFromNow,
          getCategory } from 'helpers';
 import { IPost } from 'common/interfaces';
 import { Pagination } from './';
+import { merge } from 'lodash';
 declare var $;
 
 interface Props {
-  searchResult: IPost [];
+  searchResult: any;
   search: (query: object) => JQueryXHR;
-  location: string;
+  saveQuery: any;
+  currentQuery: any;
 }
 
 interface State {
-  results: IPost[];
-  maxPages?: number;
-  sortBy?: string;
-  pageIdx?: number;
-  currentPage?: number;
 }
 
 class SearchGridView extends React.Component<Props, State> {
   constructor(props) {
     super(props);
-    let results = props.searchResult;
-    let maxPages = props.searchResult.length > 0 ? Math.ceil(props.searchResult.length / 16) : 1;
 
-    this.state = {
-      results,
-      maxPages,
-      pageIdx: 1,
-      sortBy: "Posting Date",
-      currentPage: 1
-    };
-
-    this.sortBy = this.sortBy.bind(this);
+    this.sort_by = this.sort_by.bind(this);
+    this.translateSortLabels = this.translateSortLabels.bind(this);
   }
 
-  public componentWillReceiveProps(nextProps) {
-    let results = nextProps.searchResult;
-    let maxPages = Math.ceil(nextProps.searchResult.length / 16)
-    this.setState({results, maxPages});
+  public componentWillMount() {
+    const currentQuery = this.props.currentQuery;
+    this.props.search(currentQuery);
   }
 
-  private buttonClass(condition: string) {
-    if (condition === 'Brand New') {
-      return 'info';
-    } else if (condition === 'Like New') {
-      return 'primary';
-    } else {
-      return 'success';
-    }
-  }
-
-  public sortBy(key: string, polarity: number) {
-    let sortBy;
-
-    if (key == "views") {
-      sortBy = "Views";
-    } else if (key == "updated_at") {
-      sortBy = "Posting Date"
-    } else {
-      sortBy = "Price"
-    }
-
-    let query = "";
-    let category = getCategory(this.props.location);
-    let sort_by = sortBy;
-    let page_idx = this.state.pageIdx;
-
-    let searchParams = { query, category, sort_by, polarity, page_idx };
-
-    this.props.search(searchParams).then(results => {
-      this.setState({
-        results: results.result,
-        sortBy
-      });
-    })
+  public sort_by(sort_by: string, polarity: number) {
+    const currentQuery = this.props.currentQuery;
+    this.props.saveQuery({sort_by, polarity});
+    const nextQuery = merge({}, currentQuery, {sort_by, polarity})
+    this.props.search(nextQuery);
   }
 
   renderGridItem(post: IPost) {
     let updatedDate: number | string= Date.parse(post.updated_at);
     updatedDate = Date.now() - updatedDate <= 86400000 ? timeFromNow(post.updated_at) : "";
-    
+
     return (
       <div className="col-sm-6 col-md-3" key={Math.random() * post.id}
            onClick={() => window.location.href = `#/posts/${post.id}`}>
@@ -100,6 +58,22 @@ class SearchGridView extends React.Component<Props, State> {
     );
   }
 
+  private translateSortLabels() {
+    const label = this.props.currentQuery.sort_by;
+    const polarity = this.props.currentQuery.polarity;
+    if (label == "views") {
+      return "Popularity";
+    } else if (label == "updated_at") {
+      return "Posting Date"
+    } else if (label == "price" && polarity === -1) {
+      return "Price: Low to High"
+    } else if (label == "price" && polarity === 1) {
+      return "Price: High to Low"
+    }
+    return null
+  }
+
+
   render() {
     return (
       <div>
@@ -107,19 +81,18 @@ class SearchGridView extends React.Component<Props, State> {
           <div className="sort-by-panel">
             <div className="btn-group">
               <button type="button" className="btn btn-default btn-md dropdown-toggle btn-special-size" id="margin-right" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {this.state.sortBy}&nbsp;&nbsp;<span className="caret"></span>
+                 {this.translateSortLabels()}&nbsp;&nbsp;<span className="caret"></span>
               </button>
               <ul className="dropdown-menu dropdown-menu-right">
-                <li><a onClick={() => this.sortBy("views", -1)}>Popularity</a></li>
-                <li><a onClick={() => this.sortBy("updated_at", -1)}>Posting Date</a></li>
-                <li><a onClick={() => this.sortBy("price", 1)}>Price: Low to High</a></li>
-                <li><a onClick={() => this.sortBy("price", -1)}>Price: High to Low</a></li>
+                <li><a onClick={() => this.sort_by("views", -1)}>Popularity</a></li>
+                <li><a onClick={() => this.sort_by("updated_at", -1)}>Posting Date</a></li>
+                <li><a onClick={() => this.sort_by("price", 1)}>Price: Low to High</a></li>
+                <li><a onClick={() => this.sort_by("price", -1)}>Price: High to Low</a></li>
               </ul>
             </div>
           </div>
-          { this.state.results ? this.state.results.map(post => this.renderGridItem(post)) : null}
+          { this.props.searchResult.posts.map(post => this.renderGridItem(post)) }
         </div>
-        <Pagination that={this} maxPages={this.state.maxPages} currentPage={this.state.currentPage} />
       </div>
     );
   }

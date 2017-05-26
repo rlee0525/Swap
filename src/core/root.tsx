@@ -56,7 +56,7 @@ const Root: React.SFC<RootProps> = ({ store }) => {
             <Route path="bookmarks" component={Bookmarks} />
             <Route path="rfps" component={Rfps} />
           </Route>
-          
+
         </Route>
       </Router>
     </Provider>

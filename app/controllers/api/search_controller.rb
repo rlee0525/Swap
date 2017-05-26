@@ -7,16 +7,15 @@ class Api::SearchController < ApplicationController
     sort_by = params[:sort_by]
     sort_by = "updated_at" if sort_by == "Posting Date"
     polarity = params[:polarity] == "1" ? 'ASC' : "DESC"
-    polarity = 1 if polarity.nil?
     page_idx = params[:page_idx]
     page_idx = 1 if page_idx.nil?
     offset = 16 * (page_idx.to_i - 1)
     limit = 16
     sql_query = query.split(' ').map { |word| "%#{word}%" }
     sql = 'title ILIKE ANY( array[?] )'
-    
+
     if (query.nil? || query.empty?) && (category.nil? || category.empty?)
-      length = Post.where(active: true)
+      @result_count = Post.where(active: true)
                    .where(deleted: false)
                    .count
 
@@ -26,9 +25,9 @@ class Api::SearchController < ApplicationController
                    .offset(offset)
                    .limit(limit)
 
-      @max_pages = (length / limit).ceil
+      @max_pages = (@result_count / limit.to_f).ceil
     elsif (query.nil? || query.empty?)
-      length = Post.where(active: true)
+      @result_count = Post.where(active: true)
                    .where(deleted: false)
                    .where(category: category)
                    .count
@@ -40,9 +39,9 @@ class Api::SearchController < ApplicationController
                    .offset(offset)
                    .limit(limit)
 
-      @max_pages = (length / limit).ceil
+      @max_pages = (@result_count / limit.to_f.to_f).ceil
     elsif (category.nil? || category.empty?)
-      length = Post.where(active: true)
+      @result_count = Post.where(active: true)
                    .where(deleted: false)
                    .where(sql, sql_query)
                    .count
@@ -54,9 +53,9 @@ class Api::SearchController < ApplicationController
                    .limit(limit)
                    .where(sql, sql_query)
 
-      @max_pages = (length / limit).ceil
+      @max_pages = (@result_count / limit.to_f).ceil
     else
-      length = Post.where(active: true)
+      @result_count = Post.where(active: true)
                    .where(deleted: false)
                    .where(category: category)
                    .where(sql, sql_query)
@@ -70,14 +69,13 @@ class Api::SearchController < ApplicationController
                    .limit(limit)
                    .where(sql, sql_query)
 
-      @max_pages = (length / limit).ceil
+      @max_pages = (@result_count / limit.to_f).ceil
     end
 
-    @max_pages = 2
     render 'api/search/index'
   end
 
-  private
+  # private
 
   # TODO if not useful delete in future releases
   # def calc_score(post, query)

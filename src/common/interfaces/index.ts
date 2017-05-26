@@ -2,6 +2,7 @@ export interface IStoreState {
   user: IUser | null;
   post: IPost | null;
   searchResult: IPost[];
+  currentQuery: any;
 }
 
 export interface IPost {

@@ -114,7 +114,7 @@ class PostDetail extends React.Component<any, any> {
 
   public initializeClipboard() {
     var clipboard = new Clipboard('#copy-template');
-    
+
     clipboard.on('success', function(e) {
       $(e.trigger).text("copied!")
       setTimeout(function(){ $(e.trigger).text("Copy Link"); }, 1000)
@@ -151,7 +151,7 @@ class PostDetail extends React.Component<any, any> {
 
     let { img_url1, img_url2, img_url3 } = this.props.post;
     let imageArray = [img_url1, img_url2, img_url3].filter(el => el !== null);
-    
+
     imageArray = imageArray.map((el, idx) => (
       <li key={idx} data-target="#carousel-example-generic-2"
         data-slide-to={idx} className={idx === 0 ? "active" : ""}></li>
@@ -305,7 +305,13 @@ class PostDetail extends React.Component<any, any> {
 
     return (
       <div className="container" id="container-body">
-        <SearchNavbar props={this.props} search={this.props.search} />
+        <SearchNavbar
+          searchResult={this.props.searchResult}
+          search={this.props.search}
+          currentQuery={this.props.currentQuery}
+          saveQuery={this.props.saveQuery}
+          home={true}
+        />
         <nav className="breadcrumb">
           <a className="breadcrumb-item" href="#/recent">All</a>
           <a className="breadcrumb-item" href={`#/${link}`}>{category}</a>
