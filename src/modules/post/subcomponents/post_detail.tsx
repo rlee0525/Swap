@@ -254,7 +254,9 @@ class PostDetail extends React.Component<any, any> {
 
   public renderDetail() {
     let titleMargin = {
-      marginBottom: 10
+      marginBottom: 10,
+      fontSize: 28,
+      fontWeight: 300
     };
 
     let { id, title, description, price, created_at, views, condition } = this.props.post;
@@ -278,8 +280,14 @@ class PostDetail extends React.Component<any, any> {
     }
     return (
       <div className="col-lg-6 col-md-6 col-sm-6 absolute-height" id="detail-body">
-        <h3 style={titleMargin}>{title}</h3>
-        <p className="red"><span className={`label label-${this.buttonClass(condition)}`} id="label-micro">{condition}</span><span className="glyphicon glyphicon-fire"  id="condition-views"></span> {views} Views </p>
+        <h3 style={titleMargin as any}>{title}</h3>
+        
+        {
+          views < 15 ? 
+            <p><span className="glyphicon glyphicon-eye-open"></span>&nbsp;&nbsp; {views} Views </p> : 
+            <p className="red"><span className="glyphicon glyphicon-fire"></span>&nbsp;&nbsp; {views} Views </p>
+        }
+        
         <p id="post-description">{description}</p>
         <div className="footer" id="post-detail-right-bottom">
           <h3 className="text-left">${Number(price).toLocaleString()}</h3>
@@ -320,17 +328,17 @@ class PostDetail extends React.Component<any, any> {
         <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12" id="detail-left">
           <div className="block p-l-0 p-t-0 p-r-0" id="small-img-padding">
             <div id="carousel-example-generic-2" className="carousel carousel-light slide" data-ride="carousel">
-             {this.renderCarouselIndicators()}
-             {this.renderCarousel()}
-             <a className="left carousel-control" href="#carousel-example-generic-2" role="button" data-slide="prev">
-               <span className="icon icon-chevron-thin-left" aria-hidden="true" id="carousel-arrows-left"></span>
-               <span className="sr-only">Previous</span>
-             </a>
-             <a className="right carousel-control" href="#carousel-example-generic-2" role="button" data-slide="next">
-               <span className="icon icon-chevron-thin-right" aria-hidden="true" id="carousel-arrows-right"></span>
-               <span className="sr-only">Next</span>
-             </a>
-           </div>
+              {this.renderCarouselIndicators()}
+              {this.renderCarousel()}
+              <a className="left carousel-control" href="#carousel-example-generic-2" role="button" data-slide="prev">
+                <span className="icon icon-chevron-thin-left" aria-hidden="true" id="carousel-arrows-left"></span>
+                <span className="sr-only">Previous</span>
+              </a>
+              <a className="right carousel-control" href="#carousel-example-generic-2" role="button" data-slide="next">
+                <span className="icon icon-chevron-thin-right" aria-hidden="true" id="carousel-arrows-right"></span>
+                <span className="sr-only">Next</span>
+              </a>
+            </div>
           </div>
         </div>
         {this.renderDetail()}
