@@ -32,7 +32,6 @@ class PostDetail extends React.Component<any, any> {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
     if (nextProps.user !== null && this.props.user !== null &&
     this.props.user.auth.accessToken !== nextProps.user.auth.accessToken) {
       this.initializePost();
