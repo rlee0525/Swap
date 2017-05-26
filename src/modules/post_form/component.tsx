@@ -174,7 +174,7 @@ class PostForm extends React.Component<any, IState> {
   }
 
   public submitForm(e) {
-    let { title, condition, course, price, description, category, img_url1, img_url2, img_url3 } = this.state;
+    let { title, course, price, description, category, img_url1, img_url2, img_url3 } = this.state;
     if (this.state.category !== "Course Material") course = "";
     e.preventDefault();
     let method, url;
@@ -190,7 +190,7 @@ class PostForm extends React.Component<any, IState> {
       method: method,
       url: url,
       data: {
-        post: { title, condition, price, description, img_url1, img_url2, img_url3 },
+        post: { title, price, description, img_url1, img_url2, img_url3 },
         course: { course },
         category: { category },
         access_token

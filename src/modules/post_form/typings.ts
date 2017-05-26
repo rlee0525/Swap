@@ -3,7 +3,6 @@ export interface IState {
   title: string;
   description: string;
   category: string;
-  condition: string;
   course?: string;
   price: string;
   img_url1?: string;
