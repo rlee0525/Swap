@@ -147,7 +147,7 @@ class MyCourses extends React.Component<Props, State> {
             <li role="presentation" id="dashboard-nav-title" className="active"><a href="#/dashboard/mycourses">My Courses</a></li>
             <div>
               <a onClick={() => this.createAlert()} className="btn btn-clear nav-button" id="responsive-create-text">
-                Create Alert
+                Add Course
               </a>
               <a onClick={() => this.createAlert()} className="btn btn-clear nav-button" id="responsive-create-icon">
                 <span className="glyphicon glyphicon-bell" aria-hidden="true" id="create-icon-button"/>
