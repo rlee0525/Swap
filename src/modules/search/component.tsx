@@ -17,7 +17,7 @@ interface State {
 }
 
 interface Props {
-  user: object;
+  user: any;
   searchResult: any;
   search: (query: object) => JQueryXHR;
   location: any;
@@ -55,8 +55,14 @@ class Search extends React.Component<Props, State> {
       const currentQuery = this.props.currentQuery;
       this.props.saveQuery({category});
 
-      const nextQuery = merge({}, currentQuery, {category})
-      this.props.search(nextQuery);
+      let nextQuery = merge({}, currentQuery, {category})
+      if (this.props.currentQuery.category === "My Course Material" && this.props.user) {
+        const access_token = this.props.user.auth.accessToken;
+        nextQuery = merge({}, nextQuery, {access_token});
+        this.props.search(nextQuery);
+      } else {
+        this.props.search(nextQuery);
+      }
     }
   }
 
@@ -64,8 +70,14 @@ class Search extends React.Component<Props, State> {
     const currentQuery = this.props.currentQuery;
     this.props.saveQuery({viewType});
 
-    const nextQuery = merge({}, currentQuery, {viewType})
-    this.props.search(nextQuery);
+    let nextQuery = merge({}, currentQuery, {viewType})
+    if (this.props.currentQuery.category === "My Course Material" && this.props.user) {
+      const access_token = this.props.user.auth.accessToken;
+      nextQuery = merge({}, nextQuery, {access_token});
+      this.props.search(nextQuery);
+    } else {
+      this.props.search(nextQuery);
+    }
   }
 
   private renderView() {
@@ -128,7 +140,7 @@ class Search extends React.Component<Props, State> {
                   <a onClick={() => this.renderCategoryMenu(category)} className="breadcrumb-item" href={`#/${path}`}>{label}</a>
                 </nav>
                 {/*{<span>You have {this.props.searchResult.result_count} result(s)</span>}*/}
-                <span>{(this.props.currentQuery.page_idx - 1) * 16 + 1} - {(this.props.currentQuery.page_idx * 16)} results</span>
+                <span>First {(this.props.currentQuery.page_idx - 1) * 16 + 1} - {(this.props.currentQuery.page_idx * 16)} results (out of {this.props.searchResult.result_count})</span>
                 <div className="search-icons">
                   <button className="btn btn-link btn-special-size btn-special-margin" id="grid-type" onClick={() => this.changeView('grid')}>
                     <span className="glyphicon glyphicon-th-large"></span>
