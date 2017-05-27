@@ -9,11 +9,7 @@ class PostDetail extends React.Component<any, any> {
     super(props);
 
     this.state = {
-      authorFB: null,
-      user: null,
-      currentUser: null,
-      bookmarked: false,
-      ownPost: false
+      authorFB: null
     }
 
     this.contactPerson = this.contactPerson.bind(this);
@@ -113,7 +109,7 @@ class PostDetail extends React.Component<any, any> {
         url: `api/bookmarks/${id}`,
         data: { access_token }
       }).then(res => {
-        this.initializePost();
+        this.props.receivePost({is_bookmarked: false});
       });
     } else {
       $.ajax({
@@ -121,7 +117,7 @@ class PostDetail extends React.Component<any, any> {
         url: `api/bookmarks`,
         data: { bookmark, access_token }
       }).then(res => {
-        this.initializePost();
+        this.props.receivePost({is_bookmarked: true});
       });
     }
   }
