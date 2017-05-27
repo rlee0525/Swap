@@ -12,7 +12,7 @@ interface StateProps {
 
 interface DispatchProps {
   getPost: (id: number, access_token: string) => void;
-  search: (query: object) => void;
+  search: (query: object, access_token: string) => void;
   saveQuery: (query: string) => void;
 }
 
@@ -25,7 +25,7 @@ const mapStateToProps = (state: any, ownProp?: any): StateProps => ({
 
 const mapDispatchToProps = (dispatch: any): DispatchProps => ({
   getPost: (id, access_token) => dispatch(getPost(id, access_token)),
-  search: query => dispatch(search(query)),
+  search: (query, access_token) => dispatch(search(query)),
   saveQuery: query => dispatch(saveQuery(query))
 });
 

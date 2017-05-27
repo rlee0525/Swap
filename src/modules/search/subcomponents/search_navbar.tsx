@@ -10,6 +10,7 @@ interface Props {
   currentQuery: any;
   saveQuery: any;
   home: any;
+  user: any;
 }
 
 interface State {
@@ -36,9 +37,17 @@ class SearchNavbar extends React.Component<Props, State> {
   private onChange(e: any) {
     let query = e.target.value;
     const currentQuery = this.props.currentQuery;
-    const nextQuery = merge({}, currentQuery, {query});
+    let nextQuery = merge({}, currentQuery, {query});
     this.props.saveQuery(nextQuery)
-    if (query === "") this.props.search(nextQuery);
+    if (query === "") {
+      if (this.props.currentQuery.category === "My Course Material" && this.props.user) {
+        const access_token = this.props.user.auth.accessToken;
+        nextQuery = merge({}, nextQuery, {access_token});
+        this.props.search(nextQuery);
+      } else {
+        this.props.search(nextQuery);
+      }
+    }
   }
 
   private enterSearchQuery() {
@@ -55,16 +64,28 @@ class SearchNavbar extends React.Component<Props, State> {
       }
       window.location = `#/${newLocation}`;
     }
-    const nextQuery = merge({}, currentQuery, {page_idx: 1});
+    let nextQuery = merge({}, currentQuery, {page_idx: 1});
     this.props.saveQuery(nextQuery);
-    this.props.search(nextQuery);
+    if (this.props.currentQuery.category === "My Course Material" && this.props.user) {
+      const access_token = this.props.user.auth.accessToken;
+      nextQuery = merge({}, nextQuery, {access_token});
+      this.props.search(nextQuery);
+    } else {
+      this.props.search(nextQuery);
+    }
   }
 
   private renderCategoryMenu(label) {
     const currentQuery = this.props.currentQuery;
-    const nextQuery = merge({}, currentQuery, {category: label, page_idx: 1});
+    let nextQuery = merge({}, currentQuery, {category: label, page_idx: 1});
     this.props.saveQuery(nextQuery);
-    this.props.search(nextQuery);
+    if (label === "My Course Material" && this.props.user) {
+      const access_token = this.props.user.auth.accessToken;
+      nextQuery = merge({}, nextQuery, {access_token});
+      this.props.search(nextQuery);
+    } else {
+      this.props.search(nextQuery);
+    }
     $('#search-query').focus();
   }
 
@@ -87,6 +108,7 @@ class SearchNavbar extends React.Component<Props, State> {
             <li><a href="#/games" onClick={() => this.renderCategoryMenu("Games")}>Games</a></li>
             <li><a href="#/others" onClick={() => this.renderCategoryMenu("Others")}>Others</a></li>
             <li><a href="#/lostandfound" onClick={() => this.renderCategoryMenu("Lost & Found")}>Lost & Found</a></li>
+            <li className={this.props.user ? "" : "hidden"}><a href="#/mycoursematerial" onClick={() => this.renderCategoryMenu("My Course Material")}>My Course Material</a></li>
           </ul>
         </div>
         <div className="input-group col-md-10 col-sm-9 col-xs-8" id="phone-search-nav">

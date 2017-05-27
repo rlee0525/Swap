@@ -294,13 +294,13 @@ class PostDetail extends React.Component<any, any> {
     return (
       <div className="col-lg-6 col-md-6 col-sm-6 absolute-height" id="detail-body">
         <h3 style={titleMargin as any}>{title}</h3>
-        
+
         {
-          views < 15 ? 
-            <p><span className="glyphicon glyphicon-eye-open"></span>&nbsp;&nbsp; {views} Views </p> : 
+          views < 15 ?
+            <p><span className="glyphicon glyphicon-eye-open"></span>&nbsp;&nbsp; {views} Views </p> :
             <p className="red"><span className="glyphicon glyphicon-fire"></span>&nbsp;&nbsp; {views} Views </p>
         }
-        
+
         <p id="post-description">{description}</p>
         <div className="footer" id="post-detail-right-bottom">
           <h3 className="text-left">${Number(price).toLocaleString()}</h3>
@@ -327,6 +327,7 @@ class PostDetail extends React.Component<any, any> {
     return (
       <div className="container" id="container-body">
         <SearchNavbar
+          user={this.props.user}
           searchResult={this.props.searchResult}
           search={this.props.search}
           currentQuery={this.props.currentQuery}
