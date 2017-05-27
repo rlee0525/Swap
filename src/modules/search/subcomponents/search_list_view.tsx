@@ -58,8 +58,14 @@ class SearchListView extends React.Component<Props, any> {
 
     const currentQuery = this.props.currentQuery;
     this.props.saveQuery({sort_by, polarity});
-    const nextQuery = merge({}, currentQuery, {sort_by, polarity})
-    this.props.search(nextQuery);
+    let nextQuery = merge({}, currentQuery, {sort_by, polarity})
+    if (this.props.currentQuery.category === "My Course Material" && this.props.user) {
+      const access_token = this.props.user.auth.accessToken;
+      nextQuery = merge({}, nextQuery, {access_token});
+      this.props.search(nextQuery);
+    } else {
+      this.props.search(nextQuery);
+    }
 
     this.setState({[sort_by]: polarity})
   }
