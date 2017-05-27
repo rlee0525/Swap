@@ -12,6 +12,7 @@ interface Props {
   search: (query: object) => JQueryXHR;
   saveQuery: any;
   currentQuery: any;
+  user: any;
 }
 
 interface State {
@@ -26,8 +27,14 @@ class SearchGridView extends React.Component<Props, State> {
   }
 
   public componentWillMount() {
-    const currentQuery = this.props.currentQuery;
-    this.props.search(currentQuery);
+    let nextQuery = this.props.currentQuery;
+    if (this.props.currentQuery.category === "My Course Material" && this.props.user) {
+      const access_token = this.props.user.auth.accessToken;
+      nextQuery = merge({}, nextQuery, {access_token});
+      this.props.search(nextQuery);
+    } else {
+      this.props.search(nextQuery);
+    }
   }
 
   public sort_by(sort_by: string, polarity: number) {

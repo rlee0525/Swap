@@ -72,6 +72,7 @@ class Search extends React.Component<Props, State> {
     if (this.props.currentQuery.viewType === 'grid') {
       return (
         <SearchGridView
+          user={this.props.user}
           searchResult={this.props.searchResult}
           search={this.props.search}
           currentQuery={this.props.currentQuery}
@@ -81,6 +82,7 @@ class Search extends React.Component<Props, State> {
     } else {
       return (
         <SearchListView
+          user={this.props.user}
           searchResult={this.props.searchResult}
           search={this.props.search}
           currentQuery={this.props.currentQuery}
