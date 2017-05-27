@@ -5,4 +5,5 @@ class UsersCourse < ApplicationRecord
 
   validates :user, uniqueness: { scope: :course }
 
+  has_many :posts, through: :course
 end
