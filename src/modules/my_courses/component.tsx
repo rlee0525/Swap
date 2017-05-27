@@ -19,7 +19,9 @@ interface State {
   course_name: any;
   course_number: any;
   description: string;
+  course: string;
   errors: any [];
+  courses: any [];
 }
 
 class MyCourses extends React.Component<Props, State> {
@@ -31,7 +33,9 @@ class MyCourses extends React.Component<Props, State> {
       course_name: -1,
       course_number: -1,
       description: "",
-      errors: undefined
+      course: "",
+      errors: undefined,
+      courses: []
     }
 
     this.getMyCourses = this.getMyCourses.bind(this);
@@ -40,10 +44,12 @@ class MyCourses extends React.Component<Props, State> {
     this.updateState = this.updateState.bind(this);
     this.submitForm = this.submitForm.bind(this);
     this.renderMyCourses = this.renderMyCourses.bind(this);
+    this.autoComplete = this.autoComplete.bind(this);
   }
 
   public componentWillMount() {
     this.getMyCourses();
+    this.fetchAllCourses();
   }
 
   public getMyCourses() {
@@ -52,6 +58,18 @@ class MyCourses extends React.Component<Props, State> {
       url: "api/my_courses",
       data: { access_token: this.props.user.auth.accessToken }
     }).then(myCourses => this.setState({ myCourses }));
+  }
+
+  public fetchAllCourses() {
+    $.ajax({
+      method: "GET",
+      url: "api/courses"
+    }).then(courses => {
+      this.setState({ courses })
+      this.autoComplete()
+    }).fail(errors => {
+      this.setState({ errors: errors.responseJSON })
+    })
   }
 
   public deleteCourse(e, id) {
@@ -111,6 +129,23 @@ class MyCourses extends React.Component<Props, State> {
     }).fail( errors =>
       this.setState({ errors })
     );
+  }
+
+  public autoComplete() {
+    let that = this;
+    let input = function () { return  { search: $('#description').val() }};
+    $('#description').devbridgeAutocomplete({
+      lookup: function (query, done) {
+        $.ajax({
+          method: 'GET',
+          url: 'api/courses',
+          data: input()
+        }).then(data => done({ "suggestions": data }))
+      },
+      onSelect: function (suggestion) {
+        that.setState({description: suggestion.value})
+      }
+    });
   }
 
   public renderMyCourses() {
