@@ -27,6 +27,15 @@ const dashboardReducer = (state = _defaultState, action) => {
           list: state.myPosts.list.concat(action.posts)
         }
       });
+    case DASHBOARD.DELETE_MY_POST:
+
+      let newStateMyPost = merge({}, state);
+
+      newStateMyPost.myPosts.list = newStateMyPost.myPosts.list.filter(myPost => {
+        return myPost.id !== action.id
+      });
+
+      return newStateMyPost;
     case DASHBOARD.BOOKMARKS:
       return merge({}, state, {
         bookmarks: {
@@ -36,13 +45,13 @@ const dashboardReducer = (state = _defaultState, action) => {
       });
     case DASHBOARD.DELETE_BOOKMARK:
 
-      let newState = merge({}, state);
+      let newStateBookmark = merge({}, state);
 
-      newState.bookmarks.list = newState.bookmarks.list.filter(bookmark => {
+      newStateBookmark.bookmarks.list = newStateBookmark.bookmarks.list.filter(bookmark => {
         return bookmark.id !== action.id
       });
 
-      return newState;
+      return newStateBookmark;
     case DASHBOARD.RFPS:
       return merge({}, state, {
         rfps: {
@@ -50,6 +59,15 @@ const dashboardReducer = (state = _defaultState, action) => {
           list: state.rfps.list.concat(action.rfps)
         }
       });
+    case DASHBOARD.DELETE_RFPS:
+
+      let newStateRfps = merge({}, state);
+
+      newStateRfps.rfps.list = newStateRfps.rfps.list.filter(rfps => {
+        return rfps.id !== action.id
+      });
+
+      return newStateRfps;
     default:
       return state;
   }

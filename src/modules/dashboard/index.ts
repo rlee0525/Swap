@@ -4,7 +4,8 @@ import { IUser, IStoreState } from 'common/interfaces';
 import Dashboard from './component';
 import { 
   fetchBookmarks, deleteBookmark, 
-  fetchMyPosts, deleteMyPost 
+  fetchMyPosts, deleteMyPost,
+  fetchRfps, deleteRfps
 } from './actions';
 
 interface StateProps {
@@ -17,6 +18,8 @@ interface DispatchProps {
   deleteBookmark: (id: number, accessToken: string) => void;
   fetchMyPosts: (accessToken: string) => void;
   deleteMyPost: (id: number, accessToken: string) => void;
+  fetchRfps: (accessToken: string) => void;
+  deleteRfps: (id: number, accessToken: string) => void;
 }
 
 const mapStateToProps = (state: IStoreState, ownProp?: any): StateProps => ({
@@ -28,7 +31,9 @@ const mapDispatchToProps = (dispatch: Dispatch<IStoreState>): DispatchProps => (
   fetchBookmarks: accessToken => dispatch(fetchBookmarks(accessToken)),
   deleteBookmark: (id, accessToken) => dispatch(deleteBookmark(id, accessToken)),
   fetchMyPosts: accessToken => dispatch(fetchMyPosts(accessToken)),
-  deleteMyPost: (id, accessToken) => dispatch(deleteMyPost(id, accessToken))
+  deleteMyPost: (id, accessToken) => dispatch(deleteMyPost(id, accessToken)),
+  fetchRfps: (accessToken) => dispatch(fetchRfps(accessToken)),
+  deleteRfps: (id, accessToken) => dispatch(deleteRfps(id, accessToken))
 });
 
 export default connect(

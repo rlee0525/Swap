@@ -1,6 +1,6 @@
 import React from 'react';
 import { IUser, IDashboard } from 'common/interfaces';
-import { DashboardHeaders, Bookmarks, MyPosts } from './subcomponents';
+import { DashboardHeaders, Bookmarks, MyPosts, Rfps } from './subcomponents';
 
 const data = require('./dashboard_data.json');
 

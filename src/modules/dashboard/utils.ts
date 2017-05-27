@@ -31,3 +31,20 @@ export const deleteMyPost = (id: number, access_token: string) : JQueryXHR => (
     data: { access_token, method: "delete" }
   })
 );
+
+// rfps utils
+export const fetchRfps = (access_token: string) : JQueryXHR => (
+  $.ajax({
+    method: "GET",
+    url: "api/rfps",
+    data: { access_token }
+  })
+);
+
+export const deleteRfps = (id: number, access_token: string) : JQueryXHR => (
+  $.ajax({
+    type: "PATCH",
+    url: `api/rfps/${id}`,
+    data: { access_token, method: "delete" }
+  })
+);

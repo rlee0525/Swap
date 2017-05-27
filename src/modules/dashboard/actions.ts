@@ -2,10 +2,11 @@ import * as DashboardAPI from './utils';
 
 export const DASHBOARD = {
   MY_POSTS: 'MY_POSTS',
-  DELETE_POST: 'DELETE_POST',
+  DELETE_MY_POST: 'DELETE_MY_POST',
   BOOKMARKS: 'BOOKMARKS',
   DELETE_BOOKMARK: 'DELETE_BOOKMARK',
-  RFPS: 'RFPS'
+  RFPS: 'RFPS',
+  DELETE_RFPS: 'DELETE_RFPS'
 }
 
 // my posts actions
@@ -15,7 +16,7 @@ export const receiveMyPosts = posts => ({
 });
 
 export const removeMyPost = id => ({
-  type: DASHBOARD.DELETE_POST,
+  type: DASHBOARD.DELETE_MY_POST,
   id
 });
 
@@ -63,3 +64,21 @@ export const receiveRfps = rfps => ({
   rfps
 });
 
+export const removeRfps = id => ({
+  type: DASHBOARD.DELETE_RFPS,
+  id
+});
+
+export const fetchRfps = accessToken => dispatch => (
+  DashboardAPI.fetchRfps(accessToken).then(
+    res => dispatch(receiveRfps(res)),
+    err => console.log(err)
+  )
+);
+
+export const deleteRfps = (id, accessToken) => dispatch => (
+  DashboardAPI.deleteRfps(id, accessToken).then(
+    () => dispatch(removeRfps(id)),
+    err => console.log(err)
+  )
+);

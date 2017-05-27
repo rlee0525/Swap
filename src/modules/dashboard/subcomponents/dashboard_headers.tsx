@@ -9,7 +9,7 @@ interface Header {
 interface Props {
   headers: Header[];
   active: string;
-  button: null | { text: string; link: string }
+  button: null | { title: string; link: string }
 }
 
 const DashboardHeaders : React.SFC<Props> = ({ active, headers, button }) => (
