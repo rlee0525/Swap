@@ -23,8 +23,9 @@ class User < ApplicationRecord
   has_many :bookmarked_posts, through: :bookmarks, source: :post
   has_many :rfps
   belongs_to :university, optional: true
-  has_many :users_courses
+  has_many :users_courses, inverse_of: :user
   has_many :courses, through: :users_courses
+  has_many :course_posts, through: :users_courses, source: :posts
 
   before_create :confirmation_token
 
@@ -41,6 +42,7 @@ class User < ApplicationRecord
   # TODO: testing delayed job
   # handle_asynchronously :mail,
   #                       run_at: Proc.new { 5.seconds.from_now }
+
   private
 
   def confirmation_token

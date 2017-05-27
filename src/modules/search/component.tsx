@@ -33,7 +33,7 @@ class Search extends React.Component<Props, State> {
       categories: [
         "All", "Course Material", "Furniture", "Clothing",
         "Electronics", "Housing", "Bikes", "Games", "Others",
-        "Lost & Found"
+        "Lost & Found", "My Course Material"
       ]
     }
     this.renderCategoryMenu = this.renderCategoryMenu.bind(this);
@@ -72,6 +72,7 @@ class Search extends React.Component<Props, State> {
     if (this.props.currentQuery.viewType === 'grid') {
       return (
         <SearchGridView
+          user={this.props.user}
           searchResult={this.props.searchResult}
           search={this.props.search}
           currentQuery={this.props.currentQuery}
@@ -81,6 +82,7 @@ class Search extends React.Component<Props, State> {
     } else {
       return (
         <SearchListView
+          user={this.props.user}
           searchResult={this.props.searchResult}
           search={this.props.search}
           currentQuery={this.props.currentQuery}
@@ -101,12 +103,17 @@ class Search extends React.Component<Props, State> {
     let category = getCategory(this.props.location);
     let label = category;
     if (category === "All") label = 'Recent';
+    if (category === "Mycoursematerial") {
+      label = 'My Course Material';
+      category = 'My Course Material';
+    }
 
     return (
       <div>
         <div className="container">
           <div className="row">
             <SearchNavbar
+              user={this.props.user}
               searchResult={this.props.searchResult}
               search={this.props.search}
               currentQuery={this.props.currentQuery}
