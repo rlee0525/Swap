@@ -83,16 +83,6 @@ class MyCourses extends React.Component<Props, State> {
     }).then(myCourses => this.setState({ myCourses }));
   }
 
-  public renderListItem() {
-    return this.state.myCourses.map(course => (
-      <tr key={course.id} >
-        <td>{course.course_number}</td>
-        <td>{shortenString(course.course_name, 30)}</td>
-        <td><button type="button" id="action-button" className="btn btn-xs btn-secondary" onClick={(e) => this.deleteCourse(e, course.id)}>Delete</button></td>
-      </tr>
-    ))
-  }
-
   public sortBy(key) {
     let polarity = this.state[key];
     let newArray = this.state.myCourses.sort(function(a, b) {
@@ -157,7 +147,7 @@ class MyCourses extends React.Component<Props, State> {
               <thead>
                 <tr>
                   <th onClick={() => this.sortBy("course_number")}>Course Number<a onClick={() => this.sortBy("course_number")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
-                  <th onClick={() => this.sortBy("course_name")}>Course Name<a onClick={() => this.sortBy("course_name")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
+                  <th className="hidden-xs" onClick={() => this.sortBy("course_name")}>Course Name<a onClick={() => this.sortBy("course_name")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -169,6 +159,16 @@ class MyCourses extends React.Component<Props, State> {
         </div>
       </div>
     )
+  }
+
+  public renderListItem() {
+    return this.state.myCourses.map(course => (
+      <tr key={course.id} >
+        <td>{course.course_number}</td>
+        <td className="hidden-xs">{course.course_name}</td>
+        <td><button type="button" id="action-button" className="btn btn-xs btn-secondary" onClick={(e) => this.deleteCourse(e, course.id)}>Delete</button></td>
+      </tr>
+    ))
   }
 
   render() {
