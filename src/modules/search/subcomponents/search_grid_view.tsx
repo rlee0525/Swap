@@ -57,7 +57,7 @@ class SearchGridView extends React.Component<Props, State> {
     return (
       <div className="col-sm-4 col-md-3" key={Math.random() * post.id}
            onClick={() => window.location.href = `#/posts/${post.id}`}>
-        <div className="thumbnail col-md-12">
+        <div className="thumbnail thumbnail-post col-md-12">
           <a id={post.id}>
             <img src={post.img_url1} alt={post.title} />
             <div className="thumbnail-caption-top-right">{updatedDate}</div>
@@ -65,6 +65,10 @@ class SearchGridView extends React.Component<Props, State> {
           <div className="caption" id="grid-caption">
             <span id="grid-title">{post.title}</span>
             <span className="bottom-right-corner">${Number(post.price).toLocaleString()}</span>
+            <span className="bottom-left-corner">
+              <img className="img-circle" src="http://res.cloudinary.com/dkympkwdz/image/upload/v1495989683/Screen_Shot_2017-05-28_at_9.40.33_AM_tshmv6.png"/>
+              Robin K.
+            </span>
           </div>
         </div>
       </div>
