@@ -25,6 +25,7 @@ class Api::SearchController < ApplicationController
                   .order("#{sort_by} #{polarity}")
                   .offset(offset)
                   .limit(limit)
+                  .includes(:user)
 
       @max_pages = (@result_count / limit.to_f).ceil
     elsif category == "My Course Material"
@@ -40,6 +41,7 @@ class Api::SearchController < ApplicationController
                   .offset(offset)
                   .limit(limit)
                   .where(sql, sql_query)
+                  .includes(:user)
 
       @max_pages = (@result_count / limit.to_f).ceil
     elsif (query.nil? || query.empty?) && (category.nil? || category.empty?)
@@ -52,6 +54,7 @@ class Api::SearchController < ApplicationController
                    .order("#{sort_by} #{polarity}")
                    .offset(offset)
                    .limit(limit)
+                   .includes(:user)
 
       @max_pages = (@result_count / limit.to_f).ceil
     elsif (query.nil? || query.empty?)
@@ -66,6 +69,7 @@ class Api::SearchController < ApplicationController
                    .order("#{sort_by} #{polarity}")
                    .offset(offset)
                    .limit(limit)
+                   .includes(:user)
 
       @max_pages = (@result_count / limit.to_f.to_f).ceil
     elsif (category.nil? || category.empty?)
@@ -80,6 +84,7 @@ class Api::SearchController < ApplicationController
                    .offset(offset)
                    .limit(limit)
                    .where(sql, sql_query)
+                   .includes(:user)
 
       @max_pages = (@result_count / limit.to_f).ceil
     else
@@ -96,6 +101,7 @@ class Api::SearchController < ApplicationController
                    .offset(offset)
                    .limit(limit)
                    .where(sql, sql_query)
+                   .includes(:user)
 
       @max_pages = (@result_count / limit.to_f).ceil
     end
