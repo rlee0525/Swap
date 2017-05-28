@@ -17,6 +17,7 @@ interface Props {
   deleteMyPost : (id: number, accessToken: string) => JQueryPromise<void>;
   fetchRfps : (accessToken: string) => JQueryPromise<void>;
   deleteRfps : (id: number, accessToken: string) => JQueryPromise<void>;
+  receiveRfps : (rfps: any) => void;
 }
 
 class Dashboard extends React.Component<Props, {}> {
@@ -82,7 +83,7 @@ class Dashboard extends React.Component<Props, {}> {
           active={page}
           button={button}
         />
-        <AlertForm user={user} />
+        <AlertForm user={user} receiveRfps={this.props.receiveRfps} />
         { this.renderSubcomponent() }
       </div>
     );

@@ -1,12 +1,12 @@
 import * as DashboardAPI from './utils';
 
 export const DASHBOARD = {
-  MY_POSTS: 'MY_POSTS',
-  DELETE_MY_POST: 'DELETE_MY_POST',
-  BOOKMARKS: 'BOOKMARKS',
-  DELETE_BOOKMARK: 'DELETE_BOOKMARK',
-  RFPS: 'RFPS',
-  DELETE_RFPS: 'DELETE_RFPS'
+  MY_POSTS: 'dashboard/MY_POSTS',
+  DELETE_MY_POST: 'dashboard/DELETE_MY_POST',
+  BOOKMARKS: 'dashboard/BOOKMARKS',
+  DELETE_BOOKMARK: 'dashboard/DELETE_BOOKMARK',
+  RFPS: 'dashboard/RFPS',
+  DELETE_RFPS: 'dashboard/DELETE_RFPS'
 }
 
 // my posts actions

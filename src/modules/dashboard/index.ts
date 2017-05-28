@@ -5,7 +5,7 @@ import Dashboard from './component';
 import { 
   fetchBookmarks, deleteBookmark, 
   fetchMyPosts, deleteMyPost,
-  fetchRfps, deleteRfps
+  fetchRfps, deleteRfps, receiveRfps
 } from './actions';
 
 interface StateProps {
@@ -20,6 +20,7 @@ interface DispatchProps {
   deleteMyPost: (id: number, accessToken: string) => void;
   fetchRfps: (accessToken: string) => void;
   deleteRfps: (id: number, accessToken: string) => void;
+  receiveRfps: (rfps: any) => void;
 }
 
 const mapStateToProps = (state: IStoreState, ownProp?: any): StateProps => ({
@@ -33,7 +34,8 @@ const mapDispatchToProps = (dispatch: Dispatch<IStoreState>): DispatchProps => (
   fetchMyPosts: accessToken => dispatch(fetchMyPosts(accessToken)),
   deleteMyPost: (id, accessToken) => dispatch(deleteMyPost(id, accessToken)),
   fetchRfps: (accessToken) => dispatch(fetchRfps(accessToken)),
-  deleteRfps: (id, accessToken) => dispatch(deleteRfps(id, accessToken))
+  deleteRfps: (id, accessToken) => dispatch(deleteRfps(id, accessToken)),
+  receiveRfps: (rfps) => dispatch(receiveRfps(rfps))
 });
 
 export default connect(

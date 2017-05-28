@@ -8,6 +8,7 @@ interface State {
 
 interface Props {
   user: IUser;
+  receiveRfps: (rfps: any) => void;
 }
 
 class AlertForm extends React.Component<Props, State> {
@@ -30,7 +31,9 @@ class AlertForm extends React.Component<Props, State> {
       url: "api/rfps",
       data: { description, access_token: this.props.user.auth.accessToken }
     }).then( post => {
-      // this.props.fetchRfps();
+      console.log(post);
+      
+      this.props.receiveRfps(post);
       $('#createAlertModal').modal('hide');
     }).fail( errors =>
       this.setState({ errors: errors.responseJSON })
