@@ -4,13 +4,16 @@ interface Props {
   context: any;
   array: any[];
   headers: string[];
-  isFirstColumnPlaceholder: boolean;
+  isFirstColumnPlaceholder?: boolean;
 }
 
 interface State {
 }
 
 class TableHeaders extends React.Component<Props, State> {
+  public static defaultProps: Partial<Props> = {
+    isFirstColumnPlaceholder: true
+  }
   constructor(props) {
     super(props);
   }
@@ -48,10 +51,6 @@ class TableHeaders extends React.Component<Props, State> {
       </thead>
     );
   }
-}
-
-TableHeaders.defaultProps = {
-  isFirstColumnPlaceholder: true
 }
 
 export { TableHeaders };

@@ -1,11 +1,21 @@
 import React from 'react';
+import { IUser } from 'common/interfaces';
 
-class AlertForm extends React.Component {
+interface State {
+  description: string;
+  errors: string[];
+}
+
+interface Props {
+  user: IUser;
+}
+
+class AlertForm extends React.Component<Props, State> {
   constructor(props) {
     super(props);
     this.state = {
       description: '',
-      errors: undefined
+      errors: []
     }
 
     this.submitForm = this.submitForm.bind(this);
@@ -23,7 +33,7 @@ class AlertForm extends React.Component {
       // this.props.fetchRfps();
       $('#createAlertModal').modal('hide');
     }).fail( errors =>
-      this.setState({ errors })
+      this.setState({ errors: errors.responseJSON })
     );
   }
 
@@ -31,7 +41,7 @@ class AlertForm extends React.Component {
     if (typeof this.state.errors === "undefined") {
       return null;
     } else {
-      return this.state.errors.responseJSON.map((error, key) => (
+      return this.state.errors.map((error, key) => (
         <div key={key} className="alert alert-danger" role="alert">
           <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
           <span className="sr-only">Error:</span> {error}
