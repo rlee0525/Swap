@@ -72,8 +72,8 @@ class MyPosts extends React.Component<Props, State> {
   public toggleActivation(e, id, polarity) {
     e.stopPropagation();
 
-    // let method = polarity == true ? "deactivate" : "activate";
-    // const access_token = this.props.user.auth.accessToken;
+    let method = polarity == true ? "deactivate" : "activate";
+    const access_token = this.props.user.auth.accessToken;
 
     // $.ajax({
     //   type: "PATCH",

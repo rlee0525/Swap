@@ -2,8 +2,6 @@ import React from 'react';
 import { shortenString, timeFromNow } from 'helpers';
 import { TableHeaders } from 'common/components';
 
-// import { NavTabs } from './subcomponents';
-
 interface IRfps {
   id: number;
   description: string;
@@ -52,6 +50,12 @@ class Rfps extends React.Component <Props, State> {
     }
   }
 
+  public componentWillReceiveProps(newProps) {
+    if (newProps.rfps.list.length !== this.props.rfps.list.length) {
+      this.setState({ rfps: newProps.rfps.list })
+    }
+  }
+
   public renderListItems() {
     return this.state.rfps.map((rfp : IRfps) => (
       <tr key={`post${rfp.id}`}>
@@ -71,10 +75,10 @@ class Rfps extends React.Component <Props, State> {
 
   public render() {
     let headers = ["description"];
+
     return (
       <div>
         <div className="container">
-          {/*<NavTabs user={this.props.user} fetchRfps={this.fetchRfps} />*/}
           <div className="panel panel-default">
             <div className="rfp-description">
               Add custom alerts to get emails whenever a post related to the created keywords is created.
