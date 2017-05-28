@@ -341,11 +341,11 @@
   position: absolute;
   left: 10px;
   bottom: 7px;
-  font-size: 20px !important;
+  font-size: 15px !important;
   color: lightseagreen;
 }
 
 .bottom-left-corner img {
   height: 56px;
-  margin-right: 10px;
+  margin-right: 8px;
 }
