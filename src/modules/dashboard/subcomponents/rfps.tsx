@@ -31,8 +31,6 @@ class Rfps extends React.Component <Props, State> {
       rfps: [],
       description: -1
     };
-
-    this.sortBy = this.sortBy.bind(this);
   }
 
   public deleteRfp(e, id) {
@@ -69,18 +67,6 @@ class Rfps extends React.Component <Props, State> {
         </td>
       </tr>
     ));
-  }
-
-  public sortBy(key) {
-    let polarity : number = this.state[key];
-    let newArray : object[] = this.state.rfps.sort(function (a, b) {
-      if (a[key] < b[key]) return (-1 * polarity);
-      if (a[key] > b[key]) return (1 * polarity);
-      return 0;
-    });
-
-    let newPolarity : number = -1 * polarity;
-    this.setState({rfps: newArray, [key]: newPolarity});
   }
 
   public render() {

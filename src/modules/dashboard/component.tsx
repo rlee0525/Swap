@@ -1,6 +1,7 @@
 import React from 'react';
+import { hashHistory } from 'react-router';
 import { IUser, IDashboard } from 'common/interfaces';
-import { DashboardHeaders, Bookmarks, MyPosts, Rfps } from './subcomponents';
+import { DashboardHeaders, Bookmarks, MyPosts, Rfps, AlertForm } from './subcomponents';
 
 const data = require('./dashboard_data.json');
 
@@ -58,15 +59,20 @@ class Dashboard extends React.Component<Props, {}> {
     }
   }
 
+  public createAlert() {
+    $('#createAlertModal').modal('show');
+  }
+
   render() {
     let page = this.props.location.search.slice(1);
+    let { user } = this.props;
 
     let button = null;
 
     if (page === 'rfps') {
-      button = { title: 'Create Alert', link: 'rfps/create' }
+      button = { title: 'Create Alert', action: () => $('#createAlertModal').modal('show') }
     } else if (page === 'posts') {
-      button = { title: 'Create Post', link: 'posts/create' }
+      button = { title: 'Create Post', action: () => hashHistory.push('posts/create') }
     }
     
     return (
@@ -76,6 +82,7 @@ class Dashboard extends React.Component<Props, {}> {
           active={page}
           button={button}
         />
+        <AlertForm user={user} />
         { this.renderSubcomponent() }
       </div>
     );
