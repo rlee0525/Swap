@@ -9,7 +9,7 @@ interface Header {
 interface Props {
   headers: Header[];
   active: string;
-  button: null | { title: string; link: string }
+  button: null | { title: string; action: Function }
 }
 
 const DashboardHeaders : React.SFC<Props> = ({ active, headers, button }) => (
@@ -22,12 +22,12 @@ const DashboardHeaders : React.SFC<Props> = ({ active, headers, button }) => (
 
     { button ?  (
       <div>
-        <Link to={button.link} className="btn btn-clear nav-button" id="responsive-create-text">
+        <button onClick={button.action} className="btn btn-clear nav-button" id="responsive-create-text">
           { button.title }
-        </Link>
-        <Link to={button.link} className="btn btn-clear nav-button" id="responsive-create-icon">
+        </button>
+        <button onClick={button.action} className="btn btn-clear nav-button" id="responsive-create-icon">
           <span className="glyphicon glyphicon-edit" aria-hidden="true" id="create-icon-button"/>
-        </Link>
+        </button>
       </div>
     ) : null }
   </ul>
