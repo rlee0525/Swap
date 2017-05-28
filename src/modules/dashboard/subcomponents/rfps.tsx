@@ -1,9 +1,10 @@
 import React from 'react';
 import { shortenString, timeFromNow } from 'helpers';
+import { TableHeaders } from 'common/components';
 
 // import { NavTabs } from './subcomponents';
 
-interface RFP {
+interface IRfps {
   id: number;
   description: string;
 }
@@ -15,6 +16,12 @@ interface State {
 
 interface Props {
   user: any;
+  rfps: {
+    fetched: boolean;
+    list: IRfps[];
+  },
+  fetchRfps : (accessToken: string) => JQueryPromise<void>;
+  deleteRfps : (id: number, accessToken: string) => JQueryPromise<void>;
 }
 
 class Rfps extends React.Component <Props, State> {
@@ -25,43 +32,37 @@ class Rfps extends React.Component <Props, State> {
       description: -1
     };
 
-    this.fetchRfps = this.fetchRfps.bind(this);
     this.sortBy = this.sortBy.bind(this);
   }
 
-  public fetchRfps() {
-    $.ajax({
-      method: "GET",
-      url: "api/rfps",
-      data: { access_token: this.props.user.auth.accessToken }
-    }).then(
-      rfps => this.setState({ rfps })
-    );
-  }
+  public deleteRfp(e, id) {
+    e.stopPropoagation();
 
-  public deleteRfp(id) {
-    $.ajax({
-      type: "DELETE",
-      url: `api/rfps/${id}`,
-      data: { access_token: this.props.user.auth.accessToken }
-    }).then(
-      data => this.fetchRfps()
+    let { deleteRfps, user } = this.props;
+
+    deleteRfps(id, user.auth.accessToken).then(
+      () => this.setState({ rfps: this.props.rfps.list })
     );
   }
 
   public componentWillMount() {
-    this.fetchRfps();
+    let { rfps, user, fetchRfps } = this.props;
+    if (!rfps.fetched) {
+      fetchRfps(user.auth.accessToken).then(
+        () => this.setState({ rfps: this.props.rfps.list })
+      );
+    }
   }
 
   public renderListItems() {
-    return this.state.rfps.map((rfp : RFP) => (
+    return this.state.rfps.map((rfp : IRfps) => (
       <tr key={`post${rfp.id}`}>
         <td>{shortenString(rfp.description, 30)}</td>
         <td id="rfp-delete">
           <button
             type="button"
             className="btn btn-xs btn-danger"
-            onClick={() => this.deleteRfp(rfp.id)}
+            onClick={(e) => this.deleteRfp(e, rfp.id)}
           >
             Delete
           </button>
@@ -83,6 +84,7 @@ class Rfps extends React.Component <Props, State> {
   }
 
   public render() {
+    let headers = ["description"];
     return (
       <div>
         <div className="container">
@@ -93,17 +95,8 @@ class Rfps extends React.Component <Props, State> {
             </div>
             <div className="panel-body">
               <table className="table table-hover">
-                <thead>
-                  <tr>
-                    <th onClick={() => this.sortBy("description")}>
-                      Keywords
-                      <a onClick={() => this.sortBy("description")} className="btn btn-xs" id="caret-container">
-                        <span className="caret" />
-                      </a>
-                    </th>
-                    <th id="th-no-caret-rfp"></th>
-                  </tr>
-                </thead>
+                <TableHeaders context={this} array={this.state.rfps} headers={headers} />
+              
                 <tbody>
                   {this.renderListItems()}
                 </tbody>

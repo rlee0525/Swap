@@ -14,16 +14,19 @@ interface Props {
   deleteBookmark : (id: number, accessToken: string) => JQueryPromise<void>;
   fetchMyPosts : (accessToken: string) => JQueryPromise<void>;
   deleteMyPost : (id: number, accessToken: string) => JQueryPromise<void>;
+  fetchRfps : (accessToken: string) => JQueryPromise<void>;
+  deleteRfps : (id: number, accessToken: string) => JQueryPromise<void>;
 }
 
 class Dashboard extends React.Component<Props, {}> {
   renderSubcomponent() {
     let page = this.props.location.search.slice(1);
 
-    let { dashboard, user, fetchBookmarks, deleteBookmark } = this.props;
+    let { dashboard, user } = this.props;
 
     switch (page) {
       case 'bookmarks':
+      let { fetchBookmarks, deleteBookmark } = this.props;
         return (
           <Bookmarks
             bookmarks={dashboard.bookmarks}
@@ -33,7 +36,15 @@ class Dashboard extends React.Component<Props, {}> {
           />
         );
       case 'rfps':
-        return <div>rfps</div>
+        let { fetchRfps, deleteRfps } = this.props;
+        return (
+          <Rfps
+            user={user}
+            rfps={dashboard.rfps}
+            fetchRfps={fetchRfps}
+            deleteRfps={deleteRfps}
+          />
+        );
       default:
         let { fetchMyPosts, deleteMyPost } = this.props;
         return (
