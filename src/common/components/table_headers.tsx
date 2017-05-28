@@ -4,6 +4,7 @@ interface Props {
   context: any;
   array: any[];
   headers: string[];
+  isFirstColumnPlaceholder: boolean;
 }
 
 interface State {
@@ -30,11 +31,11 @@ class TableHeaders extends React.Component<Props, State> {
   }
 
   render() {
-    let { headers } = this.props;
+    let { headers, isFirstColumnPlaceholder } = this.props;
     return (
       <thead>
         <tr>
-          <th id="th-no-caret"></th>
+          { isFirstColumnPlaceholder ? <th id="th-no-caret"></th> : null }
           { headers.map(header => (
             <th onClick={() => this.sortBy(header.toLowerCase())} className="hidden-xs">
               { header === 'updated_at' ? 'Posted' : header }
@@ -47,6 +48,10 @@ class TableHeaders extends React.Component<Props, State> {
       </thead>
     );
   }
+}
+
+TableHeaders.defaultProps = {
+  isFirstColumnPlaceholder: true
 }
 
 export { TableHeaders };

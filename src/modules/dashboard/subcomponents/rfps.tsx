@@ -81,7 +81,7 @@ class Rfps extends React.Component <Props, State> {
             </div>
             <div className="panel-body">
               <table className="table table-hover">
-                <TableHeaders context={this} array={this.state.rfps} headers={headers} />
+                <TableHeaders context={this} array={this.state.rfps} headers={headers} isFirstColumnPlaceholder={false} />
               
                 <tbody>
                   {this.renderListItems()}
