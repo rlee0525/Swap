@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
     rescue
       return nil
     end
-    debugger
+
     if user && (user.fb_picture.nil? || user.first_name.nil? || user.last_name.nil?)
       first_name, last_name = profile["name"].split(" ")
       fb_picture = graph.get_picture(fb_id)
