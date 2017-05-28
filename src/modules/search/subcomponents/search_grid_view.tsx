@@ -66,8 +66,8 @@ class SearchGridView extends React.Component<Props, State> {
             <span id="grid-title">{post.title}</span>
             <span className="bottom-right-corner">${Number(post.price).toLocaleString()}</span>
             <span className="bottom-left-corner">
-              <img className="img-circle" src="http://res.cloudinary.com/dkympkwdz/image/upload/v1495989683/Screen_Shot_2017-05-28_at_9.40.33_AM_tshmv6.png"/>
-              Robin K.
+              <img className="img-circle" src={post.seller_fb_picture}/>
+              {post.seller_name}
             </span>
           </div>
         </div>
