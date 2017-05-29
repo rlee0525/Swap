@@ -18,7 +18,7 @@ interface State {
   myCourses: course [];
   course_name: any;
   course_number: any;
-  description: string;
+  courseDescription: string;
   course: string;
   errors: any [];
   courses: any [];
@@ -32,7 +32,7 @@ class MyCourses extends React.Component<Props, State> {
       myCourses: [],
       course_name: -1,
       course_number: -1,
-      description: "",
+      courseDescription: "",
       course: "",
       errors: undefined,
       courses: []
@@ -98,21 +98,17 @@ class MyCourses extends React.Component<Props, State> {
     });
   }
 
-  public createAlert() {
-    $('#createMyCourse').modal('show');
-  }
-
   public updateState(e) {
     this.setState({ [e.target.id]: e.target.value })
   }
 
   public submitForm(e) {
     e.preventDefault();
-    const { description } = this.state;
+    const { courseDescription } = this.state;
     $.ajax({
       method: "POST",
       url: "api/my_courses",
-      data: { course_number: description, access_token: this.props.user.auth.accessToken }
+      data: { course_number: courseDescription, access_token: this.props.user.auth.accessToken }
     }).then( post => {
       this.getMyCourses();
       $('#createMyCourse').modal('hide');
@@ -123,8 +119,8 @@ class MyCourses extends React.Component<Props, State> {
 
   public autoComplete() {
     let that = this;
-    let input = function () { return  { search: $('#description').val() }};
-    $('#description').devbridgeAutocomplete({
+    let input = function () { return  { search: $('#courseDescription').val() }};
+    $('#courseDescription').devbridgeAutocomplete({
       lookup: function (query, done) {
         $.ajax({
           method: 'GET',
@@ -133,7 +129,7 @@ class MyCourses extends React.Component<Props, State> {
         }).then(data => done({ "suggestions": data }))
       },
       onSelect: function (suggestion) {
-        that.setState({description: suggestion.value})
+        that.setState({courseDescription: suggestion.value})
       }
     });
   }
@@ -174,60 +170,42 @@ class MyCourses extends React.Component<Props, State> {
   render() {
     return (
       <div>
-        <div className="container">
-          <ul className="nav nav-tabs">
-            <li role="presentation" id="dashboard-nav-title"><a href="#/dashboard/posts">Posts</a></li>
-            <li role="presentation" id="dashboard-nav-title"><a href="#/dashboard/bookmarks">Bookmarks</a></li>
-            <li role="presentation" id="dashboard-nav-title"><a href="#/dashboard/rfps">Alerts</a></li>
-            <li role="presentation" id="dashboard-nav-title" className="active"><a href="#/dashboard/mycourses">My Courses</a></li>
-            <div>
-              <a onClick={() => this.createAlert()} className="btn btn-clear nav-button" id="responsive-create-text">
-                Add Course
-              </a>
-              <a onClick={() => this.createAlert()} className="btn btn-clear nav-button" id="responsive-create-icon">
-                <span className="glyphicon glyphicon-bell" aria-hidden="true" id="create-icon-button"/>
-              </a>
-
-              <a id="createAlertModalTrigger" className="hidden" data-toggle="modal" data-target="#createMyCourse">My Course Modal</a>
-              <div className="modal fade" id="createMyCourse" tabIndex={-1} role="dialog"
-                    aria-labelledby="authModalLabel" aria-hidden="true">
-                <div className="modal-dialog" role="document">
-                  <div className="modal-content">
-                    <div className="modal-header" id="auth-modal-header">
-                      <button type="button" className="close" data-dismiss="modal">&times;</button>
-                      <h3 className="modal-title" id="authModalLabel">Add Course</h3>
-                    </div>
-                    <div className="modal-body text-center" id="fb-modal-body">
-                      <form onSubmit={ this.submitForm }>
-                        <div className="form-group input-group" id="email-error-div">
-                          <input
-                            type="text"
-                            maxLength={50}
-                            value={this.state.description}
-                            onChange={this.updateState}
-                            className="form-control"
-                            id="description"
-                            placeholder="Course Number"
-                            aria-describedby="basic-addon2"
-                          />
-                          <span className="input-group-addon" id="basic-addon1">&nbsp;{50 - this.state.description.length} characters left</span>
-                        </div>
-                        <button type="button" className="btn btn-primary btn-lg btn-block" onClick={ this.submitForm }>Create</button>
-                      </form>
-                    </div>
-                    <br/>
-                    <div className="modal-footer"></div>
-                  </div>
-                </div>
+        <a id="createAlertModalTrigger" className="hidden" data-toggle="modal" data-target="#createMyCourse">My Course Modal</a>
+        <div className="modal fade" id="createMyCourse" tabIndex={-1} role="dialog"
+              aria-labelledby="authModalLabel" aria-hidden="true">
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header" id="auth-modal-header">
+                <button type="button" className="close" data-dismiss="modal">&times;</button>
+                <h3 className="modal-title" id="authModalLabel">Add Course</h3>
               </div>
-
+              <div className="modal-body text-center" id="fb-modal-body">
+                <form onSubmit={ this.submitForm }>
+                  <div className="form-group input-group" id="email-error-div">
+                    <input
+                      type="text"
+                      maxLength={50}
+                      value={this.state.courseDescription}
+                      onChange={this.updateState}
+                      className="form-control"
+                      id="courseDescription"
+                      placeholder="Course Number"
+                      aria-describedby="basic-addon2"
+                    />
+                    <span className="input-group-addon" id="basic-addon1">&nbsp;{50 - this.state.courseDescription.length} characters left</span>
+                  </div>
+                  <button type="button" className="btn btn-primary btn-lg btn-block" onClick={ this.submitForm }>Create</button>
+                </form>
+              </div>
+              <br/>
+              <div className="modal-footer"></div>
             </div>
-          </ul>
-          {this.renderMyCourses()}
+          </div>
         </div>
+        {this.renderMyCourses()}
       </div>
     )
   }
 }
 
-export default MyCourses;
+export { MyCourses };

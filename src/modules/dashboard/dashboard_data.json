@@ -9,8 +9,12 @@
       "link": "bookmarks"
     },
     {
-      "title": "alerts",
+      "title": "Alerts",
       "link": "rfps"
+    },
+    {
+      "title": "My Courses",
+      "link": "mycourses"
     }
   ]
 }

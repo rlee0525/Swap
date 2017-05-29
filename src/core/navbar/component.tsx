@@ -108,7 +108,7 @@ class NavBar extends React.Component<any, any> {
       return null;
     };
 
-    let address = e.currentTarget.id;
+    let address = e.currentTarget.id + "?posts";
     const accessToken = this.props.user.auth.accessToken;
     $.ajax({
       method: "GET",
