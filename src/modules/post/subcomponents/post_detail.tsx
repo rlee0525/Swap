@@ -351,9 +351,9 @@ class PostDetail extends React.Component<any, any> {
           <span className="breadcrumb-item active">{title && shortenString(title, 20)}</span>
         </nav>
         <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12" id="detail-left">
-          {this.state.view === "photo" ?
-            (<div className="block p-l-0 p-t-0 p-r-0" id="small-img-padding">
-              <div id="carousel-example-generic-2" className="carousel carousel-light slide" data-ride="carousel">
+          <div className="block p-l-0 p-t-0 p-r-0" id="small-img-padding">
+            {this.state.view === "photo" ?
+              (<div id="carousel-example-generic-2" className="carousel carousel-light slide" data-ride="carousel">
                 {this.renderCarouselIndicators()}
                 {this.renderCarousel()}
                 <a className="left carousel-control" href="#carousel-example-generic-2" role="button" data-slide="prev">
@@ -364,8 +364,8 @@ class PostDetail extends React.Component<any, any> {
                   <span className="icon icon-chevron-thin-right" aria-hidden="true" id="carousel-arrows-right"></span>
                   <span className="sr-only">Next</span>
                 </a>
-              </div>
-            </div>) : (<MapItem center={this.state.center}/>)}
+              </div>) : (<MapItem center={this.state.center}/>)}
+          </div>
         </div>
         {this.renderDetail()}
       </div>
