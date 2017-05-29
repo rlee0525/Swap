@@ -83,6 +83,10 @@ ul.nav {
   height: auto;
 }
 
+.thumbnail-post {
+  border-bottom: 3px solid lightseagreen;
+}
+
 .sort-by-panel {
   position: relative;
 }

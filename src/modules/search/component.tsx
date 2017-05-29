@@ -17,7 +17,7 @@ interface State {
 }
 
 interface Props {
-  user: object;
+  user: any;
   searchResult: any;
   search: (query: object) => JQueryXHR;
   location: any;
@@ -33,7 +33,7 @@ class Search extends React.Component<Props, State> {
       categories: [
         "All", "Course Material", "Furniture", "Clothing",
         "Electronics", "Housing", "Bikes", "Games", "Others",
-        "Lost & Found"
+        "Lost & Found", "My Course Material"
       ]
     }
     this.renderCategoryMenu = this.renderCategoryMenu.bind(this);
@@ -55,8 +55,14 @@ class Search extends React.Component<Props, State> {
       const currentQuery = this.props.currentQuery;
       this.props.saveQuery({category});
 
-      const nextQuery = merge({}, currentQuery, {category})
-      this.props.search(nextQuery);
+      let nextQuery = merge({}, currentQuery, {category})
+      if (this.props.currentQuery.category === "My Course Material" && this.props.user) {
+        const access_token = this.props.user.auth.accessToken;
+        nextQuery = merge({}, nextQuery, {access_token});
+        this.props.search(nextQuery);
+      } else {
+        this.props.search(nextQuery);
+      }
     }
   }
 
@@ -64,14 +70,21 @@ class Search extends React.Component<Props, State> {
     const currentQuery = this.props.currentQuery;
     this.props.saveQuery({viewType});
 
-    const nextQuery = merge({}, currentQuery, {viewType})
-    this.props.search(nextQuery);
+    let nextQuery = merge({}, currentQuery, {viewType})
+    if (this.props.currentQuery.category === "My Course Material" && this.props.user) {
+      const access_token = this.props.user.auth.accessToken;
+      nextQuery = merge({}, nextQuery, {access_token});
+      this.props.search(nextQuery);
+    } else {
+      this.props.search(nextQuery);
+    }
   }
 
   private renderView() {
     if (this.props.currentQuery.viewType === 'grid') {
       return (
         <SearchGridView
+          user={this.props.user}
           searchResult={this.props.searchResult}
           search={this.props.search}
           currentQuery={this.props.currentQuery}
@@ -81,6 +94,7 @@ class Search extends React.Component<Props, State> {
     } else {
       return (
         <SearchListView
+          user={this.props.user}
           searchResult={this.props.searchResult}
           search={this.props.search}
           currentQuery={this.props.currentQuery}
@@ -101,12 +115,17 @@ class Search extends React.Component<Props, State> {
     let category = getCategory(this.props.location);
     let label = category;
     if (category === "All") label = 'Recent';
+    if (category === "Mycoursematerial") {
+      label = 'My Course Material';
+      category = 'My Course Material';
+    }
 
     return (
       <div>
         <div className="container">
           <div className="row">
             <SearchNavbar
+              user={this.props.user}
               searchResult={this.props.searchResult}
               search={this.props.search}
               currentQuery={this.props.currentQuery}
@@ -121,7 +140,7 @@ class Search extends React.Component<Props, State> {
                   <a onClick={() => this.renderCategoryMenu(category)} className="breadcrumb-item" href={`#/${path}`}>{label}</a>
                   <span className="breadcrumb-item active">{(this.props.currentQuery.page_idx - 1) * 16 + 1} - {(this.props.currentQuery.page_idx * 16)} results</span>
                 </nav>
-                {/*{<span>You have {this.props.searchResult.result_count} result(s)</span>}*/}
+
                 <div className="search-icons">
                   <button className="btn btn-link btn-special-size btn-special-margin" id="grid-type" onClick={() => this.changeView('grid')}>
                     <span className="glyphicon glyphicon-th-large"></span>

@@ -7,7 +7,7 @@ const postReducer = (state = _defaultState, action: Action<any>) => {
   Object.freeze(state);
   switch (action.type) {
     case RECEIVE_POST:
-      return action.post;
+      return merge({}, state, action.post);
     default:
       return state;
   }

@@ -15,7 +15,6 @@ interface Post {
 }
 
 interface Props {
-  searchResult: Post [];
   user: any;
 }
 
@@ -160,6 +159,7 @@ class MyPosts extends React.Component<Props, State> {
             <li role="presentation" id="dashboard-nav-title" className="active"><a href="#/dashboard/posts">Posts</a></li>
             <li role="presentation" id="dashboard-nav-title"><a href="#/dashboard/bookmarks">Bookmarks</a></li>
             <li role="presentation" id="dashboard-nav-title"><a href="#/dashboard/rfps">Alerts</a></li>
+            <li role="presentation" id="dashboard-nav-title"><a href="#/dashboard/mycourses">My Courses</a></li>
             <div>
               <a href="#/posts/create" className="btn btn-clear nav-button" id="responsive-create-text">
                 Create Post

@@ -14,7 +14,37 @@ class Api::SearchController < ApplicationController
     sql_query = query.split(' ').map { |word| "%#{word}%" }
     sql = 'title ILIKE ANY( array[?] )'
 
-    if (query.nil? || query.empty?) && (category.nil? || category.empty?)
+    if (query.nil? || query.empty?) && category == "My Course Material"
+      user = fb_auth_user(params[:access_token])
+      @result_count = user.course_posts.where(active: true)
+                   .where(deleted: false)
+                   .count
+
+      @posts = user.course_posts.where(active: true)
+                  .where(deleted: false)
+                  .order("#{sort_by} #{polarity}")
+                  .offset(offset)
+                  .limit(limit)
+                  .includes(:user)
+
+      @max_pages = (@result_count / limit.to_f).ceil
+    elsif category == "My Course Material"
+      user = fb_auth_user(params[:access_token])
+      @result_count = user.course_posts.where(active: true)
+                   .where(deleted: false)
+                   .where(sql, sql_query)
+                   .count
+
+      @posts = user.course_posts.where(active: true)
+                  .where(deleted: false)
+                  .order("#{sort_by} #{polarity}")
+                  .offset(offset)
+                  .limit(limit)
+                  .where(sql, sql_query)
+                  .includes(:user)
+
+      @max_pages = (@result_count / limit.to_f).ceil
+    elsif (query.nil? || query.empty?) && (category.nil? || category.empty?)
       @result_count = Post.where(active: true)
                    .where(deleted: false)
                    .count
@@ -24,6 +54,7 @@ class Api::SearchController < ApplicationController
                    .order("#{sort_by} #{polarity}")
                    .offset(offset)
                    .limit(limit)
+                   .includes(:user)
 
       @max_pages = (@result_count / limit.to_f).ceil
     elsif (query.nil? || query.empty?)
@@ -38,6 +69,7 @@ class Api::SearchController < ApplicationController
                    .order("#{sort_by} #{polarity}")
                    .offset(offset)
                    .limit(limit)
+                   .includes(:user)
 
       @max_pages = (@result_count / limit.to_f.to_f).ceil
     elsif (category.nil? || category.empty?)
@@ -52,6 +84,7 @@ class Api::SearchController < ApplicationController
                    .offset(offset)
                    .limit(limit)
                    .where(sql, sql_query)
+                   .includes(:user)
 
       @max_pages = (@result_count / limit.to_f).ceil
     else
@@ -68,6 +101,7 @@ class Api::SearchController < ApplicationController
                    .offset(offset)
                    .limit(limit)
                    .where(sql, sql_query)
+                   .includes(:user)
 
       @max_pages = (@result_count / limit.to_f).ceil
     end

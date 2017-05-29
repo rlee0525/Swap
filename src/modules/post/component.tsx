@@ -22,6 +22,7 @@ class Post extends React.Component<any, any> {
           getPost={this.props.getPost}
           post={this.props.post}
           user={this.props.user}
+          receivePost={this.props.receivePost}
         />
       </div>
     );
