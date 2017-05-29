@@ -3,7 +3,6 @@ export interface IState {
   title: string;
   description: string;
   category: string;
-  condition: string;
   course?: string;
   price: string;
   img_url1?: string;
@@ -17,8 +16,7 @@ export const _defaultState = {
   id: null,
   title: "",
   description: "",
-  category: "Textbooks",
-  condition: "Brand New",
+  category: "Course Material",
   course: "",
   price: "",
   img_url1: "",
