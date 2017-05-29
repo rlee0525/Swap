@@ -1,53 +1,51 @@
 import React from 'react';
-import { shortenString, 
+import { shortenString,
          timeFromNow,
          getCategory } from 'helpers';
 import { IPost } from 'common/interfaces';
 import { Pagination } from './';
+import { merge } from 'lodash';
 declare var $;
 
 interface Props {
-  searchResult: IPost [];
+  searchResult: any;
   search: (query: object) => JQueryXHR;
-  location: string;
+  saveQuery: any;
+  currentQuery: any;
+  user: any;
 }
 
 interface State {
-  results: IPost[];
-  maxPages?: number;
-  pageIdx?: number;
-  currentPage?: number;
 }
 
 class SearchListView extends React.Component<Props, any> {
   constructor(props: Props) {
     super(props);
-    this.sortBy = this.sortBy.bind(this);
-    let results = props.searchResult;
-    let maxPages = Math.ceil(props.searchResult.length / 10);
-
     this.state = {
-      results,
-      maxPages,
-      pageIdx: 1,
-      currentPage: 1,
-      polarity: -1
-    };
+      price: -1,
+      updated_at: 1,
+      views: 1
+    }
 
-    this.sortBy = this.sortBy.bind(this);
+    this.sort_by = this.sort_by.bind(this);
   }
 
-  public componentWillReceiveProps(nextProps) {
-    let results = nextProps.searchResult;
-    let maxPages = Math.ceil(nextProps.searchResult.length / 10)
-    this.setState({results, maxPages});
+  public componentWillMount() {
+    let nextQuery = this.props.currentQuery;
+    if (this.props.currentQuery.category === "My Course Material" && this.props.user) {
+      const access_token = this.props.user.auth.accessToken;
+      nextQuery = merge({}, nextQuery, {access_token});
+      this.props.search(nextQuery);
+    } else {
+      this.props.search(nextQuery);
+    }
   }
 
   renderListItem(post: IPost, idx: number) {
     return (
       <tr key={idx} onClick={() => window.location.href = `#/posts/${post.id}`}>
         <td>{post.title}</td>
-        <td className="hidden-xs" id="hide-description">{shortenString(post.description, 30)}</td>
+        <td className="hidden-xs">{shortenString(post.description, 30)}</td>
         <td>${Number(post.price).toLocaleString()}</td>
         <td className="hidden-xs">{timeFromNow(post.updated_at)}</td>
         <td className="hidden-xs">{post.views}</td>
@@ -55,56 +53,40 @@ class SearchListView extends React.Component<Props, any> {
     )
   }
 
-  public sortBy(key: string, polarity: number) {
-    let sortBy;
-    polarity *= -1;
+  public sort_by(sort_by: string) {
+    const polarity = this.state[sort_by] * -1;
 
-    if (key == "views") {
-      sortBy = "Views";
-    } else if (key == "updated_at") {
-      sortBy = "Posting Date"
+    const currentQuery = this.props.currentQuery;
+    this.props.saveQuery({sort_by, polarity});
+    let nextQuery = merge({}, currentQuery, {sort_by, polarity})
+    if (this.props.currentQuery.category === "My Course Material" && this.props.user) {
+      const access_token = this.props.user.auth.accessToken;
+      nextQuery = merge({}, nextQuery, {access_token});
+      this.props.search(nextQuery);
     } else {
-      sortBy = "Price"
+      this.props.search(nextQuery);
     }
 
-    let query = "";
-    let category = getCategory(this.props.location);
-    let sort_by = sortBy;
-    let page_idx = this.state.pageIdx;
-
-    let searchParams = { query, category, sort_by, polarity, page_idx };
-
-    this.props.search(searchParams).then(results => {
-      this.setState({
-        results: results.result,
-        sortBy,
-        polarity
-      });
-    })
+    this.setState({[sort_by]: polarity})
   }
 
   render() {
-    let pageStart = (this.state.currentPage - 1) * 10;
-    let pageEnd = this.state.currentPage * 10;
-    let polarity = this.state.polarity;
-
     return (
       <div>
         <table className="table table-hover">
           <thead>
             <tr>
               <th>Title</th>
-              <th>Description</th>
-              <th onClick={() => this.sortBy("price", polarity)}>Price<a onClick={() => this.sortBy("price", polarity)} className="btn btn-xs" id="caret-container" ><span className="caret" /></a></th>
-              <th onClick={() => this.sortBy("updated_at", polarity)} className="hidden-xs">Posted<a onClick={() => this.sortBy("updated_at", polarity)} className="btn btn-xs" id="caret-container" ><span className="caret" /></a></th>
-              <th onClick={() => this.sortBy("views", polarity)} className="hidden-xs">Views<a onClick={() => this.sortBy("views", polarity)} className="btn btn-xs" id="caret-container" ><span className="caret" /></a></th>
+              <th className="hidden-xs">Description</th>
+              <th onClick={() => this.sort_by("price")}>Price<a className="btn btn-xs" id="caret-container" ><span className="caret" /></a></th>
+              <th onClick={() => this.sort_by("updated_at")} className="hidden-xs">Posted<a className="btn btn-xs" id="caret-container" ><span className="caret" /></a></th>
+              <th onClick={() => this.sort_by("views")} className="hidden-xs">Views<a className="btn btn-xs" id="caret-container" ><span className="caret" /></a></th>
             </tr>
           </thead>
           <tbody>
-            { this.state.results ? this.state.results.slice(pageStart, pageEnd).map((post,idx) => this.renderListItem(post, idx)) : null }
+            { this.props.searchResult.posts.map((post, idx) => this.renderListItem(post, idx)) }
           </tbody>
         </table>
-        <Pagination that={this} maxPages={this.state.maxPages} currentPage={this.state.currentPage} />
       </div>
     )
   }

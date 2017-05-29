@@ -1,36 +1,33 @@
 import React from 'react';
 import _ from 'lodash';
+import { merge } from 'lodash';
+declare var $;
 
 class Pagination extends React.Component<any, any> {
   constructor(props) {
     super(props);
 
-    this.state = {
-      currentPage: 1,
-      maxPages: 1
-    }
-
     this.setCurrentPage = this.setCurrentPage.bind(this)
-    this.goPrevious = this.goPrevious.bind(this)
-    this.goNext = this.goNext.bind(this)
+    this.goPrevNext = this.goPrevNext.bind(this)
   }
 
-  public goPrevious() {
-    if (this.props.currentPage > 1) {
-      this.props.that.setState({currentPage: this.props.currentPage - 1})
+  public goPrevNext(polarity) {
+    if ((this.props.currentPage > 1 && polarity === -1) ||
+      (this.props.currentPage < this.props.maxPages) && polarity === 1) {
+      const currentQuery = this.props.currentQuery;
+      const nextQuery = merge({}, currentQuery, {page_idx: this.props.currentPage + polarity});
+      this.props.saveQuery(nextQuery);
+      this.props.search(nextQuery);
       window.scrollTo(0, 0);
     }
   }
 
-  public goNext() {
-    if (this.props.currentPage < this.props.maxPages) {
-      this.props.that.setState({currentPage: this.props.currentPage + 1})
-      window.scrollTo(0, 0);
-    }
-  }
 
-  public setCurrentPage(page) {
-    this.props.that.setState({currentPage: page})
+  public setCurrentPage(page_idx) {
+    const currentQuery = this.props.currentQuery;
+    const nextQuery = merge({}, currentQuery, {page_idx});
+    this.props.saveQuery(nextQuery);
+    this.props.search(nextQuery);
     window.scrollTo(0, 0);
   }
 
@@ -51,13 +48,13 @@ class Pagination extends React.Component<any, any> {
       <nav aria-label="Page navigation">
         <ul className="pagination">
           <li>
-            <a onClick={this.goPrevious} aria-label="Previous">
+            <a onClick={() => this.goPrevNext(-1)} aria-label="Previous">
               <span aria-hidden="true">&laquo;</span>
             </a>
           </li>
           {pages}
           <li>
-            <a onClick={this.goNext} aria-label="Next">
+            <a onClick={() => this.goPrevNext(1)} aria-label="Next">
               <span aria-hidden="true">&raquo;</span>
             </a>
           </li>

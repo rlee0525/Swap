@@ -15,6 +15,11 @@ class Home extends React.Component<any, {}> {
     super(props);
     this.viewDescription = this.viewDescription.bind(this);
     this.hideDescription = this.hideDescription.bind(this);
+    this.renderNavbar = this.renderNavbar.bind(this);
+  }
+
+  public componentDidMount() {
+    $('#search-query').focus();
   }
 
   private viewDescription(e) {
@@ -43,6 +48,23 @@ class Home extends React.Component<any, {}> {
     title.classList.remove("slideInDown");
   }
 
+  private renderNavbar() {
+    // TODO will break because navbar components take into account their location,
+    // need to fix navbar location logic first
+    return (
+      <div>
+        <SearchNavbar
+          user={this.props.user}
+          searchResult={this.props.searchResult}
+          search={this.props.search}
+          currentQuery={this.props.currentQuery}
+          saveQuery={this.props.saveQuery}
+          home={true}
+        />
+      </div>
+    )
+  }
+
   public render() {
     return (
       <div>
@@ -53,9 +75,7 @@ class Home extends React.Component<any, {}> {
           </div>
         </div>
 
-        <div>
-          <SearchNavbar props={this.props} search={this.props.search} />
-        </div>
+        {this.renderNavbar()}
 
         <div>
           <div className="container" id="add-margin-bottom">

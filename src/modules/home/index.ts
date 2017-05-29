@@ -2,22 +2,28 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'react-redux';
 import { IUser, IStoreState } from 'common/interfaces';
 import Home from './component';
-import { search } from 'modules/search/actions';
+import { search, saveQuery } from 'modules/search/actions';
 
 interface StateProps {
-  user : IUser;
+  user: object;
+  searchResult: any;
+  currentQuery: any;
 }
 
 interface DispatchProps {
-  search : (query: object) => void;
+  search: (query: object, access_token: string) => void;
+  saveQuery: (query: string) => void;
 }
 
 const mapStateToProps = (state: IStoreState, ownProp?: any): StateProps => ({
-  user: state.user
+  user: state.user,
+  searchResult: state.searchResult,
+  currentQuery: state.currentQuery
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<IStoreState>): DispatchProps => ({
-  search: query => dispatch(search(query))
+  search: (query, access_token) => dispatch(search(query)),
+  saveQuery: query => dispatch(saveQuery(query))
 });
 
 export default connect(

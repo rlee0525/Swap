@@ -21,7 +21,7 @@ class Course < ApplicationRecord
   has_many :posts, inverse_of: :course
   belongs_to :university
 
-  has_many :users_courses
+  has_many :users_courses, inverse_of: :course
   has_many :users, through: :users_courses
 
 end

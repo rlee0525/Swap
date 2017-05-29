@@ -4,14 +4,17 @@
 #
 #  id                      :integer          not null, primary key
 #  fb_id                   :string           not null
+#  edu_email_confirmed     :boolean          default(FALSE)
+#  edu_email_confirm_token :string
+#  fb_email                :string
 #  edu_email               :string
 #  university_id           :integer
 #  marketing_opt_in        :boolean          default(TRUE), not null
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
-#  fb_email                :string
-#  edu_email_confirmed     :boolean          default(FALSE)
-#  edu_email_confirm_token :string
+#  first_name              :string
+#  last_name               :string
+#  fb_picture              :string
 #
 
 class User < ApplicationRecord
@@ -23,8 +26,9 @@ class User < ApplicationRecord
   has_many :bookmarked_posts, through: :bookmarks, source: :post
   has_many :rfps
   belongs_to :university, optional: true
-  has_many :users_courses
+  has_many :users_courses, inverse_of: :user
   has_many :courses, through: :users_courses
+  has_many :course_posts, through: :users_courses, source: :posts
 
   before_create :confirmation_token
 
@@ -41,6 +45,7 @@ class User < ApplicationRecord
   # TODO: testing delayed job
   # handle_asynchronously :mail,
   #                       run_at: Proc.new { 5.seconds.from_now }
+
   private
 
   def confirmation_token

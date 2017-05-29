@@ -1,140 +1,163 @@
 import React from 'react';
+import { merge } from 'lodash';
 import { IPost } from 'common/interfaces';
-import { shortenString, 
+
+import { shortenString,
          capitalize,
-         searchParams } from 'helpers';
+         searchParams,
+         getCategory } from 'helpers';
 
 import { SearchGridView,
          SearchListView,
-         SearchNavbar } from './subcomponents';
+         SearchNavbar,
+         Pagination } from './subcomponents';
 
 interface State {
-  viewType: string;
-  posts: object;
+  categories: any;
 }
 
 interface Props {
-  user: object;
-  searchResult: IPost[];
+  user: any;
+  searchResult: any;
   search: (query: object) => JQueryXHR;
   location: any;
   post: any;
+  currentQuery: any;
+  saveQuery: any;
 }
 
 class Search extends React.Component<Props, State> {
   constructor(props) {
     super(props);
-
     this.state = {
-      viewType: 'grid',
-      posts: null
-    };
+      categories: [
+        "All", "Course Material", "Furniture", "Clothing",
+        "Electronics", "Housing", "Bikes", "Games", "Others",
+        "Lost & Found", "My Course Material"
+      ]
+    }
+    this.renderCategoryMenu = this.renderCategoryMenu.bind(this);
   }
 
   public componentWillMount() {
-    let category = this.props.location.pathname.slice(1);
+    const category = getCategory(this.props.location);
 
-    if (category === "recent") {
-      this.props.search(searchParams("", "All")).then(res => {
-        let posts = this.props.searchResult;
-        this.setState({
-          posts: this.props.searchResult
-        });
-      })
-    } else {
-      if (category === "lostandfound") {
-        category = "Lost & Found";
-      } else if (category === "coursematerial") {
-        category = "Course Material";
-      } else {
-        category = capitalize(category);
-      }
-      
-      this.props.search(searchParams("", category)).then(res => {
-        let posts = this.props.searchResult;
-        this.setState({
-          posts: this.props.searchResult
-        });
-      })
+    if (this.state.categories.includes(category)) {
+      this.props.saveQuery({category});
     }
   }
 
   public componentWillReceiveProps(nextProps: any){
-    let nextCategory = nextProps.location.pathname.slice(1);
+    const category = getCategory(nextProps.location);
 
-    if (nextCategory !== this.props.location.pathname.slice(1)) {
-      if (nextCategory === "recent") {
-        this.props.search(searchParams("", "All")).then(res => {
-          let posts = this.props.searchResult;
-          this.setState({
-            posts: this.props.searchResult
-          });
-        })
+    if (this.state.categories.includes(category) &&
+        nextProps.location !== this.props.location) {
+      const currentQuery = this.props.currentQuery;
+      this.props.saveQuery({category});
+
+      let nextQuery = merge({}, currentQuery, {category})
+      if (this.props.currentQuery.category === "My Course Material" && this.props.user) {
+        const access_token = this.props.user.auth.accessToken;
+        nextQuery = merge({}, nextQuery, {access_token});
+        this.props.search(nextQuery);
       } else {
-        if (nextCategory === "lostandfound") {
-          nextCategory = "Lost & Found";
-        } else if (nextCategory === "coursematerial") {
-          nextCategory = "Course Material";
-        } else {
-          nextCategory = capitalize(nextCategory);
-        }
-
-        this.props.search(searchParams("", nextCategory)).then(res => {
-          let posts = this.props.searchResult;
-          this.setState({
-            posts: this.props.searchResult
-          });
-        })
+        this.props.search(nextQuery);
       }
     }
   }
 
   private changeView(viewType: string) {
-    return () => this.setState({ viewType })
+    const currentQuery = this.props.currentQuery;
+    this.props.saveQuery({viewType});
+
+    let nextQuery = merge({}, currentQuery, {viewType})
+    if (this.props.currentQuery.category === "My Course Material" && this.props.user) {
+      const access_token = this.props.user.auth.accessToken;
+      nextQuery = merge({}, nextQuery, {access_token});
+      this.props.search(nextQuery);
+    } else {
+      this.props.search(nextQuery);
+    }
   }
 
   private renderView() {
-    if (this.state.viewType === 'grid') {
-      return <SearchGridView searchResult={this.props.searchResult} search={this.props.search} location={this.props.location} />;
+    if (this.props.currentQuery.viewType === 'grid') {
+      return (
+        <SearchGridView
+          user={this.props.user}
+          searchResult={this.props.searchResult}
+          search={this.props.search}
+          currentQuery={this.props.currentQuery}
+          saveQuery={this.props.saveQuery}
+        />
+      );
     } else {
-      return <SearchListView searchResult={this.props.searchResult} search={this.props.search} location={this.props.location} />;
+      return (
+        <SearchListView
+          user={this.props.user}
+          searchResult={this.props.searchResult}
+          search={this.props.search}
+          currentQuery={this.props.currentQuery}
+          saveQuery={this.props.saveQuery}
+        />
+      );
     }
+  }
+
+  private renderCategoryMenu(label) {
+    this.props.saveQuery({category: label});
+
+    $('#search-query').focus();
   }
 
   public render() {
     let path = this.props.location.pathname.slice(1);
-    let uppercase;
-
-    if (path === "lostandfound") {
-      uppercase = "Lost & Found";
-    } else if (path === "coursematerial") {
-      uppercase = "Course Material";
-    } else {
-      uppercase = path[0].toUpperCase() + path.slice(1, path.length);
+    let category = getCategory(this.props.location);
+    let label = category;
+    if (category === "All") label = 'Recent';
+    if (category === "Mycoursematerial") {
+      label = 'My Course Material';
+      category = 'My Course Material';
     }
-    
+
     return (
       <div>
         <div className="container">
           <div className="row">
-            <SearchNavbar props={this.props} search={this.props.search} />
+            <SearchNavbar
+              user={this.props.user}
+              searchResult={this.props.searchResult}
+              search={this.props.search}
+              currentQuery={this.props.currentQuery}
+              saveQuery={this.props.saveQuery}
+              home={false}
+            />
 
             <div className="col-md-12">
               <div id="nav-tools">
                 <nav className="breadcrumb" id="breadcrumb-container">
-                  <a className="breadcrumb-item" href="#/recent">All</a>
-                  <a className="breadcrumb-item" href={`#/${path}`}>{uppercase}</a>
+                  <a onClick={() => this.renderCategoryMenu("All")} className="breadcrumb-item" href="#/recent">All</a>
+                  <a onClick={() => this.renderCategoryMenu(category)} className="breadcrumb-item" href={`#/${path}`}>{label}</a>
                 </nav>
+                {/*{<span>You have {this.props.searchResult.result_count} result(s)</span>}*/}
+                <span>First {(this.props.currentQuery.page_idx - 1) * 16 + 1} - {(this.props.currentQuery.page_idx * 16)} results (out of {this.props.searchResult.result_count})</span>
                 <div className="search-icons">
-                  <button className="btn btn-link btn-special-size btn-special-margin" id="grid-type" onClick={this.changeView('grid')}>
+                  <button className="btn btn-link btn-special-size btn-special-margin" id="grid-type" onClick={() => this.changeView('grid')}>
                     <span className="glyphicon glyphicon-th-large"></span>
                   </button>
-                  <button className="btn btn-link btn-special-size btn-special-margin" id="list-type" onClick={this.changeView('list')}>
+                  <button className="btn btn-link btn-special-size btn-special-margin" id="list-type" onClick={() => this.changeView('list')}>
                     <span className="glyphicon glyphicon-th-list"></span>
                   </button>
                 </div>
               </div>
               { this.renderView() }
+              <Pagination
+                search={this.props.search}
+                saveQuery={this.props.saveQuery}
+                maxPages={this.props.searchResult.max_pages}
+                currentPage={this.props.currentQuery.page_idx}
+                currentQuery={this.props.currentQuery}
+              />
             </div>
           </div>
         </div>

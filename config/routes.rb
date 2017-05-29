@@ -11,6 +11,8 @@ Rails.application.routes.draw do
       resources :bookmarks,       only: [:index, :create, :destroy]
       resources :rfps,            only: [:index, :create, :destroy]
       resources :schedules,       only: [:index, :create, :destroy]
+      resources :my_courses,      only: [:index, :create, :destroy]
+      resources :course_posts,    only: [:index]
     end
   end
 

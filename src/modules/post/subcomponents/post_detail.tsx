@@ -9,11 +9,7 @@ class PostDetail extends React.Component<any, any> {
     super(props);
 
     this.state = {
-      authorFB: null,
-      user: null,
-      currentUser: null,
-      bookmarked: false,
-      ownPost: false
+      authorFB: null
     }
 
     this.contactPerson = this.contactPerson.bind(this);
@@ -23,14 +19,7 @@ class PostDetail extends React.Component<any, any> {
     this.deletePost = this.deletePost.bind(this);
     this.checkVerifiedContact = this.checkVerifiedContact.bind(this);
     this.checkVerifiedBookmark = this.checkVerifiedBookmark.bind(this);
-  }
-
-  public initializePost() {
-    const accessToken = this.props.user.auth.accessToken;
-    const id = this.props.id;
-    this.props.getPost(id, accessToken).then(
-      res => { this.fetchAuthor() }
-    );
+    this.fetchAuthor = this.fetchAuthor.bind(this);
   }
 
   public componentDidMount() {
@@ -38,7 +27,27 @@ class PostDetail extends React.Component<any, any> {
     this.initializePost();
   }
 
-  public checkVerifiedContact(id) {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.user !== null && this.props.user !== null &&
+    this.props.user.auth.accessToken !== nextProps.user.auth.accessToken) {
+      this.initializePost();
+    }
+  }
+
+  public initializePost() {
+    let accessToken;
+    if (this.props.user) {
+      accessToken = this.props.user.auth.accessToken;
+    } else {
+      accessToken = null;
+    }
+    const id = this.props.id;
+    this.props.getPost(id, accessToken).then(
+      res => { this.fetchAuthor() }
+    );
+  }
+
+  public checkVerifiedContact() {
     let that = this;
 
     FB.getLoginStatus(function(response) {
@@ -79,6 +88,7 @@ class PostDetail extends React.Component<any, any> {
           } else {
             $('#emailVerificationModal').modal('show');
           }
+        }).then(() => {
         }).fail(() => FB.logout(res => console.log(res)))
       } else {
         $('#logInModal').modal('show');
@@ -99,7 +109,7 @@ class PostDetail extends React.Component<any, any> {
         url: `api/bookmarks/${id}`,
         data: { access_token }
       }).then(res => {
-        this.initializePost();
+        this.props.receivePost({is_bookmarked: false});
       });
     } else {
       $.ajax({
@@ -107,14 +117,14 @@ class PostDetail extends React.Component<any, any> {
         url: `api/bookmarks`,
         data: { bookmark, access_token }
       }).then(res => {
-        this.initializePost();
+        this.props.receivePost({is_bookmarked: true});
       });
     }
   }
 
   public initializeClipboard() {
     var clipboard = new Clipboard('#copy-template');
-    
+
     clipboard.on('success', function(e) {
       $(e.trigger).text("copied!")
       setTimeout(function(){ $(e.trigger).text("Copy Link"); }, 1000)
@@ -151,7 +161,7 @@ class PostDetail extends React.Component<any, any> {
 
     let { img_url1, img_url2, img_url3 } = this.props.post;
     let imageArray = [img_url1, img_url2, img_url3].filter(el => el !== null);
-    
+
     imageArray = imageArray.map((el, idx) => (
       <li key={idx} data-target="#carousel-example-generic-2"
         data-slide-to={idx} className={idx === 0 ? "active" : ""}></li>
@@ -205,9 +215,8 @@ class PostDetail extends React.Component<any, any> {
   }
 
   public renderModal() {
-    if (!this.state.authorFB) return null;
+    if (!this.state.authorFB || this.state.authorFB.error) return null;
     let { name, link, picture } = this.state.authorFB;
-
     return (
       <div>
         <a id="contactModalTrigger" className="hidden" data-toggle="modal" data-target="#contactModal">Contact Modal Trigger</a>
@@ -223,15 +232,15 @@ class PostDetail extends React.Component<any, any> {
                 <div className="modal-body text-center">
                   <div>
                     <div id="purchase-msg-template" contentEditable={true} data-toggle="tooltip" data-placement="bottom" title="click to edit">
-                      Hi, {name}, <br/><br/>
-                      My name is {this.props.user.userFB.name}. I saw your posting on {this.props.post.title} on Swap.<br/>
+                      Hi {name}, <br/><br/>
+                      My name is {this.props.user && this.props.user.userFB.name}. I saw your posting on {this.props.post.title} on Swap.<br/>
                       I would like to purchase it at ${this.props.post.price}.<br/>
                       Please let me know if it's still available.<br/>
 
                       link: {(window as any).localhost_url}/#/posts/{this.props.post.id}<br/><br/>
 
                       Thanks,<br/>
-                      {this.props.user.userFB.name}
+                      {this.props.user && this.props.user.userFB.name}
                     </div>
                   </div>
                   <button type="button" className="btn btn-sm btn-primary" data-clipboard-target="#purchase-msg-template" id="copy-template">Copy Message</button>
@@ -254,7 +263,9 @@ class PostDetail extends React.Component<any, any> {
 
   public renderDetail() {
     let titleMargin = {
-      marginBottom: 10
+      marginBottom: 10,
+      fontSize: 28,
+      fontWeight: 300
     };
 
     let { id, title, description, price, created_at, views, condition } = this.props.post;
@@ -272,14 +283,20 @@ class PostDetail extends React.Component<any, any> {
       buttons = (
         <div>
           <span disabled={isBookmarked} className="btn btn-warning btn-lg col-md-2 col-sm-2 col-xs-2 bottom-margin-spacing glyphicon glyphicon-bookmark" id="bookmark-btn" onClick={() => this.checkVerifiedBookmark(id)}></span>
-          <a className="btn btn-primary btn-lg col-md-9 col-sm-9 col-xs-9" id="contact-the-seller-btn" onClick={() => {this.checkVerifiedContact(id)}}>Contact the Seller</a>
+          <a className="btn btn-primary btn-lg col-md-9 col-sm-9 col-xs-9" id="contact-the-seller-btn" onClick={this.checkVerifiedContact}>Contact the Seller</a>
         </div>
       )
     }
     return (
       <div className="col-lg-6 col-md-6 col-sm-6 absolute-height" id="detail-body">
-        <h3 style={titleMargin}>{title}</h3>
-        <p className="red"><span className={`label label-${this.buttonClass(condition)}`} id="label-micro">{condition}</span><span className="glyphicon glyphicon-fire"  id="condition-views"></span> {views} Views </p>
+        <h3 style={titleMargin as any}>{title}</h3>
+
+        {
+          views < 15 ?
+            <p><span className="glyphicon glyphicon-eye-open"></span>&nbsp;&nbsp; {views} Views </p> :
+            <p className="red"><span className="glyphicon glyphicon-fire"></span>&nbsp;&nbsp; {views} Views </p>
+        }
+
         <p id="post-description">{description}</p>
         <div className="footer" id="post-detail-right-bottom">
           <h3 className="text-left">${Number(price).toLocaleString()}</h3>
@@ -305,7 +322,14 @@ class PostDetail extends React.Component<any, any> {
 
     return (
       <div className="container" id="container-body">
-        <SearchNavbar props={this.props} search={this.props.search} />
+        <SearchNavbar
+          user={this.props.user}
+          searchResult={this.props.searchResult}
+          search={this.props.search}
+          currentQuery={this.props.currentQuery}
+          saveQuery={this.props.saveQuery}
+          home={true}
+        />
         <nav className="breadcrumb">
           <a className="breadcrumb-item" href="#/recent">All</a>
           <a className="breadcrumb-item" href={`#/${link}`}>{category}</a>
@@ -314,17 +338,17 @@ class PostDetail extends React.Component<any, any> {
         <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12" id="detail-left">
           <div className="block p-l-0 p-t-0 p-r-0" id="small-img-padding">
             <div id="carousel-example-generic-2" className="carousel carousel-light slide" data-ride="carousel">
-             {this.renderCarouselIndicators()}
-             {this.renderCarousel()}
-             <a className="left carousel-control" href="#carousel-example-generic-2" role="button" data-slide="prev">
-               <span className="icon icon-chevron-thin-left" aria-hidden="true" id="carousel-arrows-left"></span>
-               <span className="sr-only">Previous</span>
-             </a>
-             <a className="right carousel-control" href="#carousel-example-generic-2" role="button" data-slide="next">
-               <span className="icon icon-chevron-thin-right" aria-hidden="true" id="carousel-arrows-right"></span>
-               <span className="sr-only">Next</span>
-             </a>
-           </div>
+              {this.renderCarouselIndicators()}
+              {this.renderCarousel()}
+              <a className="left carousel-control" href="#carousel-example-generic-2" role="button" data-slide="prev">
+                <span className="icon icon-chevron-thin-left" aria-hidden="true" id="carousel-arrows-left"></span>
+                <span className="sr-only">Previous</span>
+              </a>
+              <a className="right carousel-control" href="#carousel-example-generic-2" role="button" data-slide="next">
+                <span className="icon icon-chevron-thin-right" aria-hidden="true" id="carousel-arrows-right"></span>
+                <span className="sr-only">Next</span>
+              </a>
+            </div>
           </div>
         </div>
         {this.renderDetail()}

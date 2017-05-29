@@ -8,6 +8,7 @@ import Search from 'modules/search';
 import Post from 'modules/post';
 import Infos from 'modules/infos';
 import Terms from 'modules/terms';
+import MyCourses from 'modules/my_courses';
 import PostForm from 'modules/post_form';
 import Dashboard from 'modules/dashboard';
 
@@ -33,6 +34,7 @@ const Root: React.SFC<RootProps> = ({ store }) => {
           <Route path="/games" component={Search} />
           <Route path="/others" component={Search} />
           <Route path="/lostandfound" component={Search} />
+          <Route path="/mycoursematerial" component={Search} />
           <Route path="/search" component={Search} />
 
           {/* Information routes */}
@@ -50,7 +52,7 @@ const Root: React.SFC<RootProps> = ({ store }) => {
 
           {/* Dashboard routes */}
           <Route path="/dashboard" component={Dashboard} />
-          
+
         </Route>
       </Router>
     </Provider>

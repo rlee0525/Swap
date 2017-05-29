@@ -1,9 +1,9 @@
 import { merge } from 'lodash';
-import { Action, RECEIVE_SEARCH } from "./actions";
+import { SearchAction, RECEIVE_SEARCH } from "./actions";
 
-let _defaultState: object[] = [];
+let _defaultState: any = { posts: [], max_pages: 1 };
 
-const searchResultReducer = (state = _defaultState, action: Action<any>) => {
+const searchResultReducer = (state = _defaultState, action: SearchAction<any>) => {
   Object.freeze(state);
   switch (action.type) {
     case RECEIVE_SEARCH:

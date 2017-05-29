@@ -3,6 +3,7 @@ export interface IStoreState {
   post: IPost | null;
   searchResult: IPost[];
   dashboard: IDashboard;
+  currentQuery: any;
 }
 
 export interface IPost {
@@ -24,6 +25,8 @@ export interface IPost {
   user_id: number;
   views: number;
   zipcode: string;
+  seller_fb_picture: string;
+  seller_name: string;  
 }
 
 export interface IUser {

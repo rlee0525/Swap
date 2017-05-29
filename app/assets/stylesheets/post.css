@@ -163,7 +163,8 @@
 
 @media screen and (max-width: 768px) {
   #post-description {
-    height: 140px !important;
+    height: 170px !important;
+    font-size: 15px !important;
   }
 
   .absolute-height {
@@ -183,6 +184,7 @@
 @media screen and (min-width: 768px) {
   #post-description {
     height: 140px !important;
+    font-size: 14px !important;
   }
 
   .absolute-height {
@@ -201,6 +203,7 @@
 @media screen and (min-width: 992px) {
   #post-description {
     height: 230px !important;
+    font-size: 15px !important;
   }
 
   .absolute-height {
@@ -219,6 +222,7 @@
 @media screen and (min-width: 1200px) {
   #post-description {
     height: 280px !important;
+    font-size: 16px !important;
   }
 
   .absolute-height {
@@ -240,6 +244,11 @@
   padding-left: 10px;
 }
 
+#detail-body p.red {
+  position: relative;
+  left: -14px;
+}
+
 #copy-template {
   margin-top: 20px;
 }
@@ -257,10 +266,6 @@
   background-color: white;
   opacity: 1;
   color: black;
-}
-
-#condition-views {
-  margin-left: 15px;
 }
 
 #condition-views-grid {
@@ -326,7 +331,21 @@
 .bottom-right-corner {
   position: absolute;
   right: 15px;
+  height: 47px;
   bottom: 7px;
   font-size: 20px !important;
   color: lightseagreen;
+}
+
+.bottom-left-corner {
+  position: absolute;
+  left: 10px;
+  bottom: 7px;
+  font-size: 15px !important;
+  color: lightseagreen;
+}
+
+.bottom-left-corner img {
+  height: 56px;
+  margin-right: 8px;
 }

@@ -4,11 +4,11 @@ import request from 'superagent';
 
 import { IState, _defaultState } from './typings';
 import { ImageDropzone, RadioButtons } from './subcomponents';
-import { 
-  borderStyle, 
-  noBorder, 
-  labelStyle, 
-  widthFull, 
+import {
+  borderStyle,
+  noBorder,
+  labelStyle,
+  widthFull,
   paddingLeft,
   morePadding,
   paddingBottom,
@@ -57,7 +57,7 @@ class PostForm extends React.Component<any, IState> {
         }
   }
 
-  public autoComplete(courses) {
+  public autoComplete() {
     let that = this;
     let input = function () { return  { search: $('#course').val() }};
     $('#course').devbridgeAutocomplete({
@@ -149,7 +149,7 @@ class PostForm extends React.Component<any, IState> {
       url: "api/courses"
     }).then(courses => {
       this.setState({ courses })
-      this.autoComplete(courses)
+      this.autoComplete()
     }).fail(errors => {
       this.setState({ errors: errors.responseJSON })
     })
@@ -196,7 +196,7 @@ class PostForm extends React.Component<any, IState> {
         access_token
       }
     }).then(post => this.props.router.replace(`posts/${post.id}`))
-      .fail(errors => {      
+      .fail(errors => {
         this.setState({ errors: errors.responseJSON })
       })
   }
@@ -223,11 +223,11 @@ class PostForm extends React.Component<any, IState> {
         <br/>
         <br/>
         <form className="form-horizontal">
-          
+
           {/* Category radio buttons */}
-          <RadioButtons 
-            type="category" 
-            list={categories} 
+          <RadioButtons
+            type="category"
+            list={categories}
             clickAction={this.radioButtonsUpdate('category')}
             currentValue={this.state.category}
           />
@@ -245,7 +245,7 @@ class PostForm extends React.Component<any, IState> {
             <label style={labelStyle} htmlFor="inputCourse3" className="col-sm-2 control-label-custom">
               Course
             </label>
-            
+
             <div className="col-sm-9 input-group" style={paddingAll}>
               <input
                 maxLength={50}
@@ -290,12 +290,12 @@ class PostForm extends React.Component<any, IState> {
                 maxLength={250}
                 value={this.state.description}
                 onChange={this.updateState}
-                className="form-control" 
+                className="form-control"
                 id="description"
                 rows={3}
               >
               </textarea>
-              
+
               <span className="pull-right" id="character-count">
                 {250 - this.state.description.length} / 250
               </span>
@@ -325,7 +325,7 @@ class PostForm extends React.Component<any, IState> {
             <label style={labelStyle} htmlFor="inputImage3" className="col-sm-2 control-label-custom">
               Image(s) <br/> (required 1)
             </label>
-            
+
             <ImageDropzone img_url={this.state.img_url1} onImageDrop={this.onImageDrop} />
             <ImageDropzone img_url={this.state.img_url2} onImageDrop={this.onImageDrop} />
             <ImageDropzone img_url={this.state.img_url3} onImageDrop={this.onImageDrop} />

@@ -60,10 +60,18 @@ User.all.each do |user|
   Post.all.each do |post|
     Bookmark.create(user: user, post: post)
   end
+
+  idx = 0
+  5.times do |i|
+    idx += 1 + rand(0..1000)
+    user.courses << Course.find(idx)
+  end
 end
 
-idx = 0
-5.times do |i|
-  idx += 1 + rand(0..1000)
-  User.first.courses << Course.find(idx)
+User.all.each do |user|
+  user.courses.each do |course|
+    20.times do
+      course.posts << Post.find(rand(1..200))
+    end
+  end
 end
