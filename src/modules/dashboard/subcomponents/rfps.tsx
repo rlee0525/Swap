@@ -32,7 +32,7 @@ class Rfps extends React.Component <Props, State> {
   }
 
   public deleteRfp(e, id) {
-    e.stopPropoagation();
+    e.stopPropagation();
 
     let { deleteRfps, user } = this.props;
 
@@ -41,12 +41,14 @@ class Rfps extends React.Component <Props, State> {
     );
   }
 
-  public componentWillMount() {
+  public componentDidMount() {
     let { rfps, user, fetchRfps } = this.props;
     if (!rfps.fetched) {
       fetchRfps(user.auth.accessToken).then(
         () => this.setState({ rfps: this.props.rfps.list })
       );
+    } else {
+      this.setState({ rfps: this.props.rfps.list });
     }
   }
 

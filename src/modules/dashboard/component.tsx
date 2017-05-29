@@ -23,8 +23,7 @@ interface Props {
 class Dashboard extends React.Component<Props, {}> {
   renderSubcomponent() {
     let page = this.props.location.search.slice(1);
-    console.log(this.props);
-    
+
     let { dashboard, user } = this.props;
 
     switch (page) {
@@ -38,8 +37,7 @@ class Dashboard extends React.Component<Props, {}> {
             user={user}
           />
         );
-      case 'rfps':
-       
+      case 'rfps':     
         let { fetchRfps, deleteRfps } = this.props;
         return (
           <Rfps
@@ -66,11 +64,7 @@ class Dashboard extends React.Component<Props, {}> {
     $('#createAlertModal').modal('show');
   }
 
-  render() {
-    console.log('component');
-    
-    console.log(this.props);
-    
+  render() {    
     let page = this.props.location.search.slice(1);
     let { user } = this.props;
 

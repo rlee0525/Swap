@@ -56,6 +56,8 @@ class Bookmarks extends React.Component<Props, State> {
       fetchBookmarks(user.auth.accessToken).then(
         () => this.setState({ bookmarks: this.props.bookmarks.list })
       );
+    } else {
+      this.setState({ bookmarks: this.props.bookmarks.list });
     }
   }
 

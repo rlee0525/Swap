@@ -45,6 +45,8 @@ class MyPosts extends React.Component<Props, State> {
       fetchMyPosts(user.auth.accessToken).then(
         () => this.setState({ myPosts: this.props.myPosts.list })
       );
+    } else {
+      this.setState({ myPosts: this.props.myPosts.list });
     }
   }
 
