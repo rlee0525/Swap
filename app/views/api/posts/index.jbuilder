@@ -13,5 +13,6 @@ json.array! @posts do |post|
                 :course_id,
                 :updated_at,
                 :active
+                :views
   json.course post.course.course_number if post.course
 end
