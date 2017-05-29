@@ -8,7 +8,6 @@ import Search from 'modules/search';
 import Post from 'modules/post';
 import Infos from 'modules/infos';
 import Terms from 'modules/terms';
-import MyCourses from 'modules/my_courses';
 import PostForm from 'modules/post_form';
 import Dashboard from 'modules/dashboard';
 

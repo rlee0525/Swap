@@ -9,7 +9,7 @@ const rootReducer = combineReducers({
   searchResult: searchResultReducer,
   post: postReducer,
   user: userReducer,
-  dashboard: dashboardReducer
+  dashboard: dashboardReducer,
   currentQuery: queryReducer
 });
 

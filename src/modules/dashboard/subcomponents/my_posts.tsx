@@ -36,13 +36,12 @@ class MyPosts extends React.Component<Props, State> {
 
     this.editPost = this.editPost.bind(this);
     this.deletePost = this.deletePost.bind(this);
-    this.renderMyPosts = this.renderMyPosts.bind(this);
     this.toggleActivation = this.toggleActivation.bind(this);
   }
 
   public componentWillReceiveProps(newProps) {
     console.log(newProps);
-    
+
     this.setState({ myPosts: newProps.myPosts.list })
   }
 
@@ -129,27 +128,18 @@ class MyPosts extends React.Component<Props, State> {
     ))
   }
 
-  public renderMyPosts() {
+  render() {
     let headers = ['title', 'price', 'updated_at'];
     return (
       <div className="panel panel-default">
         <div className="panel-body">
           <table className="table table-hover">
             <TableHeaders context={this} array={this.state.myPosts} headers={headers} />
-
             <tbody>
               {this.renderListItem()}
             </tbody>
           </table>
         </div>
-      </div>
-    );
-  }
-
-  render() {
-    return (
-      <div className="container">   
-        {this.renderMyPosts()}
       </div>
     );
   }

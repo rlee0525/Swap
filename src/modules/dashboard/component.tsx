@@ -1,8 +1,9 @@
 import React from 'react';
 import { hashHistory } from 'react-router';
 import { IUser, IDashboard } from 'common/interfaces';
-import { DashboardHeaders, Bookmarks, MyPosts, Rfps, AlertForm } from './subcomponents';
+import { DashboardHeaders, Bookmarks, MyPosts, Rfps, AlertForm, MyCourses } from './subcomponents';
 
+declare var $;
 const data = require('./dashboard_data.json');
 
 interface Props {
@@ -37,7 +38,7 @@ class Dashboard extends React.Component<Props, {}> {
             user={user}
           />
         );
-      case 'rfps':     
+      case 'rfps':
         let { fetchRfps, deleteRfps } = this.props;
         return (
           <Rfps
@@ -47,10 +48,16 @@ class Dashboard extends React.Component<Props, {}> {
             deleteRfps={deleteRfps}
           />
         );
+      case 'mycourses':
+        return (
+          <MyCourses
+            user={user}
+          />
+        )
       default:
         let { fetchMyPosts, deleteMyPost } = this.props;
         return (
-          <MyPosts 
+          <MyPosts
             user={user}
             myPosts={dashboard.myPosts}
             fetchMyPosts={fetchMyPosts}
@@ -64,7 +71,7 @@ class Dashboard extends React.Component<Props, {}> {
     $('#createAlertModal').modal('show');
   }
 
-  render() {    
+  render() {
     let page = this.props.location.search.slice(1);
     let { user } = this.props;
 
@@ -74,11 +81,13 @@ class Dashboard extends React.Component<Props, {}> {
       button = { title: 'Create Alert', action: () => $('#createAlertModal').modal('show') }
     } else if (page === 'posts') {
       button = { title: 'Create Post', action: () => hashHistory.push('posts/create') }
+    } else if (page === 'mycourses') {
+      button = { title: 'Add Course', action: () => $('#createMyCourse').modal('show') }
     }
-    
+
     return (
       <div className="container">
-        <DashboardHeaders 
+        <DashboardHeaders
           headers={data.dashboardHeaders}
           active={page}
           button={button}
