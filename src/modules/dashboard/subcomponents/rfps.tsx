@@ -80,20 +80,18 @@ class Rfps extends React.Component <Props, State> {
 
     return (
       <div>
-        <div className="container">
-          <div className="panel panel-default">
-            <div className="rfp-description">
-              Add custom alerts to get emails whenever a post related to the created keywords is created.
-            </div>
-            <div className="panel-body">
-              <table className="table table-hover">
-                <TableHeaders context={this} array={this.state.rfps} headers={headers} isFirstColumnPlaceholder={false} />
-              
-                <tbody>
-                  {this.renderListItems()}
-                </tbody>
-              </table>
-            </div>
+        <div className="panel panel-default">
+          <div className="rfp-description">
+            Add custom alerts to get emails whenever a post related to the created keywords is created.
+          </div>
+          <div className="panel-body">
+            <table className="table table-hover">
+              <TableHeaders context={this} array={this.state.rfps} headers={headers} isFirstColumnPlaceholder={false} />
+
+              <tbody>
+                {this.renderListItems()}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
