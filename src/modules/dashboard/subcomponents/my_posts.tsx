@@ -77,15 +77,15 @@ class MyPosts extends React.Component<Props, State> {
     let method = polarity == true ? "deactivate" : "activate";
     const access_token = this.props.user.auth.accessToken;
 
-    // $.ajax({
-    //   type: "PATCH",
-    //   url: `api/posts/${id}`,
-    //   data: { access_token, method }
-    // }).then(() => this.getMyPosts());
+    $.ajax({
+      type: "PATCH",
+      url: `api/posts/${id}`,
+      data: { access_token, method }
+    }).then(this.props.fetchMyPosts);
   }
 
   public renderListItem() {
-    return this.state.myPosts.map(myPost => (
+    return this.state.myPosts.map((myPost, statePostId) => (
       <tr key={myPost.id} onClick={() => myPost.active ? this.loadPost(myPost.id) : null} className={myPost.active ? "" : "disabled"}>
         <td>
           <img className="img img-responsive img-thumbnail-size" src={myPost.img_url1}/>
