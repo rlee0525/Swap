@@ -9,7 +9,7 @@
 }
 
 .hover-show {
-  @media (min-width: 480px) {
+  @media (min-width: 767px) {
     a.left, a.right {
       display: none;
     }
