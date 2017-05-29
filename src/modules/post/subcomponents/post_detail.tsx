@@ -1,6 +1,7 @@
 import React from 'react';
 import { SearchNavbar } from 'modules/search/subcomponents';
 import { shortenString, timeFromNow } from 'helpers';
+import { MapItem } from 'common/components';
 import Clipboard from 'clipboard';
 declare var $;
 
@@ -9,7 +10,10 @@ class PostDetail extends React.Component<any, any> {
     super(props);
 
     this.state = {
-      authorFB: null
+      authorFB: null,
+      address: "University of California, Berkeley",
+      center: { lat: 37.8719, lng: -122.2585 },
+      view: "photo"
     }
 
     this.contactPerson = this.contactPerson.bind(this);
@@ -20,6 +24,7 @@ class PostDetail extends React.Component<any, any> {
     this.checkVerifiedContact = this.checkVerifiedContact.bind(this);
     this.checkVerifiedBookmark = this.checkVerifiedBookmark.bind(this);
     this.fetchAuthor = this.fetchAuthor.bind(this);
+    this.changeView = this.changeView.bind(this);
   }
 
   public componentDidMount() {
@@ -27,11 +32,16 @@ class PostDetail extends React.Component<any, any> {
     this.initializePost();
   }
 
-  componentWillReceiveProps(nextProps) {
+  public componentWillReceiveProps(nextProps) {
     if (nextProps.user !== null && this.props.user !== null &&
     this.props.user.auth.accessToken !== nextProps.user.auth.accessToken) {
       this.initializePost();
     }
+  }
+
+  private changeView() {
+    let view = this.state.view === "photo" ? "map" : "photo";
+    this.setState({ view });
   }
 
   public initializePost() {
@@ -261,6 +271,14 @@ class PostDetail extends React.Component<any, any> {
     )
   }
 
+  public housingViews() {
+    if (this.state.view === "photo") {
+      return (<p onClick={this.changeView}> View Map </p>)
+    } else {
+      return (<p onClick={this.changeView}> View Photos </p>)
+    };
+  }
+
   public renderDetail() {
     let titleMargin = {
       marginBottom: 10,
@@ -268,7 +286,7 @@ class PostDetail extends React.Component<any, any> {
       fontWeight: 300
     };
 
-    let { id, title, description, price, created_at, views, condition } = this.props.post;
+    let { id, title, description, price, created_at, views, condition, category } = this.props.post;
     let buttons;
     const isAuthor = this.props.post.is_author;
     const isBookmarked = this.props.post.is_bookmarked;
@@ -296,6 +314,8 @@ class PostDetail extends React.Component<any, any> {
             <p><span className="glyphicon glyphicon-eye-open"></span>&nbsp;&nbsp; {views} Views </p> :
             <p className="red"><span className="glyphicon glyphicon-fire"></span>&nbsp;&nbsp; {views} Views </p>
         }
+
+        { category == "Housing" && this.housingViews() }
 
         <p id="post-description">{description}</p>
         <div className="footer" id="post-detail-right-bottom">
@@ -337,18 +357,19 @@ class PostDetail extends React.Component<any, any> {
         </nav>
         <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12" id="detail-left">
           <div className="block p-l-0 p-t-0 p-r-0" id="small-img-padding">
-            <div id="carousel-example-generic-2" className="carousel carousel-light slide" data-ride="carousel">
-              {this.renderCarouselIndicators()}
-              {this.renderCarousel()}
-              <a className="left carousel-control" href="#carousel-example-generic-2" role="button" data-slide="prev">
-                <span className="icon icon-chevron-thin-left" aria-hidden="true" id="carousel-arrows-left"></span>
-                <span className="sr-only">Previous</span>
-              </a>
-              <a className="right carousel-control" href="#carousel-example-generic-2" role="button" data-slide="next">
-                <span className="icon icon-chevron-thin-right" aria-hidden="true" id="carousel-arrows-right"></span>
-                <span className="sr-only">Next</span>
-              </a>
-            </div>
+            {this.state.view === "photo" ?
+              (<div id="carousel-example-generic-2" className="carousel carousel-light slide" data-ride="carousel">
+                {this.renderCarouselIndicators()}
+                {this.renderCarousel()}
+                <a className="left carousel-control" href="#carousel-example-generic-2" role="button" data-slide="prev">
+                  <span className="icon icon-chevron-thin-left" aria-hidden="true" id="carousel-arrows-left"></span>
+                  <span className="sr-only">Previous</span>
+                </a>
+                <a className="right carousel-control" href="#carousel-example-generic-2" role="button" data-slide="next">
+                  <span className="icon icon-chevron-thin-right" aria-hidden="true" id="carousel-arrows-right"></span>
+                  <span className="sr-only">Next</span>
+                </a>
+              </div>) : (<MapItem center={this.state.center}/>)}
           </div>
         </div>
         {this.renderDetail()}

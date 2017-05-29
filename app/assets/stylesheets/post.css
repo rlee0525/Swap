@@ -42,6 +42,12 @@
   margin-right: 13px;
   width: auto;
 }
+
+#radio-list {
+  margin-right: 10px;
+  margin-bottom: 10px;
+  /*max-width: 120px;*/
+}
 /*Radio button styling end*/
 
 #character-count {
@@ -198,6 +204,10 @@
   #carousel-arrows-right {
     margin-right: -25px;
   }
+
+  #radio-list {
+    text-align: center;
+  }
 }
 
 @media screen and (min-width: 992px) {
@@ -216,6 +226,12 @@
 
   #carousel-arrows-right {
     margin-right: -30px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  #radio-list {
+    min-width: 170px;
   }
 }
 
@@ -242,11 +258,6 @@
 #detail-body {
   margin-top: 5px;
   padding-left: 10px;
-}
-
-#detail-body p.red {
-  position: relative;
-  left: -14px;
 }
 
 #copy-template {
