@@ -26,7 +26,7 @@ export interface IPost {
   views: number;
   zipcode: string;
   seller_fb_picture: string;
-  seller_name: string;  
+  seller_name: string;
 }
 
 export interface IUser {

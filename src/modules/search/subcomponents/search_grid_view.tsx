@@ -50,18 +50,55 @@ class SearchGridView extends React.Component<Props, State> {
     }
   }
 
+  preventPropagation(e) {
+    e.stopPropagation();
+  }
+
   renderGridItem(post: IPost) {
+    const frames = [post.img_url1, post.img_url2, post.img_url3].filter(el => el !== null)
+    const carouselFrames = frames.map((el, idx) => (
+      <div className={`item ${idx == 0 ? "active" : ""}`}>
+        <img src={el} />
+      </div>
+    ))
+
+    let carouselControls = (
+      <div>
+        <a className="left carousel-control" href={`#carousel-example-generic-${post.id}`} role="button" data-slide="prev"
+         onClick={this.preventPropagation}>
+          <span className="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+          <span className="sr-only">Previous</span>
+        </a>
+        <a className="right carousel-control" href={`#carousel-example-generic-${post.id}`} role="button" data-slide="next"
+          onClick={this.preventPropagation}>>
+          <span className="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+          <span className="sr-only">Next</span>
+        </a>
+      </div>
+    )
+
+    if (!post.img_url2) carouselControls = null;
+
+    const carousel = (
+      <div id={`carousel-example-generic-${post.id}`} className="carousel slide" data-ride="carousel">
+
+        <div className="carousel-inner" role="listbox">
+          {carouselFrames}
+        </div>
+
+        {carouselControls}
+      </div>
+    )
+
     let updatedDate: number | string= Date.parse(post.updated_at);
     updatedDate = Date.now() - updatedDate <= 86400000 ? timeFromNow(post.updated_at) : "";
 
     return (
       <div className="col-sm-4 col-md-3" key={Math.random() * post.id}
-           onClick={() => window.location.href = `#/posts/${post.id}`}>
+        onClick={() => window.location.href = `#/posts/${post.id}`}>
         <div className="thumbnail thumbnail-post col-md-12">
-          <a id={post.id}>
-            <img src={post.img_url1} alt={post.title} />
-            <div className="thumbnail-caption-top-right">{updatedDate}</div>
-          </a>
+          {carousel}
+          <div className="thumbnail-caption-top-right">{updatedDate}</div>
           <div className="caption" id="grid-caption">
             <span id="grid-title">{post.title}</span>
             <span className="bottom-right-corner">${Number(post.price).toLocaleString()}</span>
