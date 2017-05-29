@@ -144,7 +144,6 @@ class MyCourses extends React.Component<Props, State> {
                 <tr>
                   <th onClick={() => this.sortBy("course_number")}>Course Number<a onClick={() => this.sortBy("course_number")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
                   <th className="hidden-xs" onClick={() => this.sortBy("course_name")}>Course Name<a onClick={() => this.sortBy("course_name")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
-                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>

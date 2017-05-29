@@ -114,7 +114,7 @@ class Search extends React.Component<Props, State> {
     let path = this.props.location.pathname.slice(1);
     let category = getCategory(this.props.location);
     let label = category;
-    if (category === "All") label = 'Recent';
+    if (category === "All") label = null;
     if (category === "Mycoursematerial") {
       label = 'My Course Material';
       category = 'My Course Material';
@@ -137,7 +137,7 @@ class Search extends React.Component<Props, State> {
               <div id="nav-tools">
                 <nav className="breadcrumb" id="breadcrumb-container">
                   <a onClick={() => this.renderCategoryMenu("All")} className="breadcrumb-item" href="#/recent">All</a>
-                  <a onClick={() => this.renderCategoryMenu(category)} className="breadcrumb-item" href={`#/${path}`}>{label}</a>
+                  {label && <a onClick={() => this.renderCategoryMenu(category)} className="breadcrumb-item" href={`#/${path}`}>{label}</a>}
                   <span className="breadcrumb-item active">{(this.props.currentQuery.page_idx - 1) * 16 + 1} - {(this.props.currentQuery.page_idx * 16)} results</span>
                 </nav>
 

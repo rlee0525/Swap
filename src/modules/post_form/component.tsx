@@ -318,25 +318,6 @@ class PostForm extends React.Component<any, IState> {
               />
               </div>
           </div>
-          
-          <div className={`form-group ${this.state.category !== "Housing" ? "hidden" : ""}`}>
-            <label style={labelStyle} htmlFor="inputCourse3" className="col-sm-2 control-label-custom">
-              Map
-            </label>
-            
-            <div className="col-sm-9 input-group" style={paddingAll}>
-              <input
-                maxLength={50}
-                value={this.state.course}
-                onChange={ this.updateState }
-                type="text"
-                className="form-control"
-                id="course"
-                style={borderStyle}
-                placeholder="Type to autocomplete"
-              />
-              </div>
-          </div>
 
           <div className={`form-group ${this.state.category !== "Housing" ? "hidden" : ""}`}>
             <label style={labelStyle} htmlFor="inputCourse3" className="col-sm-2 control-label-custom">

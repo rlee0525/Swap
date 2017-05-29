@@ -43,76 +43,72 @@ class MapItem extends React.Component<any, any> {
       mapTypeId: google.maps.MapTypeId.ROADMAP,
     };
 
-    let input = document.getElementById('pac-input');
-    let opts = {
-      types: ['(cities)']
-    };
+    // let input = document.getElementById('pac-input');
+    // let opts = {
+    //   types: ['(cities)']
+    // };
 
-    let button = document.getElementById('pac-button');
-    let container = document.getElementById('pac-container');
+    // let button = document.getElementById('pac-button');
+    // let container = document.getElementById('pac-container');
 
     this.map = new google.maps.Map(map, options);
     this.map.setOptions({styles: style['pastel']});
-    this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(container);
+    // this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(container);
 
-    google.maps.event.addListenerOnce(this.map, 'idle', function() {
-      container.style.display = "inline-block";
-    });
+    // google.maps.event.addListenerOnce(this.map, 'idle', function() {
+    //   container.style.display = "inline-block";
+    // });
 
-    let circle = new google.maps.Circle({
-            strokeColor: '#FF0000',
-            strokeOpacity: 0.8,
-            strokeWeight: 2,
-            fillColor: '#FF0000',
-            fillOpacity: 0.35,
-            map: this.map,
-            center: this.props.center,
-            radius: 7000
-          });
+    // let circle = new google.maps.Circle({
+    //         strokeColor: '#FF0000',
+    //         strokeOpacity: 0.8,
+    //         strokeWeight: 2,
+    //         fillColor: '#FF0000',
+    //         fillOpacity: 0.35,
+    //         map: this.map,
+    //         center: this.props.center,
+    //         radius: 7000
+    //       });
 
-    let autocomplete = new google.maps.places.Autocomplete(input, opts);
+    // let autocomplete = new google.maps.places.Autocomplete(input, opts);
 
-    autocomplete.addListener('place_changed', () => {
-      circle.setMap(null);
-      this.map.setMapOnAll(null);
+    // autocomplete.addListener('place_changed', () => {
+    //   circle.setMap(null);
+    //   this.map.setMapOnAll(null);
 
-      let place = autocomplete.getPlace();
+    //   let place = autocomplete.getPlace();
 
-      if (place.formatted_address.includes("USA")) {
-        place = place.address_components[0].short_name + ", " + autocomplete.getPlace().address_components[2].short_name;
-      } else {
-        place = place.formatted_address;
-      }
+    //   if (place.formatted_address.includes("USA")) {
+    //     place = place.address_components[0].short_name + ", " + autocomplete.getPlace().address_components[2].short_name;
+    //   } else {
+    //     place = place.formatted_address;
+    //   }
 
-      let center = autocomplete.getPlace().geometry.location;
+    //   let center = autocomplete.getPlace().geometry.location;
 
-      let cityCircle = new google.maps.Circle({
-              strokeColor: '#FF0000',
-              strokeOpacity: 0.8,
-              strokeWeight: 2,
-              fillColor: '#FF0000',
-              fillOpacity: 0.35,
-              map: this.map,
-              center: center,
-              radius: 7000
-            });
+    //   let cityCircle = new google.maps.Circle({
+    //           strokeColor: '#FF0000',
+    //           strokeOpacity: 0.8,
+    //           strokeWeight: 2,
+    //           fillColor: '#FF0000',
+    //           fillOpacity: 0.35,
+    //           map: this.map,
+    //           center: center,
+    //           radius: 7000
+    //         });
 
-      this.map.setCenter(center);
-      this.props.setAddress(place, center);
-    });
+    //   this.map.setCenter(center);
+    //   this.props.setAddress(place, center);
+    // });
   }
 
   render() {
     return (
       <div className="map-container">
-        <div id="pac-container">
-          <input id="pac-input" className="controls" type="text" placeholder="Select a city to find its trend!" />
-          <button id="pac-button" onClick={this.props.closeModal}>Select</button>
-        </div>
         <div ref="map" id="google-map" />
       </div>
     );
   }
 }
 
-export default MapItem;
+export { MapItem };

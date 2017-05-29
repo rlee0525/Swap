@@ -71,7 +71,6 @@ class SearchListView extends React.Component<Props, any> {
   }
 
   render() {
-    console.log(this.props);
     return (
       <div>
         <table className="table table-hover">
