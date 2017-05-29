@@ -64,15 +64,10 @@ class NavTabs extends React.Component<any, State> {
   public render() {
     return (
       <ul className="nav nav-tabs">
-        <li role="presentation" id="dashboard-nav-title">
-          <Link to="dashboard/posts">Posts</Link>
-        </li>
-        <li role="presentation" id="dashboard-nav-title">
-          <Link to="dashboard/bookmarks">Bookmarks</Link>
-        </li>
-        <li role="presentation" id="dashboard-nav-title" className="active">
-          <Link to="dashboard/rfps">Alerts</Link>
-        </li>
+        <li role="presentation" id="dashboard-nav-title"><a href="#/dashboard/posts">Posts</a></li>
+        <li role="presentation" id="dashboard-nav-title"><a href="#/dashboard/bookmarks">Bookmarks</a></li>
+        <li role="presentation" id="dashboard-nav-title" className="active"><a href="#/dashboard/rfps">Alerts</a></li>
+        <li role="presentation" id="dashboard-nav-title"><a href="#/dashboard/mycourses">My Courses</a></li>
         <div>
           <a onClick={() => this.createAlert()} className="btn btn-clear nav-button" id="responsive-create-text">
             Create Alert

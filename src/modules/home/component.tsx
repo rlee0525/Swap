@@ -54,6 +54,7 @@ class Home extends React.Component<any, {}> {
     return (
       <div>
         <SearchNavbar
+          user={this.props.user}
           searchResult={this.props.searchResult}
           search={this.props.search}
           currentQuery={this.props.currentQuery}

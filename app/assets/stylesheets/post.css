@@ -342,7 +342,21 @@
 .bottom-right-corner {
   position: absolute;
   right: 15px;
+  height: 47px;
   bottom: 7px;
   font-size: 20px !important;
   color: lightseagreen;
+}
+
+.bottom-left-corner {
+  position: absolute;
+  left: 10px;
+  bottom: 7px;
+  font-size: 15px !important;
+  color: lightseagreen;
+}
+
+.bottom-left-corner img {
+  height: 56px;
+  margin-right: 8px;
 }
