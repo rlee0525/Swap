@@ -4,15 +4,15 @@ import request from 'superagent';
 
 import { IState, _defaultState } from './typings';
 import { ImageDropzone, RadioButtons } from './subcomponents';
-import {
-  borderStyle,
-  noBorder,
-  labelStyle,
-  widthFull,
-  paddingLeft,
-  morePadding,
-  paddingBottom,
-  paddingAll } from './styles';
+
+import { borderStyle, 
+         noBorder, 
+         labelStyle, 
+         widthFull, 
+         paddingLeft,
+         morePadding,
+         paddingBottom,
+         paddingAll } from './styles';
 
 declare var $;
 const CLOUDINARY_UPLOAD_PRESET = 'xmfenamw';
@@ -21,6 +21,17 @@ const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/dkympkwdz/upload'
 class PostForm extends React.Component<any, IState> {
   constructor(props: any) {
     super(props);
+
+    this.state = {
+      ..._defaultState,
+      address: "University of Berkeley",
+      center: { lat: 37.8719, lng: -122.2585 }
+    }
+
+    if (props.params.id) {
+      this.fetchPost(props.params.id)
+    }
+
     this.updateState = this.updateState.bind(this);
     this.onImageDrop = this.onImageDrop.bind(this);
     this.submitForm = this.submitForm.bind(this);
@@ -30,14 +41,6 @@ class PostForm extends React.Component<any, IState> {
     this.renderErrors = this.renderErrors.bind(this);
     this.autoComplete = this.autoComplete.bind(this);
     this.checkKey = this.checkKey.bind(this);
-
-    this.state = {
-      ..._defaultState
-    }
-
-    if (props.params.id) {
-      this.fetchPost(props.params.id)
-    }
   }
 
   public checkKey(e) {
@@ -140,7 +143,7 @@ class PostForm extends React.Component<any, IState> {
       data: { access_token, edit: true }
     }).then(post => {
       this.setState({ ...post })
-    })
+    });
   }
 
   public fetchAllCourses() {
@@ -152,7 +155,7 @@ class PostForm extends React.Component<any, IState> {
       this.autoComplete()
     }).fail(errors => {
       this.setState({ errors: errors.responseJSON })
-    })
+    });
   }
 
   public updateState(e) {
@@ -161,11 +164,11 @@ class PostForm extends React.Component<any, IState> {
     if (e.target.id === "price") {
       for (var i = 0; i < valid_input.length; ++i) {
         if (e.target.value.includes(valid_input[i]) || e.target.value.length === 0) {
-          this.setState({ [e.target.id]: e.target.value })
+          this.setState({ [e.target.id]: e.target.value });
         }
       }
     } else {
-      this.setState({ [e.target.id]: e.target.value })
+      this.setState({ [e.target.id]: e.target.value });
     }
   }
 
@@ -174,8 +177,8 @@ class PostForm extends React.Component<any, IState> {
   }
 
   public submitForm(e) {
-    let { title, condition, course, price, description, category, img_url1, img_url2, img_url3 } = this.state;
-    if (this.state.category !== "Textbooks") course = "";
+    let { title, course, price, description, category, img_url1, img_url2, img_url3 } = this.state;
+    if (this.state.category !== "Course Material") course = "";
     e.preventDefault();
     let method, url;
     if (typeof this.props.params.id === 'undefined') {
@@ -190,7 +193,7 @@ class PostForm extends React.Component<any, IState> {
       method: method,
       url: url,
       data: {
-        post: { title, condition, price, description, img_url1, img_url2, img_url3 },
+        post: { title, price, description, img_url1, img_url2, img_url3 },
         course: { course },
         category: { category },
         access_token
@@ -211,8 +214,9 @@ class PostForm extends React.Component<any, IState> {
   }
 
   public render() {
-    const categories = ['Textbooks', 'Clothing', 'Furniture', 'Electronics', 'Kitchenware', 'Games'];
-    const conditions = ['Brand New', "Like New", "Used"];
+    const categories = ['Course Material', 'Furniture', 'Clothing', 
+                        'Electronics', 'Housing', 'Bikes', 
+                        'Games', 'Others', 'Lost & Found'];
 
     return (
       <div className="container">
@@ -232,16 +236,8 @@ class PostForm extends React.Component<any, IState> {
             currentValue={this.state.category}
           />
 
-          {/* Condition radio buttons */}
-          <RadioButtons
-            type="condition"
-            list={conditions}
-            clickAction={this.radioButtonsUpdate('condition')}
-            currentValue={this.state.condition}
-          />
-
           {/* Course dropdown menu */}
-          <div className={`form-group ${this.state.category !== "Textbooks" ? "hidden" : ""}`}>
+          <div className={`form-group ${this.state.category !== "Course Material" ? "hidden" : ""}`}>
             <label style={labelStyle} htmlFor="inputCourse3" className="col-sm-2 control-label-custom">
               Course
             </label>
@@ -300,6 +296,46 @@ class PostForm extends React.Component<any, IState> {
                 {250 - this.state.description.length} / 250
               </span>
             </div>
+          </div>
+
+
+          {/* Housing location input */}
+          <div className={`form-group ${this.state.category !== "Housing" ? "hidden" : ""}`}>
+            <label style={labelStyle} htmlFor="inputCourse3" className="col-sm-2 control-label-custom">
+              Location
+            </label>
+            
+            <div className="col-sm-9 input-group" style={paddingAll}>
+              <input
+                maxLength={50}
+                value={this.state.course}
+                onChange={ this.updateState }
+                type="text"
+                className="form-control"
+                id="course"
+                style={borderStyle}
+                placeholder="Type to autocomplete"
+              />
+              </div>
+          </div>
+
+          <div className={`form-group ${this.state.category !== "Housing" ? "hidden" : ""}`}>
+            <label style={labelStyle} htmlFor="inputCourse3" className="col-sm-2 control-label-custom">
+              Date Range
+            </label>
+            
+            <div className="col-sm-9 input-group" style={paddingAll}>
+              <input
+                maxLength={50}
+                value={this.state.course}
+                onChange={ this.updateState }
+                type="text"
+                className="form-control"
+                id="course"
+                style={borderStyle}
+                placeholder="Type to autocomplete"
+              />
+              </div>
           </div>
 
           {/* Price input */}

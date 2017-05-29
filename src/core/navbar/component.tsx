@@ -248,7 +248,6 @@ class NavBar extends React.Component<any, any> {
                 <h4>Please check your email for the verification link</h4>
                 <br/>
                 <button type="button" className="btn btn-warning btn-lg btn-block" onClick={ this.resendVerificationEmail }>Re-send verification email</button>
-                <button type="button" className="btn btn-primary btn-lg btn-block" onClick={ () => $('#emailVerificationModal').modal('hide') }>Close</button>
                 <button type="button" className="btn btn-danger btn-lg btn-block" onClick={ this.loginStatus }>Logout</button>
               </div>
               <br/>

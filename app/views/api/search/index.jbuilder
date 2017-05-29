@@ -13,6 +13,7 @@ json.posts do
                   :category,
                   :course_id,
                   :updated_at,
+                  :views,
                   :active
     json.seller_name "#{post.user.first_name} #{post.user.last_name[0]}."
     json.seller_fb_picture post.user.fb_picture
