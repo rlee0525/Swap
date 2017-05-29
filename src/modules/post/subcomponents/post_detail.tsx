@@ -271,6 +271,14 @@ class PostDetail extends React.Component<any, any> {
     )
   }
 
+  public housingViews() {
+    if (this.state.view === "photo") {
+      return (<p onClick={this.changeView}> View Map </p>)
+    } else {
+      return (<p onClick={this.changeView}> View Photos </p>)
+    };
+  }
+
   public renderDetail() {
     let titleMargin = {
       marginBottom: 10,
@@ -307,10 +315,7 @@ class PostDetail extends React.Component<any, any> {
             <p className="red"><span className="glyphicon glyphicon-fire"></span>&nbsp;&nbsp; {views} Views </p>
         }
 
-        {
-          category == "Housing" &&
-            <p onClick={this.changeView}> MapView </p>
-        }
+        { category == "Housing" && this.housingViews() }
 
         <p id="post-description">{description}</p>
         <div className="footer" id="post-detail-right-bottom">
