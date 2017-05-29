@@ -1,36 +1,26 @@
 import React from 'react';
-import { Link } from 'react-router';
-declare var $;
+import { IUser } from 'common/interfaces';
 
 interface State {
   description: string;
-  errors: any;
+  errors: string[];
 }
 
 interface Props {
-
+  user: IUser;
+  receiveRfps: (rfps: any) => void;
 }
 
-class NavTabs extends React.Component<any, State> {
-  constructor(props: any) {
+class AlertForm extends React.Component<Props, State> {
+  constructor(props) {
     super(props);
-
     this.state = {
-      description: "",
-      errors: undefined
-    };
+      description: '',
+      errors: []
+    }
 
     this.submitForm = this.submitForm.bind(this);
     this.updateState = this.updateState.bind(this);
-    this.createAlert = this.createAlert.bind(this);
-  }
-
-  public createAlert() {
-    $('#createAlertModal').modal('show');
-  }
-
-  public updateState(e) {
-    this.setState({ [e.target.id]: e.target.value })
   }
 
   public submitForm(e) {
@@ -41,10 +31,12 @@ class NavTabs extends React.Component<any, State> {
       url: "api/rfps",
       data: { description, access_token: this.props.user.auth.accessToken }
     }).then( post => {
-      this.props.fetchRfps();
+      console.log(post);
+      
+      this.props.receiveRfps(post);
       $('#createAlertModal').modal('hide');
     }).fail( errors =>
-      this.setState({ errors })
+      this.setState({ errors: errors.responseJSON })
     );
   }
 
@@ -52,7 +44,7 @@ class NavTabs extends React.Component<any, State> {
     if (typeof this.state.errors === "undefined") {
       return null;
     } else {
-      return this.state.errors.responseJSON.map((error, key) => (
+      return this.state.errors.map((error, key) => (
         <div key={key} className="alert alert-danger" role="alert">
           <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
           <span className="sr-only">Error:</span> {error}
@@ -61,23 +53,14 @@ class NavTabs extends React.Component<any, State> {
     }
   }
 
+  public updateState(e) {
+    this.setState({ [e.target.id]: e.target.value })
+  }
+
   public render() {
     return (
-      <ul className="nav nav-tabs">
-        <li role="presentation" id="dashboard-nav-title"><a href="#/dashboard/posts">Posts</a></li>
-        <li role="presentation" id="dashboard-nav-title"><a href="#/dashboard/bookmarks">Bookmarks</a></li>
-        <li role="presentation" id="dashboard-nav-title" className="active"><a href="#/dashboard/rfps">Alerts</a></li>
-        <li role="presentation" id="dashboard-nav-title"><a href="#/dashboard/mycourses">My Courses</a></li>
-        <div>
-          <a onClick={() => this.createAlert()} className="btn btn-clear nav-button" id="responsive-create-text">
-            Create Alert
-          </a>
-          <a onClick={() => this.createAlert()} className="btn btn-clear nav-button" id="responsive-create-icon">
-            <span className="glyphicon glyphicon-bell" aria-hidden="true" id="create-icon-button"/>
-          </a>
-
-
-          <a id="createAlertModalTrigger" className="hidden" data-toggle="modal" data-target="#createAlertModal">Email Input Modal Trigger</a>
+      <div>
+         <a id="createAlertModalTrigger" className="hidden" data-toggle="modal" data-target="#createAlertModal">Email Input Modal Trigger</a>
           <div className="modal fade" id="createAlertModal" tabIndex={-1} role="dialog"
                 aria-labelledby="authModalLabel" aria-hidden="true">
             <div className="modal-dialog" role="document">
@@ -109,12 +92,10 @@ class NavTabs extends React.Component<any, State> {
               </div>
             </div>
           </div>
-
-
-        </div>
-      </ul>
+      </div>
     );
   }
+
 }
 
-export { NavTabs };
+export { AlertForm };
