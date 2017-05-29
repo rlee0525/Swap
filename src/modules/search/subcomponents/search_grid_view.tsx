@@ -94,7 +94,7 @@ class SearchGridView extends React.Component<Props, State> {
     updatedDate = Date.now() - updatedDate <= 86400000 ? timeFromNow(post.updated_at) : "";
 
     return (
-      <div className="col-sm-4 col-md-3" key={Math.random() * post.id}
+      <div className="col-sm-4 col-md-3 hover-show" key={Math.random() * post.id}
         onClick={() => window.location.href = `#/posts/${post.id}`}>
         <div className="thumbnail thumbnail-post col-md-12">
           {carousel}
