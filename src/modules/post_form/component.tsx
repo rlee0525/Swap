@@ -22,7 +22,9 @@ class PostForm extends React.Component<any, IState> {
     super(props);
 
     this.state = {
-      ..._defaultState
+      ..._defaultState,
+      address: "University of Berkeley",
+      center: { lat: 37.8719, lng: -122.2585 }
     }
 
     if (props.params.id) {
