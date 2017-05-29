@@ -62,38 +62,38 @@ class AlertForm extends React.Component<Props, State> {
   public render() {
     return (
       <div>
-         <a id="createAlertModalTrigger" className="hidden" data-toggle="modal" data-target="#createAlertModal">Email Input Modal Trigger</a>
-          <div className="modal fade" id="createAlertModal" tabIndex={-1} role="dialog"
-                aria-labelledby="authModalLabel" aria-hidden="true">
-            <div className="modal-dialog" role="document">
-              <div className="modal-content">
-                <div className="modal-header" id="auth-modal-header">
-                  <button type="button" className="close" data-dismiss="modal">&times;</button>
-                  <h3 className="modal-title" id="authModalLabel">Create a new alert</h3>
-                </div>
-                <div className="modal-body text-center" id="fb-modal-body">
-                  <form onSubmit={ this.submitForm }>
-                    <div className="form-group input-group" id="email-error-div">
-                      <input
-                        type="text"
-                        maxLength={50}
-                        value={this.state.description}
-                        onChange={this.updateState}
-                        className="form-control"
-                        id="description"
-                        placeholder="Keyword (e.g. Desk)"
-                        aria-describedby="basic-addon2"
-                      />
-                      <span className="input-group-addon" id="basic-addon1">&nbsp;{50 - this.state.description.length} characters left</span>
-                    </div>
-                    <button type="button" className="btn btn-primary btn-lg btn-block" onClick={ this.submitForm }>Create</button>
-                  </form>
-                </div>
-                <br/>
-                <div className="modal-footer"></div>
+        <a id="createAlertModalTrigger" className="hidden" data-toggle="modal" data-target="#createAlertModal">Email Input Modal Trigger</a>
+        <div className="modal fade" id="createAlertModal" tabIndex={-1} role="dialog"
+              aria-labelledby="authModalLabel" aria-hidden="true">
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header" id="auth-modal-header">
+                <button type="button" className="close" data-dismiss="modal">&times;</button>
+                <h3 className="modal-title" id="authModalLabel">Create a new alert</h3>
               </div>
+              <div className="modal-body text-center" id="fb-modal-body">
+                <form onSubmit={ this.submitForm }>
+                  <div className="form-group input-group" id="email-error-div">
+                    <input
+                      type="text"
+                      maxLength={50}
+                      value={this.state.description}
+                      onChange={this.updateState}
+                      className="form-control"
+                      id="description"
+                      placeholder="Keyword (e.g. Desk)"
+                      aria-describedby="basic-addon2"
+                    />
+                    <span className="input-group-addon" id="basic-addon1">&nbsp;{50 - this.state.description.length} characters left</span>
+                  </div>
+                  <button type="button" className="btn btn-primary btn-lg btn-block" onClick={ this.submitForm }>Create</button>
+                </form>
+              </div>
+              <br/>
+              <div className="modal-footer"></div>
             </div>
           </div>
+        </div>
       </div>
     );
   }
