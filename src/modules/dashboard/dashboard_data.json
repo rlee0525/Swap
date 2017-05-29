@@ -1,0 +1,20 @@
+{
+  "dashboardHeaders": [
+    {
+      "title": "Posts",
+      "link": "posts"
+    },
+    {
+      "title": "Bookmarks",
+      "link": "bookmarks"
+    },
+    {
+      "title": "Alerts",
+      "link": "rfps"
+    },
+    {
+      "title": "My Courses",
+      "link": "mycourses"
+    }
+  ]
+}

@@ -108,7 +108,7 @@ class NavBar extends React.Component<any, any> {
       return null;
     };
 
-    let address = e.currentTarget.id;
+    let address = e.currentTarget.id + "?posts";
     const accessToken = this.props.user.auth.accessToken;
     $.ajax({
       method: "GET",
@@ -124,13 +124,19 @@ class NavBar extends React.Component<any, any> {
     }).fail(() => FB.logout(res => console.log(res)))
   }
 
+  public loginStatus() {
+    $('#emailVerificationModal').modal('hide');
+    $('#emailInputModal').modal('hide');
+    $('#logInModal').modal('show');
+  }
+
   public checkUserStatus(id) {
     if (this.props.user !== null) {
       return (
         <div className="navbar-collapse collapse" id={id}>
           <ul className="nav navbar-nav navbar-right">
             <li><a href="/#/recent">Browse</a></li>
-            <li><a id="dashboard/posts" onClick={(e) => this.checkVerified(e)}>Dashboard</a></li>
+            <li><a id="dashboard" onClick={(e) => this.checkVerified(e)}>Dashboard</a></li>
             <li><a onClick={this.chooseModal}>{this.props.user.userFB.name}</a></li>
           </ul>
         </div>
@@ -196,7 +202,7 @@ class NavBar extends React.Component<any, any> {
               <div className="modal-body text-center" id="fb-modal-body">
                 <div className="fb-login-button" data-scope="email" data-max-rows="1" data-size="large" data-button-type="login_with" data-auto-logout-link="true" data-use-continue-as="true" data-onlogin=""></div>
                 <div className="modal-body text-center">
-                  By signing up, I agree to Swap's <a href="/#/terms" target="_blank" id="legal-links">Terms of Service</a>, <a href="/#/terms" target="_blank" id="legal-links">Nondiscrimination Policy</a>, <a href="/#/terms" target="_blank" id="legal-links">Payments Terms of Service</a>, and <a href="/#/terms" target="_blank" id="legal-links">Privacy Policy</a>.
+                  By signing up, I agree to Swap's <a href="/#/infos?faq" target="_blank">Terms of Service</a>, <a href="/#/infos?faq" target="_blank">Nondiscrimination Policy</a>, <a href="/#/infos?faq" target="_blank">Payments Terms of Service</a>, and <a href="/#/infos?faq" target="_blank">Privacy Policy</a>.
                 </div>
               </div>
               <div className="modal-footer"></div>
@@ -220,6 +226,7 @@ class NavBar extends React.Component<any, any> {
                     <span className="input-group-addon" id="basic-addon2">Ex: me@email.com</span>
                   </div>
                   <button type="button" className="btn btn-primary btn-lg btn-block" onClick={ this.sendEmail }>Submit</button>
+                  <button type="button" className="btn btn-danger btn-lg btn-block" onClick={ this.loginStatus }>Logout</button>
                 </form>
               </div>
               <br/>
@@ -242,6 +249,7 @@ class NavBar extends React.Component<any, any> {
                 <br/>
                 <button type="button" className="btn btn-warning btn-lg btn-block" onClick={ this.resendVerificationEmail }>Re-send verification email</button>
                 <button type="button" className="btn btn-primary btn-lg btn-block" onClick={ () => $('#emailVerificationModal').modal('hide') }>Close</button>
+                <button type="button" className="btn btn-danger btn-lg btn-block" onClick={ this.loginStatus }>Logout</button>
               </div>
               <br/>
               <div className="modal-footer"></div>

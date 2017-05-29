@@ -2,6 +2,7 @@ export interface IStoreState {
   user: IUser | null;
   post: IPost | null;
   searchResult: IPost[];
+  dashboard: IDashboard;
   currentQuery: any;
 }
 
@@ -47,5 +48,20 @@ export interface IUser {
         url: string;
       }
     }
+  }
+}
+
+export interface IDashboard {
+  bookmarks: {
+    fetched: boolean;
+    list: IPost [];
+  },
+  myPosts: {
+    fetched: boolean;
+    list: IPost [];
+  },
+  rfps: {
+    fetched: boolean;
+    list: any[];
   }
 }

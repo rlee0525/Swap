@@ -26,13 +26,19 @@ end
 User.create!(
   fb_id: ENV['RAYMOND_FB_ID'],
   edu_email: "bob@berkeley.edu",
-  university: University.first
+  university: University.first,
+  fb_picture: ENV['RAYMOND_FB_PICTURE'],
+  first_name: ENV['RAYMOND_FIRST_NAME'],
+  last_name: ENV['RAYMOND_LAST_NAME']
 )
 
 User.create!(
   fb_id: ENV['RANDY_FB_ID'],
   edu_email: "bobby@berkeley.edu",
-  university: University.first
+  university: University.first,
+  fb_picture: ENV['RANDY_FB_PICTURE'],
+  first_name: ENV['RANDY_FIRST_NAME'],
+  last_name: ENV['RANDY_LAST_NAME']
 )
 
 200.times do |idx|
