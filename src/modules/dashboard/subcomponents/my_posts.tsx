@@ -1,4 +1,5 @@
 import React from 'react';
+import { cloneDeep } from 'lodash';
 import { shortenString, timeFromNow } from 'helpers';
 import { IPost, IUser } from 'common/interfaces';
 import { TableHeaders } from 'common/components';
@@ -39,6 +40,12 @@ class MyPosts extends React.Component<Props, State> {
     this.toggleActivation = this.toggleActivation.bind(this);
   }
 
+  public componentWillReceiveProps(newProps) {
+    console.log(newProps);
+    
+    this.setState({ myPosts: newProps.myPosts.list })
+  }
+
   public componentDidMount() {
     let { myPosts, user, fetchMyPosts } = this.props;
     if (!myPosts.fetched) {
@@ -71,8 +78,10 @@ class MyPosts extends React.Component<Props, State> {
     window.location.href = `#/posts/edit/${id}`;
   }
 
-  public toggleActivation(e, id, polarity) {
+  public toggleActivation(e, id, polarity, statePostId) {
     e.stopPropagation();
+
+    let myPosts = cloneDeep(this.state.myPosts);
 
     let method = polarity == true ? "deactivate" : "activate";
     const access_token = this.props.user.auth.accessToken;
@@ -81,7 +90,12 @@ class MyPosts extends React.Component<Props, State> {
       type: "PATCH",
       url: `api/posts/${id}`,
       data: { access_token, method }
-    }).then(this.props.fetchMyPosts);
+    }).then(
+      () => {
+        myPosts[statePostId].active = !myPosts[statePostId].active;
+        this.setState({ myPosts });
+      }
+    );
   }
 
   public renderListItem() {
@@ -101,7 +115,7 @@ class MyPosts extends React.Component<Props, State> {
         </td>
 
         <td>
-          <button type="button" id="action-button" className={`btn btn-xs ${myPost.active ? "btn-primary" : "btn-warning"}`} onClick={(e) => this.toggleActivation(e, myPost.id, myPost.active)}>
+          <button type="button" id="action-button" className={`btn btn-xs ${myPost.active ? "btn-primary" : "btn-warning"}`} onClick={(e) => this.toggleActivation(e, myPost.id, myPost.active, statePostId)}>
             {myPost.active ? "Active" : "Inactive"}
           </button>
         </td>
