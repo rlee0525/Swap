@@ -124,6 +124,12 @@ class NavBar extends React.Component<any, any> {
     }).fail(() => FB.logout(res => console.log(res)))
   }
 
+  public loginStatus() {
+    $('#emailVerificationModal').modal('hide');
+    $('#emailInputModal').modal('hide');
+    $('#logInModal').modal('show');
+  }
+
   public checkUserStatus(id) {
     if (this.props.user !== null) {
       return (
@@ -220,8 +226,7 @@ class NavBar extends React.Component<any, any> {
                     <span className="input-group-addon" id="basic-addon2">Ex: me@email.com</span>
                   </div>
                   <button type="button" className="btn btn-primary btn-lg btn-block" onClick={ this.sendEmail }>Submit</button>
-                  <br/>
-                  <div className="fb-login-button" data-scope="email" data-max-rows="1" data-size="large" data-button-type="login_with" data-auto-logout-link="true" data-use-continue-as="true" data-onlogin=""></div>
+                  <button type="button" className="btn btn-danger btn-lg btn-block" onClick={ this.loginStatus }>Logout</button>
                 </form>
               </div>
               <br/>
@@ -244,8 +249,7 @@ class NavBar extends React.Component<any, any> {
                 <br/>
                 <button type="button" className="btn btn-warning btn-lg btn-block" onClick={ this.resendVerificationEmail }>Re-send verification email</button>
                 <button type="button" className="btn btn-primary btn-lg btn-block" onClick={ () => $('#emailVerificationModal').modal('hide') }>Close</button>
-                <br />
-                <div className="fb-login-button" data-scope="email" data-max-rows="1" data-size="large" data-button-type="login_with" data-auto-logout-link="true" data-use-continue-as="true" data-onlogin=""></div>
+                <button type="button" className="btn btn-danger btn-lg btn-block" onClick={ this.loginStatus }>Logout</button>
               </div>
               <br/>
               <div className="modal-footer"></div>
