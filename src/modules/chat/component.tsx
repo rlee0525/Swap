@@ -1,4 +1,5 @@
 import React from 'react';
+import './styles.scss';
 
 interface Props {
 }
@@ -9,6 +10,11 @@ interface State {
 class Chat extends React.Component<Props, State> {
   constructor(props) {
     super(props);
+
+    this.state = {
+      conversations: {},
+      currentConversation: 1
+    } 
   }
 
   render() {
@@ -29,7 +35,7 @@ class Chat extends React.Component<Props, State> {
           <div>message 1</div>
 
           <div className="chat-input">
-            <input type="text"/>
+            <input type="text" placeholder="Say something..." />
           </div>
         </div>
       </div>

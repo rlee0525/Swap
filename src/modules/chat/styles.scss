@@ -21,11 +21,24 @@
 
 .chat-messages {
   flex: 3;
-  padding: 15px;
   border: 1px solid #e2e2e2;
 
   div {
     height: 40px;
-    border-bottom: 1px solid #e2e2e2;
+    padding: 0 15px;
+  }
+}
+
+.chat-input {
+  width: 100%;
+  padding: 0 !important;
+
+  input {
+    height: 40px;
+    width: inherit;
+
+    &:focus {
+      outline: none;
+    }
   }
 }
