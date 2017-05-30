@@ -70,7 +70,7 @@ class Chat extends React.Component<Props, State> {
           <Messages conversation={conversations[currentConversation]} />
 
           <div className="chat-input">
-            <input
+            <textarea
               type="text"
               placeholder="Say something..."
               value={this.state.message}

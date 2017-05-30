@@ -32,11 +32,13 @@
   padding: 0 !important;
   border-top: 1px solid #e2e2e2;
 
-  input {
-    height: 40px;
+  textarea {
+    resize: vertical;
+    height: 30px;
     width: inherit;
-    padding: 5px;
+    padding: 5px 10px;
     border: none;
+    word-break: break-word;
 
     &:focus {
       outline: none;
