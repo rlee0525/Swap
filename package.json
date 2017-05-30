@@ -61,6 +61,7 @@
     "jest-cli": "^20.0.0",
     "react-addons-test-utils": "^15.5.1",
     "react-test-renderer": "^15.5.4",
+    "sass-lint": "^1.10.2",
     "ts-jest": "^20.0.0",
     "tslint": "^5.2.0",
     "tslint-react": "^3.0.0"
