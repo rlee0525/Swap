@@ -29,6 +29,7 @@ class User < ApplicationRecord
   has_many :users_courses, inverse_of: :user
   has_many :courses, through: :users_courses
   has_many :course_posts, through: :users_courses, source: :posts
+  has_many :conversations
 
   before_create :confirmation_token
 
