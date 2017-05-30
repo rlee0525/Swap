@@ -1,4 +1,7 @@
 import React from 'react';
+import * as firebase from 'firebase';
+import { firebaseConfig } from '../../../config/api_key';
+
 import './styles.scss';
 import { Messages } from './subcomponents';
 
@@ -12,24 +15,32 @@ class Chat extends React.Component<Props, State> {
   constructor(props) {
     super(props);
 
+    firebase.initializeApp(firebaseConfig);
+
     this.state = {
-      conversations: {
-        1: [
-          { message: 'what is up', sender: 1 },
-          { message: 'nothing much', sender: 0 },
-          { message: 'want to do something', sender: 1 },
-          { message: 'not really', sender: 0 },
-          { message: 'maybe tomorrow? But probably not, because you are very boring. So please let me alone', sender: 0 },
-          { message: 'no thanks', sender: 1 },
-          { message: 'you sob', sender: 0 }
-        ]
-      },
-      currentConversation: 1,
+      loading: true,
+      conversations: {},
+      currentConversation: null,
       message: ''
     }
 
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.update = this.update.bind(this);
+  }
+
+  componentDidMount() {
+    firebase.database().ref('conversations').once('value').then(snapshot => {
+      let conversations = snapshot.val();
+
+      let currentConversation = Object.keys(conversations)[0];
+
+      this.setState({ 
+        conversations, 
+        loading: false,
+        currentConversation
+      });
+      
+    });
   }
 
   sendMessage(message) {
@@ -55,6 +66,12 @@ class Chat extends React.Component<Props, State> {
 
   render() {
     let { currentConversation, conversations } = this.state;
+
+    if (this.state.loading) {
+      return (
+        <div>Loading</div>
+      );
+    }
 
     return (
       <div className="container chat-container">
