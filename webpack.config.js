@@ -54,7 +54,8 @@ module.exports = {
             loader: 'awesome-typescript-loader'
           }
         ]
-      }, {
+      }, 
+      {
         test: /\.js$/,
         exclude: /node_modules/,
         use: [
@@ -63,7 +64,22 @@ module.exports = {
             options: babelOptions
           }
         ]
-      }]
+      },
+      {
+        test: /\.css$/,
+        use: [ 'style-loader', 'css-loader' ]
+      },
+      {
+        test: /\.scss$/,
+        use: [{
+                loader: "style-loader" // creates style nodes from JS strings
+            }, {
+                loader: "css-loader" // translates CSS into CommonJS
+            }, {
+                loader: "sass-loader" // compiles Sass to CSS
+            }]
+      }
+      ]
     },
     node: {
       fs: 'empty',
