@@ -1,5 +1,6 @@
 import React from 'react';
 import './styles.scss';
+import { Messages } from './subcomponents';
 
 interface Props {
 }
@@ -23,14 +24,33 @@ class Chat extends React.Component<Props, State> {
           { message: 'you sob', sender: 0 }
         ]
       },
-      currentConversation: 1
+      currentConversation: 1,
+      message: ''
     }
+
+    this.handleKeyPress = this.handleKeyPress.bind(this);
+    this.update = this.update.bind(this);
   }
 
   sendMessage(message) {
-    this.setState({ conversations: {
-      1: [...this.state.conversations[1], message]
-    } });
+    this.setState({ 
+      conversations: {
+        1: [...this.state.conversations[1], { message, sender: 0 }]
+      },
+      message: ''
+    });
+  }
+
+  handleKeyPress(e) {
+    if (e.key === 'Enter') {
+      this.sendMessage(this.state.message);
+    }
+  }
+
+  update(e) {
+    this.setState({
+      message: e.target.value
+    });
   }
 
   render() {
@@ -47,17 +67,16 @@ class Chat extends React.Component<Props, State> {
         </div>
 
         <div className="chat-messages">
-          <div className="chat-body">
-            { conversations[currentConversation].map(msg => (
-              <div className={`chat-message ${msg.sender === 0 ? 'mine-message' : 'other-message'}`}>
-                <span>{ msg.message }</span>
-                <img src="http://enadcity.org/enadcity/wp-content/uploads/2017/02/profile-pictures.png" />
-              </div>
-            ))}
-          </div>
+          <Messages conversation={conversations[currentConversation]} />
 
           <div className="chat-input">
-            <input type="text" placeholder="Say something..." />
+            <input
+              type="text"
+              placeholder="Say something..."
+              value={this.state.message}
+              onKeyPress={this.handleKeyPress}
+              onChange={this.update}
+            />
           </div>
         </div>
       </div>
