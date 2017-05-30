@@ -205,3 +205,15 @@ ul.nav {
   padding-right: 4px;
   padding-left: 4px;
 }
+
+@media screen and (max-width: 768px) {
+  #no-padding-left {
+    width: calc(100% - 10px);
+    padding-left: 10px !important;
+  }
+
+  #phone-search-nav {
+    width: calc(100% - 5px) !important;
+    padding: 10px 10px 10px 15px;
+  }
+}
