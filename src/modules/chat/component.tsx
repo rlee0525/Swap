@@ -61,12 +61,6 @@ class Chat extends React.Component<Props, State> {
     }
 
     this.setState({ 
-      conversations: {
-        [currentConversation]: {
-          ...this.state.conversations[currentConversation],
-          [time]: messageObj
-        }
-      },
       message: ''
     });
 
