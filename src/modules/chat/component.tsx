@@ -26,10 +26,14 @@ class Chat extends React.Component<Props, State> {
 
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.update = this.update.bind(this);
+
+    this.ref = null;
   }
 
   componentDidMount() {
-    firebase.database().ref('conversations').once('value').then(snapshot => {
+    this.ref = firebase.database().ref('conversations'); 
+    
+    this.ref.on('value', snapshot => {
       let conversations = snapshot.val();
 
       let currentConversation = Object.keys(conversations)[0];
@@ -39,17 +43,34 @@ class Chat extends React.Component<Props, State> {
         loading: false,
         currentConversation
       });
-      
-    });
+    })    
+  }
+
+  componentWillUnmount() {
+    this.ref.off();
   }
 
   sendMessage(message) {
+    let { currentConversation } = this.state;
+    let { user } = this.props;
+
+    let time = Date.now();
+    let messageObj = {
+      message, 
+        sender: user.userFB.id
+    }
+
     this.setState({ 
       conversations: {
-        1: [...this.state.conversations[1], { message, sender: 0 }]
+        [currentConversation]: {
+          ...this.state.conversations[currentConversation],
+          [time]: messageObj
+        }
       },
       message: ''
     });
+
+    firebase.database().ref(`conversations/${currentConversation}/${time}`).set(messageObj);
   }
 
   handleKeyPress(e) {
@@ -65,13 +86,14 @@ class Chat extends React.Component<Props, State> {
   }
 
   render() {
-    let { currentConversation, conversations } = this.state;
-
     if (this.state.loading) {
       return (
         <div>Loading</div>
       );
     }
+
+    let { currentConversation, conversations } = this.state;
+    let { user } = this.props;
 
     return (
       <div className="container chat-container">
@@ -84,7 +106,10 @@ class Chat extends React.Component<Props, State> {
         </div>
 
         <div className="chat-messages">
-          <Messages conversation={conversations[currentConversation]} />
+          <Messages
+            conversation={conversations[currentConversation]}
+            user={user}
+          />
 
           <div className="chat-input">
             <textarea
