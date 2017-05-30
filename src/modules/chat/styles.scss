@@ -25,6 +25,10 @@
 
 .chat-body {
   margin: 10px 0;
+  overflow-y: scroll;
+  max-height: 70vh;
+  display: flex;
+  flex-direction: column-reverse;
 }
 
 .chat-input {
@@ -50,7 +54,7 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  // height: 100%;
+  flex: 0 0 auto;
 
   img {
     height: 30px;

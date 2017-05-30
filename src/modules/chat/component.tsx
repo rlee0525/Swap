@@ -57,7 +57,7 @@ class Chat extends React.Component<Props, State> {
     let time = Date.now();
     let messageObj = {
       message, 
-        sender: user.userFB.id
+      sender: user.userFB.id
     }
 
     this.setState({ 
@@ -74,9 +74,11 @@ class Chat extends React.Component<Props, State> {
   }
 
   update(e) {
-    this.setState({
-      message: e.target.value
-    });
+    if (e.target.value !== '\n') {
+      this.setState({
+        message: e.target.value
+      });
+    }
   }
 
   render() {
