@@ -48,3 +48,36 @@ export const deleteRfps = (id: number, access_token: string) : JQueryXHR => (
     data: { access_token, method: "delete" }
   })
 );
+
+// myCourses utils
+export const fetchMyCourses = (access_token: string) : JQueryXHR => (
+  $.ajax({
+    method: "GET",
+    url: "api/my_courses",
+    data: { access_token }
+  })
+);
+
+export const deleteMyCourse = (id: number, access_token: string) : JQueryXHR => (
+  $.ajax({
+    type: "DELETE",
+    url: `api/my_courses/${id}`,
+    data: { access_token }
+  })
+);
+
+export const postMyCourse = (course_number: string, access_token: string) : JQueryXHR => (
+  $.ajax({
+    type: "POST",
+    url: 'api/my_courses/',
+    data: { course_number, access_token}
+  })
+);
+
+// courses utils
+export const fetchCourses = () : JQueryXHR => (
+  $.ajax({
+    method: "GET",
+    url: "api/courses"
+  })
+);
