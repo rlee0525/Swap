@@ -11,6 +11,8 @@ import Terms from 'modules/terms';
 import PostForm from 'modules/post_form';
 import Dashboard from 'modules/dashboard';
 
+import Chat from 'modules/chat';
+
 interface RootProps {
   store: Store<any>;
 }
@@ -51,6 +53,9 @@ const Root: React.SFC<RootProps> = ({ store }) => {
 
           {/* Dashboard routes */}
           <Route path="/dashboard" component={Dashboard} />
+
+          {/* Chat routes */}
+          <Route path="/chat" component={Chat} />
 
         </Route>
       </Router>

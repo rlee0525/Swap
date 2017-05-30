@@ -26,6 +26,13 @@ class SearchGridView extends React.Component<Props, State> {
     this.translateSortLabels = this.translateSortLabels.bind(this);
   }
 
+  public componentDidMount() {
+    $('.carousel').carousel('cycle')
+    $('.carousel').carousel({
+      interval: 2000
+    })
+  }
+
   public componentWillMount() {
     let nextQuery = this.props.currentQuery;
     if (this.props.currentQuery.category === "My Course Material" && this.props.user) {
@@ -70,7 +77,7 @@ class SearchGridView extends React.Component<Props, State> {
           <span className="sr-only">Previous</span>
         </a>
         <a className="right carousel-control" href={`#carousel-example-generic-${post.id}`} role="button" data-slide="next"
-          onClick={this.preventPropagation}>>
+          onClick={this.preventPropagation}>
           <span className="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
           <span className="sr-only">Next</span>
         </a>

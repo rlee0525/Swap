@@ -58,7 +58,7 @@ User.create!(
     img_url3: Posts::DATA[idx % 29][:img_url3],
     category: category,
     course: course,
-    created_at: rand(0..4320).minutes.ago
+    updated_at: rand(0..4320).minutes.ago
   )
 end
 

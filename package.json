@@ -55,12 +55,17 @@
     "webpack": "^2.5.1"
   },
   "devDependencies": {
+    "css-loader": "^0.28.3",
     "enzyme": "^2.8.2",
     "eslint": "^3.19.0",
     "jest": "^20.0.0",
     "jest-cli": "^20.0.0",
+    "node-sass": "^4.5.3",
     "react-addons-test-utils": "^15.5.1",
     "react-test-renderer": "^15.5.4",
+    "sass-lint": "^1.10.2",
+    "sass-loader": "^6.0.5",
+    "style-loader": "^0.18.1",
     "ts-jest": "^20.0.0",
     "tslint": "^5.2.0",
     "tslint-react": "^3.0.0"

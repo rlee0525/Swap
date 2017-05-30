@@ -13,12 +13,20 @@ let _defaultState = {
   rfps: {
     fetched: false,
     list: []
+  },
+  myCourses: {
+    fetched: false,
+    list: []
+  },
+  courses: {
+    fetched: false,
+    list: []
   }
 };
 
 const dashboardReducer = (state = _defaultState, action) => {
   Object.freeze(state);
-  
+
   switch (action.type) {
     case DASHBOARD.MY_POSTS:
       return merge({}, state, {
@@ -68,6 +76,36 @@ const dashboardReducer = (state = _defaultState, action) => {
       });
 
       return newStateRfps;
+    case DASHBOARD.MY_COURSES:
+      return merge({}, state, {
+        myCourses: {
+          fetched: true,
+          list: state.myCourses.list.concat(action.myCourses)
+        }
+      })
+    case DASHBOARD.DELETE_MY_COURSE:
+
+      let newState = merge({}, state);
+
+      newState.myCourses.list = newState.myCourses.list.filter(myCourses => {
+        return myCourses.id !== action.id
+      });
+
+      return newState;
+    case DASHBOARD.ADD_MY_COURSE:
+      return merge({}, state, {
+        myCourses: {
+          fetched: true,
+          list: state.myCourses.list.concat(action.myCourse)
+        }
+      })
+    case DASHBOARD.COURSES:
+      return merge({}, state, {
+        courses: {
+          fetched: true,
+          list: state.courses.list.concat(action.courses)
+        }
+      })
     default:
       return state;
   }

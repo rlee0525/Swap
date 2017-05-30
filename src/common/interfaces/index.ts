@@ -63,5 +63,13 @@ export interface IDashboard {
   rfps: {
     fetched: boolean;
     list: any[];
+  },
+  myCourses: {
+    fetched: boolean;
+    list: any[];
+  },
+  courses: {
+    fetched: boolean;
+    list: any[];
   }
 }

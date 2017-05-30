@@ -24,7 +24,7 @@ class Api::MyCoursesController < ApplicationController
   def destroy
     user = fb_auth_user(params[:access_token])
     @my_courses = UsersCourse.where(user: user)
-                  .where(course: Course.find(params[:id]))
+                             .where(course: Course.find(params[:id]))
     @my_courses.each(&:destroy)
     @my_courses = user.courses
     render "api/my_courses/index", status: 200
