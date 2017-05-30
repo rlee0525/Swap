@@ -51,6 +51,7 @@ class SearchNavbar extends React.Component<Props, State> {
   }
 
   private enterSearchQuery() {
+    $('#search-query').blur();
     const currentQuery = this.props.currentQuery;
     if (this.props.home) {
       let newLocation;
