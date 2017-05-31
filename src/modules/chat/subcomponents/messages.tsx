@@ -1,7 +1,9 @@
 import React from 'react';
+import { IUser } from 'common/interfaces';
 
 interface Props {
   conversation: any[];
+  user: IUser;
 }
 
 interface State {

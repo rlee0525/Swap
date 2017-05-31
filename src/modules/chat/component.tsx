@@ -9,6 +9,12 @@ interface Props {
 }
 
 interface State {
+  loading: boolean;
+  message: string;
+  currentConversation: string;
+  conversations: {
+    [key: string]: string[];
+  }
 }
 
 class Chat extends React.Component<Props, State> {
