@@ -62,7 +62,7 @@ class SearchGridView extends React.Component<Props, State> {
   }
 
   renderGridItem(post: IPost) {
-    const frames = [post.img_url1, post.img_url2, post.img_url3].filter(el => el !== "")
+    const frames = [post.img_url1, post.img_url2, post.img_url3].filter(el => (el !== "" && el !== null))
     const carouselFrames = frames.map((el, idx) => (
       <div className={`item ${idx == 0 ? "active" : ""}`}>
         <img src={el} />
