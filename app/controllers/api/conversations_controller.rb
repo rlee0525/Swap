@@ -16,7 +16,7 @@ class Api::ConversationsController < ApplicationController
   def destroy
     @conversation = Conversation.find_by(id: params[:id], user_id: params[:user_id])
     @conversation.archived = true
-    @converstion.save
+    @conversation.save
     render json: ['success']
   end
 
