@@ -2,10 +2,12 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'react-redux';
 import { IUser, IStoreState } from 'common/interfaces';
 import Dashboard from './component';
-import { 
-  fetchBookmarks, deleteBookmark, 
+import {
+  fetchBookmarks, deleteBookmark,
   fetchMyPosts, deleteMyPost,
-  fetchRfps, deleteRfps, receiveRfps
+  fetchRfps, deleteRfps, receiveRfps,
+  fetchMyCourses, deleteMyCourse,
+  fetchCourses, postMyCourse
 } from './actions';
 
 interface StateProps {
@@ -21,6 +23,10 @@ interface DispatchProps {
   fetchRfps: (accessToken: string) => void;
   deleteRfps: (id: number, accessToken: string) => void;
   receiveRfps: (rfps: any) => void;
+  fetchMyCourses: (accessToken: string) => void;
+  deleteMyCourse: (id: number, accessToken: string) => void;
+  fetchCourses: () => void;
+  postMyCourse : (description: string, accessToken: string) => JQueryPromise<void>;
 }
 
 const mapStateToProps = (state: IStoreState, ownProp?: any): StateProps => ({
@@ -35,7 +41,11 @@ const mapDispatchToProps = (dispatch: Dispatch<IStoreState>): DispatchProps => (
   deleteMyPost: (id, accessToken) => dispatch(deleteMyPost(id, accessToken)),
   fetchRfps: (accessToken) => dispatch(fetchRfps(accessToken)),
   deleteRfps: (id, accessToken) => dispatch(deleteRfps(id, accessToken)),
-  receiveRfps: (rfps) => dispatch(receiveRfps(rfps))
+  receiveRfps: (rfps) => dispatch(receiveRfps(rfps)),
+  fetchMyCourses: accessToken => dispatch(fetchMyCourses(accessToken)),
+  deleteMyCourse: (id, accessToken) => dispatch(deleteMyCourse(id, accessToken)),
+  fetchCourses: () => dispatch(fetchCourses()),
+  postMyCourse: (description, accessToken) => dispatch(postMyCourse(description, accessToken))
 });
 
 export default connect(

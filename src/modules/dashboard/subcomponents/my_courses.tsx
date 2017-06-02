@@ -12,16 +12,17 @@ interface course {
 
 interface Props {
   user: any;
+  fetchMyCourses: any;
+  deleteMyCourse: any;
+  fetchCourses: any;
+  myCourses: any;
+  postMyCourse: any;
+  courses: any;
 }
 
 interface State {
-  myCourses: course [];
-  course_name: any;
-  course_number: any;
   courseDescription: string;
-  course: string;
   errors: any [];
-  courses: any [];
 }
 
 class MyCourses extends React.Component<Props, State> {
@@ -29,73 +30,27 @@ class MyCourses extends React.Component<Props, State> {
     super(props);
 
     this.state = {
-      myCourses: [],
-      course_name: -1,
-      course_number: -1,
       courseDescription: "",
-      course: "",
-      errors: undefined,
-      courses: []
+      errors: []
     }
 
-    this.getMyCourses = this.getMyCourses.bind(this);
     this.deleteCourse = this.deleteCourse.bind(this);
-    this.sortBy = this.sortBy.bind(this);
     this.updateState = this.updateState.bind(this);
     this.submitForm = this.submitForm.bind(this);
     this.renderMyCourses = this.renderMyCourses.bind(this);
     this.autoComplete = this.autoComplete.bind(this);
   }
 
-  public componentWillMount() {
-    this.getMyCourses();
-    this.fetchAllCourses();
-  }
-
-  public getMyCourses() {
-    $.ajax({
-      method: "GET",
-      url: "api/my_courses",
-      data: { access_token: this.props.user.auth.accessToken }
-    }).then(myCourses => this.setState({ myCourses }));
-  }
-
-  public fetchAllCourses() {
-    $.ajax({
-      method: "GET",
-      url: "api/courses"
-    }).then(courses => {
-      this.setState({ courses })
-      this.autoComplete()
-    }).fail(errors => {
-      this.setState({ errors: errors.responseJSON })
-    })
+  public componentDidMount() {
+    this.props.fetchCourses()
+    this.props.fetchMyCourses(this.props.user.auth.accessToken).then(
+      () => this.autoComplete()
+    )
   }
 
   public deleteCourse(e, id) {
     e.stopPropagation();
-
-    const access_token = this.props.user.auth.access_token;
-    $.ajax({
-      type: "DELETE",
-      url: `api/my_courses/${id}`,
-      data: { access_token: this.props.user.auth.accessToken }
-    }).then(myCourses => this.setState({ myCourses }));
-  }
-
-  public sortBy(key) {
-    let polarity = this.state[key];
-    let newArray = this.state.myCourses.sort(function(a, b) {
-      if (a[key] < b[key]) return (-1 * polarity);
-      if (a[key] > b[key]) return (1 * polarity);
-      return 0;
-    });
-
-    let newPolarity = (polarity === -1 ? 1 : -1);
-    this.setState({
-      myCourses: newArray,
-      [key]: newPolarity
-    });
+    this.props.deleteMyCourse(id, this.props.user.auth.accessToken)
   }
 
   public updateState(e) {
@@ -105,12 +60,8 @@ class MyCourses extends React.Component<Props, State> {
   public submitForm(e) {
     e.preventDefault();
     const { courseDescription } = this.state;
-    $.ajax({
-      method: "POST",
-      url: "api/my_courses",
-      data: { course_number: courseDescription, access_token: this.props.user.auth.accessToken }
-    }).then( post => {
-      this.getMyCourses();
+    const access_token = this.props.user.auth.accessToken;
+    this.props.postMyCourse(courseDescription, access_token).then(() => {
       $('#createMyCourse').modal('hide');
     }).fail( errors =>
       this.setState({ errors })
@@ -142,8 +93,8 @@ class MyCourses extends React.Component<Props, State> {
             <table className="table table-hover">
               <thead>
                 <tr>
-                  <th onClick={() => this.sortBy("course_number")}>Course Number<a onClick={() => this.sortBy("course_number")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
-                  <th className="hidden-xs" onClick={() => this.sortBy("course_name")}>Course Name<a onClick={() => this.sortBy("course_name")} className="btn btn-xs" id="caret-container"><span className="caret" /></a></th>
+                  <th>Course Number</th>
+                  <th className="hidden-xs">Course Name</th>
                 </tr>
               </thead>
               <tbody>
@@ -157,7 +108,7 @@ class MyCourses extends React.Component<Props, State> {
   }
 
   public renderListItem() {
-    return this.state.myCourses.map(course => (
+    return this.props.myCourses.list.map(course => (
       <tr key={course.id} >
         <td>{course.course_number}</td>
         <td className="hidden-xs">{course.course_name}</td>

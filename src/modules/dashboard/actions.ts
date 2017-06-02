@@ -6,7 +6,11 @@ export const DASHBOARD = {
   BOOKMARKS: 'dashboard/BOOKMARKS',
   DELETE_BOOKMARK: 'dashboard/DELETE_BOOKMARK',
   RFPS: 'dashboard/RFPS',
-  DELETE_RFPS: 'dashboard/DELETE_RFPS'
+  DELETE_RFPS: 'dashboard/DELETE_RFPS',
+  MY_COURSES: 'dashboard/MY_COURSES',
+  DELETE_MY_COURSE: 'dashboard/DELETE_MY_COURSE',
+  COURSES: 'dashboard/COURSES',
+  ADD_MY_COURSE: 'dashboard/ADD_MY_COURSE'
 }
 
 // my posts actions
@@ -79,6 +83,56 @@ export const fetchRfps = accessToken => dispatch => (
 export const deleteRfps = (id, accessToken) => dispatch => (
   DashboardAPI.deleteRfps(id, accessToken).then(
     () => dispatch(removeRfps(id)),
+    err => console.log(err)
+  )
+);
+
+// my courses actions
+export const receiveMyCourses = myCourses => ({
+  type: DASHBOARD.MY_COURSES,
+  myCourses
+});
+
+export const removeMyCourse = id => ({
+  type: DASHBOARD.DELETE_MY_COURSE,
+  id
+});
+
+export const addMyCourse = myCourse => ({
+  type: DASHBOARD.ADD_MY_COURSE,
+  myCourse
+});
+
+export const fetchMyCourses = accessToken => dispatch => (
+  DashboardAPI.fetchMyCourses(accessToken).then(
+    res => dispatch(receiveMyCourses(res)),
+    err => console.log(err)
+  )
+);
+
+export const deleteMyCourse = (id, accessToken) => dispatch => (
+  DashboardAPI.deleteMyCourse(id, accessToken).then(
+    () => dispatch(removeMyCourse(id)),
+    err => console.log(err)
+  )
+);
+
+export const postMyCourse = (course_number, accessToken) => dispatch => (
+  DashboardAPI.postMyCourse(course_number, accessToken).then(
+    myCourse => dispatch(addMyCourse(myCourse)),
+    err => console.log(err)
+  )
+);
+
+// courses actions
+export const receiveCourses = courses => ({
+  type: DASHBOARD.COURSES,
+  courses
+});
+
+export const fetchCourses = () => dispatch => (
+  DashboardAPI.fetchCourses().then(
+    res => dispatch(receiveCourses(res)),
     err => console.log(err)
   )
 );

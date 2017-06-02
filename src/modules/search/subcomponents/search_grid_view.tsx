@@ -26,6 +26,13 @@ class SearchGridView extends React.Component<Props, State> {
     this.translateSortLabels = this.translateSortLabels.bind(this);
   }
 
+  public componentDidMount() {
+    $('.carousel').carousel('cycle')
+    $('.carousel').carousel({
+      interval: 2000
+    })
+  }
+
   public componentWillMount() {
     let nextQuery = this.props.currentQuery;
     if (this.props.currentQuery.category === "My Course Material" && this.props.user) {
@@ -55,7 +62,7 @@ class SearchGridView extends React.Component<Props, State> {
   }
 
   renderGridItem(post: IPost) {
-    const frames = [post.img_url1, post.img_url2, post.img_url3].filter(el => el !== null)
+    const frames = [post.img_url1, post.img_url2, post.img_url3].filter(el => (el !== "" && el !== null))
     const carouselFrames = frames.map((el, idx) => (
       <div className={`item ${idx == 0 ? "active" : ""}`}>
         <img src={el} />
@@ -70,14 +77,14 @@ class SearchGridView extends React.Component<Props, State> {
           <span className="sr-only">Previous</span>
         </a>
         <a className="right carousel-control" href={`#carousel-example-generic-${post.id}`} role="button" data-slide="next"
-          onClick={this.preventPropagation}>>
+          onClick={this.preventPropagation}>
           <span className="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
           <span className="sr-only">Next</span>
         </a>
       </div>
     )
 
-    if (!post.img_url2) carouselControls = null;
+    if (frames.length === 1) carouselControls = null;
 
     const carousel = (
       <div id={`carousel-example-generic-${post.id}`} className="carousel slide" data-ride="carousel">

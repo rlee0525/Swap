@@ -170,7 +170,7 @@ class PostDetail extends React.Component<any, any> {
     if (!this.props.post) return null;
 
     let { img_url1, img_url2, img_url3 } = this.props.post;
-    let imageArray = [img_url1, img_url2, img_url3].filter(el => el !== null);
+    let imageArray = [img_url1, img_url2, img_url3].filter(el => (el !== "" && el !== null))
 
     imageArray = imageArray.map((el, idx) => (
       <li key={idx} data-target="#carousel-example-generic-2"
@@ -185,9 +185,9 @@ class PostDetail extends React.Component<any, any> {
   public renderCarousel() {
     if (!this.props.post) return null;
     let { img_url1, img_url2, img_url3 } = this.props.post;
-    let imageArray = [img_url1, img_url2, img_url3].filter(el => el !== null);
+    let imageArray = [img_url1, img_url2, img_url3].filter(el => (el !== "" && el !== null))
 
-    if (img_url2) {
+    if (imageArray.length !== 1) {
       $('.carousel-control').removeClass("hide");
       $('.carousel-indicators').removeClass("hide");
     } else {

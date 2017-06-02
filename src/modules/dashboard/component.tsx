@@ -19,12 +19,15 @@ interface Props {
   fetchRfps : (accessToken: string) => JQueryPromise<void>;
   deleteRfps : (id: number, accessToken: string) => JQueryPromise<void>;
   receiveRfps : (rfps: any) => void;
+  fetchMyCourses : (accessToken: string) => JQueryPromise<void>;
+  deleteMyCourse : (id: number, accessToken: string) => JQueryPromise<void>;
+  fetchCourses : () => JQueryPromise<void>;
+  postMyCourse : (description: string, accessToken: string) => JQueryPromise<void>;
 }
 
 class Dashboard extends React.Component<Props, {}> {
   renderSubcomponent() {
     let page = this.props.location.search.slice(1);
-
     let { dashboard, user } = this.props;
 
     switch (page) {
@@ -49,9 +52,17 @@ class Dashboard extends React.Component<Props, {}> {
           />
         );
       case 'mycourses':
+      const { fetchMyCourses, deleteMyCourse,
+        fetchCourses, postMyCourse } = this.props;
         return (
           <MyCourses
             user={user}
+            myCourses={dashboard.myCourses}
+            courses={dashboard.courses}
+            fetchMyCourses={fetchMyCourses}
+            deleteMyCourse={deleteMyCourse}
+            fetchCourses={fetchCourses}
+            postMyCourse={postMyCourse}
           />
         )
       default:
