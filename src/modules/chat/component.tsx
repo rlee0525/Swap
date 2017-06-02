@@ -6,6 +6,7 @@ import './styles.scss';
 import { Messages } from './subcomponents';
 
 interface Props {
+  user: any;
 }
 
 interface State {
@@ -18,6 +19,7 @@ interface State {
 }
 
 class Chat extends React.Component<Props, State> {
+  ref;
   constructor(props) {
     super(props);
 
