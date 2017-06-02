@@ -58,7 +58,7 @@ class Chat extends React.Component<Props, State> {
     this.ref.off();
   }
 
-  sendMessage(message) : void {
+  sendMessage(message : string) : void {
     let { currentConversation } = this.state;
     let { user } = this.props;
 

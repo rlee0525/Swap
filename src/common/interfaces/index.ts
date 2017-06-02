@@ -1,9 +1,9 @@
 export interface IStoreState {
   user: IUser | null;
   post: IPost | null;
-  searchResult: IPost[];
+  searchResult: ISearchResult;
   dashboard: IDashboard;
-  currentQuery: any;
+  currentQuery: ICurrentQuery;
 }
 
 export interface IPost {
@@ -72,4 +72,18 @@ export interface IDashboard {
     fetched: boolean;
     list: any[];
   }
+}
+
+export interface ICurrentQuery {
+  category: string;
+  page_idx: number;
+  polarity: number;
+  query: string;
+  sort_by: string;
+  viewType: string;
+}
+
+export interface ISearchResult {
+  max_pages: number;
+  posts: IPost[];
 }
