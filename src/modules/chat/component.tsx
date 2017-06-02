@@ -36,7 +36,7 @@ class Chat extends React.Component<Props, State> {
     this.ref = null;
   }
 
-  componentDidMount() {
+  componentDidMount() : void {
     this.ref = firebase.database().ref('conversations'); 
     
     this.ref.on('value', snapshot => {
@@ -52,11 +52,11 @@ class Chat extends React.Component<Props, State> {
     })    
   }
 
-  componentWillUnmount() {
+  componentWillUnmount() : void {
     this.ref.off();
   }
 
-  sendMessage(message) {
+  sendMessage(message) : void {
     let { currentConversation } = this.state;
     let { user } = this.props;
 
@@ -73,13 +73,13 @@ class Chat extends React.Component<Props, State> {
     firebase.database().ref(`conversations/${currentConversation}/${time}`).set(messageObj);
   }
 
-  handleKeyPress(e) {
+  handleKeyPress(e) : void {
     if (e.key === 'Enter') {
       this.sendMessage(this.state.message);
     }
   }
 
-  update(e) {
+  update(e) : void {
     if (e.target.value !== '\n') {
       this.setState({
         message: e.target.value
@@ -87,7 +87,7 @@ class Chat extends React.Component<Props, State> {
     }
   }
 
-  render() {
+  render() : JSX.Element {
     if (this.state.loading) {
       return (
         <div>Loading</div>
