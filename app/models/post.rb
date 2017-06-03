@@ -24,6 +24,11 @@ class Post < ApplicationRecord
             :price, :img_url1,
             :title, presence: true
 
+  validates_presence_of :address, :center, :start_date, :end_date, 
+                        :unless => Proc.new do |post| {
+                          post.category == Post.find_by_category('Housing')
+                        }
+
   has_many :bookmarks
   belongs_to :course, inverse_of: :posts, optional: true
   belongs_to :user

@@ -66,6 +66,7 @@ class Api::PostsController < ApplicationController
 
   def post_params
     params.require(:post)
-          .permit(:title, :price, :description, :category, :img_url1, :img_url2, :img_url3)
+          .permit(:title, :price, :description, :category, :img_url1, :img_url2, 
+                  :img_url3, :address, :center, :start_date, :end_date)
   end
 end

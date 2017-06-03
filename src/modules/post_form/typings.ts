@@ -10,8 +10,10 @@ export interface IState {
   img_url3?: string;
   courses: object[];
   errors?: string[];
+  start_date?: string;
+  end_date?: string;
   address?: string;
-  center?: any;
+  center?: string;
 }
 
 export const _defaultState = {
@@ -24,6 +26,10 @@ export const _defaultState = {
   img_url1: "",
   img_url2: "",
   img_url3: "",
+  start_date: "",
+  end_date: "",
+  address: "",
+  center: JSON.stringify({ lat: 37.8719, lng: -122.2585 }),
   courses: null,
   errors: []
 }
