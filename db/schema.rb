@@ -62,7 +62,8 @@ ActiveRecord::Schema.define(version: 20170603221328) do
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
     t.string   "address"
-    t.string   "center"
+    t.float    "lat"
+    t.float    "lng"
     t.datetime "start_date"
     t.datetime "end_date"
     t.index ["category"], name: "index_posts_on_category", using: :btree
