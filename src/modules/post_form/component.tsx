@@ -141,11 +141,11 @@ class PostForm extends React.Component<any, IState> {
       let address = place.formatted_address;
       let lat = place.geometry.location.lat();
       let lng = place.geometry.location.lng();
-      let center = JSON.stringify({ lat, lng });
 
       this.setState({
         address,
-        center
+        lat,
+        lng
       });
     });
   }
@@ -195,7 +195,7 @@ class PostForm extends React.Component<any, IState> {
     e.preventDefault();
 
     const access_token = this.props.user.auth.accessToken;
-    let { title, course, price, description, category, img_url1, img_url2, img_url3, address, center, start_date, end_date } = this.state;
+    let { title, course, price, description, category, img_url1, img_url2, img_url3, address, lat, lng, start_date, end_date } = this.state;
     let method, url;
 
     if (this.state.category !== "Course Material") course = "";
@@ -207,26 +207,35 @@ class PostForm extends React.Component<any, IState> {
       url = `api/posts/${this.props.params.id}`
     }
 
-    if (this.state.category !== "Housing") {
-      address = "";
-      center = "";
-      start_date = "";
-      end_date = "";
+    if (this.state.category === "Housing") {
+      $.ajax({
+        method: method,
+        url: url,
+        data: {
+          post: { title, price, description, img_url1, img_url2, img_url3, address, lat, lng, start_date, end_date },
+          course: { course },
+          category: { category },
+          access_token
+        }
+      }).then(post => this.props.router.replace(`posts/${post.id}`))
+        .fail(errors => {
+          this.setState({ errors: errors.responseJSON })
+        });
+    } else {
+      $.ajax({
+        method: method,
+        url: url,
+        data: {
+          post: { title, price, description, img_url1, img_url2, img_url3 },
+          course: { course },
+          category: { category },
+          access_token
+        }
+      }).then(post => this.props.router.replace(`posts/${post.id}`))
+        .fail(errors => {
+          this.setState({ errors: errors.responseJSON })
+        });
     }
-
-    $.ajax({
-      method: method,
-      url: url,
-      data: {
-        post: { title, price, description, img_url1, img_url2, img_url3, address, center, start_date, end_date },
-        course: { course },
-        category: { category },
-        access_token
-      }
-    }).then(post => this.props.router.replace(`posts/${post.id}`))
-      .fail(errors => {
-        this.setState({ errors: errors.responseJSON })
-      });
   }
 
   public renderErrors() {

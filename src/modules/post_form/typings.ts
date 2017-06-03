@@ -13,7 +13,8 @@ export interface IState {
   start_date?: string;
   end_date?: string;
   address?: string;
-  center?: string;
+  lat?: number;
+  lng?: number;
 }
 
 export const _defaultState = {
@@ -29,7 +30,8 @@ export const _defaultState = {
   start_date: "",
   end_date: "",
   address: "",
-  center: JSON.stringify({ lat: 37.8719, lng: -122.2585 }),
+  lat: 37.8719,
+  lng: -122.2585,
   courses: null,
   errors: []
 }
