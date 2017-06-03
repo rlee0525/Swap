@@ -196,7 +196,8 @@ class PostForm extends React.Component<any, IState> {
   public submitForm(e) {
     e.preventDefault();
 
-    let { title, course, price, description, category, img_url1, img_url2, img_url3 } = this.state;
+    const access_token = this.props.user.auth.accessToken;
+    let { title, course, price, description, category, img_url1, img_url2, img_url3, address, center } = this.state;
     let method, url;
 
     if (this.state.category !== "Course Material") course = "";
@@ -208,21 +209,35 @@ class PostForm extends React.Component<any, IState> {
       url = `api/posts/${this.props.params.id}`
     }
 
-    const access_token = this.props.user.auth.accessToken;
-
-    $.ajax({
-      method: method,
-      url: url,
-      data: {
-        post: { title, price, description, img_url1, img_url2, img_url3 },
-        course: { course },
-        category: { category },
-        access_token
-      }
-    }).then(post => this.props.router.replace(`posts/${post.id}`))
-      .fail(errors => {
-        this.setState({ errors: errors.responseJSON })
-      });
+    if (this.state.category === "Housing") {
+      $.ajax({
+        method: method,
+        url: url,
+        data: {
+          post: { title, price, description, img_url1, img_url2, img_url3, address, center },
+          course: { course },
+          category: { category },
+          access_token
+        }
+      }).then(post => this.props.router.replace(`posts/${post.id}`))
+        .fail(errors => {
+          this.setState({ errors: errors.responseJSON })
+        });
+    } else {
+      $.ajax({
+        method: method,
+        url: url,
+        data: {
+          post: { title, price, description, img_url1, img_url2, img_url3 },
+          course: { course },
+          category: { category },
+          access_token
+        }
+      }).then(post => this.props.router.replace(`posts/${post.id}`))
+        .fail(errors => {
+          this.setState({ errors: errors.responseJSON })
+        });
+    }
   }
 
   public renderErrors() {
