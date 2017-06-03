@@ -40,8 +40,6 @@ class MyPosts extends React.Component<Props, State> {
   }
 
   public componentWillReceiveProps(newProps) {
-    console.log(newProps);
-
     this.setState({ myPosts: newProps.myPosts.list })
   }
 

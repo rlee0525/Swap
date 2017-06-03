@@ -10,6 +10,8 @@ export interface IState {
   img_url3?: string;
   courses: object[];
   errors?: string[];
+  address?: string;
+  center?: any;
 }
 
 export const _defaultState = {

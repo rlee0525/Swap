@@ -14,7 +14,7 @@ import { borderStyle,
          paddingBottom,
          paddingAll } from './styles';
 
-declare var $;
+declare var $, google;
 const CLOUDINARY_UPLOAD_PRESET = 'xmfenamw';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/dkympkwdz/upload';
 
@@ -50,7 +50,8 @@ class PostForm extends React.Component<any, IState> {
 
     if ((keyCode > 47 && keyCode < 58) || (keyCode > 34 && keyCode < 41) || (keyCode > 95 && keyCode < 106) ||
         (keyCode == 224) || (keyCode == 17) || (keyCode == 91) || (keyCode == 93) || (keyCode == 20) ||
-        (keyCode == 8) || (keyCode == 9) || (keyCode == 13) || (keyCode == 46) || ((keyCode == 65 || keyCode == 86 || keyCode == 67) && (ctrlKey === true || metaKey === true)) || (ctrlKey === true))
+        (keyCode == 8) || (keyCode == 9) || (keyCode == 13) || (keyCode == 46) || 
+        ((keyCode == 65 || keyCode == 86 || keyCode == 67) && (ctrlKey === true || metaKey === true)) || (ctrlKey === true))
         {
           $('#fixed-price').removeClass("has-error");
         } else {
@@ -133,6 +134,22 @@ class PostForm extends React.Component<any, IState> {
   public componentDidMount() {
     this.initializeDropzone();
     this.fetchAllCourses();
+
+    let input = document.getElementById('address');
+    let autocomplete = new google.maps.places.Autocomplete(input);
+
+    autocomplete.addListener('place_changed', () => {
+      let place = autocomplete.getPlace();
+      let address = place.formatted_address;
+      let lat = place.geometry.location.lat();
+      let lng = place.geometry.location.lng();
+      let center = { lat, lng };
+
+      this.setState({
+        address,
+        center
+      });
+    });
   }
 
   public fetchPost(id) {
@@ -177,10 +194,12 @@ class PostForm extends React.Component<any, IState> {
   }
 
   public submitForm(e) {
-    let { title, course, price, description, category, img_url1, img_url2, img_url3 } = this.state;
-    if (this.state.category !== "Course Material") course = "";
     e.preventDefault();
+
+    let { title, course, price, description, category, img_url1, img_url2, img_url3 } = this.state;
     let method, url;
+
+    if (this.state.category !== "Course Material") course = "";
     if (typeof this.props.params.id === 'undefined') {
       method = "POST";
       url = "api/posts";
@@ -188,7 +207,9 @@ class PostForm extends React.Component<any, IState> {
       method = "PATCH";
       url = `api/posts/${this.props.params.id}`
     }
+
     const access_token = this.props.user.auth.accessToken;
+
     $.ajax({
       method: method,
       url: url,
@@ -201,7 +222,7 @@ class PostForm extends React.Component<any, IState> {
     }).then(post => this.props.router.replace(`posts/${post.id}`))
       .fail(errors => {
         this.setState({ errors: errors.responseJSON })
-      })
+      });
   }
 
   public renderErrors() {
@@ -299,26 +320,28 @@ class PostForm extends React.Component<any, IState> {
           </div>
 
 
-          {/* Housing location input */}
+          {/* Housing address input */}
           <div className={`form-group ${this.state.category !== "Housing" ? "hidden" : ""}`}>
-            <label style={labelStyle} htmlFor="inputCourse3" className="col-sm-2 control-label-custom">
+            <label style={labelStyle} htmlFor="inputAddress3" className="col-sm-2 control-label-custom">
               Location
             </label>
             
             <div className="col-sm-9 input-group" style={paddingAll}>
               <input
                 maxLength={50}
-                value={this.state.course}
+                value={this.state.address}
                 onChange={ this.updateState }
                 type="text"
-                className="form-control"
-                id="course"
+                className="form-control controls"
+                id="address"
                 style={borderStyle}
                 placeholder="Type to autocomplete"
               />
+              {/*<input id="pac-input" className="controls" type="text" placeholder="Select a city to find its trend!" />*/}
               </div>
           </div>
 
+          {/* Housing date range input */}
           <div className={`form-group ${this.state.category !== "Housing" ? "hidden" : ""}`}>
             <label style={labelStyle} htmlFor="inputCourse3" className="col-sm-2 control-label-custom">
               Date Range
