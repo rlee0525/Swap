@@ -360,7 +360,6 @@ class PostForm extends React.Component<any, IState> {
             
             <div className="col-sm-9 input-group" style={paddingAll}>
               <DateRangePicker
-                className="form-control"
                 startDate={this.state.startDate}
                 endDate={this.state.endDate}
                 onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })}
