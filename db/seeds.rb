@@ -81,3 +81,14 @@ User.all.each do |user|
     end
   end
 end
+
+
+Conversation.create!(
+  conversation_id: "10156026345623475-10209361793984589",
+  user_id: "10156026345623475"
+)
+
+Conversation.create!(
+  conversation_id: "10156026345623475-10209361793984589",
+  user_id: "10209361793984589"
+)
