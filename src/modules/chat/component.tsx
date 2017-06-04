@@ -123,6 +123,9 @@ class Chat extends React.Component<Props, State> {
     return (
       <div className="container chat-container">
         <div className="chat-conversations">
+          <div className='chat-conversations-title'>
+            Conversations
+          </div>
           { values(conversations).map((conversation : any) => (
             <ConversationItem
               key={conversation.conversation_id}
