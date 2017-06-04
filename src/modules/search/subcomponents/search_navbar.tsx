@@ -116,7 +116,7 @@ class SearchNavbar extends React.Component<Props, State> {
               <li className={this.props.user ? "" : "hidden"}><a onClick={() => this.renderCategoryMenu("My Course Material")}>My Course Material</a></li>
             </ul>
           </div>
-          <div className="input-group col-md-10 col-sm-9 col-xs-8" id="phone-search-nav">
+          <div className="input-group col-md-10 col-sm-12 col-xs-8" id="phone-search-nav">
             <input id="search-query" type="text" className="form-control" placeholder="Search" onChange={e => this.onChange(e)}
                   onKeyDown={e => this.checkKey(e)} value={this.props.currentQuery.query} />
             <span className="input-group-addon search-icon" id="basic-addon2" onClick={this.enterSearchQuery}><span className="glyphicon glyphicon-search" aria-hidden="true" /></span>

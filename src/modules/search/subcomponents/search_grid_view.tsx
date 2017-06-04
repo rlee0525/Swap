@@ -136,6 +136,13 @@ class SearchGridView extends React.Component<Props, State> {
 
 
   render() {
+    let results;
+    if (this.props.searchResult.posts) {
+      results = this.props.searchResult.posts.map((post, idx) => this.renderGridItem(post));
+    } else {
+      results = (<div className="loader"></div>)
+    }
+
     return (
       <div>
         <div className="row">
@@ -152,7 +159,7 @@ class SearchGridView extends React.Component<Props, State> {
               </ul>
             </div>
           </div>
-          { this.props.searchResult.posts.map(post => this.renderGridItem(post)) }
+          { results }
         </div>
       </div>
     );
