@@ -111,7 +111,7 @@ class MyCourses extends React.Component<Props, State> {
     if (this.props.myCourses.fetched === false) return (<div className="loader"></div>);
     if (this.props.myCourses.list.length === 0) return (
       <tr>
-        <td>Currently, you haven't added any courses.  To take advantage of the "My Courses" search category, please enter your courses</td>
+        <td colSpan={2}>Currently, you haven't added any courses.  To take advantage of the "My Courses" search category, please enter your courses</td>
       </tr>
     );
 
