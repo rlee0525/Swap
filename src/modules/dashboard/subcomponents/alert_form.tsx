@@ -33,8 +33,6 @@ class AlertForm extends React.Component<Props, State> {
       url: "api/rfps",
       data: { description, access_token: this.props.user.auth.accessToken }
     }).then( post => {
-      console.log(post);
-
       this.props.receiveRfps(post);
       $('#createAlertModal').modal('hide');
     }).fail( errors =>

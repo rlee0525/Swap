@@ -59,6 +59,13 @@ class Rfps extends React.Component <Props, State> {
   }
 
   public renderListItems() {
+    if (this.props.rfps.fetched === false) return (<div className="loader"></div>);
+    if (this.props.rfps.list.length === 0) return (
+      <tr>
+        <td>Currently, you do not have any alerts setup.  Please add alerts.</td>
+      </tr>
+    );
+
     return this.state.rfps.map((rfp : IRfps) => (
       <tr key={`post${rfp.id}`}>
         <td>{shortenString(rfp.description, 30)}</td>
