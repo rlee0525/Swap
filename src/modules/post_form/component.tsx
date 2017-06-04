@@ -245,6 +245,7 @@ class PostForm extends React.Component<any, IState> {
       $(".has-error").removeClass("has-error")
     } else {
       this.state.errors.map((error, key) => {
+        console.log(error);
         let fieldName = error.split(" ")[0].toLowerCase() + "-error";
         let inputField = document.getElementsByClassName(fieldName)[0];
 
@@ -378,7 +379,9 @@ class PostForm extends React.Component<any, IState> {
 
           {/* Price input */}
           <div className="form-group">
-            <label style={labelStyle} htmlFor="inputPrice3" className="col-sm-2 control-label-custom">Price</label>
+            <label style={labelStyle} htmlFor="inputPrice3" className="col-sm-2 control-label-custom">
+              {this.state.category === "Housing" ? "Monthly Rent" : "Price"}
+            </label>
             <div className="col-sm-9 input-group price-error" id="fixed-price" style={paddingBottom}>
               <span className="input-group-addon" id="basic-addon1">$</span>
               <input
