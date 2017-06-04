@@ -26,8 +26,7 @@ class PostForm extends React.Component<any, IState> {
     super(props);
 
     this.state = {
-      ..._defaultState,
-      focusedInput: "START_DATE"
+      ..._defaultState
     };
 
     if (props.params.id) {

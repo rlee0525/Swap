@@ -33,7 +33,7 @@ export const _defaultState = {
   address: "",
   lat: 37.8719,
   lng: -122.2585,
-  focusedInput: "START_DATE",
+  focusedInput: null,
   courses: null,
   errors: []
 }
