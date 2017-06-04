@@ -200,7 +200,8 @@ class PostForm extends React.Component<any, IState> {
     e.preventDefault();
 
     const access_token = this.props.user.auth.accessToken;
-    let { title, course, price, description, category, img_url1, img_url2, img_url3, address, lat, lng, startDate, endDate } = this.state;
+    let { title, course, price, description, category, img_url1, 
+          img_url2, img_url3, address, lat, lng, startDate, endDate } = this.state;
     let method, url, post;
 
     if (this.state.category !== "Course Material") course = "";
@@ -213,10 +214,12 @@ class PostForm extends React.Component<any, IState> {
     }
 
     if (this.state.category === "Housing") {
-      let start_date = startDate.format();
-      let end_date = endDate.format();
+      let start_date, end_date; 
+      start_date = startDate ? startDate.format() : ""
+      end_date = endDate ? endDate.format() : ""
 
-      post = { title, price, category, description, img_url1, img_url2, img_url3, address, lat, lng, start_date, end_date };
+      post = { title, price, category, description, img_url1, 
+               img_url2, img_url3, address, lat, lng, start_date, end_date };
     } else {
       post = { title, price, category, description, img_url1, img_url2, img_url3 };
     }
@@ -237,17 +240,22 @@ class PostForm extends React.Component<any, IState> {
   }
 
   public renderErrors() {
-    return this.state.errors.map((error, key) => (
-      <div key={key} className="alert alert-danger" role="alert">
-        <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-        <span className="sr-only">Error:</span> {error}
-      </div>
-    ));
+    this.state.errors.map((error, key) => {
+      let fieldName = error.split(" ")[0].toLowerCase() + "-error";
+      let inputField = document.getElementsByClassName(fieldName)[0];
+      console.log(inputField)
+      console.log(fieldName)
+
+      if (inputField) {
+        $(`.${fieldName}`).addClass("has-error");
+      }
+    });
   }
 
-  public checkEmpty() {
-
-  }
+// <div key={key} className="alert alert-danger" role="alert">
+//   <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+//   <span className="sr-only">Error:</span> {error}
+// </div>
 
   public render() {
     const categories = ['Course Material', 'Furniture', 'Clothing', 
@@ -277,7 +285,7 @@ class PostForm extends React.Component<any, IState> {
               Course
             </label>
 
-            <div className="col-sm-9 input-group" style={paddingAll}>
+            <div className="col-sm-9 input-group course-error" style={paddingAll}>
               <input
                 maxLength={50}
                 value={this.state.course}
@@ -297,7 +305,7 @@ class PostForm extends React.Component<any, IState> {
               Title
             </label>
 
-            <div className="col-sm-9 input-group" style={morePadding}>
+            <div className="col-sm-9 input-group title-error" style={morePadding}>
               <input
                 maxLength={50}
                 value={this.state.title}
@@ -316,7 +324,7 @@ class PostForm extends React.Component<any, IState> {
           {/* Post description textarea */}
           <div className="form-group">
             <label style={labelStyle} htmlFor="inputDescription3" className="col-sm-2 control-label-custom">Description</label>
-            <div className="col-sm-9 input-group" style={morePadding}>
+            <div className="col-sm-9 input-group description-error" style={morePadding}>
               <textarea
                 maxLength={250}
                 value={this.state.description}
@@ -339,7 +347,7 @@ class PostForm extends React.Component<any, IState> {
               Location
             </label>
             
-            <div className="col-sm-9 input-group" style={paddingAll}>
+            <div className="col-sm-9 input-group address-error" style={paddingAll}>
               <input
                 maxLength={50}
                 value={this.state.address}
@@ -359,7 +367,7 @@ class PostForm extends React.Component<any, IState> {
               Date Range
             </label>
             
-            <div className="col-sm-9 input-group" style={paddingAll}>
+            <div className="col-sm-9 input-group start-error end-error" style={paddingAll}>
               <DateRangePicker
                 startDate={this.state.startDate}
                 endDate={this.state.endDate}
@@ -373,7 +381,7 @@ class PostForm extends React.Component<any, IState> {
           {/* Price input */}
           <div className="form-group">
             <label style={labelStyle} htmlFor="inputPrice3" className="col-sm-2 control-label-custom">Price</label>
-            <div className="col-sm-9 input-group" id="fixed-price" style={paddingBottom}>
+            <div className="col-sm-9 input-group price-error" id="fixed-price" style={paddingBottom}>
               <span className="input-group-addon" id="basic-addon1">$</span>
               <input
                 value={this.state.price}
