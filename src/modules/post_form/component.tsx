@@ -237,14 +237,12 @@ class PostForm extends React.Component<any, IState> {
   }
 
   public renderErrors() {
-    if (this.state.errors) {
-      return this.state.errors.map((error, key) => (
-        <div key={key} className="alert alert-danger" role="alert">
-          <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-          <span className="sr-only">Error:</span> {error}
-        </div>
-      ));
-    }
+    return this.state.errors.map((error, key) => (
+      <div key={key} className="alert alert-danger" role="alert">
+        <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span className="sr-only">Error:</span> {error}
+      </div>
+    ));
   }
 
   public render() {
