@@ -2,6 +2,8 @@ import React from 'react';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
 
+import 'react-dates/lib/css/_datepicker.css';
+
 import { IState, _defaultState } from './typings';
 import { ImageDropzone, RadioButtons } from './subcomponents';
 import { DateRangePicker, 
@@ -348,22 +350,13 @@ class PostForm extends React.Component<any, IState> {
 
           {/* Housing date range input */}
           <div className={`form-group ${this.state.category !== "Housing" ? "hidden" : ""}`}>
-            <label style={labelStyle} htmlFor="inputCourse3" className="col-sm-2 control-label-custom">
+            <label style={labelStyle} htmlFor="inputDate3" className="col-sm-2 control-label-custom">
               Date Range
             </label>
             
             <div className="col-sm-9 input-group" style={paddingAll}>
-              <input
-                maxLength={50}
-                value={this.state.course}
-                onChange={ this.updateState }
-                type="text"
-                className="form-control"
-                id="course"
-                style={borderStyle}
-                placeholder="Type to autocomplete"
-              />
               <DateRangePicker
+                className="form-control"
                 startDate={this.state.start_date} // momentPropTypes.momentObj or null,
                 endDate={this.state.end_date} // momentPropTypes.momentObj or null,
                 onDatesChange={({ start_date, end_date }) => this.setState({ start_date, end_date })} // PropTypes.func.isRequired,
