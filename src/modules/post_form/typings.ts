@@ -15,6 +15,7 @@ export interface IState {
   address?: string;
   lat?: number;
   lng?: number;
+  focusedInput?: any;
 }
 
 export const _defaultState = {
@@ -32,6 +33,7 @@ export const _defaultState = {
   address: "",
   lat: 37.8719,
   lng: -122.2585,
+  focusedInput: "START_DATE",
   courses: null,
   errors: []
 }

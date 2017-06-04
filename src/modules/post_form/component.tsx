@@ -4,6 +4,9 @@ import request from 'superagent';
 
 import { IState, _defaultState } from './typings';
 import { ImageDropzone, RadioButtons } from './subcomponents';
+import { DateRangePicker, 
+         SingleDatePicker, 
+         DayPickerRangeController } from 'react-dates';
 
 import { borderStyle, 
          noBorder, 
@@ -23,7 +26,8 @@ class PostForm extends React.Component<any, IState> {
     super(props);
 
     this.state = {
-      ..._defaultState
+      ..._defaultState,
+      focusedInput: "START_DATE"
     };
 
     if (props.params.id) {
@@ -340,7 +344,6 @@ class PostForm extends React.Component<any, IState> {
                 style={borderStyle}
                 placeholder="Type to autocomplete"
               />
-              {/*<input id="pac-input" className="controls" type="text" placeholder="Select a city to find its trend!" />*/}
               </div>
           </div>
 
@@ -361,7 +364,14 @@ class PostForm extends React.Component<any, IState> {
                 style={borderStyle}
                 placeholder="Type to autocomplete"
               />
-              </div>
+              <DateRangePicker
+                startDate={this.state.start_date} // momentPropTypes.momentObj or null,
+                endDate={this.state.end_date} // momentPropTypes.momentObj or null,
+                onDatesChange={({ start_date, end_date }) => this.setState({ start_date, end_date })} // PropTypes.func.isRequired,
+                focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
+                onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
+              />
+            </div>
           </div>
 
           {/* Price input */}
