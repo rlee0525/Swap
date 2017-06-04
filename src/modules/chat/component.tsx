@@ -1,11 +1,11 @@
 import React from 'react';
 import * as firebase from 'firebase';
 import autoBind from 'react-autobind';
-import { keyBy } from 'lodash';
+import { keyBy, values } from 'lodash';
 import { firebaseConfig } from '../../../config/api_key';
 
 import './styles.scss';
-import { Messages } from './subcomponents';
+import { Messages, ConversationItem } from './subcomponents';
 import { fetchConversations } from './utils';
 
 interface Props {
@@ -36,21 +36,7 @@ class Chat extends React.Component<Props, State> {
     this.ref = null;
   }
 
-  // connect to firebase and listens for messages
-        // this.ref = firebase.database().ref(`conversations/${currentConversation}`); 
-        
-        // this.ref.on('value', snapshot => {
-        //   let messages = snapshot.val() || {};
-
-        //   this.setState({ 
-        //     conversations: {
-        //       [currentConversation]: {
-        //         messages
-        //       }
-        //     }, 
-        //     loading: false,
-        //   });
-        // })
+ 
 //  this.setState({ 
 //           conversations,
 //           currentConversation
@@ -60,16 +46,27 @@ class Chat extends React.Component<Props, State> {
     let { user } = this.props;
 
     fetchConversations(user.auth.accessToken).then(
-      conversations => {
-        let currentConversation = conversations[0].conversation_id;
-        conversations = keyBy(conversations, "conversation_id");
-        return conversations;
-      },
-      err => console.log(err)
-    ).then(
-      convos => {
-        console.log(convos);
+      res => {
+        let currentConversation = res[0].conversation_id;
         
+        let conversations : object = keyBy<object>(res, "conversation_id");
+        console.log(conversations);
+        
+
+        // connect to firebase and listens for messages
+        this.ref = firebase.database().ref(`conversations/${currentConversation}`); 
+        
+        this.ref.on('value', snapshot => {
+          let messages = snapshot.val() || {};
+
+          conversations[currentConversation].messages = messages;
+
+          this.setState({ 
+            currentConversation,
+            conversations, 
+            loading: false,
+          });
+        });
       },
       err => console.log(err)
     );    
@@ -78,8 +75,6 @@ class Chat extends React.Component<Props, State> {
   componentWillUnmount() : void {
     this.ref.off();
   }
-
-  
 
   sendMessage(message : string) : void {
     let { currentConversation } = this.state;
@@ -128,11 +123,12 @@ class Chat extends React.Component<Props, State> {
     return (
       <div className="container chat-container">
         <div className="chat-conversations">
-          <div>
-            person 1
-          </div>
-
-          <div>person 2</div>
+          { values(conversations).map((conversation : any) => (
+            <ConversationItem
+              key={conversation.conversation_id}
+              user={conversation.other_user_info}
+            />
+          ))}
         </div>
 
         <div className="chat-messages">

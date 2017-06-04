@@ -9,11 +9,25 @@
   flex-direction: column;
   justify-content: flex-start;
   min-width: 100px;
-  padding: 15px;
+  // padding: 15px;
 
-  div {
-    border: 1px solid black;
-    height: 50px;
+  .conversation-item {
+    height: 70px;
+    padding: 10px 15px;
+    cursor: pointer;
+
+    &:hover {
+      background: #e2e2e2;
+    }
+
+    img {
+      border-radius: 50px;
+      margin-right: 15px;
+    }
+
+    span {
+      font-weight: 500;
+    }
   }
 }
 
