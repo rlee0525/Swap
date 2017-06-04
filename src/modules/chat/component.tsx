@@ -24,9 +24,7 @@ class Chat extends React.Component<Props, State> {
   ref;
   constructor(props) {
     super(props);
-
-    firebase.initializeApp(firebaseConfig);
-
+    
     this.state = {
       loading: true,
       conversations: {},
