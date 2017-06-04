@@ -4430,6 +4430,10 @@ react-addons-test-utils@^15.5.1:
     fbjs "^0.8.4"
     object-assign "^4.1.0"
 
+react-autobind@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/react-autobind/-/react-autobind-1.0.6.tgz#936bb58edf6b89b619c50f82f0e617159fdfd4f1"
+
 react-click-outside@^2.3.0:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/react-click-outside/-/react-click-outside-2.3.1.tgz#318737ebdf081a4a3bcd46825663674cbe9836eb"

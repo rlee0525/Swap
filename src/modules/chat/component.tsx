@@ -39,6 +39,8 @@ class Chat extends React.Component<Props, State> {
   }
 
   componentDidMount() : void {
+
+    // connect to firebase and listens for messages
     this.ref = firebase.database().ref('conversations'); 
     
     this.ref.on('value', snapshot => {
