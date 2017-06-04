@@ -351,12 +351,12 @@
 .bottom-left-corner {
   position: absolute;
   left: 10px;
-  bottom: 7px;
+  bottom: 14px;
   font-size: 15px !important;
   color: lightseagreen;
 }
 
 .bottom-left-corner img {
-  height: 56px;
+  height: 45px;
   margin-right: 8px;
 }
