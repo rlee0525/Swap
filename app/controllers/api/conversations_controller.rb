@@ -1,11 +1,20 @@
 class Api::ConversationsController < ApplicationController
   def index
     user = fb_auth_user(params[:access_token])
-    @conversations = user.conversations
+    user_id = user.fb_id
+
+    @conversations = user.conversations.as_json
+
+    @conversations.each_with_index do |conversation, idx|
+      other_user_id = conversation['conversation_id'].sub(user_id, '').sub('-','')
+      @conversations[idx]['other_user_id'] = other_user_id
+      @conversations[idx]['other_user_info'] = User.find_by(fb_id: other_user_id)
+    end
+
+    @conversations
   end
 
   def create
-    p params
     @conversation = Conversation.new(conversation_params)
     if @conversation.save
       render json: ['success']

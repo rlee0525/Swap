@@ -1,6 +1,7 @@
 import React from 'react';
 import * as firebase from 'firebase';
 import autoBind from 'react-autobind';
+import { keyBy } from 'lodash';
 import { firebaseConfig } from '../../../config/api_key';
 
 import './styles.scss';
@@ -15,9 +16,7 @@ interface State {
   loading: boolean;
   message: string;
   currentConversation: string;
-  conversations: {
-    [key: string]: string[];
-  }
+  conversations: any;
 }
 
 class Chat extends React.Component<Props, State> {
@@ -37,36 +36,50 @@ class Chat extends React.Component<Props, State> {
     this.ref = null;
   }
 
+  // connect to firebase and listens for messages
+        // this.ref = firebase.database().ref(`conversations/${currentConversation}`); 
+        
+        // this.ref.on('value', snapshot => {
+        //   let messages = snapshot.val() || {};
+
+        //   this.setState({ 
+        //     conversations: {
+        //       [currentConversation]: {
+        //         messages
+        //       }
+        //     }, 
+        //     loading: false,
+        //   });
+        // })
+//  this.setState({ 
+//           conversations,
+//           currentConversation
+//         });
+
   componentDidMount() : void {
     let { user } = this.props;
 
     fetchConversations(user.auth.accessToken).then(
-      res => {
-        console.log(res);
+      conversations => {
+        let currentConversation = conversations[0].conversation_id;
+        conversations = keyBy(conversations, "conversation_id");
+        return conversations;
+      },
+      err => console.log(err)
+    ).then(
+      convos => {
+        console.log(convos);
         
       },
       err => console.log(err)
-    )
-
-    // connect to firebase and listens for messages
-    this.ref = firebase.database().ref('conversations'); 
-    
-    this.ref.on('value', snapshot => {
-      let conversations = snapshot.val();
-
-      let currentConversation = Object.keys(conversations)[0];
-
-      this.setState({ 
-        conversations, 
-        loading: false,
-        currentConversation
-      });
-    })
+    );    
   }
 
   componentWillUnmount() : void {
     this.ref.off();
   }
+
+  
 
   sendMessage(message : string) : void {
     let { currentConversation } = this.state;
@@ -105,6 +118,9 @@ class Chat extends React.Component<Props, State> {
         <div>Loading</div>
       );
     }
+
+    console.log(this.state);
+    
 
     let { currentConversation, conversations } = this.state;
     let { user } = this.props;
