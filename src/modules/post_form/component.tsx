@@ -216,9 +216,9 @@ class PostForm extends React.Component<any, IState> {
       let start_date = startDate;
       let end_date = endDate;
 
-      post = { title, price, description, img_url1, img_url2, img_url3, address, lat, lng, start_date, end_date };
+      post = { title, price, category, description, img_url1, img_url2, img_url3, address, lat, lng, start_date, end_date };
     } else {
-      post = { title, price, description, img_url1, img_url2, img_url3 };
+      post = { title, price, category, description, img_url1, img_url2, img_url3 };
     }
 
     $.ajax({
@@ -237,16 +237,17 @@ class PostForm extends React.Component<any, IState> {
   }
 
   public renderErrors() {
-    return this.state.errors.map((error, key) => (
-      <div key={key} className="alert alert-danger" role="alert">
-        <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-        <span className="sr-only">Error:</span> {error}
-      </div>
-    ));
+    if (this.state.errors) {
+      return this.state.errors.map((error, key) => (
+        <div key={key} className="alert alert-danger" role="alert">
+          <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+          <span className="sr-only">Error:</span> {error}
+        </div>
+      ));
+    }
   }
 
   public render() {
-    console.log(this.state);
     const categories = ['Course Material', 'Furniture', 'Clothing', 
                         'Electronics', 'Housing', 'Bikes', 
                         'Games', 'Others', 'Lost & Found'];
