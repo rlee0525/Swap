@@ -1,5 +1,6 @@
 import React from 'react';
 import * as firebase from 'firebase';
+import autoBind from 'react-autobind';
 import { firebaseConfig } from '../../../config/api_key';
 
 import './styles.scss';
@@ -32,8 +33,7 @@ class Chat extends React.Component<Props, State> {
       message: ''
     }
 
-    this.handleKeyPress = this.handleKeyPress.bind(this);
-    this.update = this.update.bind(this);
+    autoBind(this);
 
     this.ref = null;
   }
@@ -66,7 +66,7 @@ class Chat extends React.Component<Props, State> {
 
     let time = Date.now();
     let messageObj = {
-      message, 
+      message,
       sender: user.userFB.id
     }
 

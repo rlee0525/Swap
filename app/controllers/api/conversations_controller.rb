@@ -5,6 +5,7 @@ class Api::ConversationsController < ApplicationController
   end
 
   def create
+    p params
     @conversation = Conversation.new(conversation_params)
     if @conversation.save
       render json: ['success']
