@@ -2,17 +2,11 @@ import React from 'react';
 import { IUser } from 'common/interfaces';
 
 interface Props {
-  conversation: any[];
-  user: IUser;
+  conversation : string [];
+  user : IUser;
 }
 
-interface State {
-}
-
-class Messages extends React.Component<Props, State> {
-  constructor(props) {
-    super(props);
-  }
+class Messages extends React.Component<Props, {}> {
 
   render() {
     let { conversation, user } = this.props;

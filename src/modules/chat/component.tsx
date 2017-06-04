@@ -51,7 +51,7 @@ class Chat extends React.Component<Props, State> {
         loading: false,
         currentConversation
       });
-    })    
+    })
   }
 
   componentWillUnmount() : void {
