@@ -36,12 +36,6 @@ class Chat extends React.Component<Props, State> {
     this.ref = null;
   }
 
- 
-//  this.setState({ 
-//           conversations,
-//           currentConversation
-//         });
-
   componentDidMount() : void {
     let { user } = this.props;
 
@@ -107,6 +101,28 @@ class Chat extends React.Component<Props, State> {
     }
   }
 
+  changeConversation(conversation_id) {
+
+    // connect to firebase and listens for messages
+    this.ref = firebase.database().ref(`conversations/${conversation_id}`); 
+    
+    this.ref.on('value', snapshot => {
+      let messages = snapshot.val() || {};
+
+      this.setState({ 
+        currentConversation: conversation_id,
+        conversations: {
+          ...this.state.conversations,
+          [conversation_id]: {
+            ...this.state.conversations[conversation_id],
+            messages: messages
+          }
+        },
+        loading: false
+      }); 
+    });
+  }
+
   render() : JSX.Element {
     if (this.state.loading) {
       return (
@@ -115,7 +131,6 @@ class Chat extends React.Component<Props, State> {
     }
 
     console.log(this.state);
-    
 
     let { currentConversation, conversations } = this.state;
     let { user } = this.props;
@@ -130,6 +145,7 @@ class Chat extends React.Component<Props, State> {
             <ConversationItem
               key={conversation.conversation_id}
               user={conversation.other_user_info}
+              changeConversation={() => this.changeConversation(conversation.conversation_id)}
             />
           ))}
         </div>
