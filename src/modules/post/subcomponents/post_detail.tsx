@@ -235,13 +235,18 @@ class PostDetail extends React.Component<any, any> {
     let conversationId = `${firstId}-${secondId}`;
 
     // $('#contactModal').modal('hide');
+    createConversation(conversationId, post.fb_id);
     
     createConversation(conversationId, user.userFB.id).then(
       () => {
         $('#contactModal').modal('hide');
         hashHistory.push('chat');
       },
-      err => console.log(err)
+      err => {
+        console.log(err)
+        $('#contactModal').modal('hide');
+        hashHistory.push('chat');
+      }
     );
   }
 

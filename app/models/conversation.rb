@@ -11,7 +11,8 @@
 #
 
 class Conversation < ApplicationRecord
-  validates :conversation_id, presence: true, uniqueness: true
+  validates :conversation_id, presence: true
+  validates_uniqueness_of :conversation_id, scope: [:user_id]
   validates :user_id, presence: true
   validates :archived, inclusion: { in: [true, false] }
 
