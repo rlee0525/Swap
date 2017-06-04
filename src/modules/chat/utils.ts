@@ -1,6 +1,6 @@
 /* global $ */
 
-export const createConversation = (conversation_id, user_id) => (
+export const createConversation = (conversation_id : string, user_id : number) : JQueryPromise<void> => (
   $.ajax({
     method: 'POST',
     url: 'api/conversations',
@@ -11,4 +11,12 @@ export const createConversation = (conversation_id, user_id) => (
       }
     }
   })
-)
+);
+
+export const fetchConversations = (access_token : string) : JQueryPromise<void> => (
+  $.ajax({
+    method: 'GET',
+    url: 'api/conversations',
+    data: { access_token }
+  })
+);

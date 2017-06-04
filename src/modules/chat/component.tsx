@@ -5,6 +5,7 @@ import { firebaseConfig } from '../../../config/api_key';
 
 import './styles.scss';
 import { Messages } from './subcomponents';
+import { fetchConversations } from './utils';
 
 interface Props {
   user: any;
@@ -39,6 +40,15 @@ class Chat extends React.Component<Props, State> {
   }
 
   componentDidMount() : void {
+    let { user } = this.props;
+
+    fetchConversations(user.auth.accessToken).then(
+      res => {
+        console.log(res);
+        
+      },
+      err => console.log(err)
+    )
 
     // connect to firebase and listens for messages
     this.ref = firebase.database().ref('conversations'); 
