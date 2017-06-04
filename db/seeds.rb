@@ -41,6 +41,15 @@ User.create!(
   last_name: ENV['RANDY_LAST_NAME']
 )
 
+User.create!(
+  fb_id: ENV['DAVID_FB_ID'],
+  edu_email: "bobbybobby@berkeley.edu",
+  university: University.first,
+  fb_picture: ENV['DAVID_FB_PICTURE'],
+  first_name: ENV['DAVID_FIRST_NAME'],
+  last_name: ENV['DAVID_LAST_NAME']
+)
+
 200.times do |idx|
   category = categories.sample
   course = nil
