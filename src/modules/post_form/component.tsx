@@ -200,7 +200,7 @@ class PostForm extends React.Component<any, IState> {
     e.preventDefault();
 
     const access_token = this.props.user.auth.accessToken;
-    let { title, course, price, description, category, img_url1, img_url2, img_url3, address, lat, lng, start_date, end_date } = this.state;
+    let { title, course, price, description, category, img_url1, img_url2, img_url3, address, lat, lng, startDate, endDate } = this.state;
     let method, url, post;
 
     if (this.state.category !== "Course Material") course = "";
@@ -213,6 +213,9 @@ class PostForm extends React.Component<any, IState> {
     }
 
     if (this.state.category === "Housing") {
+      let start_date = startDate;
+      let end_date = endDate;
+
       post = { title, price, description, img_url1, img_url2, img_url3, address, lat, lng, start_date, end_date };
     } else {
       post = { title, price, description, img_url1, img_url2, img_url3 };
@@ -243,6 +246,7 @@ class PostForm extends React.Component<any, IState> {
   }
 
   public render() {
+    console.log(this.state);
     const categories = ['Course Material', 'Furniture', 'Clothing', 
                         'Electronics', 'Housing', 'Bikes', 
                         'Games', 'Others', 'Lost & Found'];
@@ -357,11 +361,11 @@ class PostForm extends React.Component<any, IState> {
             <div className="col-sm-9 input-group" style={paddingAll}>
               <DateRangePicker
                 className="form-control"
-                startDate={this.state.start_date} // momentPropTypes.momentObj or null,
-                endDate={this.state.end_date} // momentPropTypes.momentObj or null,
-                onDatesChange={({ start_date, end_date }) => this.setState({ start_date, end_date })} // PropTypes.func.isRequired,
-                focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
-                onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
+                startDate={this.state.startDate}
+                endDate={this.state.endDate}
+                onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })}
+                focusedInput={this.state.focusedInput}
+                onFocusChange={focusedInput => this.setState({ focusedInput })}
               />
             </div>
           </div>

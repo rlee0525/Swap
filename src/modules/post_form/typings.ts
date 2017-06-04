@@ -10,8 +10,8 @@ export interface IState {
   img_url3?: string;
   courses: object[];
   errors?: string[];
-  start_date?: string;
-  end_date?: string;
+  startDate?: any;
+  endDate?: any;
   address?: string;
   lat?: number;
   lng?: number;
@@ -28,12 +28,12 @@ export const _defaultState = {
   img_url1: "",
   img_url2: "",
   img_url3: "",
-  start_date: "",
-  end_date: "",
+  startDate: "",
+  endDate: "",
   address: "",
   lat: 37.8719,
   lng: -122.2585,
-  focusedInput: null,
+  focusedInput: "startDate",
   courses: null,
   errors: []
 }
