@@ -137,6 +137,7 @@ class PostForm extends React.Component<any, IState> {
   public componentDidMount() {
     this.initializeDropzone();
     this.fetchAllCourses();
+    this.renderErrors();
 
     let input = document.getElementById('address');
     let autocomplete = new google.maps.places.Autocomplete(input);
@@ -193,7 +194,7 @@ class PostForm extends React.Component<any, IState> {
   }
 
   public radioButtonsUpdate(type) {
-    return e => this.setState({ [type]: e.currentTarget.textContent });
+    return e => { this.setState({ [type]: e.currentTarget.textContent, errors: [] }) };
   }
 
   public submitForm(e) {
@@ -240,22 +241,19 @@ class PostForm extends React.Component<any, IState> {
   }
 
   public renderErrors() {
-    this.state.errors.map((error, key) => {
-      let fieldName = error.split(" ")[0].toLowerCase() + "-error";
-      let inputField = document.getElementsByClassName(fieldName)[0];
-      console.log(inputField)
-      console.log(fieldName)
+    if (this.state.errors.length === 0) {
+      $(".has-error").removeClass("has-error")
+    } else {
+      this.state.errors.map((error, key) => {
+        let fieldName = error.split(" ")[0].toLowerCase() + "-error";
+        let inputField = document.getElementsByClassName(fieldName)[0];
 
-      if (inputField) {
-        $(`.${fieldName}`).addClass("has-error");
-      }
-    });
+        if (inputField) {
+          $(`.${fieldName}`).addClass("has-error");
+        }
+      });
+    }
   }
-
-// <div key={key} className="alert alert-danger" role="alert">
-//   <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-//   <span className="sr-only">Error:</span> {error}
-// </div>
 
   public render() {
     const categories = ['Course Material', 'Furniture', 'Clothing', 
