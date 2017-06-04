@@ -3,8 +3,8 @@
 # Table name: conversations
 #
 #  id              :integer          not null, primary key
-#  conversation_id :integer          not null
-#  user_id         :integer          not null
+#  conversation_id :string           not null
+#  user_id         :string           not null
 #  archived        :boolean          default(FALSE)
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null

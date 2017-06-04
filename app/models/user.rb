@@ -29,7 +29,8 @@ class User < ApplicationRecord
   has_many :users_courses, inverse_of: :user
   has_many :courses, through: :users_courses
   has_many :course_posts, through: :users_courses, source: :posts
-  has_many :conversations
+
+  has_many :conversations, foreign_key: :user_id, class_name: :Conversation, primary_key: :fb_id
 
   before_create :confirmation_token
 

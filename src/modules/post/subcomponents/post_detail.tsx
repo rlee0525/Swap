@@ -1,8 +1,11 @@
 import React from 'react';
-import { SearchNavbar } from 'modules/search/subcomponents';
+import autoBind from 'react-autobind';
+import Clipboard from 'clipboard';
+import { hashHistory } from 'react-router';
 import { shortenString, timeFromNow } from 'helpers';
 import { MapItem } from 'common/components';
-import Clipboard from 'clipboard';
+import { SearchNavbar } from 'modules/search/subcomponents';
+import { createConversation } from 'modules/chat/utils';
 declare var $;
 
 class PostDetail extends React.Component<any, any> {
@@ -16,15 +19,7 @@ class PostDetail extends React.Component<any, any> {
       view: "photo"
     }
 
-    this.contactPerson = this.contactPerson.bind(this);
-    this.initializeClipboard = this.initializeClipboard.bind(this);
-    this.createBookmark = this.createBookmark.bind(this);
-    this.editPost = this.editPost.bind(this);
-    this.deletePost = this.deletePost.bind(this);
-    this.checkVerifiedContact = this.checkVerifiedContact.bind(this);
-    this.checkVerifiedBookmark = this.checkVerifiedBookmark.bind(this);
-    this.fetchAuthor = this.fetchAuthor.bind(this);
-    this.changeView = this.changeView.bind(this);
+    autoBind(this);
   }
 
   public componentDidMount() {
@@ -224,6 +219,32 @@ class PostDetail extends React.Component<any, any> {
     });
   }
 
+  public startConversation() {
+    console.log(this.props);
+    let { post, user } = this.props;
+    
+    let firstId = post.fb_id;
+    let secondId = user.userFB.id;
+
+    if (firstId > secondId) {
+      let temp = firstId;
+      firstId = secondId
+      secondId = temp;
+    }
+
+    let conversationId = `${firstId}-${secondId}`;
+
+    // $('#contactModal').modal('hide');
+    
+    createConversation(conversationId, user.userFB.id).then(
+      () => {
+        $('#contactModal').modal('hide');
+        hashHistory.push('chat');
+      },
+      err => console.log(err)
+    );
+  }
+
   public renderModal() {
     if (!this.state.authorFB || this.state.authorFB.error) return null;
     let { name, link, picture } = this.state.authorFB;
@@ -257,7 +278,7 @@ class PostDetail extends React.Component<any, any> {
                 </div>
               </div>
               <div className="modal-footer" id="fb-footer">
-                <a target="_blank" href={link}>
+                <a onClick={this.startConversation} >
                   <button type="button" className="btn btn-sm btn-fb" id="fb-name-contact">
                     <span id="fb-contact-text">Contact {name}</span>
                     <img src={picture.data.url} id="fb-img-id" />

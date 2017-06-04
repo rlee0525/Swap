@@ -1,6 +1,6 @@
 /* global $ */
 
-export const createConversation = (conversation_id : string, user_id : number) : JQueryPromise<void> => (
+export const createConversation = (conversation_id : string, user_id : string) : JQueryPromise<void> => (
   $.ajax({
     method: 'POST',
     url: 'api/conversations',
