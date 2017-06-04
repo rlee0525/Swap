@@ -213,8 +213,8 @@ class PostForm extends React.Component<any, IState> {
     }
 
     if (this.state.category === "Housing") {
-      let start_date = startDate;
-      let end_date = endDate;
+      let start_date = startDate.format();
+      let end_date = endDate.format();
 
       post = { title, price, category, description, img_url1, img_url2, img_url3, address, lat, lng, start_date, end_date };
     } else {
@@ -245,6 +245,10 @@ class PostForm extends React.Component<any, IState> {
     ));
   }
 
+  public checkEmpty() {
+
+  }
+
   public render() {
     const categories = ['Course Material', 'Furniture', 'Clothing', 
                         'Electronics', 'Housing', 'Bikes', 
@@ -256,8 +260,7 @@ class PostForm extends React.Component<any, IState> {
         <h1 style={paddingLeft} id="heading-custom">
           {this.props.params.id ? `Edit post ${this.state.id}` : "Create a new post"}
         </h1>
-        <br/>
-        <br/>
+        <br/><br/>
         <form className="form-horizontal">
 
           {/* Category radio buttons */}
@@ -329,7 +332,6 @@ class PostForm extends React.Component<any, IState> {
               </span>
             </div>
           </div>
-
 
           {/* Housing address input */}
           <div className={`form-group ${this.state.category !== "Housing" ? "hidden" : ""}`}>
