@@ -102,6 +102,7 @@ class Chat extends React.Component<Props, State> {
   }
 
   changeConversation(conversation_id) {
+    this.ref.off();
 
     // connect to firebase and listens for messages
     this.ref = firebase.database().ref(`conversations/${conversation_id}`); 
