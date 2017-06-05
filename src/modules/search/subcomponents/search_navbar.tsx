@@ -103,7 +103,7 @@ class SearchNavbar extends React.Component<Props, State> {
                 {this.state.category || this.props.currentQuery.category}
                 <span className="caret" id="special-caret"></span>
               </button>
-              <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
+              <ul className="dropdown-menu category-dropdown" aria-labelledby="dropdownMenu1">
                 <li><a onClick={() => this.renderCategoryMenu("All")}>All</a></li>
                 <li><a onClick={() => this.renderCategoryMenu("Course Material")}>Course Material</a></li>
                 <li><a onClick={() => this.renderCategoryMenu("Furniture")}>Furniture</a></li>

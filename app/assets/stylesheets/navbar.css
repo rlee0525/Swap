@@ -77,3 +77,8 @@
     margin-left: 40px;
   }
 }
+
+.category-dropdown {
+  left: 15px !important;
+  cursor: pointer;
+}
