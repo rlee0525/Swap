@@ -1,4 +1,5 @@
 import React from 'react';
+import firebase from 'firebase';
 import { IUser } from 'common/interfaces';
 
 interface Props {
@@ -12,16 +13,40 @@ class Messages extends React.Component<Props, {}> {
     let { conversation, user } = this.props;
 
     let timestamps = Object.keys(conversation.messages).reverse();
-    console.log(conversation);
+    let firstUnseen = 0;
+    let firstSeen = 0;
     
     return (
       <div className="chat-body">
         { timestamps.map(timestamp => {
-          let isMyMessage = conversation.messages[timestamp].sender === user.userFB.id;
+          let currentMessage = conversation.messages[timestamp];
+          let isMyMessage = currentMessage.sender === user.userFB.id;
+
+          if (!isMyMessage && !currentMessage.seen) {
+            firebase.database().ref(`conversations/${conversation.conversation_id}/${timestamp}/seen`).set(true); 
+          }
+
+          if (isMyMessage && !currentMessage.seen) {
+            firstUnseen++;
+          }
+
+          if (isMyMessage && currentMessage.seen) {
+            firstSeen++;
+          }
+
+          console.log(isMyMessage);
+          console.log(currentMessage);
+          
+
           return (
-            <div className={`chat-message ${isMyMessage ? 'mine-message' : 'other-message'}`}>
-              <span>{ conversation.messages[timestamp].message }</span>
-              <img src={isMyMessage ? user.userFB.picture.data.url : conversation.other_user_info.fb_picture } />
+            <div className={`chat-message`}>
+              <div className={`chat-message-body ${isMyMessage ? 'mine-message' : 'other-message'}`}>
+                <span>{ conversation.messages[timestamp].message }</span>
+                <img src={isMyMessage ? user.userFB.picture.data.url : conversation.other_user_info.fb_picture } />
+              </div>
+
+              { firstUnseen === 1 ? <div className="chat-receipt"><i>delivered</i></div> : null }
+              { firstSeen === 1 ? <div className="chat-receipt"><i>seen</i></div> : null }
             </div>
           )
         })}
