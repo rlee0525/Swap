@@ -137,7 +137,7 @@ class Search extends React.Component<Props, State> {
                 <nav className="breadcrumb" id="breadcrumb-container">
                   <a onClick={() => this.renderCategoryMenu("All")} className="breadcrumb-item" href="#/recent">All</a>
                   {label && <a onClick={() => this.renderCategoryMenu(category)} className="breadcrumb-item" href={`#/${path}`}>{label}</a>}
-                  <span className="breadcrumb-item active"></span>
+                  <span className="breadcrumb-item active">{(this.props.currentQuery.page_idx - 1) * 16 + 1} - {(this.props.currentQuery.page_idx * 16)} of {this.props.searchResult.result_count} results</span>
                 </nav>
 
                 <div className="search-icons">
@@ -148,9 +148,6 @@ class Search extends React.Component<Props, State> {
                     <span className="glyphicon glyphicon-th-list"></span>
                   </button>
                 </div>
-              </div>
-              <div className="col-md-12">
-                Showing results {(this.props.currentQuery.page_idx - 1) * 16 + 1} - {(this.props.currentQuery.page_idx * 16)} of {this.props.searchResult.result_count} results total
               </div>
               { this.renderView() }
               <Pagination
