@@ -119,3 +119,15 @@
     margin-right: 9px !important;
   }
 }
+
+@media screen and (max-width: 460px) {
+  #result-count {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 460px) {
+  #result-count-2 {
+    display: none;
+  }
+}
