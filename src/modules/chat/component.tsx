@@ -42,7 +42,7 @@ class Chat extends React.Component<Props, State> {
     fetchConversations(user.auth.accessToken).then(
       res => {
         // update to render the correct conversation based on clicked post
-        let currentConversation = res[0].conversation_id;
+        let currentConversation = res[1].conversation_id;
 
         this.ref = firebase.database().ref(`conversations/${currentConversation}`); 
 
@@ -54,17 +54,16 @@ class Chat extends React.Component<Props, State> {
 
         for (let i = 0; i < ids.length; i++) {
           
-          let data = this.ref.once('value', snapshot => {
+          let data = firebase.database().ref(`conversations/${ids[i]}`).once('value', snapshot => {
             
             let messages = snapshot.val() || {};
             conversations[ids[i]].messages = messages;
 
             let timestamps = Object.keys(messages);
-
+            
             let hasUnreadMessages = messages[timestamps[timestamps.length - 1]].sender !== user.userFB.id;
 
             conversations[ids[i]].hasUnreadMessages = hasUnreadMessages;
-            console.log(conversations);
             
           });
 
@@ -104,6 +103,7 @@ class Chat extends React.Component<Props, State> {
         ...this.state.conversations,
         [currentConversation]: {
           ...this.state.conversations[currentConversation],
+          hasUnreadMessages: false,
           messages: {
             ...this.state.conversations[currentConversation].messages,
             [time]: messageObj
@@ -172,6 +172,7 @@ class Chat extends React.Component<Props, State> {
             <ConversationItem
               key={conversation.conversation_id}
               hasUnreadMessages={conversation.hasUnreadMessages}
+              active={currentConversation === conversation.conversation_id}
               user={conversation.other_user_info}
               changeConversation={() => this.changeConversation(conversation.conversation_id)}
             />
