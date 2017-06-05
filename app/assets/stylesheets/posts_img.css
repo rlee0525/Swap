@@ -68,6 +68,12 @@
   letter-spacing: 0.02em;
 }
 
+@media screen and (max-width: 1200px) {
+  #grid-title {
+    font-size: 13px;
+  }
+}
+
 #grid-caption {
   height: 125px;
   padding-top: 11px;
