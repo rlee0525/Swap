@@ -2,7 +2,6 @@ import React from 'react';
 import * as firebase from 'firebase';
 import autoBind from 'react-autobind';
 import { keyBy, values } from 'lodash';
-import { firebaseConfig } from '../../../config/api_key';
 
 import './styles.scss';
 import { Messages, ConversationItem } from './subcomponents';
@@ -77,7 +76,8 @@ class Chat extends React.Component<Props, State> {
     let time = Date.now();
     let messageObj = {
       message,
-      sender: user.userFB.id
+      sender: user.userFB.id,
+      seen: false
     }
 
     this.setState({ 

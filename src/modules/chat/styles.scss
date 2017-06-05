@@ -73,11 +73,12 @@
   }
 }
 
-.chat-message {
+.chat-message-body {
   display: flex;
   justify-content: flex-end;
   align-items: center;
   flex: 0 0 auto;
+  position: relative;
 
   img {
     height: 30px;
@@ -112,4 +113,16 @@
   span {
     background: #F1F0F0
   }
+}
+
+.chat-message {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 auto;
+}
+
+.chat-receipt {
+  font-size: 10px;
+  height: 15px;
+  margin: 0 10px 0 auto;
 }
