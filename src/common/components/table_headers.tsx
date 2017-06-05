@@ -7,15 +7,9 @@ interface Props {
   isFirstColumnPlaceholder?: boolean;
 }
 
-interface State {
-}
-
-class TableHeaders extends React.Component<Props, State> {
+class TableHeaders extends React.Component<Props, {}> {
   public static defaultProps: Partial<Props> = {
     isFirstColumnPlaceholder: true
-  }
-  constructor(props) {
-    super(props);
   }
 
   sortBy(key) {

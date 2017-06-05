@@ -10,7 +10,8 @@
     "noImplicitThis": false,
     "pretty": true,
     "strictNullChecks": false,
-    "target": "es5"
+    "target": "es5",
+    "allowJs": true
   },
   "include": [
     "./src/*"

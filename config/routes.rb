@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       resources :schedules,       only: [:index, :create, :destroy]
       resources :my_courses,      only: [:index, :create, :destroy]
       resources :course_posts,    only: [:index]
+      resources :conversations,   only: [:index, :create, :destroy]
     end
   end
 

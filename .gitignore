@@ -30,5 +30,6 @@ application.yml
 
 # Ignore application configuration
 /config/application.yml
+/config/api_key.js
 
 .vscode
