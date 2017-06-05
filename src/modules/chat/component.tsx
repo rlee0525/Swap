@@ -171,6 +171,7 @@ class Chat extends React.Component<Props, State> {
           { values(conversations).map((conversation : any) => (
             <ConversationItem
               key={conversation.conversation_id}
+              hasUnreadMessages={conversation.hasUnreadMessages}
               user={conversation.other_user_info}
               changeConversation={() => this.changeConversation(conversation.conversation_id)}
             />
