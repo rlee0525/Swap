@@ -34,10 +34,6 @@ class Messages extends React.Component<Props, {}> {
             firstSeen++;
           }
 
-          console.log(isMyMessage);
-          console.log(currentMessage);
-          
-
           return (
             <div className={`chat-message`}>
               <div className={`chat-message-body ${isMyMessage ? 'mine-message' : 'other-message'}`}>
