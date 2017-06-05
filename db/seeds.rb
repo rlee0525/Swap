@@ -53,8 +53,22 @@ User.create!(
 200.times do |idx|
   category = categories.sample
   course = nil
+  start_date = nil
+  end_date = nil
+  lat = nil
+  lng = nil
+  address = nil
+  
   if category == "Course Material"
     course = Course.find(rand(1..Course.count))
+  end
+
+  if category == "Housing"
+    address = "Stern Hall, Berkeley, CA 94720"
+    lat = 37.874853
+    lng = -122.255458
+    start_date = Time.now + rand(1000000..1000000)
+    end_date = Time.now + rand(1000000..10000000)
   end
 
   Post.create!(
@@ -67,6 +81,11 @@ User.create!(
     img_url3: Posts::DATA[idx % 29][:img_url3],
     category: category,
     course: course,
+    address: address,
+    lat: lat,
+    lng: lng,
+    start_date: start_date,
+    end_date: end_date,
     updated_at: rand(0..4320).minutes.ago
   )
 end
