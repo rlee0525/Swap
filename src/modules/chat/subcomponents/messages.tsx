@@ -13,27 +13,30 @@ class Messages extends React.Component<Props, {}> {
     let { conversation, user } = this.props;
 
     let timestamps = Object.keys(conversation.messages).reverse();
-    let firstUnseen = 0;
-    let firstSeen = 0;
+    let renderedDelivered = false;
+    let renderedSeen = false;
     
     return (
       <div className="chat-body">
         { timestamps.map(timestamp => {
           let currentMessage = conversation.messages[timestamp];
           let isMyMessage = currentMessage.sender === user.userFB.id;
+          let receipt = null;
 
           if (!isMyMessage && !currentMessage.seen) {
             firebase.database().ref(`conversations/${conversation.conversation_id}/${timestamp}/seen`).set(true); 
           }
 
-          if (isMyMessage && !currentMessage.seen) {
-            firstUnseen++;
+          if (isMyMessage && !currentMessage.seen && !renderedDelivered) {
+            renderedDelivered = true;
+            receipt = <div className="chat-receipt"><i>delivered</i></div>;
           }
 
-          if (isMyMessage && currentMessage.seen) {
-            firstSeen++;
+          if (isMyMessage && currentMessage.seen && !renderedSeen) {
+            renderedSeen = true;
+            receipt = <div className="chat-receipt"><i>seen</i></div>;
           }
-
+          
           return (
             <div className={`chat-message`}>
               <div className={`chat-message-body ${isMyMessage ? 'mine-message' : 'other-message'}`}>
@@ -41,8 +44,7 @@ class Messages extends React.Component<Props, {}> {
                 <img src={isMyMessage ? user.userFB.picture.data.url : conversation.other_user_info.fb_picture } />
               </div>
 
-              { firstUnseen === 1 ? <div className="chat-receipt"><i>delivered</i></div> : null }
-              { firstSeen === 1 ? <div className="chat-receipt"><i>seen</i></div> : null }
+              { receipt }
             </div>
           )
         })}
