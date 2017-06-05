@@ -1,3 +1,4 @@
+declare var Promise;
 import React from 'react';
 import * as firebase from 'firebase';
 import autoBind from 'react-autobind';
@@ -40,24 +41,37 @@ class Chat extends React.Component<Props, State> {
 
     fetchConversations(user.auth.accessToken).then(
       res => {
+        // update to render the correct conversation based on clicked post
         let currentConversation = res[0].conversation_id;
-        
+
+        this.ref = firebase.database().ref(`conversations/${currentConversation}`); 
+
         let conversations : object = keyBy<object>(res, "conversation_id");
 
         let ids = Object.keys(conversations);
 
-        let hasUnreadMessages = conversations[ids[ids.length - 1]].sender !== user.userFB.id;
+        let dataNeeded = [];
 
-        conversations[ids[ids.length - 1]].hasUnreadMessages = hasUnreadMessages;
+        for (let i = 0; i < ids.length; i++) {
+          
+          let data = this.ref.once('value', snapshot => {
+            
+            let messages = snapshot.val() || {};
+            conversations[ids[i]].messages = messages;
 
-        // connect to firebase and listens for messages
-        this.ref = firebase.database().ref(`conversations/${currentConversation}`); 
-        
-        this.ref.once('value', snapshot => {
-          let messages = snapshot.val() || {};
+            let timestamps = Object.keys(messages);
 
-          conversations[currentConversation].messages = messages;
+            let hasUnreadMessages = messages[timestamps[timestamps.length - 1]].sender !== user.userFB.id;
 
+            conversations[ids[i]].hasUnreadMessages = hasUnreadMessages;
+            console.log(conversations);
+            
+          });
+
+          dataNeeded.push(data);
+        }
+
+        Promise.all(dataNeeded).then(() => {
           this.setState({ 
             currentConversation,
             conversations, 
@@ -144,8 +158,6 @@ class Chat extends React.Component<Props, State> {
         <div>Loading</div>
       );
     }
-
-    console.log(this.state);
 
     let { currentConversation, conversations } = this.state;
     let { user } = this.props;
