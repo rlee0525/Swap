@@ -96,6 +96,12 @@ class MyPosts extends React.Component<Props, State> {
   }
 
   public renderListItem() {
+    if (this.props.myPosts.fetched === false) return (<div className="loader"></div>);
+    if (this.props.myPosts.list.length === 0) return (
+      <tr>
+        <td colSpan={7}>Currently, you haven't created any posts.  Creating a new post is easy!  Just click on the "Create Post" button or Icon to the top right of this box to get started!</td>
+      </tr>
+    );
     return this.state.myPosts.map((myPost, statePostId) => (
       <tr key={myPost.id} onClick={() => myPost.active ? this.loadPost(myPost.id) : null} className={myPost.active ? "" : "disabled"}>
         <td>

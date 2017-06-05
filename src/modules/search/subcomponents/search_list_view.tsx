@@ -71,6 +71,13 @@ class SearchListView extends React.Component<Props, any> {
   }
 
   render() {
+    let results;
+    if (this.props.searchResult.posts) {
+      results = this.props.searchResult.posts.map((post, idx) => this.renderListItem(post, idx));
+    } else {
+      results = (<div className="loader"></div>)
+    }
+
     return (
       <div>
         <table className="table table-hover">
@@ -84,7 +91,7 @@ class SearchListView extends React.Component<Props, any> {
             </tr>
           </thead>
           <tbody>
-            { this.props.searchResult.posts.map((post, idx) => this.renderListItem(post, idx)) }
+            { results }
           </tbody>
         </table>
       </div>
