@@ -47,19 +47,19 @@ class Chat extends React.Component<Props, State> {
         
 
         // connect to firebase and listens for messages
-        this.ref = firebase.database().ref(`conversations/${currentConversation}`); 
+        // this.ref = firebase.database().ref(`conversations/${currentConversation}`); 
         
-        this.ref.on('value', snapshot => {
-          let messages = snapshot.val() || {};
+        // this.ref.on('value', snapshot => {
+        //   let messages = snapshot.val() || {};
 
-          conversations[currentConversation].messages = messages;
+        //   conversations[currentConversation].messages = messages;
 
-          this.setState({ 
-            currentConversation,
-            conversations, 
-            loading: false,
-          });
-        });
+        //   this.setState({ 
+        //     currentConversation,
+        //     conversations, 
+        //     loading: false,
+        //   });
+        // });
       },
       err => console.log(err)
     );    
