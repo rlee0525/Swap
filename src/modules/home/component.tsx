@@ -29,10 +29,7 @@ class Home extends React.Component<any, {}> {
 
     description.classList.remove("hide");
     description.classList.add("animated");
-    description.classList.add("zoomIn");
-
-    title.classList.add("animated");
-    title.classList.add("slideInDown");
+    description.classList.add("fadeIn");
   }
 
   private hideDescription(e) {
@@ -42,15 +39,10 @@ class Home extends React.Component<any, {}> {
 
     description.classList.add("hide");
     description.classList.remove("animated");
-    description.classList.remove("zoomIn");
-
-    title.classList.remove("animated");
-    title.classList.remove("slideInDown");
+    description.classList.remove("fadeIn");
   }
 
   private renderNavbar() {
-    // TODO will break because navbar components take into account their location,
-    // need to fix navbar location logic first
     return (
       <div>
         <SearchNavbar

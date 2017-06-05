@@ -1,9 +1,9 @@
 .thumbnail-image {
-  filter: brightness(60%);
+  filter: brightness(80%);
 }
 
 .thumbnail-backdrop {
-  filter: brightness(30%);
+  filter: brightness(35%);
 }
 
 .carousel-caption {
@@ -45,6 +45,16 @@
   .category-title {
     font-size: 20px;
   }
+}
+
+.category-title {
+  color: white;
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  text-shadow: none !important;
+  font-size: 16px;
+  font-weight: 400;
 }
 
 /*Grid View*/
