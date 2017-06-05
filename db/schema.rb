@@ -69,6 +69,11 @@ ActiveRecord::Schema.define(version: 20170604205137) do
     t.boolean  "deleted",     default: false
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+    t.string   "address"
+    t.float    "lat"
+    t.float    "lng"
+    t.datetime "start_date"
+    t.datetime "end_date"
     t.index ["category"], name: "index_posts_on_category", using: :btree
     t.index ["course_id"], name: "index_posts_on_course_id", using: :btree
     t.index ["user_id"], name: "index_posts_on_user_id", using: :btree

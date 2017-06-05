@@ -1,0 +1,40 @@
+.DateRangePicker {
+  width: 100%;
+}
+
+.DateRangePickerInput {
+  width: 100%;
+  height: 39px;
+  border-radius: 4px 0 0 4px;
+}
+
+.DateInput {
+  padding: 2px !important;
+  left: 5px;
+  max-width: 90px;
+}
+
+.DateRangePickerInput__arrow {
+  min-width: 5%;
+  text-align: center;
+}
+
+.DateInput__display-text {
+  font-size: 14px;
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.DateRangePicker__picker {
+  z-index: 3 !important;
+  top: 57px !important;
+}
+
+.DateInput--with-caret::before {
+  z-index: 4 !important;
+  top: 45px !important;
+}
+
+.DateInput--with-caret::after {
+  z-index: 4 !important;
+  top: 46px !important;
+}

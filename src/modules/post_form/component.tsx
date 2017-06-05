@@ -2,8 +2,13 @@ import React from 'react';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
 
+import 'react-dates/lib/css/_datepicker.css';
+
 import { IState, _defaultState } from './typings';
 import { ImageDropzone, RadioButtons } from './subcomponents';
+import { DateRangePicker, 
+         SingleDatePicker, 
+         DayPickerRangeController } from 'react-dates';
 
 import { borderStyle, 
          noBorder, 
@@ -14,7 +19,7 @@ import { borderStyle,
          paddingBottom,
          paddingAll } from './styles';
 
-declare var $;
+declare var $, google;
 const CLOUDINARY_UPLOAD_PRESET = 'xmfenamw';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/dkympkwdz/upload';
 
@@ -23,10 +28,8 @@ class PostForm extends React.Component<any, IState> {
     super(props);
 
     this.state = {
-      ..._defaultState,
-      address: "University of Berkeley",
-      center: { lat: 37.8719, lng: -122.2585 }
-    }
+      ..._defaultState
+    };
 
     if (props.params.id) {
       this.fetchPost(props.params.id)
@@ -50,7 +53,8 @@ class PostForm extends React.Component<any, IState> {
 
     if ((keyCode > 47 && keyCode < 58) || (keyCode > 34 && keyCode < 41) || (keyCode > 95 && keyCode < 106) ||
         (keyCode == 224) || (keyCode == 17) || (keyCode == 91) || (keyCode == 93) || (keyCode == 20) ||
-        (keyCode == 8) || (keyCode == 9) || (keyCode == 13) || (keyCode == 46) || ((keyCode == 65 || keyCode == 86 || keyCode == 67) && (ctrlKey === true || metaKey === true)) || (ctrlKey === true))
+        (keyCode == 8) || (keyCode == 9) || (keyCode == 13) || (keyCode == 46) || 
+        ((keyCode == 65 || keyCode == 86 || keyCode == 67) && (ctrlKey === true || metaKey === true)) || (ctrlKey === true))
         {
           $('#fixed-price').removeClass("has-error");
         } else {
@@ -133,6 +137,23 @@ class PostForm extends React.Component<any, IState> {
   public componentDidMount() {
     this.initializeDropzone();
     this.fetchAllCourses();
+    this.renderErrors();
+
+    let input = document.getElementById('address');
+    let autocomplete = new google.maps.places.Autocomplete(input);
+
+    autocomplete.addListener('place_changed', () => {
+      let place = autocomplete.getPlace();
+      let address = place.formatted_address;
+      let lat = place.geometry.location.lat();
+      let lng = place.geometry.location.lng();
+
+      this.setState({
+        address,
+        lat,
+        lng
+      });
+    });
   }
 
   public fetchPost(id) {
@@ -173,14 +194,18 @@ class PostForm extends React.Component<any, IState> {
   }
 
   public radioButtonsUpdate(type) {
-    return e => this.setState({ [type]: e.currentTarget.textContent });
+    return e => { this.setState({ [type]: e.currentTarget.textContent, errors: [] }) };
   }
 
   public submitForm(e) {
-    let { title, course, price, description, category, img_url1, img_url2, img_url3 } = this.state;
-    if (this.state.category !== "Course Material") course = "";
     e.preventDefault();
-    let method, url;
+
+    const access_token = this.props.user.auth.accessToken;
+    let { title, course, price, description, category, img_url1, 
+          img_url2, img_url3, address, lat, lng, startDate, endDate } = this.state;
+    let method, url, post;
+
+    if (this.state.category !== "Course Material") course = "";
     if (typeof this.props.params.id === 'undefined') {
       method = "POST";
       url = "api/posts";
@@ -188,12 +213,23 @@ class PostForm extends React.Component<any, IState> {
       method = "PATCH";
       url = `api/posts/${this.props.params.id}`
     }
-    const access_token = this.props.user.auth.accessToken;
+
+    if (this.state.category === "Housing") {
+      let start_date, end_date; 
+      start_date = startDate ? startDate.format() : ""
+      end_date = endDate ? endDate.format() : ""
+
+      post = { title, price, category, description, img_url1, 
+               img_url2, img_url3, address, lat, lng, start_date, end_date };
+    } else {
+      post = { title, price, category, description, img_url1, img_url2, img_url3 };
+    }
+
     $.ajax({
       method: method,
       url: url,
       data: {
-        post: { title, price, description, img_url1, img_url2, img_url3 },
+        post,
         course: { course },
         category: { category },
         access_token
@@ -201,16 +237,23 @@ class PostForm extends React.Component<any, IState> {
     }).then(post => this.props.router.replace(`posts/${post.id}`))
       .fail(errors => {
         this.setState({ errors: errors.responseJSON })
-      })
+      });
   }
 
   public renderErrors() {
-    return this.state.errors.map((error, key) => (
-      <div key={key} className="alert alert-danger" role="alert">
-        <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-        <span className="sr-only">Error:</span> {error}
-      </div>
-    ));
+    if (this.state.errors.length === 0) {
+      $(".has-error").removeClass("has-error")
+    } else {
+      this.state.errors.map((error, key) => {
+        console.log(error);
+        let fieldName = error.split(" ")[0].toLowerCase() + "-error";
+        let inputField = document.getElementsByClassName(fieldName)[0];
+
+        if (inputField) {
+          $(`.${fieldName}`).addClass("has-error");
+        }
+      });
+    }
   }
 
   public render() {
@@ -224,8 +267,7 @@ class PostForm extends React.Component<any, IState> {
         <h1 style={paddingLeft} id="heading-custom">
           {this.props.params.id ? `Edit post ${this.state.id}` : "Create a new post"}
         </h1>
-        <br/>
-        <br/>
+        <br/><br/>
         <form className="form-horizontal">
 
           {/* Category radio buttons */}
@@ -242,7 +284,7 @@ class PostForm extends React.Component<any, IState> {
               Course
             </label>
 
-            <div className="col-sm-9 input-group" style={paddingAll}>
+            <div className="col-sm-9 input-group course-error" style={paddingAll}>
               <input
                 maxLength={50}
                 value={this.state.course}
@@ -262,7 +304,7 @@ class PostForm extends React.Component<any, IState> {
               Title
             </label>
 
-            <div className="col-sm-9 input-group" style={morePadding}>
+            <div className="col-sm-9 input-group title-error" style={morePadding}>
               <input
                 maxLength={50}
                 value={this.state.title}
@@ -281,7 +323,7 @@ class PostForm extends React.Component<any, IState> {
           {/* Post description textarea */}
           <div className="form-group">
             <label style={labelStyle} htmlFor="inputDescription3" className="col-sm-2 control-label-custom">Description</label>
-            <div className="col-sm-9 input-group" style={morePadding}>
+            <div className="col-sm-9 input-group description-error" style={morePadding}>
               <textarea
                 maxLength={250}
                 value={this.state.description}
@@ -298,50 +340,49 @@ class PostForm extends React.Component<any, IState> {
             </div>
           </div>
 
-
-          {/* Housing location input */}
+          {/* Housing address input */}
           <div className={`form-group ${this.state.category !== "Housing" ? "hidden" : ""}`}>
-            <label style={labelStyle} htmlFor="inputCourse3" className="col-sm-2 control-label-custom">
+            <label style={labelStyle} htmlFor="inputAddress3" className="col-sm-2 control-label-custom">
               Location
             </label>
             
-            <div className="col-sm-9 input-group" style={paddingAll}>
+            <div className="col-sm-9 input-group address-error" style={paddingAll}>
               <input
                 maxLength={50}
-                value={this.state.course}
+                value={this.state.address}
                 onChange={ this.updateState }
                 type="text"
-                className="form-control"
-                id="course"
+                className="form-control controls"
+                id="address"
                 style={borderStyle}
                 placeholder="Type to autocomplete"
               />
               </div>
           </div>
 
+          {/* Housing date range input */}
           <div className={`form-group ${this.state.category !== "Housing" ? "hidden" : ""}`}>
-            <label style={labelStyle} htmlFor="inputCourse3" className="col-sm-2 control-label-custom">
+            <label style={labelStyle} htmlFor="inputDate3" className="col-sm-2 control-label-custom">
               Date Range
             </label>
             
-            <div className="col-sm-9 input-group" style={paddingAll}>
-              <input
-                maxLength={50}
-                value={this.state.course}
-                onChange={ this.updateState }
-                type="text"
-                className="form-control"
-                id="course"
-                style={borderStyle}
-                placeholder="Type to autocomplete"
+            <div className="col-sm-9 input-group start-error end-error" style={paddingAll}>
+              <DateRangePicker
+                startDate={this.state.startDate}
+                endDate={this.state.endDate}
+                onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })}
+                focusedInput={this.state.focusedInput}
+                onFocusChange={focusedInput => this.setState({ focusedInput })}
               />
-              </div>
+            </div>
           </div>
 
           {/* Price input */}
           <div className="form-group">
-            <label style={labelStyle} htmlFor="inputPrice3" className="col-sm-2 control-label-custom">Price</label>
-            <div className="col-sm-9 input-group" id="fixed-price" style={paddingBottom}>
+            <label style={labelStyle} htmlFor="inputPrice3" className="col-sm-2 control-label-custom">
+              {this.state.category === "Housing" ? "Monthly Rent" : "Price"}
+            </label>
+            <div className="col-sm-9 input-group price-error" id="fixed-price" style={paddingBottom}>
               <span className="input-group-addon" id="basic-addon1">$</span>
               <input
                 value={this.state.price}

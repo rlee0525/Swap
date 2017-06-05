@@ -4,7 +4,7 @@ import Dropzone from 'react-dropzone';
 import { widthFull } from '../styles';
 
 const ImageDropzone = ({ img_url, onImageDrop }) => (
-  <div className="col-sm-3 FileUpload">
+  <div className="col-sm-3 FileUpload img-error">
     <Dropzone
       id="img_url1"
       className="dropzone-upload form-control"

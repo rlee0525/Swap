@@ -44,8 +44,10 @@
     "flux": "^3.1.2",
     "node-sass": "^4.5.3",
     "react": "^15.5.4",
+    "react-addons-shallow-compare": "^15.5.2",
     "react-autobind": "^1.0.6",
     "react-click-outside": "^2.3.0",
+    "react-dates": "^12.1.1",
     "react-dom": "^15.5.4",
     "react-dropzone": "^3.13.1",
     "react-redux": "^5.0.4",
@@ -61,6 +63,7 @@
     "webpack": "^2.5.1"
   },
   "devDependencies": {
+    "css-loader": "^0.28.4",
     "enzyme": "^2.8.2",
     "eslint": "^3.19.0",
     "jest": "^20.0.0",
@@ -82,5 +85,8 @@
       "tsx",
       "js"
     ]
+  },
+  "peerDependencies": {
+    "react-addons-shallow-compare": "^15.5.2"
   }
 }

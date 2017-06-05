@@ -100,6 +100,9 @@ class SearchGridView extends React.Component<Props, State> {
     let updatedDate: number | string= Date.parse(post.updated_at);
     updatedDate = Date.now() - updatedDate <= 86400000 ? timeFromNow(post.updated_at) : "";
 
+    let seller = post.seller_name.split(" ");
+    let sellerName = `${seller[0][0]}. ${seller[1][0]}.`
+
     return (
       <div className="col-sm-4 col-md-3 hover-show" key={Math.random() * post.id}
         onClick={() => window.location.href = `#/posts/${post.id}`}>
@@ -111,7 +114,7 @@ class SearchGridView extends React.Component<Props, State> {
             <span className="bottom-right-corner">${Number(post.price).toLocaleString()}</span>
             <span className="bottom-left-corner">
               <img className="img-circle" src={post.seller_fb_picture}/>
-              {post.seller_name}
+              {sellerName}
             </span>
           </div>
         </div>
