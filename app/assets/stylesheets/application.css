@@ -209,12 +209,12 @@ ul.nav {
 @media screen and (max-width: 768px) {
   #no-padding-left {
     width: calc(100% - 10px);
-    padding-left: 10px !important;
+    padding-left: 20px !important;
   }
 
   #phone-search-nav {
     width: calc(100% - 5px) !important;
-    padding: 10px 10px 10px 15px;
+    padding: 10px 20px 10px 15px;
   }
 }
 

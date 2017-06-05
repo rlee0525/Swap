@@ -24,7 +24,6 @@
 }
 
 #dropdownMenu1 {
-  min-width: 128px !important;
   margin-left: 5px !important;
   width: 100%;
 }
@@ -32,6 +31,14 @@
 @media screen and (max-width: 768px) {
   #phone-search-nav {
     width: calc(94% - 128px) !important;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .search-dropdown {
+    min-width: 188px !important;
+    padding-left: 10px;
+    z-index: 55;
   }
 }
 
@@ -48,4 +55,25 @@
   cursor: pointer;
   min-width: 80px;
   background: #eee;
+}
+
+@media screen and (min-width: 769px) {
+  #search-query {
+    max-width: 455px;
+    margin-left: 85px;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  #search-query {
+    max-width: 590px;
+    margin-left: 65px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  #search-query {
+    max-width: 730px;
+    margin-left: 40px;
+  }
 }
