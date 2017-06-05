@@ -43,23 +43,27 @@ class Chat extends React.Component<Props, State> {
         let currentConversation = res[0].conversation_id;
         
         let conversations : object = keyBy<object>(res, "conversation_id");
-        console.log(conversations);
-        
+
+        let ids = Object.keys(conversations);
+
+        let hasUnreadMessages = conversations[ids[ids.length - 1]].sender !== user.userFB.id;
+
+        conversations[ids[ids.length - 1]].hasUnreadMessages = hasUnreadMessages;
 
         // connect to firebase and listens for messages
-        // this.ref = firebase.database().ref(`conversations/${currentConversation}`); 
+        this.ref = firebase.database().ref(`conversations/${currentConversation}`); 
         
-        // this.ref.on('value', snapshot => {
-        //   let messages = snapshot.val() || {};
+        this.ref.once('value', snapshot => {
+          let messages = snapshot.val() || {};
 
-        //   conversations[currentConversation].messages = messages;
+          conversations[currentConversation].messages = messages;
 
-        //   this.setState({ 
-        //     currentConversation,
-        //     conversations, 
-        //     loading: false,
-        //   });
-        // });
+          this.setState({ 
+            currentConversation,
+            conversations, 
+            loading: false,
+          });
+        });
       },
       err => console.log(err)
     );    
@@ -81,7 +85,17 @@ class Chat extends React.Component<Props, State> {
     }
 
     this.setState({ 
-      message: ''
+      message: '',
+      conversations: {
+        ...this.state.conversations,
+        [currentConversation]: {
+          ...this.state.conversations[currentConversation],
+          messages: {
+            ...this.state.conversations[currentConversation].messages,
+            [time]: messageObj
+          }
+        }
+      }
     });
 
     firebase.database().ref(`conversations/${currentConversation}/${time}`).set(messageObj);
@@ -107,7 +121,7 @@ class Chat extends React.Component<Props, State> {
     // connect to firebase and listens for messages
     this.ref = firebase.database().ref(`conversations/${conversation_id}`); 
     
-    this.ref.on('value', snapshot => {
+    this.ref.once('value', snapshot => {
       let messages = snapshot.val() || {};
 
       this.setState({ 
