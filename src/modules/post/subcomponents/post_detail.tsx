@@ -356,7 +356,7 @@ class PostDetail extends React.Component<any, any> {
   }
 
   private renderCategoryMenu(label) {
-    this.props.saveQuery({category: label});
+    this.props.saveQuery({category: label, page_idx: 1});
 
     $('#search-query').focus();
   }
