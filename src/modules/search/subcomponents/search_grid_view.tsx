@@ -101,7 +101,7 @@ class SearchGridView extends React.Component<Props, State> {
     updatedDate = Date.now() - updatedDate <= 86400000 ? timeFromNow(post.updated_at) : "";
 
     let seller = post.seller_name.split(" ");
-    let sellerName = `${seller[0][0]}. ${seller[1][0]}.`
+    let sellerName = shortenString(seller[0], 10) + ` ${seller[1][0]}.`
 
     return (
       <div className="col-sm-4 col-md-3 hover-show" key={Math.random() * post.id}
@@ -151,10 +151,10 @@ class SearchGridView extends React.Component<Props, State> {
         <div className="row">
           <div className="sort-by-panel">
             <div className="btn-group">
-              <button type="button" className="btn btn-default btn-md dropdown-toggle btn-special-size" id="margin-right" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <button type="button" className="btn btn-default btn-md dropdown-toggle btn-special-size" id="special-absolute" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                  {this.translateSortLabels()}&nbsp;&nbsp;<span className="caret"></span>
               </button>
-              <ul className="dropdown-menu dropdown-menu-right">
+              <ul className="dropdown-menu dropdown-menu-right" id="special-absolute-2">
                 <li><a onClick={() => this.sort_by("views", -1)}>Popularity</a></li>
                 <li><a onClick={() => this.sort_by("updated_at", -1)}>Posting Date</a></li>
                 <li><a onClick={() => this.sort_by("price", 1)}>Price: Low to High</a></li>

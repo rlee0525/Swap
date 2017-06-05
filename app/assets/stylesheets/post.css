@@ -352,11 +352,12 @@
   position: absolute;
   left: 10px;
   bottom: 14px;
-  font-size: 15px !important;
+  font-size: 15px;
+  font-weight: 300;
   color: lightseagreen;
 }
 
 .bottom-left-corner img {
   height: 45px;
-  margin-right: 8px;
+  margin-right: 10px;
 }

@@ -69,7 +69,7 @@
 }
 
 @media screen and (max-width: 1200px) {
-  #grid-title {
+  #grid-title, .bottom-left-corner {
     font-size: 13px;
   }
 }
@@ -98,4 +98,24 @@
 
 #no-padding-left {
   padding-left: 0 !important;
+}
+
+@media screen and (max-width: 992px) {
+  #special-absolute {
+    position: absolute;
+    top: 22px;
+    right: 10px;
+  }
+
+  #special-absolute-2 {
+    position: absolute;
+    top: 57px;
+    right: 0;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  #special-absolute {
+    margin-right: 9px !important;
+  }
 }
