@@ -355,6 +355,12 @@ class PostDetail extends React.Component<any, any> {
     )
   }
 
+  private renderCategoryMenu(label) {
+    this.props.saveQuery({category: label});
+
+    $('#search-query').focus();
+  }
+
   public render() {
     if (!this.props.post) return null;
     let { link, category, title } = this.props.post;
@@ -377,8 +383,8 @@ class PostDetail extends React.Component<any, any> {
           home={true}
         />
         <nav className="breadcrumb">
-          <a className="breadcrumb-item" href="#/recent">All</a>
-          <a className="breadcrumb-item" href={`#/${link}`}>{category}</a>
+          <a className="breadcrumb-item" onClick={() => this.renderCategoryMenu("All")} href="#/recent">All</a>
+          <a className="breadcrumb-item" onClick={() => this.renderCategoryMenu(category)} href={`#/${link}`}>{category}</a>
           <span className="breadcrumb-item active">{title && shortenString(title, 20)}</span>
         </nav>
         <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12" id="detail-left">
