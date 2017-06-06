@@ -1,8 +1,17 @@
 .map-container {
-  padding: 30px !important;
+  padding: 25px 30px 25px 25px !important;
+}
+
+#google-map {
+  max-width: 100%;
 }
 
 @media screen and (min-width: 768px) {
+  .map-container {
+    width: 360px;
+    height: 390px;
+  }
+
   #google-map {
     height: 340px;
     width: 340px;
@@ -10,6 +19,11 @@
 }
 
 @media screen and (min-width: 992px) {
+  .map-container {
+    width: 430px;
+    height: 460px;
+  }
+
   #google-map {
     height: 410px;
     width: 410px;
@@ -17,14 +31,19 @@
 }
 
 @media screen and (min-width: 1200px) {
+  .map-container {
+    width: 500px;
+    height: 525px;
+  }
+
   #google-map {
     height: 480px;
     width: 480px;
   }
 }
-
+/*
 @media screen and (max-width: 768px) {
   #google-map {
     height: 500px;
   }
-}
+}*/

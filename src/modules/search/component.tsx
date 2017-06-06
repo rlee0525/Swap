@@ -46,9 +46,6 @@ class Search extends React.Component<Props, State> {
     const nextQuery = merge({}, currentQuery, {category, page_idx: 1});
     this.props.search(nextQuery);
     this.props.saveQuery(nextQuery);
-    console.log(this.props.currentQuery);
-    console.log("hi")
-    console.log(nextQuery)
 
     hashHistory.push(category);
   }
