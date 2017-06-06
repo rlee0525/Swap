@@ -45,7 +45,7 @@ class MapItem extends React.Component<any, any> {
 
     this.map = new google.maps.Map(map, options);
     this.map.setOptions({styles: style['pastel']});
-
+    
     var marker = new google.maps.Marker({
       position: this.props.center
     });
