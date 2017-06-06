@@ -14,8 +14,8 @@ class PostDetail extends React.Component<any, any> {
 
     this.state = {
       authorFB: null,
-      address: "University of California, Berkeley",
-      center: { lat: 37.8719, lng: -122.2585 },
+      address: "",
+      center: null,
       view: "photo"
     }
 
@@ -36,7 +36,13 @@ class PostDetail extends React.Component<any, any> {
 
   private changeView() {
     let view = this.state.view === "photo" ? "map" : "photo";
-    this.setState({ view });
+    let post = this.props.post;
+    let lat = post.lat;
+    let lng = post.lng;
+    let address = post.address;
+    let center = { lat, lng };
+
+    this.setState({ center, address, view });
   }
 
   public initializePost() {
