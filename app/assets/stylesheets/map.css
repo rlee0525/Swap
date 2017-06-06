@@ -1,3 +1,28 @@
 #google-map {
   height: 500px;
 }
+
+.map-container {
+  padding: 30px !important;
+}
+
+@media screen and (min-width: 768px) {
+  #google-map {
+    height: 340px;
+    width: 340px;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  #google-map {
+    height: 410px;
+    width: 410px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  #google-map {
+    height: 480px;
+    width: 480px;
+  }
+}
