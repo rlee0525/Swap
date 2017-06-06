@@ -70,15 +70,15 @@
 
 @media screen and (min-width: 992px) {
   #search-query {
-    max-width: 590px;
-    margin-left: 65px;
+    max-width: 585px;
+    margin-left: 70px;
   }
 }
 
 @media screen and (min-width: 1200px) {
   #search-query {
-    max-width: 730px;
-    margin-left: 40px;
+    max-width: 725px;
+    margin-left: 45px;
   }
 }
 

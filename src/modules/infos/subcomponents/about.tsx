@@ -25,7 +25,7 @@ class About extends React.Component<any, any> {
               </div>
 
               <ul className="list-unstyled list-bordered text-left m-y-md">
-                <li className="p-y"><a href="https://www.linkedin.com/in/rlee0525/" target="_blank"><strong>LinkedIn</strong></a></li>
+                <li className="p-y about-links"><a href="https://www.linkedin.com/in/rlee0525/" target="_blank"><strong>LinkedIn</strong></a></li>
               </ul>
             </div>
 
@@ -37,7 +37,7 @@ class About extends React.Component<any, any> {
               </div>
 
               <ul className="list-unstyled list-bordered text-left m-y-md">
-                <li className="p-y"><a href="https://www.linkedin.com/in/randyjap/" target="_blank"><strong>LinkedIn</strong></a></li>
+                <li className="p-y about-links"><a href="https://www.linkedin.com/in/randyjap/" target="_blank"><strong>LinkedIn</strong></a></li>
               </ul>
             </div>
 
@@ -49,7 +49,7 @@ class About extends React.Component<any, any> {
               </div>
 
               <ul className="list-unstyled list-bordered text-left m-y-md">
-                <li className="p-y"><a href="https://www.linkedin.com/in/davidhu2000/" target="_blank"><strong>LinkedIn</strong></a></li>
+                <li className="p-y about-links"><a href="https://www.linkedin.com/in/davidhu2000/" target="_blank"><strong>LinkedIn</strong></a></li>
               </ul>
             </div>
           </div>

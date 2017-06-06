@@ -58,3 +58,15 @@
   font-size: 18px !important;
   font-weight: 300 !important
 }
+
+.about-links {
+  text-align: center;
+}
+
+.no-hover:hover {
+  text-decoration: none !important;
+}
+
+.no-hover > h6:hover {
+  color: lightseagreen !important;
+}
