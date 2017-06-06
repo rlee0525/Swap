@@ -1,6 +1,7 @@
 import React from 'react';
 import { merge } from 'lodash';
 import { IPost } from 'common/interfaces';
+import { withRouter, hashHistory } from 'react-router';
 
 import { shortenString,
          capitalize,
@@ -45,7 +46,7 @@ class Search extends React.Component<Props, State> {
     const nextQuery = merge({}, currentQuery, {category, page_idx: 1});
     this.props.search(nextQuery);
 
-    window.location.href = `#${category}`;
+    hashHistory.push(category);
   }
 
   public componentWillReceiveProps(nextProps: any){
@@ -178,4 +179,4 @@ class Search extends React.Component<Props, State> {
   }
 }
 
-export default Search;
+export default withRouter(Search);
