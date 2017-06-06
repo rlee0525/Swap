@@ -105,7 +105,10 @@ class Search extends React.Component<Props, State> {
   }
 
   private renderCategoryMenu(label) {
-    this.props.saveQuery({category: label, page_idx: 1});
+    const currentQuery = this.props.currentQuery;
+    const nextQuery = merge({}, currentQuery, {page_idx: 1});
+    this.props.saveQuery(nextQuery);
+    this.props.search(nextQuery);
 
     $('#search-query').focus();
   }
