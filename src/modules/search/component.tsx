@@ -40,7 +40,7 @@ class Search extends React.Component<Props, State> {
   }
 
   public componentWillMount() {
-    const category = getCategory(this.props.location);
+    const category = this.props.location.pathname;
     const currentQuery = this.props.currentQuery;
     const nextQuery = merge({}, currentQuery, {category, page_idx: 1});
     this.props.search(nextQuery);
