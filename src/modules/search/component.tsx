@@ -120,6 +120,12 @@ class Search extends React.Component<Props, State> {
       category = 'My Course Material';
     }
 
+    let minResult = (this.props.currentQuery.page_idx - 1) * 16 + 1;
+    let maxResult = (this.props.currentQuery.page_idx * 16);
+    let totalResults = this.props.searchResult.result_count;
+
+    maxResult = maxResult <= totalResults ? maxResult : totalResults;
+
     return (
       <div>
         <div className="container">
@@ -138,7 +144,7 @@ class Search extends React.Component<Props, State> {
                   <a onClick={() => this.renderCategoryMenu("All")} className="breadcrumb-item" href="#/recent">All</a>
                   {label && <a onClick={() => this.renderCategoryMenu(category)} className="breadcrumb-item" href={`#/${path}`}>{label}</a>}
                   <span className="breadcrumb-item active" id="result-count">
-                    {(this.props.currentQuery.page_idx - 1) * 16 + 1} - {(this.props.currentQuery.page_idx * 16)} of {this.props.searchResult.result_count} results
+                    {minResult} - {maxResult} of {totalResults} results
                   </span>
                   <span className="breadcrumb-item active" id="result-count-2"></span>
                 </nav>
