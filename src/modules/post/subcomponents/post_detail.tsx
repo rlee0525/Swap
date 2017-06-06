@@ -22,6 +22,10 @@ class PostDetail extends React.Component<any, any> {
     autoBind(this);
   }
 
+  public componentWillMount() {
+    window.scrollTo(0, 0);
+  }
+
   public componentDidMount() {
     this.initializeClipboard();
     this.initializePost();
@@ -226,7 +230,6 @@ class PostDetail extends React.Component<any, any> {
   }
 
   public startConversation() {
-    console.log(this.props);
     let { post, user } = this.props;
     
     let firstId = post.fb_id;
@@ -240,9 +243,7 @@ class PostDetail extends React.Component<any, any> {
 
     let conversationId = `${firstId}-${secondId}`;
 
-    // $('#contactModal').modal('hide');
     createConversation(conversationId, post.fb_id);
-    
     createConversation(conversationId, user.userFB.id).then(
       () => {
         $('#contactModal').modal('hide');
@@ -314,7 +315,6 @@ class PostDetail extends React.Component<any, any> {
   public renderDetail() {
     let titleMargin = {
       marginBottom: 10,
-      fontSize: 28,
       fontWeight: 300
     };
 

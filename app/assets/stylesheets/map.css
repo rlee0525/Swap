@@ -1,9 +1,12 @@
-.map-container {
-  padding: 25px 30px 25px 25px !important;
+@media screen and (max-width: 768px) {
+  #google-map {
+    height: 340px;
+    width: 340px;
+  }
 }
 
-#google-map {
-  max-width: 100%;
+.map-container {
+  padding: 25px 30px 25px 25px !important;
 }
 
 @media screen and (min-width: 768px) {
@@ -41,9 +44,7 @@
     width: 480px;
   }
 }
-/*
-@media screen and (max-width: 768px) {
-  #google-map {
-    height: 500px;
-  }
-}*/
+
+#google-map {
+  max-width: 100%;
+}
