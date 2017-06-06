@@ -14,6 +14,11 @@ json.posts do
                   :course_id,
                   :updated_at,
                   :views,
+                  :address,
+                  :lat,
+                  :lng,
+                  :start_date,
+                  :end_date,
                   :active
     json.seller_name "#{post.user.first_name} #{post.user.last_name[0]}."
     json.seller_fb_picture post.user.fb_picture
