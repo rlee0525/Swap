@@ -79,7 +79,7 @@ class SearchNavbar extends React.Component<Props, State> {
   }
 
   private renderCategoryMenu(label) {
-    this.setState({category: label, page_idx: 1, query: ""})
+    this.setState({category: label});
     // const currentQuery = this.props.currentQuery;
     // let nextQuery = merge({}, currentQuery, {category: label, page_idx: 1});
     // this.props.saveQuery(nextQuery);
