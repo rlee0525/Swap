@@ -28,10 +28,6 @@ class SearchNavbar extends React.Component<Props, State> {
     this.state = { category: null };
   }
 
-  public componentDidMount() {
-    let category = this.pr
-  }
-
   private checkKey(e: any) {
     if (e.keyCode === 13) {
       this.enterSearchQuery();
@@ -90,16 +86,7 @@ class SearchNavbar extends React.Component<Props, State> {
 
   private renderCategoryMenu(label) {
     this.setState({category: label});
-    // const currentQuery = this.props.currentQuery;
-    // let nextQuery = merge({}, currentQuery, {category: label, page_idx: 1});
-    // this.props.saveQuery(nextQuery);
-    // if (label === "My Course Material" && this.props.user) {
-    //   const access_token = this.props.user.auth.accessToken;
-    //   nextQuery = merge({}, nextQuery, {access_token});
-    //   this.props.search(nextQuery);
-    // } else {
-    //   this.props.search(nextQuery);
-    // }
+
     $('#search-query').focus();
   }
 
