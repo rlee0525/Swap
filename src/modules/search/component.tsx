@@ -1,6 +1,7 @@
 import React from 'react';
 import { merge } from 'lodash';
 import { IPost } from 'common/interfaces';
+import { withRouter, hashHistory } from 'react-router';
 
 import { shortenString,
          capitalize,
@@ -40,11 +41,13 @@ class Search extends React.Component<Props, State> {
   }
 
   public componentWillMount() {
-    const category = getCategory(this.props.location);
+    const category = this.props.location.pathname;
+    const currentQuery = this.props.currentQuery;
+    const nextQuery = merge({}, currentQuery, {category, page_idx: 1});
+    this.props.search(nextQuery);
+    this.props.saveQuery(nextQuery);
 
-    if (this.state.categories.includes(category)) {
-      this.props.saveQuery({category});
-    }
+    hashHistory.push(category);
   }
 
   public componentWillReceiveProps(nextProps: any){
@@ -105,7 +108,10 @@ class Search extends React.Component<Props, State> {
   }
 
   private renderCategoryMenu(label) {
-    this.props.saveQuery({category: label});
+    const currentQuery = this.props.currentQuery;
+    const nextQuery = merge({}, currentQuery, {category: label, page_idx: 1, query: ""});
+    this.props.saveQuery(nextQuery);
+    this.props.search(nextQuery);
 
     $('#search-query').focus();
   }
@@ -119,6 +125,13 @@ class Search extends React.Component<Props, State> {
       label = 'My Course Material';
       category = 'My Course Material';
     }
+
+    let minResult = (this.props.currentQuery.page_idx - 1) * 16 + 1;
+    let maxResult = (this.props.currentQuery.page_idx * 16);
+    let totalResults = this.props.searchResult.result_count;
+
+    minResult = totalResults === 0 ? 0 : minResult;
+    maxResult = maxResult <= totalResults ? maxResult : totalResults;
 
     return (
       <div>
@@ -137,7 +150,10 @@ class Search extends React.Component<Props, State> {
                 <nav className="breadcrumb" id="breadcrumb-container">
                   <a onClick={() => this.renderCategoryMenu("All")} className="breadcrumb-item" href="#/recent">All</a>
                   {label && <a onClick={() => this.renderCategoryMenu(category)} className="breadcrumb-item" href={`#/${path}`}>{label}</a>}
-                  <span className="breadcrumb-item active"></span>
+                  <span className="breadcrumb-item active" id="result-count">
+                    {minResult} - {maxResult} of {totalResults} result(s)
+                  </span>
+                  <span className="breadcrumb-item active" id="result-count-2"></span>
                 </nav>
 
                 <div className="search-icons">
@@ -148,9 +164,6 @@ class Search extends React.Component<Props, State> {
                     <span className="glyphicon glyphicon-th-list"></span>
                   </button>
                 </div>
-              </div>
-              <div className="col-md-12">
-                Showing results {(this.props.currentQuery.page_idx - 1) * 16 + 1} - {(this.props.currentQuery.page_idx * 16)} of {this.props.searchResult.result_count} results total
               </div>
               { this.renderView() }
               <Pagination
@@ -168,4 +181,4 @@ class Search extends React.Component<Props, State> {
   }
 }
 
-export default Search;
+export default withRouter(Search);

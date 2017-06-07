@@ -58,3 +58,33 @@
   font-size: 18px !important;
   font-weight: 300 !important
 }
+
+.about-links {
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+.no-hover:hover {
+  text-decoration: none !important;
+  color: lightseagreen !important;
+}
+
+.no-hover > h6:hover {
+  text-decoration: none !important;
+  color: lightseagreen !important;
+}
+
+.no-hover:focus {
+  text-decoration: none !important;
+}
+
+.no-hover > h6:focus {
+  text-decoration: none !important;
+}
+
+.letter-spacing {
+  letter-spacing: 1px;
+  font-size: 17px;
+  font-weight: 300;
+  color: #777;
+}

@@ -12,7 +12,7 @@ class About extends React.Component<any, any> {
 
           <div className="row m-b-lg">
             <div className="col-sm-8 col-sm-offset-2 col-lg-6 col-lg-offset-3">
-              <h3 className="m-t-0">Meet the team</h3>
+              <h3 className="m-t-0 text-uppercase letter-spacing">Meet the team</h3>
             </div>
           </div>
 
@@ -25,7 +25,15 @@ class About extends React.Component<any, any> {
               </div>
 
               <ul className="list-unstyled list-bordered text-left m-y-md">
-                <li className="p-y"><a href="https://www.linkedin.com/in/rlee0525/" target="_blank"><strong>LinkedIn</strong></a></li>
+                <li className="p-y about-links">
+                  <a href="https://www.linkedin.com/in/rlee0525/" target="_blank">
+                    <strong>LinkedIn</strong>
+                  </a>
+                  &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                  <a href="https://www.github.com/rlee0525" target="_blank">
+                    <strong>GitHub</strong>
+                  </a>
+                </li>
               </ul>
             </div>
 
@@ -37,7 +45,15 @@ class About extends React.Component<any, any> {
               </div>
 
               <ul className="list-unstyled list-bordered text-left m-y-md">
-                <li className="p-y"><a href="https://www.linkedin.com/in/randyjap/" target="_blank"><strong>LinkedIn</strong></a></li>
+                <li className="p-y about-links">
+                  <a href="https://www.linkedin.com/in/randyjap/" target="_blank">
+                    <strong>LinkedIn</strong>
+                  </a>
+                  &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                  <a href="https://www.github.com/randyjap" target="_blank">
+                    <strong>GitHub</strong>
+                  </a>
+                </li>
               </ul>
             </div>
 
@@ -49,7 +65,15 @@ class About extends React.Component<any, any> {
               </div>
 
               <ul className="list-unstyled list-bordered text-left m-y-md">
-                <li className="p-y"><a href="https://www.linkedin.com/in/davidhu2000/" target="_blank"><strong>LinkedIn</strong></a></li>
+                <li className="p-y about-links">
+                  <a href="https://www.linkedin.com/in/davidhu2000/" target="_blank">
+                    <strong>LinkedIn</strong>
+                  </a>
+                  &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                  <a href="https://www.github.com/davidhu2000" target="_blank">
+                    <strong>GitHub</strong>
+                  </a>
+                </li>
               </ul>
             </div>
           </div>

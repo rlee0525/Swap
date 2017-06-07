@@ -5,7 +5,7 @@ let _defaultState: object = {
   query: "",
   category: "All",
   sort_by: "updated_at",
-  polarity: 1,
+  polarity: -1,
   page_idx: 1,
   viewType: "grid"
 };

@@ -22,7 +22,6 @@ class Pagination extends React.Component<any, any> {
     }
   }
 
-
   public setCurrentPage(page_idx) {
     const currentQuery = this.props.currentQuery;
     const nextQuery = merge({}, currentQuery, {page_idx});

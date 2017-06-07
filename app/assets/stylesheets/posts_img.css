@@ -1,9 +1,9 @@
 .thumbnail-image {
-  filter: brightness(60%);
+  filter: brightness(85%);
 }
 
 .thumbnail-backdrop {
-  filter: brightness(30%);
+  filter: brightness(35%);
 }
 
 .carousel-caption {
@@ -47,6 +47,16 @@
   }
 }
 
+.category-title {
+  color: white;
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  text-shadow: none !important;
+  font-size: 16px;
+  font-weight: 400;
+}
+
 /*Grid View*/
 .btn-special-size {
   font-size: 14px !important;
@@ -66,6 +76,12 @@
   font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
   word-wrap: break-word;
   letter-spacing: 0.02em;
+}
+
+@media screen and (max-width: 1200px) {
+  #grid-title, .bottom-left-corner {
+    font-size: 13px;
+  }
 }
 
 #grid-caption {
@@ -92,4 +108,36 @@
 
 #no-padding-left {
   padding-left: 0 !important;
+}
+
+@media screen and (max-width: 992px) {
+  #special-absolute {
+    position: absolute;
+    top: 22px;
+    right: 10px;
+  }
+
+  #special-absolute-2 {
+    position: absolute;
+    top: 57px;
+    right: 0;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  #special-absolute {
+    margin-right: 9px !important;
+  }
+}
+
+@media screen and (max-width: 460px) {
+  #result-count {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 460px) {
+  #result-count-2 {
+    display: none;
+  }
 }

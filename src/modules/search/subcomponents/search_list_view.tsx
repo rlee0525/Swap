@@ -45,7 +45,7 @@ class SearchListView extends React.Component<Props, any> {
     return (
       <tr key={idx} onClick={() => window.location.href = `#/posts/${post.id}`}>
         <td>{post.title}</td>
-        <td className="hidden-xs">{shortenString(post.description, 30)}</td>
+        <td className="hidden-xs hidden-sm">{shortenString(post.description, 30)}</td>
         <td>${Number(post.price).toLocaleString()}</td>
         <td className="hidden-xs">{timeFromNow(post.updated_at)}</td>
         <td className="hidden-xs">{post.views}</td>
@@ -84,7 +84,7 @@ class SearchListView extends React.Component<Props, any> {
           <thead>
             <tr>
               <th>Title</th>
-              <th className="hidden-xs">Description</th>
+              <th className="hidden-xs hidden-sm">Description</th>
               <th onClick={() => this.sort_by("price")}>Price<a className="btn btn-xs" id="caret-container" ><span className="caret" /></a></th>
               <th onClick={() => this.sort_by("updated_at")} className="hidden-xs">Posted<a className="btn btn-xs" id="caret-container" ><span className="caret" /></a></th>
               <th onClick={() => this.sort_by("views")} className="hidden-xs">Views<a className="btn btn-xs" id="caret-container" ><span className="caret" /></a></th>

@@ -3,7 +3,7 @@
      "link": "coursematerial",
      "title": "Course Material",
      "description": "Stop overpaying for used course materials",
-     "image": "http://res.cloudinary.com/rlee0525/image/upload/c_pad,h_500,w_500/v1494382616/textbooks_cgpwt3.jpg"
+     "image": "http://res.cloudinary.com/rlee0525/image/upload/c_fill,h_500,w_500/v1496704633/coursematerial_fyvqzj.jpg"
    },
    {
      "link": "furniture",
@@ -14,8 +14,8 @@
    {
      "link": "clothing",
      "title": "Clothing",
-     "description": "Swap clothings with your colleagues",
-     "image": "http://res.cloudinary.com/rlee0525/image/upload/c_fill,h_500,w_500/v1494384935/clothing_xjdmxd.png"
+     "description": "Swap clothings with your colleagues",    
+     "image": "http://res.cloudinary.com/rlee0525/image/upload/c_fill,h_500,w_500/v1496702062/clothing_b2ogo9.png"
    },
    {
      "link": "electronics",
@@ -27,7 +27,7 @@
      "link": "housing",
      "title": "Housing",
      "description": "Find a place to sublet or lease",
-     "image": "http://res.cloudinary.com/rlee0525/image/upload/c_pad,h_500,w_500/v1495410124/housing_hf5hbm.jpg"
+     "image": "http://res.cloudinary.com/rlee0525/image/upload/c_fill,h_500,w_500/v1495410124/housing_hf5hbm.jpg"
    },
    {
      "link": "bikes",
@@ -39,18 +39,18 @@
      "link": "games",
      "title": "Games",
      "description": "Stop wasting money at GameStop",
-     "image": "http://res.cloudinary.com/rlee0525/image/upload/c_pad,h_500,w_500/v1494386061/games_sn1bay.png"
+     "image": "http://res.cloudinary.com/rlee0525/image/upload/c_pad,h_500,w_500/v1496710651/games_aeve1d.png"
    },
    {
      "link": "others",
      "title": "Others",
      "description": "Everything else you need",
-     "image": "http://res.cloudinary.com/rlee0525/image/upload/c_pad,h_500,w_500/v1494385420/kitchenware_brijih.jpg"
+     "image": "http://res.cloudinary.com/rlee0525/image/upload/c_fill,h_500,w_500/v1496710469/others_wws9ng.jpg"
    },
    {
      "link": "lostandfound",
      "title": "Lost & Found",
      "description": "Help out your colleagues",
-     "image": "http://res.cloudinary.com/rlee0525/image/upload/c_pad,h_500,w_500/v1495410547/lostandfound_mphhqx.jpg"
+     "image": "http://res.cloudinary.com/rlee0525/image/upload/c_pad,h_500,w_500/v1496709338/lostfound_bg8u2w.jpg"
    }
  ]

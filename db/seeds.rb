@@ -65,8 +65,8 @@ User.create!(
 
   if category == "Housing"
     address = "Stern Hall, Berkeley, CA 94720"
-    lat = 37.874853
-    lng = -122.255458
+    lat = 37.874853 + rand(-0.01..0.01).round(6)
+    lng = -122.255458 + rand(-0.01..0.01).round(6)
     start_date = Time.now + rand(1000000..1000000)
     end_date = Time.now + rand(1000000..10000000)
   end

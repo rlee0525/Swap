@@ -1,3 +1,75 @@
+@media screen and (max-width: 481px) {
+  .map-container {
+    padding: 0 30px 25px 0;
+  }
+
+  #google-map {
+    height: 35vh;
+    width: 95vw;
+  }
+}
+
+@media screen and (min-width: 481px) {
+  #google-map {
+    height: 45vh;
+    width: 95vw;
+  }
+
+  .map-container {
+    padding-left: 45px;
+    padding-top: 25px;
+  }
+}
+
+@media screen and (min-width: 650px) {
+  #google-map {
+    height: 60vh;
+    width: 95vw;
+  }
+
+  .map-container {
+    padding-left: 45px;
+    padding-top: 25px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .map-container {
+    width: 360px;
+    height: 390px;
+    padding-left: 25px;
+  }
+
+  #google-map {
+    height: 340px;
+    width: 340px;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .map-container {
+    width: 430px;
+    height: 460px;
+  }
+
+  #google-map {
+    height: 410px;
+    width: 410px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .map-container {
+    width: 500px;
+    height: 525px;
+  }
+
+  #google-map {
+    height: 480px;
+    width: 480px;
+  }
+}
+
 #google-map {
-  height: 500px;
+  max-width: 100%;
 }

@@ -14,12 +14,16 @@ class PostDetail extends React.Component<any, any> {
 
     this.state = {
       authorFB: null,
-      address: "University of California, Berkeley",
-      center: { lat: 37.8719, lng: -122.2585 },
+      address: "",
+      center: null,
       view: "photo"
     }
 
     autoBind(this);
+  }
+
+  public componentWillMount() {
+    window.scrollTo(0, 0);
   }
 
   public componentDidMount() {
@@ -36,7 +40,13 @@ class PostDetail extends React.Component<any, any> {
 
   private changeView() {
     let view = this.state.view === "photo" ? "map" : "photo";
-    this.setState({ view });
+    let post = this.props.post;
+    let lat = post.lat;
+    let lng = post.lng;
+    let address = post.address;
+    let center = { lat, lng };
+
+    this.setState({ center, address, view });
   }
 
   public initializePost() {
@@ -220,7 +230,6 @@ class PostDetail extends React.Component<any, any> {
   }
 
   public startConversation() {
-    console.log(this.props);
     let { post, user } = this.props;
     
     let firstId = post.fb_id;
@@ -234,9 +243,7 @@ class PostDetail extends React.Component<any, any> {
 
     let conversationId = `${firstId}-${secondId}`;
 
-    // $('#contactModal').modal('hide');
     createConversation(conversationId, post.fb_id);
-    
     createConversation(conversationId, user.userFB.id).then(
       () => {
         $('#contactModal').modal('hide');
@@ -248,6 +255,14 @@ class PostDetail extends React.Component<any, any> {
         hashHistory.push('chat');
       }
     );
+  }
+
+  private priceMessage() {
+    if (this.props.post.category == "Housing") {
+      return `I would like to rent the place at $${this.props.post.price} / month.`;
+    } else {
+      return `I would like to purchase it at $${this.props.post.price}.`
+    }
   }
 
   public renderModal() {
@@ -268,9 +283,9 @@ class PostDetail extends React.Component<any, any> {
                 <div className="modal-body text-center">
                   <div>
                     <div id="purchase-msg-template" contentEditable={true} data-toggle="tooltip" data-placement="bottom" title="click to edit">
-                      Hi {name}, <br/><br/>
-                      My name is {this.props.user && this.props.user.userFB.name}. I saw your posting on {this.props.post.title} on Swap.<br/>
-                      I would like to purchase it at ${this.props.post.price}.<br/>
+                      Hi {name.split(" ")[0]}, <br/><br/>
+                      My name is {this.props.user && this.props.user.userFB.name.split(" ")[0]}. I saw your posting on {this.props.post.title} on Swap.<br/>
+                      {this.priceMessage()}<br/>
                       Please let me know if it's still available.<br/>
 
                       link: {(window as any).localhost_url}/#/posts/{this.props.post.id}<br/><br/>
@@ -299,16 +314,22 @@ class PostDetail extends React.Component<any, any> {
 
   public housingViews() {
     if (this.state.view === "photo") {
-      return (<p onClick={this.changeView}> View Map </p>)
+      return (<p className="change-view" onClick={this.changeView}> View Map &nbsp;&nbsp;&nbsp;{this.dateRange()}</p>)
     } else {
-      return (<p onClick={this.changeView}> View Photos </p>)
+      return (<p className="change-view" onClick={this.changeView}> View Photos &nbsp;&nbsp;&nbsp;{this.dateRange()}</p>)
     };
+  }
+
+  public dateRange() {
+    let startDate = this.props.post.start_date;
+    let endDate = this.props.post.end_date;
+
+    return `${startDate} - ${endDate}`;
   }
 
   public renderDetail() {
     let titleMargin = {
       marginBottom: 10,
-      fontSize: 28,
       fontWeight: 300
     };
 
@@ -345,7 +366,7 @@ class PostDetail extends React.Component<any, any> {
 
         <p id="post-description">{description}</p>
         <div className="footer" id="post-detail-right-bottom">
-          <h3 className="text-left">${Number(price).toLocaleString()}</h3>
+          <h3 className="text-left">${Number(price).toLocaleString()}{ category == "Housing" && " / month" }</h3>
           <div className="row">
             {buttons}
             {this.renderModal()}
@@ -353,6 +374,12 @@ class PostDetail extends React.Component<any, any> {
         </div>
       </div>
     )
+  }
+
+  private renderCategoryMenu(label) {
+    this.props.saveQuery({category: label, page_idx: 1, query: ""});
+
+    $('#search-query').focus();
   }
 
   public render() {
@@ -377,8 +404,8 @@ class PostDetail extends React.Component<any, any> {
           home={true}
         />
         <nav className="breadcrumb">
-          <a className="breadcrumb-item" href="#/recent">All</a>
-          <a className="breadcrumb-item" href={`#/${link}`}>{category}</a>
+          <a className="breadcrumb-item" onClick={() => this.renderCategoryMenu("All")} href="#/recent">All</a>
+          <a className="breadcrumb-item" onClick={() => this.renderCategoryMenu(category)} href={`#/${link}`}>{category}</a>
           <span className="breadcrumb-item active">{title && shortenString(title, 20)}</span>
         </nav>
         <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12" id="detail-left">
@@ -395,7 +422,7 @@ class PostDetail extends React.Component<any, any> {
                   <span className="icon icon-chevron-thin-right" aria-hidden="true" id="carousel-arrows-right"></span>
                   <span className="sr-only">Next</span>
                 </a>
-              </div>) : (<MapItem center={this.state.center}/>)}
+              </div>) : (<MapItem center={this.state.center} address={this.state.address}/>)}
           </div>
         </div>
         {this.renderDetail()}

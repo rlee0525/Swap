@@ -85,7 +85,8 @@
 }
 
 #detail-left {
-  padding: 0 30px 0 0 !important;
+  padding: 0 !important;
+  z-index: 10;
 }
 
 .margin-bottom-md {
@@ -143,12 +144,6 @@
   height: 100%;
 }
 
-@media screen and (min-width: 480px) {
-  #detail-body {
-    padding-left: 30px !important;
-  }
-}
-
 @media screen and (max-width: 480px) {
   #carousel-arrows-left,
   #carousel-arrows-right {
@@ -165,6 +160,53 @@
     z-index: 10;
     background-color: rgba(0, 0, 0, 0.3);
   }
+
+  .carousel-control.right {
+    right: 0;
+  }
+
+  #detail-left {
+    margin-top: 15px;
+  }
+
+  #detail-body h3 {
+    font-size: 24px;
+  }
+}
+
+@media screen and (min-width: 481px) {
+  #detail-body {
+    padding-left: 15px !important;
+  }
+
+  #detail-left {
+    margin-top: 0;
+    left: -35px;
+  }
+
+  #detail-body h3 {
+    font-size: 28px;
+  }
+}
+
+@media screen and (min-width: 580px) {
+  .carousel-control.right {
+    right: -10px !important;
+  }
+
+  .carousel-control.left {
+    left: -6px;
+  }
+}
+
+@media screen and (min-width: 640px) {
+  .carousel-control.right {
+    right: -15px !important;
+  }
+
+  .carousel-control.left {
+    left: -15px;
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -176,7 +218,6 @@
   .absolute-height {
     margin-bottom: -30px;
   }
-
 
   #detail-left {
     padding: 0 !important;
@@ -197,6 +238,14 @@
     margin-bottom: -20px;
   }
 
+  .carousel-control.right {
+    right: 0 !important;
+  }
+
+  .carousel-control.left {
+    left: auto;
+  }
+
   #carousel-arrows-left {
     margin-left: -5px;
   }
@@ -207,6 +256,10 @@
 
   #radio-list {
     text-align: center;
+  }
+
+  #detail-left {
+    left: -6px;
   }
 }
 
@@ -252,7 +305,6 @@
   #carousel-arrows-right {
     margin-right: -36px;
   }
-
 }
 
 #detail-body {
@@ -352,11 +404,16 @@
   position: absolute;
   left: 10px;
   bottom: 14px;
-  font-size: 15px !important;
+  font-size: 15px;
+  font-weight: 300;
   color: lightseagreen;
 }
 
 .bottom-left-corner img {
   height: 45px;
-  margin-right: 8px;
+  margin-right: 10px;
+}
+
+.change-view {
+  cursor: pointer;
 }
