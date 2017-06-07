@@ -33,7 +33,6 @@ class NavBar extends React.Component<any, any> {
   }
 
   public initializeNavbarFade() {
-
     $(window).scroll(function(){
       if ($(this).scrollTop() > 300) {
         $('#menu').fadeIn(500);

@@ -19,17 +19,15 @@ const firebaseConfig = {
 };
 
 window.start = user => {
-  // document.addEventListener('DOMContentLoaded', () => {
-    const root: HTMLElement = document.getElementById('root');
-    firebase.initializeApp(firebaseConfig);
+  const root: HTMLElement = document.getElementById('root');
+  firebase.initializeApp(firebaseConfig);
 
-    let preloadedState: object = {};
+  let preloadedState: object = {};
 
-    preloadedState = { user: user };
-    const store = configureStore(preloadedState);
+  preloadedState = { user: user };
+  const store = configureStore(preloadedState);
 
-    ReactDOM.render(<Root store={store}/>, root);
-    window.store = store;
-    window.s = store.getState;
-  // });
+  ReactDOM.render(<Root store={store}/>, root);
+  window.store = store;
+  window.s = store.getState;
 }
