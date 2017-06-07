@@ -11,7 +11,7 @@ window.start = user => {
   // document.addEventListener('DOMContentLoaded', () => {
     const root: HTMLElement = document.getElementById('root');
     firebase.initializeApp(firebaseConfig);
-    
+
     let preloadedState: object = {};
 
     preloadedState = { user: user };
