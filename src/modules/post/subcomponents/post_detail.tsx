@@ -368,6 +368,7 @@ class PostDetail extends React.Component<any, any> {
   }
 
   public render() {
+    console.log(this.props.post);
     if (!this.props.post) return null;
     let { link, category, title } = this.props.post;
     link = category.toLowerCase()
