@@ -413,3 +413,7 @@
   height: 45px;
   margin-right: 10px;
 }
+
+.change-view {
+  cursor: pointer;
+}

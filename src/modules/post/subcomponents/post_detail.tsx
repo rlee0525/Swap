@@ -257,6 +257,14 @@ class PostDetail extends React.Component<any, any> {
     );
   }
 
+  private priceMessage() {
+    if (this.props.post.category == "Housing") {
+      return `I would like to rent the place at $${this.props.post.price} / month.`;
+    } else {
+      return `I would like to purchase it at $${this.props.post.price}.`
+    }
+  }
+
   public renderModal() {
     if (!this.state.authorFB || this.state.authorFB.error) return null;
     let { name, link, picture } = this.state.authorFB;
@@ -275,9 +283,9 @@ class PostDetail extends React.Component<any, any> {
                 <div className="modal-body text-center">
                   <div>
                     <div id="purchase-msg-template" contentEditable={true} data-toggle="tooltip" data-placement="bottom" title="click to edit">
-                      Hi {name}, <br/><br/>
-                      My name is {this.props.user && this.props.user.userFB.name}. I saw your posting on {this.props.post.title} on Swap.<br/>
-                      I would like to purchase it at ${this.props.post.price}.<br/>
+                      Hi {name.split(" ")[0]}, <br/><br/>
+                      My name is {this.props.user && this.props.user.userFB.name.split(" ")[0]}. I saw your posting on {this.props.post.title} on Swap.<br/>
+                      {this.priceMessage()}<br/>
                       Please let me know if it's still available.<br/>
 
                       link: {(window as any).localhost_url}/#/posts/{this.props.post.id}<br/><br/>
@@ -306,9 +314,9 @@ class PostDetail extends React.Component<any, any> {
 
   public housingViews() {
     if (this.state.view === "photo") {
-      return (<p onClick={this.changeView}> View Map </p>)
+      return (<p className="change-view" onClick={this.changeView}> View Map </p>)
     } else {
-      return (<p onClick={this.changeView}> View Photos </p>)
+      return (<p className="change-view" onClick={this.changeView}> View Photos </p>)
     };
   }
 
@@ -351,7 +359,7 @@ class PostDetail extends React.Component<any, any> {
 
         <p id="post-description">{description}</p>
         <div className="footer" id="post-detail-right-bottom">
-          <h3 className="text-left">${Number(price).toLocaleString()}</h3>
+          <h3 className="text-left">${Number(price).toLocaleString()}{ category == "Housing" && " / month" }</h3>
           <div className="row">
             {buttons}
             {this.renderModal()}
@@ -368,7 +376,7 @@ class PostDetail extends React.Component<any, any> {
   }
 
   public render() {
-    console.log(this.props.post);
+
     if (!this.props.post) return null;
     let { link, category, title } = this.props.post;
     link = category.toLowerCase()
