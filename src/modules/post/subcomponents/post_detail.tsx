@@ -325,7 +325,7 @@ class PostDetail extends React.Component<any, any> {
     let startDate = moment(this.props.post.start_date).format("MM/DD/YY");
     let endDate = moment(this.props.post.end_date).format("MM/DD/YY");
 
-    return <span id="date-range-housing">{startDate} - {endDate}</span>;
+    return <span id="date-range-housing">Available: {startDate} - {endDate}</span>;
   }
 
   public renderDetail() {
