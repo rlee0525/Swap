@@ -12,7 +12,7 @@ json.array! @posts do |post|
                 :category,
                 :course_id,
                 :updated_at,
-                :active
+                :active,
                 :views,
                 :address,
                 :lat,

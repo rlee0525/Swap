@@ -56,7 +56,11 @@ class MapItem extends React.Component<any, any> {
     });
 
     infowindow.open(this.map, marker);
-
+    
+    marker.addListener('click', function() {
+      infowindow.open(this.map, marker);
+    });
+    
     marker.setMap(this.map);
   }
 
