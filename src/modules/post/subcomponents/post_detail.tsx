@@ -314,10 +314,17 @@ class PostDetail extends React.Component<any, any> {
 
   public housingViews() {
     if (this.state.view === "photo") {
-      return (<p className="change-view" onClick={this.changeView}> View Map </p>)
+      return (<p className="change-view" onClick={this.changeView}> View Map &nbsp;&nbsp;&nbsp;{this.dateRange()}</p>)
     } else {
-      return (<p className="change-view" onClick={this.changeView}> View Photos </p>)
+      return (<p className="change-view" onClick={this.changeView}> View Photos &nbsp;&nbsp;&nbsp;{this.dateRange()}</p>)
     };
+  }
+
+  public dateRange() {
+    let startDate = this.props.post.start_date;
+    let endDate = this.props.post.end_date;
+
+    return `${startDate} - ${endDate}`;
   }
 
   public renderDetail() {
@@ -376,7 +383,6 @@ class PostDetail extends React.Component<any, any> {
   }
 
   public render() {
-
     if (!this.props.post) return null;
     let { link, category, title } = this.props.post;
     link = category.toLowerCase()
