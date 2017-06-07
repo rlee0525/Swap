@@ -416,7 +416,7 @@ class PostDetail extends React.Component<any, any> {
                   <span className="icon icon-chevron-thin-right" aria-hidden="true" id="carousel-arrows-right"></span>
                   <span className="sr-only">Next</span>
                 </a>
-              </div>) : (<MapItem center={this.state.center}/>)}
+              </div>) : (<MapItem center={this.state.center} address={this.state.address}/>)}
           </div>
         </div>
         {this.renderDetail()}

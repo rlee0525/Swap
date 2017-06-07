@@ -46,9 +46,16 @@ class MapItem extends React.Component<any, any> {
     this.map = new google.maps.Map(map, options);
     this.map.setOptions({styles: style['pastel']});
     
-    var marker = new google.maps.Marker({
-      position: this.props.center
+    var infowindow = new google.maps.InfoWindow({
+      content: this.props.address
     });
+
+    var marker = new google.maps.Marker({
+      position: this.props.center,
+      animation: google.maps.Animation.DROP
+    });
+
+    infowindow.open(this.map, marker);
 
     marker.setMap(this.map);
   }
