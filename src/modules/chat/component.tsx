@@ -1,3 +1,4 @@
+declare var Promise;
 import React from 'react';
 import * as firebase from 'firebase';
 import autoBind from 'react-autobind';
@@ -40,20 +41,36 @@ class Chat extends React.Component<Props, State> {
 
     fetchConversations(user.auth.accessToken).then(
       res => {
-        let currentConversation = res[0].conversation_id;
-        
-        let conversations : object = keyBy<object>(res, "conversation_id");
-        console.log(conversations);
-        
+        // update to render the correct conversation based on clicked post
+        let currentConversation = res[1].conversation_id;
 
-        // connect to firebase and listens for messages
         this.ref = firebase.database().ref(`conversations/${currentConversation}`); 
-        
-        this.ref.on('value', snapshot => {
-          let messages = snapshot.val() || {};
 
-          conversations[currentConversation].messages = messages;
+        let conversations : object = keyBy<object>(res, "conversation_id");
 
+        let ids = Object.keys(conversations);
+
+        let dataNeeded = [];
+
+        for (let i = 0; i < ids.length; i++) {
+          
+          let data = firebase.database().ref(`conversations/${ids[i]}`).once('value', snapshot => {
+            
+            let messages = snapshot.val() || {};
+            conversations[ids[i]].messages = messages;
+
+            let timestamps = Object.keys(messages);
+            
+            let hasUnreadMessages = messages[timestamps[timestamps.length - 1]].sender !== user.userFB.id;
+
+            conversations[ids[i]].hasUnreadMessages = hasUnreadMessages;
+            
+          });
+
+          dataNeeded.push(data);
+        }
+
+        Promise.all(dataNeeded).then(() => {
           this.setState({ 
             currentConversation,
             conversations, 
@@ -81,7 +98,18 @@ class Chat extends React.Component<Props, State> {
     }
 
     this.setState({ 
-      message: ''
+      message: '',
+      conversations: {
+        ...this.state.conversations,
+        [currentConversation]: {
+          ...this.state.conversations[currentConversation],
+          hasUnreadMessages: false,
+          messages: {
+            ...this.state.conversations[currentConversation].messages,
+            [time]: messageObj
+          }
+        }
+      }
     });
 
     firebase.database().ref(`conversations/${currentConversation}/${time}`).set(messageObj);
@@ -107,7 +135,7 @@ class Chat extends React.Component<Props, State> {
     // connect to firebase and listens for messages
     this.ref = firebase.database().ref(`conversations/${conversation_id}`); 
     
-    this.ref.on('value', snapshot => {
+    this.ref.once('value', snapshot => {
       let messages = snapshot.val() || {};
 
       this.setState({ 
@@ -131,8 +159,6 @@ class Chat extends React.Component<Props, State> {
       );
     }
 
-    console.log(this.state);
-
     let { currentConversation, conversations } = this.state;
     let { user } = this.props;
 
@@ -145,6 +171,8 @@ class Chat extends React.Component<Props, State> {
           { values(conversations).map((conversation : any) => (
             <ConversationItem
               key={conversation.conversation_id}
+              hasUnreadMessages={conversation.hasUnreadMessages}
+              active={currentConversation === conversation.conversation_id}
               user={conversation.other_user_info}
               changeConversation={() => this.changeConversation(conversation.conversation_id)}
             />
