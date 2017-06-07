@@ -25,8 +25,8 @@ vendor.js.map
 app/assets/javascripts/bundle.js
 app/assets/javascripts/bundle.js.map
 
-config/api_key.js
 application.yml
+api_key.js
 
 # Ignore application configuration
 /config/application.yml
