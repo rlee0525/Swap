@@ -28,6 +28,10 @@ class SearchNavbar extends React.Component<Props, State> {
     this.state = { category: null };
   }
 
+  public componentDidMount() {
+    let category = this.pr
+  }
+
   private checkKey(e: any) {
     if (e.keyCode === 13) {
       this.enterSearchQuery();
@@ -53,18 +57,24 @@ class SearchNavbar extends React.Component<Props, State> {
   private enterSearchQuery() {
     $('#search-query').blur();
     const currentQuery = this.props.currentQuery;
-    if (this.props.home) {
-      let newLocation;
-      let oldLocation = currentQuery.category;
-      if (oldLocation === "All") {
-        newLocation = "recent"
-      } else if (oldLocation === "Lost & Found") {
-        newLocation = "lostandfound"
-      } else {
-        newLocation = oldLocation.toLowerCase().split(" ").join("");
-      }
-      window.location = `#/${newLocation}`;
+    let newLocation, oldLocation;
+
+    if (this.state.category) {
+      oldLocation = this.state.category;
+    } else {
+      oldLocation = currentQuery.category;
     }
+
+    if (oldLocation === "All") {
+      newLocation = "recent"
+    } else if (oldLocation === "Lost & Found") {
+      newLocation = "lostandfound"
+    } else {
+      newLocation = oldLocation.toLowerCase().split(" ").join("");
+    }
+
+    window.location = `#/${newLocation}`;
+
     let nextQuery = merge({}, currentQuery, {page_idx: 1});
     const category = this.state.category;
     if (this.state.category) nextQuery = merge({}, currentQuery, {category});
