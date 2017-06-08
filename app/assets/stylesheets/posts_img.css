@@ -8,7 +8,7 @@
 
 .carousel-caption {
   position: absolute !important;
-  top: 5%;
+  top: 0;
   bottom: 0;
   left: 0;
   right: 0;
@@ -20,6 +20,13 @@
 .category-description {
   letter-spacing: 1px !important;
   font-size: 12px !important;
+}
+
+
+@media screen and (max-width: 430px) {
+  .category-title {
+    font-size: 20px;
+  }
 }
 
 @media screen and (max-width: 500px) {
@@ -35,9 +42,9 @@
   }
 }
 
-@media screen and (max-width: 430px) {
-  .category-title {
-    font-size: 20px;
+@media screen and (max-width: 991px) {
+  .carousel-caption {
+    top: 5%;
   }
 }
 
