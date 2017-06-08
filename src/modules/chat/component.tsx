@@ -42,7 +42,7 @@ class Chat extends React.Component<Props, State> {
     fetchConversations(user.auth.accessToken).then(
       res => {
         // update to render the correct conversation based on clicked post
-        let currentConversation = res[1].conversation_id;
+        let currentConversation = res[0].conversation_id;
 
         this.ref = firebase.database().ref(`conversations/${currentConversation}`); 
 
