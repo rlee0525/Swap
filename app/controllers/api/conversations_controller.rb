@@ -20,8 +20,7 @@ class Api::ConversationsController < ApplicationController
       render json: ['already exists']
       return
     end
-    p conversation
-    p 'should not be here'
+
     @conversation = Conversation.new(conversation_params)
     if @conversation.save
       render json: ['success']
