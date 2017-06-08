@@ -15,7 +15,7 @@ interface Props {
 }
 
 const CategoryBox: React.SFC<Props> = ({ viewDescription, hideDescription, category }) => (
-  <div className="col-xs-6 col-md-4">
+  <div className="col-xxs-12 col-xs-6 col-md-4">
     <Link to={category.link} className="thumbnail" onMouseOver={viewDescription} onMouseOut={hideDescription}>
       <img className="thumbnail-image" src={category.image} alt="..."/>
       <div className="carousel-caption">

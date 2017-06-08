@@ -1,0 +1,16 @@
+@media screen and (max-width: 571px) {
+  .col-xxs-12 {
+    width: 100% !important;
+  }
+  
+  .carousel-caption {
+    position: absolute !important;
+    top: 15% !important;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 70%;
+    height: 45%;
+    margin: auto;
+  }
+}
