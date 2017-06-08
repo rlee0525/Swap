@@ -10,6 +10,11 @@ import { fetchConversations } from './utils';
 
 interface Props {
   user: any;
+  location: {
+    query: {
+      id: string;
+    }
+  }
 }
 
 interface State {
@@ -39,10 +44,28 @@ class Chat extends React.Component<Props, State> {
   componentDidMount() : void {
     let { user } = this.props;
 
+    let conversationId = this.props.location.query.id;
+
     fetchConversations(user.auth.accessToken).then(
       res => {
-        // update to render the correct conversation based on clicked post
-        let currentConversation = res[0].conversation_id;
+
+        let currentConversation;
+
+        if (res.length === 0) return;
+
+        if (conversationId) {
+          currentConversation = res.filter(conversation => (
+            conversation.conversation_id === conversationId
+          ));
+
+          if (currentConversation.length === 0) {
+            currentConversation = res[0].conversation_id;
+          } else {
+            currentConversation = currentConversation[0].conversation_id;
+          }
+        } else {
+          currentConversation = res[0].conversation_id;
+        }
 
         this.ref = firebase.database().ref(`conversations/${currentConversation}`); 
 
@@ -158,6 +181,9 @@ class Chat extends React.Component<Props, State> {
         <div>Loading</div>
       );
     }
+
+    console.log(this.props);
+    
 
     let { currentConversation, conversations } = this.state;
     let { user } = this.props;
