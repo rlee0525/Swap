@@ -12,9 +12,6 @@ class Messages extends React.Component<Props, {}> {
   render() {
     let { conversation, user } = this.props;
 
-    console.log(conversation);
-    
-
     let timestamps = Object.keys(conversation.messages).reverse();
     let renderedDelivered = false;
     let renderedSeen = false;
