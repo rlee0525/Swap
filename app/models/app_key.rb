@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: configurations
+# Table name: app_keys
 #
 #  id         :integer          not null, primary key
 #  app        :string           not null
@@ -9,7 +9,7 @@
 #  updated_at :datetime         not null
 #
 
-class Configuration < ApplicationRecord
+class AppKey < ApplicationRecord
   validates :app, presence: true, uniqueness: true
   validates :variables, presence: true
 end

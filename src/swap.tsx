@@ -21,6 +21,14 @@ const firebaseConfig = {
 window.start = user => {
   // document.addEventListener('DOMContentLoaded', () => {
     const root: HTMLElement = document.getElementById('root');
+
+    $.ajax({
+      method: "GET",
+      url: "api/configurations/firebase"
+    }).then(
+      config => console.log(config)
+    )
+    
     firebase.initializeApp(firebaseConfig);
 
     let preloadedState: object = {};
