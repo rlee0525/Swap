@@ -87,11 +87,13 @@ class Bookmarks extends React.Component<Props, State> {
       );
     };
 
-    if (this.props.bookmarks.list.length === 0) return (
-      <tr>
-        <td colSpan={6}>Currently, you haven't added any bookmarks.  Add bookmarks directly on any postings you like. It's an easy way to keep track of items you like and to share them with others.</td>
-      </tr>
-    );
+    if (this.props.bookmarks.list.length === 0) {
+      return (
+        <tr>
+          <td colSpan={6}>Currently, you haven't added any bookmarks.  Add bookmarks directly on any postings you like. It's an easy way to keep track of items you like and to share them with others.</td>
+        </tr>
+      );
+    }
 
     return (
       this.state.bookmarks.map(bookmarkedPost => (
