@@ -10,6 +10,11 @@ import { fetchConversations } from './utils';
 
 interface Props {
   user: any;
+  location: {
+    query: {
+      id: string;
+    }
+  }
 }
 
 interface State {
@@ -39,10 +44,31 @@ class Chat extends React.Component<Props, State> {
   componentDidMount() : void {
     let { user } = this.props;
 
+    let conversationId = this.props.location.query.id;
+
     fetchConversations(user.auth.accessToken).then(
       res => {
-        // update to render the correct conversation based on clicked post
-        let currentConversation = res[1].conversation_id;
+
+        let currentConversation;
+
+        if (res.length === 0) {
+          this.setState({ loading: false });
+          return;
+        };
+
+        if (conversationId) {
+          currentConversation = res.filter(conversation => (
+            conversation.conversation_id === conversationId
+          ));
+
+          if (currentConversation.length === 0) {
+            currentConversation = res[0].conversation_id;
+          } else {
+            currentConversation = currentConversation[0].conversation_id;
+          }
+        } else {
+          currentConversation = res[0].conversation_id;
+        }
 
         this.ref = firebase.database().ref(`conversations/${currentConversation}`); 
 
@@ -57,9 +83,15 @@ class Chat extends React.Component<Props, State> {
           let data = firebase.database().ref(`conversations/${ids[i]}`).once('value', snapshot => {
             
             let messages = snapshot.val() || {};
+
             conversations[ids[i]].messages = messages;
 
             let timestamps = Object.keys(messages);
+
+            if (timestamps.length === 0) {
+              conversations[ids[i]].hasUnreadMessages = false;
+              return;
+            }
             
             let hasUnreadMessages = messages[timestamps[timestamps.length - 1]].sender !== user.userFB.id;
 
@@ -83,7 +115,7 @@ class Chat extends React.Component<Props, State> {
   }
 
   componentWillUnmount() : void {
-    this.ref.off();
+    if (this.ref) this.ref.off();
   }
 
   sendMessage(message : string) : void {
@@ -180,10 +212,14 @@ class Chat extends React.Component<Props, State> {
         </div>
 
         <div className="chat-messages">
-          <Messages
-            conversation={conversations[currentConversation]}
-            user={user}
-          />
+          { Object.keys(conversations).length === 0 ? (
+            <div>You don't have any conversations.</div>
+          ) :(
+            <Messages
+              conversation={conversations[currentConversation]}
+              user={user}
+            />
+          )}
 
           <div className="chat-input">
             <textarea

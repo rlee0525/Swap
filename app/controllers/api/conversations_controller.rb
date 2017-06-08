@@ -15,6 +15,12 @@ class Api::ConversationsController < ApplicationController
   end
 
   def create
+    conversation = Conversation.find_by(conversation_id: params[:conversation][:conversation_id])
+    if conversation
+      render json: ['already exists']
+      return
+    end
+
     @conversation = Conversation.new(conversation_params)
     if @conversation.save
       render json: ['success']
