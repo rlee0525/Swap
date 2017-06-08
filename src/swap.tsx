@@ -24,13 +24,13 @@ window.start = user => {
 
     $.ajax({
       method: "GET",
-      url: "api/configurations/firebase"
+      url: "api/app_keys/firebase"
     }).then(
-      config => console.log(config)
-    )
+      config => {
+        let variables = config.variables;
+        firebase.initializeApp(JSON.parse(variables));
+    });
     
-    firebase.initializeApp(firebaseConfig);
-
     let preloadedState: object = {};
 
     preloadedState = { user: user };

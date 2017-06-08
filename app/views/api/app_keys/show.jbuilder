@@ -1,1 +1,1 @@
-json.extract! @configuration, :app, :variables
+json.extract! @app_key, :app, :variables

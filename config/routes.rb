@@ -15,7 +15,7 @@ Rails.application.routes.draw do
       resources :my_courses,      only: [:index, :create, :destroy]
       resources :course_posts,    only: [:index]
       resources :conversations,   only: [:index, :create, :destroy]
-      resources :configurations,  only: [:show]
+      resources :app_keys,        only: [:show]
     end
   end
 
