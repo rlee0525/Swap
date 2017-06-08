@@ -83,9 +83,15 @@ class Chat extends React.Component<Props, State> {
           let data = firebase.database().ref(`conversations/${ids[i]}`).once('value', snapshot => {
             
             let messages = snapshot.val() || {};
+
             conversations[ids[i]].messages = messages;
 
             let timestamps = Object.keys(messages);
+
+            if (timestamps.length === 0) {
+              conversations[ids[i]].hasUnreadMessages = false;
+              return;
+            }
             
             let hasUnreadMessages = messages[timestamps[timestamps.length - 1]].sender !== user.userFB.id;
 
@@ -185,15 +191,6 @@ class Chat extends React.Component<Props, State> {
       );
     }
 
-    if (Object.keys(this.state.conversations).length === 0) {
-      return (
-        <div>No Convos</div>
-      );
-    }
-
-    console.log(this.props);
-    
-
     let { currentConversation, conversations } = this.state;
     let { user } = this.props;
 
@@ -215,10 +212,14 @@ class Chat extends React.Component<Props, State> {
         </div>
 
         <div className="chat-messages">
-          <Messages
-            conversation={conversations[currentConversation]}
-            user={user}
-          />
+          { Object.keys(conversations).length === 0 ? (
+            <div>You don't have any conversations.</div>
+          ) :(
+            <Messages
+              conversation={conversations[currentConversation]}
+              user={user}
+            />
+          )}
 
           <div className="chat-input">
             <textarea
