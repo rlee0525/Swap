@@ -75,7 +75,16 @@ class Bookmarks extends React.Component<Props, State> {
   }
 
   private renderListItems() {
-    if (this.props.bookmarks.fetched === false) return (<div className="loader"></div>);
+    if (this.props.bookmarks.fetched === false) {
+      return (<div className="showbox">
+        <div className="loader">
+          <svg className="circular" viewBox="25 25 50 50">
+            <circle className="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+          </svg>
+        </div>
+      </div>);
+    }
+    
     if (this.props.bookmarks.list.length === 0) return (
       <tr>
         <td colSpan={6}>Currently, you haven't added any bookmarks.  Add bookmarks directly on any postings you like. It's an easy way to keep track of items you like and to share them with others.</td>
