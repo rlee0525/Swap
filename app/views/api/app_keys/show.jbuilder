@@ -1,0 +1,1 @@
+json.extract! @app_key, :app, :variables

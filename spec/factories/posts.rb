@@ -17,6 +17,11 @@
 #  deleted     :boolean          default(FALSE)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  address     :string
+#  lat         :float
+#  lng         :float
+#  start_date  :datetime
+#  end_date    :datetime
 #
 
 FactoryGirl.define do
