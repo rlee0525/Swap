@@ -108,20 +108,35 @@ class MyCourses extends React.Component<Props, State> {
   }
 
   public renderListItem() {
-    if (this.props.myCourses.fetched === false) return (<div className="loader"></div>);
-    if (this.props.myCourses.list.length === 0) return (
-      <tr>
-        <td colSpan={2}>Currently, you haven't added any courses.  To take advantage of the "My Courses" search category, please enter your courses</td>
-      </tr>
-    );
+    if (this.props.myCourses.fetched === false) {
+      return (
+        <div className="showbox">
+          <div className="loader">
+            <svg className="circular" viewBox="25 25 50 50">
+              <circle className="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+            </svg>
+          </div>
+        </div>
+      );
+    }
 
-    return this.props.myCourses.list.map(course => (
-      <tr key={course.id} >
-        <td>{course.course_number}</td>
-        <td className="hidden-xs">{course.course_name}</td>
-        <td><button type="button" id="action-button" className="btn btn-xs btn-secondary" onClick={(e) => this.deleteCourse(e, course.id)}>Delete</button></td>
-      </tr>
-    ));
+    if (this.props.myCourses.list.length === 0) {
+      return (
+        <tr>
+          <td colSpan={2}>Currently, you haven't added any courses.  To take advantage of the "My Courses" search category, please enter your courses</td>
+        </tr>
+      );
+    };
+
+    return (
+      this.props.myCourses.list.map(course => (
+        <tr key={course.id} >
+          <td>{course.course_number}</td>
+          <td className="hidden-xs">{course.course_name}</td>
+          <td><button type="button" id="action-button" className="btn btn-xs btn-secondary" onClick={(e) => this.deleteCourse(e, course.id)}>Delete</button></td>
+        </tr>
+      ))
+    );
   }
 
   render() {

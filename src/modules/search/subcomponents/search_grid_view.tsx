@@ -143,7 +143,15 @@ class SearchGridView extends React.Component<Props, State> {
     if (this.props.searchResult.posts) {
       results = this.props.searchResult.posts.map((post, idx) => this.renderGridItem(post));
     } else {
-      results = (<div className="loader"></div>)
+      results = (
+        <div className="showbox">
+          <div className="loader">
+            <svg className="circular" viewBox="25 25 50 50">
+              <circle className="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+            </svg>
+          </div>
+        </div>
+      );
     }
 
     return (

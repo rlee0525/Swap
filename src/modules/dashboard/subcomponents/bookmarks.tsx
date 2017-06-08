@@ -76,46 +76,50 @@ class Bookmarks extends React.Component<Props, State> {
 
   private renderListItems() {
     if (this.props.bookmarks.fetched === false) {
-      return (<div className="showbox">
-        <div className="loader">
-          <svg className="circular" viewBox="25 25 50 50">
-            <circle className="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
-          </svg>
+      return (
+        <div className="showbox">
+          <div className="loader">
+            <svg className="circular" viewBox="25 25 50 50">
+              <circle className="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+            </svg>
+          </div>
         </div>
-      </div>);
-    }
-    
+      );
+    };
+
     if (this.props.bookmarks.list.length === 0) return (
       <tr>
         <td colSpan={6}>Currently, you haven't added any bookmarks.  Add bookmarks directly on any postings you like. It's an easy way to keep track of items you like and to share them with others.</td>
       </tr>
     );
 
-    return this.state.bookmarks.map(bookmarkedPost => (
-      <tr key={`post${bookmarkedPost.id}`} onClick={() => this.loadPost(bookmarkedPost.id)}>
-        <td>
-          <a href={`#/posts/${bookmarkedPost.id}`} >
-            <img className="img img-responsive img-thumbnail-size" src={bookmarkedPost.img_url1}/>
-          </a>
-        </td>
+    return (
+      this.state.bookmarks.map(bookmarkedPost => (
+        <tr key={`post${bookmarkedPost.id}`} onClick={() => this.loadPost(bookmarkedPost.id)}>
+          <td>
+            <a href={`#/posts/${bookmarkedPost.id}`} >
+              <img className="img img-responsive img-thumbnail-size" src={bookmarkedPost.img_url1}/>
+            </a>
+          </td>
 
-        <td className="hidden-xs">{shortenString(bookmarkedPost.title, 25)}</td>
-        <td className="hidden-xs">${Number(bookmarkedPost.price).toLocaleString()}</td>
-        <td className="hidden-xs">{timeFromNow(bookmarkedPost.updated_at)}</td>
+          <td className="hidden-xs">{shortenString(bookmarkedPost.title, 25)}</td>
+          <td className="hidden-xs">${Number(bookmarkedPost.price).toLocaleString()}</td>
+          <td className="hidden-xs">{timeFromNow(bookmarkedPost.updated_at)}</td>
 
-        <td>
-          <button type="button" className="btn btn-xs btn-primary" data-clipboard-text={window.localhost_url + `/#/posts/${bookmarkedPost.id}`} onClick={e => e.stopPropagation()}>
-            Copy Link
-          </button>
-        </td>
+          <td>
+            <button type="button" className="btn btn-xs btn-primary" data-clipboard-text={window.localhost_url + `/#/posts/${bookmarkedPost.id}`} onClick={e => e.stopPropagation()}>
+              Copy Link
+            </button>
+          </td>
 
-        <td>
-          <button type="button" className="btn btn-xs btn-secondary" onClick={(e) => this.deleteBookmark(e, bookmarkedPost.id)}>
-            Delete
-          </button>
-        </td>
-      </tr>
-    ))
+          <td>
+            <button type="button" className="btn btn-xs btn-secondary" onClick={(e) => this.deleteBookmark(e, bookmarkedPost.id)}>
+              Delete
+            </button>
+          </td>
+        </tr>
+      ))
+    );
   }
 
   public render() {
