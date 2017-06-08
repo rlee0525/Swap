@@ -51,7 +51,10 @@ class Chat extends React.Component<Props, State> {
 
         let currentConversation;
 
-        if (res.length === 0) return;
+        if (res.length === 0) {
+          this.setState({ loading: false });
+          return;
+        };
 
         if (conversationId) {
           currentConversation = res.filter(conversation => (
@@ -106,7 +109,7 @@ class Chat extends React.Component<Props, State> {
   }
 
   componentWillUnmount() : void {
-    this.ref.off();
+    if (this.ref) this.ref.off();
   }
 
   sendMessage(message : string) : void {
@@ -179,6 +182,12 @@ class Chat extends React.Component<Props, State> {
     if (this.state.loading) {
       return (
         <div>Loading</div>
+      );
+    }
+
+    if (Object.keys(this.state.conversations).length === 0) {
+      return (
+        <div>No Convos</div>
       );
     }
 
