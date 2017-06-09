@@ -2,6 +2,7 @@ import React from 'react';
 import { searchParams } from 'helpers';
 import { merge } from 'lodash';
 import { getCategory } from 'helpers';
+import { hashHistory } from 'react-router';
 declare var window;
 
 interface Props {
@@ -21,11 +22,14 @@ class SearchNavbar extends React.Component<Props, State> {
   constructor(props : Props) {
     super(props);
 
+    this.state = { 
+      category: null 
+    };
+
     this.checkKey = this.checkKey.bind(this);
     this.renderCategoryMenu = this.renderCategoryMenu.bind(this);
     this.enterSearchQuery = this.enterSearchQuery.bind(this);
     this.onChange = this.onChange.bind(this);
-    this.state = { category: null };
   }
 
   private checkKey(e: any) {
@@ -37,8 +41,10 @@ class SearchNavbar extends React.Component<Props, State> {
   private onChange(e: any) {
     let query = e.target.value;
     const currentQuery = this.props.currentQuery;
-    let nextQuery = merge({}, currentQuery, {query});
-    this.props.saveQuery(nextQuery)
+    let nextQuery = merge({}, currentQuery, { query });
+
+    this.props.saveQuery(nextQuery);
+
     if (query === "") {
       if (this.props.currentQuery.category === "My Course Material" && this.props.user) {
         const access_token = this.props.user.auth.accessToken;
@@ -69,7 +75,7 @@ class SearchNavbar extends React.Component<Props, State> {
       newLocation = oldLocation.toLowerCase().split(" ").join("");
     }
 
-    window.location = `#/${newLocation}`;
+    hashHistory.push(newLocation);
 
     let nextQuery = merge({}, currentQuery, {page_idx: 1});
     const category = this.state.category;
@@ -79,6 +85,7 @@ class SearchNavbar extends React.Component<Props, State> {
     }
     
     this.props.saveQuery(nextQuery);
+    
     if (this.props.currentQuery.category === "My Course Material" && this.props.user) {
       const access_token = this.props.user.auth.accessToken;
       nextQuery = merge({}, nextQuery, {category, access_token});

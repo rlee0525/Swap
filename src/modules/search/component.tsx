@@ -41,13 +41,22 @@ class Search extends React.Component<Props, State> {
   }
 
   public componentWillMount() {
-    const category = this.props.location.pathname;
+    let category = this.props.location.pathname;
+
+    hashHistory.push(category);
+
+    if (category === "mycoursematerial" || category === "/mycoursematerial") {
+      category = "My Course Material";
+    }
+
+    console.log(category)
+
     const currentQuery = this.props.currentQuery;
     const nextQuery = merge({}, currentQuery, {category, page_idx: 1});
     this.props.search(nextQuery);
     this.props.saveQuery(nextQuery);
 
-    hashHistory.push(category);
+    console.log(nextQuery);
   }
 
   public componentWillReceiveProps(nextProps: any){
@@ -124,13 +133,16 @@ class Search extends React.Component<Props, State> {
     let path = this.props.location.pathname.slice(1);
     let category = this.props.currentQuery.category;
     let label = category;
-    if (category === "All") label = null;
+
+    if (category === "All") {
+      label = null;
+    }
+    
     if (category === "/mycoursematerial") {
       label = 'My Course Material';
       category = 'My Course Material';
     }
 
-    console.log(category);
     let minResult = (this.props.currentQuery.page_idx - 1) * 16 + 1;
     let maxResult = (this.props.currentQuery.page_idx * 16);
     let totalResults = this.props.searchResult.result_count;
@@ -143,12 +155,12 @@ class Search extends React.Component<Props, State> {
         <div className="container">
           <div className="row">
             <SearchNavbar
-              user={this.props.user}
-              searchResult={this.props.searchResult}
-              search={this.props.search}
               currentQuery={this.props.currentQuery}
-              saveQuery={this.props.saveQuery}
               home={false}
+              search={this.props.search}
+              searchResult={this.props.searchResult}
+              saveQuery={this.props.saveQuery}
+              user={this.props.user}
             />
             <div className="col-md-12">
               <div id="nav-tools">
@@ -162,10 +174,18 @@ class Search extends React.Component<Props, State> {
                 </nav>
 
                 <div className="search-icons">
-                  <button className="btn btn-link btn-special-size btn-special-margin" id="grid-type" onClick={() => this.changeView('grid')}>
+                  <button 
+                    className="btn btn-link btn-special-size btn-special-margin" 
+                    id="grid-type" 
+                    onClick={() => this.changeView('grid')}
+                  >
                     <span className="glyphicon glyphicon-th-large"></span>
                   </button>
-                  <button className="btn btn-link btn-special-size btn-special-margin" id="list-type" onClick={() => this.changeView('list')}>
+                  <button 
+                    className="btn btn-link btn-special-size btn-special-margin" 
+                    id="list-type" 
+                    onClick={() => this.changeView('list')}
+                  >
                     <span className="glyphicon glyphicon-th-list"></span>
                   </button>
                 </div>
