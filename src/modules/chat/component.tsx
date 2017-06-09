@@ -4,7 +4,6 @@ import * as firebase from 'firebase';
 import autoBind from 'react-autobind';
 import { keyBy, values } from 'lodash';
 
-import './styles.scss';
 import { Messages, ConversationItem } from './subcomponents';
 import { fetchConversations } from './utils';
 
