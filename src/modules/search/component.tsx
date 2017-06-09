@@ -51,7 +51,11 @@ class Search extends React.Component<Props, State> {
   }
 
   public componentWillReceiveProps(nextProps: any){
-    const category = getCategory(nextProps.location);
+    let category = getCategory(nextProps.location);
+    
+    if (category === "Mycoursematerial") {
+      category = 'My Course Material';
+    }
 
     if (this.state.categories.includes(category) &&
         nextProps.location !== this.props.location) {
@@ -126,6 +130,7 @@ class Search extends React.Component<Props, State> {
       category = 'My Course Material';
     }
 
+    console.log(category);
     let minResult = (this.props.currentQuery.page_idx - 1) * 16 + 1;
     let maxResult = (this.props.currentQuery.page_idx * 16);
     let totalResults = this.props.searchResult.result_count;
