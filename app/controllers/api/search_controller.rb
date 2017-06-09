@@ -16,6 +16,10 @@ class Api::SearchController < ApplicationController
 
     if (query.nil? || query.empty?) && category == "My Course Material"
       user = fb_auth_user(params[:access_token])
+      
+      # Koala opens up a new thread - double renders with user = nil without this.
+      return unless user
+
       @result_count = user.course_posts.where(active: true)
                    .where(deleted: false)
                    .count
@@ -108,57 +112,4 @@ class Api::SearchController < ApplicationController
 
     render 'api/search/index'
   end
-
-  # private
-
-  # TODO if not useful delete in future releases
-  # def calc_score(post, query)
-  #   categories = ['Textbooks', 'Clothing', 'Furniture', 'Electronics',
-  #                 'Lost & Found', 'Games', 'Bikes', 'Housing']
-  #
-  #   query = query.split(' ')
-  #   score = 0
-  #   max = 0
-  #
-  #   query.each do |word|
-  #     max += word.length
-  #     if post['title'].downcase.include? word.downcase
-  #       score += word.length
-  #     elsif categories[post['category_id'] + 1] == word.capitalize
-  #       score += 10
-  #     end
-  #   end
-  #
-  #   score
-  # end
-
-  # TODO if not useful delete in future releases
-  # def match(str1, str2)
-  #   matrix = Array.new(str1.length + 1) { Array.new(str2.length + 1, nil) }
-  #   matrix[0] = (0..str1.length + 1).to_a
-  #
-  #   matrix.each_with_index do |row, r_idx|
-  #     next if r_idx.zero?
-  #
-  #     row.each_with_index do |_el, c_idx|
-  #       if c_idx.zero?
-  #         matrix[r_idx][c_idx] = matrix[r_idx - 1][c_idx] + 1
-  #         next
-  #       end
-  #       up = matrix[r_idx - 1][c_idx]
-  #       left = matrix[r_idx][c_idx - 1]
-  #       dia = matrix[r_idx - 1][c_idx - 1]
-  #
-  #       min = [up, left, dia].min
-  #
-  #       if str1[r_idx - 1].casecmp(str2[c_idx - 1].downcase).zero?
-  #         matrix[r_idx][c_idx] = min
-  #       else
-  #         matrix[r_idx][c_idx] = min + 1
-  #       end
-  #
-  #     end
-  #   end
-  #   str1.length - matrix.last.last
-  # end
 end

@@ -2,6 +2,7 @@ import React from 'react';
 import { IUser } from 'common/interfaces';
 import { SearchNavbar } from 'modules/search/subcomponents';
 import { CategoryBox } from './subcomponents';
+import { merge } from 'lodash';
 
 const categories = require('./categories.json');
 
@@ -20,6 +21,9 @@ class Home extends React.Component<any, {}> {
 
   public componentDidMount() {
     $('#search-query').focus();
+    const currentQuery = this.props.currentQuery;
+    let nextQuery = merge({}, currentQuery, {query: ""});
+    this.props.saveQuery(nextQuery)
   }
 
   private viewDescription(e) {

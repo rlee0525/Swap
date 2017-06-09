@@ -1,6 +1,7 @@
 import React from 'react';
 import autoBind from 'react-autobind';
 import Clipboard from 'clipboard';
+import * as moment from 'moment';
 import { hashHistory } from 'react-router';
 import { shortenString, timeFromNow } from 'helpers';
 import { MapItem } from 'common/components';
@@ -314,17 +315,17 @@ class PostDetail extends React.Component<any, any> {
 
   public housingViews() {
     if (this.state.view === "photo") {
-      return (<p className="change-view" onClick={this.changeView}> View Map &nbsp;&nbsp;&nbsp;{this.dateRange()}</p>)
+      return (<p className="change-view"> <span onClick={this.changeView} id="change-view-button">View Map</span> &nbsp;&nbsp;&nbsp;{this.dateRange()}</p>)
     } else {
-      return (<p className="change-view" onClick={this.changeView}> View Photos &nbsp;&nbsp;&nbsp;{this.dateRange()}</p>)
+      return (<p className="change-view"> <span onClick={this.changeView} id="change-view-button">View Photos</span> &nbsp;&nbsp;&nbsp;{this.dateRange()}</p>)
     };
   }
 
   public dateRange() {
-    let startDate = this.props.post.start_date;
-    let endDate = this.props.post.end_date;
+    let startDate = moment(this.props.post.start_date).format("MM/DD/YY");
+    let endDate = moment(this.props.post.end_date).format("MM/DD/YY");
 
-    return `${startDate} - ${endDate}`;
+    return <span id="date-range-housing">Available: {startDate} - {endDate}</span>;
   }
 
   public renderDetail() {

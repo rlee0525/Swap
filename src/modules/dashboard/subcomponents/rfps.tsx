@@ -59,27 +59,42 @@ class Rfps extends React.Component <Props, State> {
   }
 
   public renderListItems() {
-    if (this.props.rfps.fetched === false) return (<div className="loader"></div>);
-    if (this.props.rfps.list.length === 0) return (
-      <tr>
-        <td>Currently, you do not have any alerts setup.  Please add alerts.</td>
-      </tr>
-    );
+    if (this.props.rfps.fetched === false) {
+      return (
+        <div className="showbox">
+          <div className="loader">
+            <svg className="circular" viewBox="25 25 50 50">
+              <circle className="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+            </svg>
+          </div>
+        </div>
+      );
+    };
 
-    return this.state.rfps.map((rfp : IRfps) => (
-      <tr key={`post${rfp.id}`}>
-        <td>{shortenString(rfp.description, 30)}</td>
-        <td id="rfp-delete">
-          <button
-            type="button"
-            className="btn btn-xs btn-danger"
-            onClick={(e) => this.deleteRfp(e, rfp.id)}
-          >
-            Delete
-          </button>
-        </td>
-      </tr>
-    ));
+    if (this.props.rfps.list.length === 0) {
+      return (
+        <tr>
+          <td>Currently, you do not have any alerts setup.  Please add alerts.</td>
+        </tr>
+      );
+    };
+
+    return (
+      this.state.rfps.map((rfp : IRfps) => (
+        <tr key={`post${rfp.id}`}>
+          <td>{shortenString(rfp.description, 30)}</td>
+          <td id="rfp-delete">
+            <button
+              type="button"
+              className="btn btn-xs btn-danger"
+              onClick={(e) => this.deleteRfp(e, rfp.id)}
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+      ))
+    );
   }
 
   public render() {
