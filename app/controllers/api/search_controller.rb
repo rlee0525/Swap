@@ -16,6 +16,10 @@ class Api::SearchController < ApplicationController
 
     if (query.nil? || query.empty?) && category == "My Course Material"
       user = fb_auth_user(params[:access_token])
+      
+      # Koala opens up a new thread - double renders with user = nil without this.
+      return unless user
+
       @result_count = user.course_posts.where(active: true)
                    .where(deleted: false)
                    .count

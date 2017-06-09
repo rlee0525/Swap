@@ -121,7 +121,7 @@ class Search extends React.Component<Props, State> {
     let category = this.props.currentQuery.category;
     let label = category;
     if (category === "All") label = null;
-    if (category === "Mycoursematerial") {
+    if (category === "/mycoursematerial") {
       label = 'My Course Material';
       category = 'My Course Material';
     }
