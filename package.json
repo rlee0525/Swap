@@ -65,7 +65,6 @@
     "webpack": "^2.5.1"
   },
   "devDependencies": {
-    "css-loader": "^0.28.4",
     "enzyme": "^2.8.2",
     "eslint": "^3.19.0",
     "jest": "^20.0.0",
