@@ -1,6 +1,11 @@
 require_relative("posts")
 require("csv")
 
+AppKey.create!(
+  app: 'firebase',
+  variables: ENV['FIREBASE_CONFIG']
+)
+
 categories = ['Course Material', 'Clothing', 'Furniture', 'Electronics',
               'Lost & Found', 'Bikes', 'Housing', 'Games', 'Others']
 universities = [['Berkeley', 'berkeley.edu']]
@@ -24,7 +29,7 @@ course_objects.each do |course_object|
 end
 
 User.create!(
-  fb_id: ENV['RAYMOND_FB_ID'],
+  fb_id: ENV["RAYMOND_FB_ID"],
   edu_email: "bob@berkeley.edu",
   university: University.first,
   fb_picture: ENV['RAYMOND_FB_PICTURE'],
@@ -58,7 +63,7 @@ User.create!(
   lat = nil
   lng = nil
   address = nil
-  
+
   if category == "Course Material"
     course = Course.find(rand(1..Course.count))
   end
