@@ -113,7 +113,7 @@ class DashboardHeaders extends React.Component<Props, State> {
                 <span className="caret" id="special-caret" />
               </button>
               <ul 
-                className="dropdown-menu category-dropdown" 
+                className="dropdown-menu category-dropdown2" 
                 aria-labelledby="dropdownMenu2"
               >
                 {this.renderHeaders()}

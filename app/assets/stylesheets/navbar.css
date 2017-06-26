@@ -61,10 +61,22 @@
   background: #eee;
 }
 
+@media screen and (max-width: 768px) {
+  .category-dropdown {
+    left: 4px !important;
+    cursor: pointer;
+  }
+}
+
 @media screen and (min-width: 769px) {
   #search-query {
     max-width: 450px;
     margin-left: 90px;
+  }
+
+  .category-dropdown {
+    left: 19px !important;
+    cursor: pointer;
   }
 }
 
@@ -82,7 +94,8 @@
   }
 }
 
-.category-dropdown {
-  left: 19px !important;
+.category-dropdown2 {
+  top: 40px !important;
+  left: -1px !important;
   cursor: pointer;
 }
