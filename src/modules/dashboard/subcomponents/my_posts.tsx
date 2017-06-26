@@ -96,21 +96,8 @@ class MyPosts extends React.Component<Props, State> {
   }
 
   public renderListItem() {
-    if (this.props.myPosts.fetched === false) {
-      return (
-        <LoadingSpinner />
-      );
-    };
-
-    if (this.props.myPosts.list.length === 0) {
-      return (
-        <tr>
-          <td colSpan={7}>
-            No posts created.
-          </td>
-        </tr>
-      );
-    };
+    if (!this.props.myPosts.fetched) return <LoadingSpinner />;
+    if (this.props.myPosts.list.length === 0) return <tr><td colSpan={7}>No posts created.</td></tr>;
 
     return (
       this.state.myPosts.map((myPost, statePostId) => (

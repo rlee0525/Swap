@@ -112,11 +112,8 @@ class MyCourses extends React.Component<Props, State> {
   }
 
   public renderListItem() {
-    if (this.props.myCourses.fetched === false) return <LoadingSpinner />;
-
-    if (this.props.myCourses.list.length === 0) {
-      return <tr><td colSpan={2}>No courses added.</td></tr>;
-    };
+    if (!this.props.myCourses.fetched) return <LoadingSpinner />;
+    if (this.props.myCourses.list.length === 0) return <tr><td colSpan={2}>No courses added.</td></tr>;
 
     return (
       this.props.myCourses.list.map(course => (

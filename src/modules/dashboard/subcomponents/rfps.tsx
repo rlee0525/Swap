@@ -59,21 +59,8 @@ class Rfps extends React.Component <Props, State> {
   }
 
   public renderListItems() {
-    if (this.props.rfps.fetched === false) {
-      return (
-        <LoadingSpinner />
-      )
-    };
-
-    if (this.props.rfps.list.length === 0) {
-      return (
-        <tr>
-          <td>
-            No alerts added.
-          </td>
-        </tr>
-      );
-    };
+    if (!this.props.rfps.fetched) return <LoadingSpinner />;
+    if (this.props.rfps.list.length === 0) return <tr><td>No alerts added.</td></tr>;
 
     return (
       this.state.rfps.map((rfp : IRfps) => (

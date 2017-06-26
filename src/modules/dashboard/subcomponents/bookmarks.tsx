@@ -75,17 +75,8 @@ class Bookmarks extends React.Component<Props, State> {
   }
 
   private renderListItems() {
-    if (this.props.bookmarks.fetched === false) return <LoadingSpinner />;
-
-    if (this.props.bookmarks.list.length === 0) {
-      return (
-        <tr>
-          <td colSpan={6}>
-            No bookmarks added.
-          </td>
-        </tr>
-      );
-    }
+    if (!this.props.bookmarks.fetched) return <LoadingSpinner />;
+    if (this.props.bookmarks.list.length === 0) return <tr><td colSpan={6}>No bookmarks added.</td></tr>;
 
     return (
       this.state.bookmarks.map(bookmarkedPost => (
