@@ -39,9 +39,7 @@ class Bookmarks extends React.Component<Props, State> {
 
   public deleteBookmark(e, id) {
     e.stopPropagation();
-
     let { deleteBookmark, user } = this.props;
-
     deleteBookmark(id, user.auth.accessToken).then(
       () => this.setState({ bookmarks: this.props.bookmarks.list })
     );
@@ -49,16 +47,10 @@ class Bookmarks extends React.Component<Props, State> {
 
   public componentDidMount() {
     this.initializeClipboard();
-
     let { bookmarks, user, fetchBookmarks } = this.props;
-
-    // if (!bookmarks.fetched) {
-      fetchBookmarks(user.auth.accessToken).then(
-        () => this.setState({ bookmarks: this.props.bookmarks.list })
-      );
-    // } else {
-    //   this.setState({ bookmarks: this.props.bookmarks.list });
-    // }
+    fetchBookmarks(user.auth.accessToken).then(
+      () => this.setState({ bookmarks: this.props.bookmarks.list })
+    );
   }
 
   public initializeClipboard() {
@@ -92,7 +84,12 @@ class Bookmarks extends React.Component<Props, State> {
           <td className="hidden-xs">{timeFromNow(bookmarkedPost.updated_at)}</td>
 
           <td>
-            <button type="button" className="btn btn-xs btn-primary" data-clipboard-text={window.localhost_url + `/#/posts/${bookmarkedPost.id}`} onClick={e => e.stopPropagation()}>
+            <button 
+              type="button" 
+              className="btn btn-xs btn-primary" 
+              data-clipboard-text={window.localhost_url + `/#/posts/${bookmarkedPost.id}`} 
+              onClick={e => e.stopPropagation()}
+            >
               Copy Link
             </button>
           </td>
