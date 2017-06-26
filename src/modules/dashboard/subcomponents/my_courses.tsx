@@ -105,7 +105,7 @@ class MyCourses extends React.Component<Props, State> {
             <table className="table table-hover">
               <thead>
                 <tr>
-                  <th className="no-pointer">Course Number</th>
+                  <th className="hidden-xs no-pointer">Course Number</th>
                   <th className="hidden-xs no-pointer">Course Name</th>
                 </tr>
               </thead>
