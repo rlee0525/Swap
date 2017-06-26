@@ -6,17 +6,10 @@ import { LoadingSpinner, Button } from 'common/components';
 
 declare var $;
 
-interface course {
-  id: number;
-  course_name: string;
-  course_number: string;
-  university_id: number;
-}
-
 interface Props {
   user: IUser;
-  courses: object;
-  myCourses: object;
+  courses: any;
+  myCourses: any;
   fetchCourses : () => JQueryPromise<void>;
   fetchMyCourses: (accessToken: string) => JQueryPromise<void>;
   deleteMyCourse: (id: number, accessToken: string) => JQueryPromise<void>;
