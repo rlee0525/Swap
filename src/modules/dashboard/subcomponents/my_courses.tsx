@@ -1,5 +1,6 @@
 import React from 'react';
 import autoBind from 'react-autobind';
+import { IUser } from 'common/interfaces';
 import { shortenString, timeFromNow } from 'helpers';
 import { LoadingSpinner, Button } from 'common/components';
 
@@ -13,13 +14,13 @@ interface course {
 }
 
 interface Props {
-  user: any;
-  fetchMyCourses: any;
-  deleteMyCourse: any;
-  fetchCourses: any;
-  myCourses: any;
-  postMyCourse: any;
-  courses: any;
+  user: IUser;
+  courses: object;
+  myCourses: object;
+  fetchCourses : () => JQueryPromise<void>;
+  fetchMyCourses: (accessToken: string) => JQueryPromise<void>;
+  deleteMyCourse: (id: number, accessToken: string) => JQueryPromise<void>;
+  postMyCourse : (description: string, accessToken: string) => JQueryPromise<void>;
 }
 
 interface State {
@@ -114,13 +115,13 @@ class MyCourses extends React.Component<Props, State> {
 
     return (
       this.props.myCourses.list.map(course => (
-        <tr key={course.id} >
+        <tr key={course.id} className="no-pointer">
           <td>{course.course_number}</td>
           <td className="hidden-xs">{course.course_name}</td>
           <td>
             <Button 
               type="Delete" 
-              class="btn-secondary" 
+              class="btn-secondary"
               click={(e) => this.deleteCourse(e, course.id)}
             />
           </td>
@@ -137,9 +138,8 @@ class MyCourses extends React.Component<Props, State> {
           className="hidden" 
           data-toggle="modal" 
           data-target="#createMyCourse"
-        >
-          My Course Modal
-        </a>
+        />
+        
         <div className="modal fade" id="createMyCourse" tabIndex={-1} role="dialog"
               aria-labelledby="authModalLabel" aria-hidden="true">
           <div className="modal-dialog" role="document">
