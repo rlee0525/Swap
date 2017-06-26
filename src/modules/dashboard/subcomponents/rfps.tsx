@@ -1,4 +1,5 @@
 import React from 'react';
+import { IUser } from 'common/interfaces';
 import { shortenString, timeFromNow } from 'helpers';
 import { TableHeaders, LoadingSpinner, Button } from 'common/components';
 
@@ -13,7 +14,7 @@ interface State {
 }
 
 interface Props {
-  user: any;
+  user: IUser;
   rfps: {
     fetched: boolean;
     list: IRfps[];
@@ -25,6 +26,7 @@ interface Props {
 class Rfps extends React.Component <Props, State> {
   constructor(props : any) {
     super(props);
+
     this.state = {
       rfps: [],
       description: -1
@@ -33,9 +35,7 @@ class Rfps extends React.Component <Props, State> {
 
   public deleteRfp(e, id) {
     e.stopPropagation();
-
     let { deleteRfps, user } = this.props;
-
     deleteRfps(id, user.auth.accessToken).then(
       () => this.setState({ rfps: this.props.rfps.list })
     );
@@ -79,8 +79,6 @@ class Rfps extends React.Component <Props, State> {
   }
 
   public render() {
-    let headers = ["description"];
-
     return (
       <div>
         <div className="panel panel-default">
@@ -89,8 +87,12 @@ class Rfps extends React.Component <Props, State> {
           </div>
           <div className="panel-body">
             <table className="table table-hover">
-              <TableHeaders context={this} array={this.state.rfps} headers={headers} isFirstColumnPlaceholder={false} />
-
+              <TableHeaders 
+                context={this} 
+                array={this.state.rfps} 
+                headers={["description"]} 
+                isFirstColumnPlaceholder={false} 
+              />
               <tbody>
                 {this.renderListItems()}
               </tbody>
