@@ -105,7 +105,9 @@ class MyPosts extends React.Component<Props, State> {
     if (this.props.myPosts.list.length === 0) {
       return (
         <tr>
-          <td colSpan={7}>Currently, you haven't created any posts.  Creating a new post is easy!  Just click on the "Create Post" button or Icon to the top right of this box to get started!</td>
+          <td colSpan={7}>
+            No posts created.
+          </td>
         </tr>
       );
     };
@@ -146,6 +148,9 @@ class MyPosts extends React.Component<Props, State> {
     let headers = ['title', 'price', 'updated_at'];
     return (
       <div className="panel panel-default">
+        <div className="dashboard-description">
+          Create posts to sell your items.
+        </div>
         <div className="panel-body">
           <table className="table table-hover">
             <TableHeaders context={this} array={this.state.myPosts} headers={headers} />

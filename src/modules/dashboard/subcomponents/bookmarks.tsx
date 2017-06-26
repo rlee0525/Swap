@@ -35,7 +35,6 @@ class Bookmarks extends React.Component<Props, State> {
     }
 
     this.initializeClipboard = this.initializeClipboard.bind(this);
-    // this.deleteBookmarkedPost = this.deleteBookmarkedPost.bind(this);
   }
 
   public deleteBookmark(e, id) {
@@ -76,16 +75,14 @@ class Bookmarks extends React.Component<Props, State> {
   }
 
   private renderListItems() {
-    if (this.props.bookmarks.fetched === false) {
-      return (
-        <LoadingSpinner />
-      );
-    };
+    if (this.props.bookmarks.fetched === false) return <LoadingSpinner />;
 
     if (this.props.bookmarks.list.length === 0) {
       return (
         <tr>
-          <td colSpan={6}>Currently, you haven't added any bookmarks.  Add bookmarks directly on any postings you like. It's an easy way to keep track of items you like and to share them with others.</td>
+          <td colSpan={6}>
+            No bookmarks added.
+          </td>
         </tr>
       );
     }
@@ -124,10 +121,13 @@ class Bookmarks extends React.Component<Props, State> {
 
     return (
       <div className="panel panel-default">
+        <div className="dashboard-description">
+          Add bookmarks to keep track of items you like and to share them with others.
+        </div>
+
         <div className="panel-body">
           <table className="table table-hover">
             <TableHeaders context={this} array={this.state.bookmarks} headers={headers} />
-
             <tbody>
               {this.renderListItems()}
             </tbody>

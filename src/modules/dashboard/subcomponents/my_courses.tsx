@@ -90,6 +90,9 @@ class MyCourses extends React.Component<Props, State> {
     return (
       <div>
         <div className="panel panel-default">
+          <div className="dashboard-description">
+            Add your courses to easily search for related posts.
+          </div>
           <div className="panel-body">
             <table className="table table-hover">
               <thead>
@@ -109,18 +112,10 @@ class MyCourses extends React.Component<Props, State> {
   }
 
   public renderListItem() {
-    if (this.props.myCourses.fetched === false) {
-      return (
-        <LoadingSpinner />
-      );
-    }
+    if (this.props.myCourses.fetched === false) return <LoadingSpinner />;
 
     if (this.props.myCourses.list.length === 0) {
-      return (
-        <tr>
-          <td colSpan={2}>Currently, you haven't added any courses.  To take advantage of the "My Courses" search category, please enter your courses</td>
-        </tr>
-      );
+      return <tr><td colSpan={2}>No courses added.</td></tr>;
     };
 
     return (
@@ -128,7 +123,16 @@ class MyCourses extends React.Component<Props, State> {
         <tr key={course.id} >
           <td>{course.course_number}</td>
           <td className="hidden-xs">{course.course_name}</td>
-          <td><button type="button" id="action-button" className="btn btn-xs btn-secondary" onClick={(e) => this.deleteCourse(e, course.id)}>Delete</button></td>
+          <td>
+            <button 
+              type="button" 
+              id="action-button" 
+              className="btn btn-xs btn-secondary" 
+              onClick={(e) => this.deleteCourse(e, course.id)}
+            >
+              Delete
+            </button>
+          </td>
         </tr>
       ))
     );
@@ -137,7 +141,14 @@ class MyCourses extends React.Component<Props, State> {
   render() {
     return (
       <div>
-        <a id="createAlertModalTrigger" className="hidden" data-toggle="modal" data-target="#createMyCourse">My Course Modal</a>
+        <a 
+          id="createAlertModalTrigger" 
+          className="hidden" 
+          data-toggle="modal" 
+          data-target="#createMyCourse"
+        >
+          My Course Modal
+        </a>
         <div className="modal fade" id="createMyCourse" tabIndex={-1} role="dialog"
               aria-labelledby="authModalLabel" aria-hidden="true">
           <div className="modal-dialog" role="document">
@@ -159,9 +170,17 @@ class MyCourses extends React.Component<Props, State> {
                       placeholder="Course Number"
                       aria-describedby="basic-addon2"
                     />
-                    <span className="input-group-addon" id="basic-addon1">&nbsp;{50 - this.state.courseDescription.length} characters left</span>
+                    <span className="input-group-addon" id="basic-addon1">
+                      &nbsp;{50 - this.state.courseDescription.length} characters left
+                    </span>
                   </div>
-                  <button type="button" className="btn btn-primary btn-lg btn-block" onClick={ this.submitForm }>Create</button>
+                  <button 
+                    type="button" 
+                    className="btn btn-primary btn-lg btn-block" 
+                    onClick={ this.submitForm }
+                  >
+                    Create
+                  </button>
                 </form>
               </div>
               <br/>

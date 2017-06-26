@@ -68,7 +68,9 @@ class Rfps extends React.Component <Props, State> {
     if (this.props.rfps.list.length === 0) {
       return (
         <tr>
-          <td>Currently, you do not have any alerts setup.  Please add alerts.</td>
+          <td>
+            No alerts added.
+          </td>
         </tr>
       );
     };
@@ -97,7 +99,7 @@ class Rfps extends React.Component <Props, State> {
     return (
       <div>
         <div className="panel panel-default">
-          <div className="rfp-description">
+          <div className="dashboard-description">
             Add custom alerts to get emails whenever a post related to the created keywords is created.
           </div>
           <div className="panel-body">
