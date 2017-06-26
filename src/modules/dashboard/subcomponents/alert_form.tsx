@@ -46,7 +46,7 @@ class AlertForm extends React.Component<Props, State> {
     } else {
       return this.state.errors.map((error, key) => (
         <div key={key} className="alert alert-danger" role="alert">
-          <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+          <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true" />
           <span className="sr-only">Error:</span> {error}
         </div>
       ));
@@ -60,7 +60,14 @@ class AlertForm extends React.Component<Props, State> {
   public render() {
     return (
       <div>
-        <a id="createAlertModalTrigger" className="hidden" data-toggle="modal" data-target="#createAlertModal">Email Input Modal Trigger</a>
+        <a 
+          id="createAlertModalTrigger" 
+          className="hidden" 
+          data-toggle="modal" 
+          data-target="#createAlertModal"
+        >
+          Email Input Modal Trigger
+        </a>
         <div className="modal fade" id="createAlertModal" tabIndex={-1} role="dialog"
               aria-labelledby="authModalLabel" aria-hidden="true">
           <div className="modal-dialog" role="document">
@@ -82,9 +89,17 @@ class AlertForm extends React.Component<Props, State> {
                       placeholder="Keyword (e.g. Desk)"
                       aria-describedby="basic-addon2"
                     />
-                    <span className="input-group-addon" id="basic-addon1">&nbsp;{50 - this.state.description.length} characters left</span>
+                    <span className="input-group-addon" id="basic-addon1">
+                      &nbsp;{this.state.description.length} / 50
+                    </span>
                   </div>
-                  <button type="button" className="btn btn-primary btn-lg btn-block" onClick={ this.submitForm }>Create</button>
+                  <button 
+                    type="button" 
+                    className="btn btn-primary btn-lg btn-block" 
+                    onClick={ this.submitForm }
+                  >
+                    Create
+                  </button>
                 </form>
               </div>
               <br/>
