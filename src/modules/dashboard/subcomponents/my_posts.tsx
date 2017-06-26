@@ -1,8 +1,8 @@
 import React from 'react';
 import { cloneDeep } from 'lodash';
-import { shortenString, timeFromNow } from 'helpers';
 import { IPost, IUser } from 'common/interfaces';
-import { TableHeaders, LoadingSpinner } from 'common/components';
+import { shortenString, timeFromNow } from 'helpers';
+import { TableHeaders, LoadingSpinner, Button } from 'common/components';
 
 interface Props {
   user: IUser;
@@ -122,9 +122,11 @@ class MyPosts extends React.Component<Props, State> {
           </td>
 
           <td>
-            <button type="button" id="action-button" className="btn btn-xs btn-secondary" onClick={(e) => this.deletePost(e, myPost.id)}>
-              Delete
-            </button>
+            <Button 
+              type="Delete" 
+              class="btn-secondary" 
+              click={(e) => this.deletePost(e, myPost.id)}
+            />
           </td>
         </tr>
       ))

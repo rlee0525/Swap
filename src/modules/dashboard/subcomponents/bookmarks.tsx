@@ -1,8 +1,8 @@
 import React from 'react';
 import Clipboard from 'clipboard';
 import { IUser, IPost } from 'common/interfaces';
-import { TableHeaders, LoadingSpinner } from 'common/components';
 import { shortenString, timeFromNow } from 'helpers';
+import { TableHeaders, LoadingSpinner, Button } from 'common/components';
 
 declare var window;
 
@@ -98,9 +98,11 @@ class Bookmarks extends React.Component<Props, State> {
           </td>
 
           <td>
-            <button type="button" className="btn btn-xs btn-secondary" onClick={(e) => this.deleteBookmark(e, bookmarkedPost.id)}>
-              Delete
-            </button>
+            <Button 
+              type="Delete" 
+              class="btn-secondary" 
+              click={(e) => this.deleteBookmark(e, bookmarkedPost.id)}
+            />
           </td>
         </tr>
       ))
