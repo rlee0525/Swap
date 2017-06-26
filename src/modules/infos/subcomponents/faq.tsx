@@ -38,31 +38,17 @@ class FAQ extends React.Component<any, any> {
               <div className="panel-body">
                 <ul>
                   <li>Adult Only category</li>
-                  <li>Alcohol</li>
-                  <li>Animals and wildlife products – examples include live animals, mounted specimens, and ivory</li>
-                  <li>Art</li>
-                  <li>rtifacts, grave-related items, and Native American arts and crafts</li>
                   <li>Catalytic converters and test pipes</li>
-                  <li>Cell phone (wireless) service contracts</li>
-                  <li>Charity and fundraising</li>
-                  <li>Clothing, used</li>
                   <li>Contracts</li>
-                  <li>Cosmetics</li>
                   <li>Counterfeit currency and stamps</li>
                   <li>Coupons</li>
                   <li>Credit cards</li>
                   <li>Currency, selling</li>
                   <li>Drugs and drug paraphernalia</li>
-                  <li>Electronics equipment – examples include cable TV de-scramblers, radar scanners, and traffic signal control devices</li>
-                  <li>Electronic surveillance equipment – examples include wiretapping devices and telephone bugging devices</li>
                   <li>Embargoed goods and prohibited countries – examples include items from Cuba</li>
-                  <li>Event tickets</li>
-                  <li>Firearms, weapons, and knives – examples include pepper spray, replicas, and stun guns (see also military items)</li>
-                  <li>Food and healthcare items</li>
-                  <li>Gift cards</li>
                   <li>Government documents, IDs, and licenses</li>
                   <li>Government, transit, and shipping-related items – examples include airplane operations manuals, subway employee uniforms, and U.S. Postal Service (USPS) mailbags</li>
-                  <li>Hazardous, restricted, or regulated materials – examples include batteries, fireworks, and refrigerants</li>
+                  <li>Hazardous, restricted, or regulated materials</li>
                   <li>Human remains and body parts</li>
                   <li>Importation of goods into the US – examples include CDs intended only for distribution in a certain country</li>
                   <li>International trading</li>
@@ -75,16 +61,13 @@ class FAQ extends React.Component<any, any> {
                   <li>Multi-level marketing, pyramid, and matrix programs</li>
                   <li>Offensive material – examples include ethnically or racially offensive material and Nazi memorabilia</li>
                   <li>Pesticides</li>
-                  <li>Plants and seeds</li>
                   <li>Police-related items</li>
                   <li>Political memorabilia (reproduction)</li>
                   <li>Postage meters</li>
                   <li>Prescription drugs</li>
                   <li>Prohibited services</li>
-                  <li>Real estate</li>
                   <li>Recalled items</li>
                   <li>Slot machines</li>
-                  <li>Stamps</li>
                   <li>Stocks and other securities</li>
                   <li>Stolen property</li>
                   <li>Surveillance equipment</li>
