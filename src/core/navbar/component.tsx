@@ -154,6 +154,10 @@ class NavBar extends React.Component<any, any> {
   }
 
   public render() {
+    $('.navbar-collapse a').click(function(){
+      $(".navbar-collapse").collapse('hide');
+    });
+
     return (
       <div>
         <nav id="menu" className="navbar navbar-default navbar-static-top navbar-padded text-uppercase app-navbar">
