@@ -49,14 +49,10 @@ class Search extends React.Component<Props, State> {
       category = "My Course Material";
     }
 
-    console.log(category)
-
     const currentQuery = this.props.currentQuery;
     const nextQuery = merge({}, currentQuery, {category, page_idx: 1});
     this.props.search(nextQuery);
     this.props.saveQuery(nextQuery);
-
-    console.log(nextQuery);
   }
 
   public componentWillReceiveProps(nextProps: any){

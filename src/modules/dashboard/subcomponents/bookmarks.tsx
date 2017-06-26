@@ -52,13 +52,13 @@ class Bookmarks extends React.Component<Props, State> {
 
     let { bookmarks, user, fetchBookmarks } = this.props;
 
-    if (!bookmarks.fetched) {
+    // if (!bookmarks.fetched) {
       fetchBookmarks(user.auth.accessToken).then(
         () => this.setState({ bookmarks: this.props.bookmarks.list })
       );
-    } else {
-      this.setState({ bookmarks: this.props.bookmarks.list });
-    }
+    // } else {
+    //   this.setState({ bookmarks: this.props.bookmarks.list });
+    // }
   }
 
   public initializeClipboard() {
