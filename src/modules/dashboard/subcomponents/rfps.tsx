@@ -1,6 +1,6 @@
 import React from 'react';
 import { shortenString, timeFromNow } from 'helpers';
-import { TableHeaders } from 'common/components';
+import { TableHeaders, LoadingSpinner } from 'common/components';
 
 interface IRfps {
   id: number;
@@ -61,14 +61,8 @@ class Rfps extends React.Component <Props, State> {
   public renderListItems() {
     if (this.props.rfps.fetched === false) {
       return (
-        <div className="showbox">
-          <div className="loader">
-            <svg className="circular" viewBox="25 25 50 50">
-              <circle className="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
-            </svg>
-          </div>
-        </div>
-      );
+        <LoadingSpinner />
+      )
     };
 
     if (this.props.rfps.list.length === 0) {

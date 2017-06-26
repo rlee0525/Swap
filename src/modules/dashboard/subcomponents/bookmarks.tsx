@@ -1,8 +1,9 @@
 import React from 'react';
 import Clipboard from 'clipboard';
 import { IUser, IPost } from 'common/interfaces';
-import { TableHeaders } from 'common/components';
+import { TableHeaders, LoadingSpinner } from 'common/components';
 import { shortenString, timeFromNow } from 'helpers';
+
 declare var window;
 
 interface State {
@@ -77,13 +78,7 @@ class Bookmarks extends React.Component<Props, State> {
   private renderListItems() {
     if (this.props.bookmarks.fetched === false) {
       return (
-        <div className="showbox">
-          <div className="loader">
-            <svg className="circular" viewBox="25 25 50 50">
-              <circle className="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
-            </svg>
-          </div>
-        </div>
+        <LoadingSpinner />
       );
     };
 

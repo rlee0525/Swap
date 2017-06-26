@@ -1,5 +1,6 @@
 import React from 'react';
 import { shortenString, timeFromNow } from 'helpers';
+import { LoadingSpinner } from 'common/components';
 
 declare var $;
 
@@ -110,13 +111,7 @@ class MyCourses extends React.Component<Props, State> {
   public renderListItem() {
     if (this.props.myCourses.fetched === false) {
       return (
-        <div className="showbox">
-          <div className="loader">
-            <svg className="circular" viewBox="25 25 50 50">
-              <circle className="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
-            </svg>
-          </div>
-        </div>
+        <LoadingSpinner />
       );
     }
 

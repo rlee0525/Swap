@@ -1,10 +1,12 @@
 import React from 'react';
-import { shortenString,
-         timeFromNow,
-         getCategory } from 'helpers';
 import { IPost } from 'common/interfaces';
 import { Pagination } from './';
 import { merge } from 'lodash';
+import { LoadingSpinner } from 'common/components';
+import { shortenString,
+         timeFromNow,
+         getCategory } from 'helpers';
+
 declare var $;
 
 interface Props {
@@ -144,13 +146,7 @@ class SearchGridView extends React.Component<Props, State> {
       results = this.props.searchResult.posts.map((post, idx) => this.renderGridItem(post));
     } else {
       results = (
-        <div className="showbox">
-          <div className="loader">
-            <svg className="circular" viewBox="25 25 50 50">
-              <circle className="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
-            </svg>
-          </div>
-        </div>
+        <LoadingSpinner />
       );
     }
 
