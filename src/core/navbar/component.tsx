@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router';
+
 declare var $;
 declare var FB;
 declare var window;
@@ -23,8 +24,8 @@ class NavBar extends React.Component<any, any> {
     this.reinitializeFB();
   }
 
+  // necessary for getting the FB button to load
   public reinitializeFB() {
-    // necessary for getting the FB button to load
     FB.init({
       cookie     : true,
       xfbml      : true,
@@ -79,8 +80,9 @@ class NavBar extends React.Component<any, any> {
 
   public chooseModal() {
     const that = this;
+
     if (that.props.user !== null) {
-      that.setState({modalHeader: "Log out with Facebook"})
+      that.setState({modalHeader: "Log out with Facebook"});
       const accessToken = that.props.user.auth.accessToken;
       $.ajax({
         method: "GET",
@@ -109,6 +111,7 @@ class NavBar extends React.Component<any, any> {
 
     let address = e.currentTarget.id + "?posts";
     const accessToken = this.props.user.auth.accessToken;
+
     $.ajax({
       method: "GET",
       url: `api/users/${accessToken}`
@@ -160,14 +163,22 @@ class NavBar extends React.Component<any, any> {
 
     return (
       <div>
-        <nav id="menu" className="navbar navbar-default navbar-static-top navbar-padded text-uppercase app-navbar">
+        <nav 
+          id="menu" 
+          className="navbar navbar-default navbar-static-top navbar-padded text-uppercase app-navbar"
+        >
           <div className="container">
             <div className="navbar-header">
-              <button type="button" className="navbar-toggle collapsed p-x-0" data-toggle="collapse" data-target="#navbar-collapse">
+              <button 
+                type="button" 
+                className="navbar-toggle collapsed p-x-0" 
+                data-toggle="collapse" 
+                data-target="#navbar-collapse"
+              >
                 <span className="sr-only">Toggle navigation</span>
-                <span className="icon-bar"></span>
-                <span className="icon-bar"></span>
-                <span className="icon-bar"></span>
+                <span className="icon-bar" />
+                <span className="icon-bar" />
+                <span className="icon-bar" />
               </button>
               <a className="navbar-brand" href="#">
                 <span>Swap</span>
@@ -179,11 +190,16 @@ class NavBar extends React.Component<any, any> {
         <nav className="navbar navbar-default navbar-static-top navbar-padded text-uppercase app-navbar">
           <div className="container">
             <div className="navbar-header">
-              <button type="button" className="navbar-toggle collapsed p-x-0" data-toggle="collapse" data-target="#navbar-collapse2">
+              <button 
+                type="button" 
+                className="navbar-toggle collapsed p-x-0" 
+                data-toggle="collapse" 
+                data-target="#navbar-collapse2"
+              >
                 <span className="sr-only">Toggle navigation</span>
-                <span className="icon-bar"></span>
-                <span className="icon-bar"></span>
-                <span className="icon-bar"></span>
+                <span className="icon-bar" />
+                <span className="icon-bar" />
+                <span className="icon-bar" />
               </button>
               <a className="navbar-brand" href="#">
                 <span>Swap</span>
@@ -193,7 +209,9 @@ class NavBar extends React.Component<any, any> {
           </div>
         </nav>
 
-        <a id="logInModalTrigger" className="hidden" data-toggle="modal" data-target="#logInModal">Login Modal Trigger</a>
+        <a id="logInModalTrigger" className="hidden" data-toggle="modal" data-target="#logInModal">
+          Login Modal Trigger
+        </a>
         <div className="modal fade" id="logInModal" tabIndex={-1} role="dialog"
              aria-labelledby="authModalLabel" aria-hidden="true">
           <div className="modal-dialog" role="document">
@@ -203,19 +221,39 @@ class NavBar extends React.Component<any, any> {
                 <h3 className="modal-title" id="authModalLabel">{this.state.modalHeader}</h3>
               </div>
               <div className="modal-body text-center" id="fb-modal-body">
-                <div className="fb-login-button" data-scope="email" data-max-rows="1" data-size="large" data-button-type="login_with" data-auto-logout-link="true" data-use-continue-as="true" data-onlogin=""></div>
+                <div 
+                  className="fb-login-button" 
+                  data-scope="email" 
+                  data-max-rows="1" 
+                  data-size="large" 
+                  data-button-type="login_with" 
+                  data-auto-logout-link="true" 
+                  data-use-continue-as="true" 
+                  data-onlogin="" />
                 <div className="modal-body text-center">
-                  By signing up, I agree to Swap's <a href="/#/infos?faq" target="_blank">Terms of Service</a>, <a href="/#/infos?faq" target="_blank">Nondiscrimination Policy</a>, <a href="/#/infos?faq" target="_blank">Payments Terms of Service</a>, and <a href="/#/infos?faq" target="_blank">Privacy Policy</a>.
+                  By signing up, I agree to Swap's 
+                  &nbsp;<a href="/#/infos?faq" target="_blank">Terms of Service</a>, 
+                  &nbsp;<a href="/#/infos?faq" target="_blank">Nondiscrimination Policy</a>, 
+                  &nbsp;<a href="/#/infos?faq" target="_blank">Payments Terms of Service</a>, 
+                  &nbsp;and <a href="/#/infos?faq" target="_blank">Privacy Policy</a>.
                 </div>
               </div>
-              <div className="modal-footer"></div>
+              <div className="modal-footer" />
             </div>
           </div>
         </div>
 
-        <a id="emailInputModalTrigger" className="hidden" data-toggle="modal" data-target="#emailInputModal">Email Input Modal Trigger</a>
-        <div className="modal fade" id="emailInputModal" tabIndex={-1} role="dialog"
-             aria-labelledby="authModalLabel" aria-hidden="true">
+        <a id="emailInputModalTrigger" className="hidden" data-toggle="modal" data-target="#emailInputModal">
+          Email Input Modal Trigger
+        </a>
+        <div 
+          className="modal fade" 
+          id="emailInputModal" 
+          tabIndex={-1} 
+          role="dialog"
+          aria-labelledby="authModalLabel" 
+          aria-hidden="true"
+        >
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <div className="modal-header" id="auth-modal-header">
@@ -225,11 +263,28 @@ class NavBar extends React.Component<any, any> {
               <div className="modal-body text-center" id="fb-modal-body">
                 <form onSubmit={ this.sendEmail }>
                   <div className="form-group input-group" id="email-error-div">
-                    <input type="text" className="form-control" placeholder="Your email" aria-describedby="basic-addon2"/>
+                    <input 
+                      type="text" 
+                      className="form-control" 
+                      placeholder="Your email" 
+                      aria-describedby="basic-addon2"
+                    />
                     <span className="input-group-addon" id="basic-addon2">Ex: me@email.com</span>
                   </div>
-                  <button type="button" className="btn btn-primary btn-lg btn-block" onClick={ this.sendEmail }>Submit</button>
-                  <button type="button" className="btn btn-danger btn-lg btn-block" onClick={ this.loginStatus }>Logout</button>
+                  <button 
+                    type="button" 
+                    className="btn btn-primary btn-lg btn-block" 
+                    onClick={ this.sendEmail }
+                  >
+                    Submit
+                  </button>
+                  <button 
+                    type="button" 
+                    className="btn btn-danger btn-lg btn-block" 
+                    onClick={ this.loginStatus }
+                  >
+                    Logout
+                  </button>
                 </form>
               </div>
               <br/>
@@ -238,7 +293,14 @@ class NavBar extends React.Component<any, any> {
           </div>
         </div>
 
-        <a id="emailVerificationModalTrigger" className="hidden" data-toggle="modal" data-target="#emailVerificationModal">Email Verification Modal Trigger</a>
+        <a 
+          id="emailVerificationModalTrigger" 
+          className="hidden" 
+          data-toggle="modal" 
+          data-target="#emailVerificationModal"
+        >
+          Email Verification Modal Trigger
+        </a>
         <div className="modal fade" id="emailVerificationModal" tabIndex={-1} role="dialog"
              aria-labelledby="authModalLabel" aria-hidden="true">
           <div className="modal-dialog" role="document">
@@ -250,8 +312,20 @@ class NavBar extends React.Component<any, any> {
               <div className="modal-body text-center" id="fb-modal-body">
                 <h4>Please check your email for the verification link</h4>
                 <br/>
-                <button type="button" className="btn btn-warning btn-lg btn-block" onClick={ this.resendVerificationEmail }>Re-send verification email</button>
-                <button type="button" className="btn btn-danger btn-lg btn-block" onClick={ this.loginStatus }>Logout</button>
+                <button 
+                  type="button" 
+                  className="btn btn-warning btn-lg btn-block" 
+                  onClick={ this.resendVerificationEmail }
+                >
+                  Re-send verification email
+                </button>
+                <button 
+                  type="button" 
+                  className="btn btn-danger btn-lg btn-block" 
+                  onClick={ this.loginStatus }
+                >
+                  Logout
+                </button>
               </div>
               <br/>
               <div className="modal-footer"></div>
