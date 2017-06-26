@@ -39,7 +39,9 @@ class Bookmarks extends React.Component<Props, State> {
 
   public deleteBookmark(e, id) {
     e.stopPropagation();
+
     let { deleteBookmark, user } = this.props;
+
     deleteBookmark(id, user.auth.accessToken).then(
       () => this.setState({ bookmarks: this.props.bookmarks.list })
     );
@@ -47,7 +49,9 @@ class Bookmarks extends React.Component<Props, State> {
 
   public componentDidMount() {
     this.initializeClipboard();
+
     let { bookmarks, user, fetchBookmarks } = this.props;
+
     fetchBookmarks(user.auth.accessToken).then(
       () => this.setState({ bookmarks: this.props.bookmarks.list })
     );
@@ -55,6 +59,7 @@ class Bookmarks extends React.Component<Props, State> {
 
   public initializeClipboard() {
     var clipboard = new Clipboard('.btn');
+    
     clipboard.on('success', function(e) {
       $(e.trigger).text("copied!");
       setTimeout(function(){ $(e.trigger).text("Copy Link"); }, 1000);

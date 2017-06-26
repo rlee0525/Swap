@@ -55,6 +55,7 @@ class MyCourses extends React.Component<Props, State> {
 
   public deleteCourse(e, id) {
     e.stopPropagation();
+    
     this.props.deleteMyCourse(id, this.props.user.auth.accessToken);
   }
 
@@ -64,8 +65,10 @@ class MyCourses extends React.Component<Props, State> {
 
   public submitForm(e) {
     e.preventDefault();
+
     const { courseDescription } = this.state;
     const access_token = this.props.user.auth.accessToken;
+
     this.props.postMyCourse(courseDescription, access_token).then(() => {
       $('#createMyCourse').modal('hide');
     }).fail( errors =>
@@ -76,6 +79,7 @@ class MyCourses extends React.Component<Props, State> {
   public autoComplete() {
     let that = this;
     let input = function () { return  { search: $('#courseDescription').val() }};
+
     $('#courseDescription').devbridgeAutocomplete({
       lookup: function (query, done) {
         $.ajax({
