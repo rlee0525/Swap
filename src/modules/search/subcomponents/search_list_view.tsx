@@ -46,7 +46,7 @@ class SearchListView extends React.Component<Props, any> {
   renderListItem(post: IPost, idx: number) {
     return (
       <tr key={idx} onClick={() => window.location.href = `#/posts/${post.id}`}>
-        <td>{post.title}</td>
+        <td>{shortenString(post.title, 30)}</td>
         <td className="hidden-xs hidden-sm">{shortenString(post.description, 30)}</td>
         <td>${Number(post.price).toLocaleString()}</td>
         <td className="hidden-xs">{timeFromNow(post.updated_at)}</td>
