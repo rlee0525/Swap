@@ -1,6 +1,7 @@
 import React from 'react';
+import autoBind from 'react-autobind';
 import { shortenString, timeFromNow } from 'helpers';
-import { LoadingSpinner } from 'common/components';
+import { LoadingSpinner, Button } from 'common/components';
 
 declare var $;
 
@@ -33,29 +34,25 @@ class MyCourses extends React.Component<Props, State> {
     this.state = {
       courseDescription: "",
       errors: []
-    }
+    };
 
-    this.deleteCourse = this.deleteCourse.bind(this);
-    this.updateState = this.updateState.bind(this);
-    this.submitForm = this.submitForm.bind(this);
-    this.renderMyCourses = this.renderMyCourses.bind(this);
-    this.autoComplete = this.autoComplete.bind(this);
+    autoBind(this);
   }
 
   public componentDidMount() {
-    this.props.fetchCourses()
+    this.props.fetchCourses();
     this.props.fetchMyCourses(this.props.user.auth.accessToken).then(
       () => this.autoComplete()
-    )
+    );
   }
 
   public deleteCourse(e, id) {
     e.stopPropagation();
-    this.props.deleteMyCourse(id, this.props.user.auth.accessToken)
+    this.props.deleteMyCourse(id, this.props.user.auth.accessToken);
   }
 
   public updateState(e) {
-    this.setState({ [e.target.id]: e.target.value })
+    this.setState({ [e.target.id]: e.target.value });
   }
 
   public submitForm(e) {
@@ -78,10 +75,10 @@ class MyCourses extends React.Component<Props, State> {
           method: 'GET',
           url: 'api/courses',
           data: input()
-        }).then(data => done({ "suggestions": data }))
+        }).then(data => done({ "suggestions": data }));
       },
       onSelect: function (suggestion) {
-        that.setState({courseDescription: suggestion.value})
+        that.setState({courseDescription: suggestion.value});
       }
     });
   }
@@ -97,8 +94,8 @@ class MyCourses extends React.Component<Props, State> {
             <table className="table table-hover">
               <thead>
                 <tr>
-                  <th>Course Number</th>
-                  <th className="hidden-xs">Course Name</th>
+                  <th className="no-pointer">Course Number</th>
+                  <th className="hidden-xs no-pointer">Course Name</th>
                 </tr>
               </thead>
               <tbody>
@@ -121,14 +118,11 @@ class MyCourses extends React.Component<Props, State> {
           <td>{course.course_number}</td>
           <td className="hidden-xs">{course.course_name}</td>
           <td>
-            <button 
-              type="button" 
-              id="action-button" 
-              className="btn btn-xs btn-secondary" 
-              onClick={(e) => this.deleteCourse(e, course.id)}
-            >
-              Delete
-            </button>
+            <Button 
+              type="Delete" 
+              class="btn-secondary" 
+              click={(e) => this.deleteCourse(e, course.id)}
+            />
           </td>
         </tr>
       ))

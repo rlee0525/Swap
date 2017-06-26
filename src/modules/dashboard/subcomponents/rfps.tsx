@@ -1,6 +1,6 @@
 import React from 'react';
 import { shortenString, timeFromNow } from 'helpers';
-import { TableHeaders, LoadingSpinner } from 'common/components';
+import { TableHeaders, LoadingSpinner, Button } from 'common/components';
 
 interface IRfps {
   id: number;
@@ -67,13 +67,11 @@ class Rfps extends React.Component <Props, State> {
         <tr key={`post${rfp.id}`}>
           <td>{shortenString(rfp.description, 30)}</td>
           <td id="rfp-delete">
-            <button
-              type="button"
-              className="btn btn-xs btn-danger"
-              onClick={(e) => this.deleteRfp(e, rfp.id)}
-            >
-              Delete
-            </button>
+            <Button 
+              type="Delete" 
+              class="btn-secondary" 
+              click={(e) => this.deleteRfp(e, rfp.id)}
+            />
           </td>
         </tr>
       ))

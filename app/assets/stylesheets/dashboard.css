@@ -88,3 +88,7 @@
   font-weight: 300;
   color: #777;
 }
+
+.no-pointer {
+  cursor: default !important;
+}

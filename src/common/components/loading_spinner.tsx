@@ -1,9 +1,6 @@
 import React from 'react';
 
-interface Props {}
-interface State {}
-
-class LoadingSpinner extends React.Component<Props, State> {
+class LoadingSpinner extends React.Component<{}, {}> {
   render() {
     return (
       <div className="showbox">
