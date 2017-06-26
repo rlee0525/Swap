@@ -1,4 +1,5 @@
 import React from 'react';
+import autoBind from 'react-autobind';
 import { withRouter } from 'react-router';
 
 declare var $;
@@ -13,10 +14,7 @@ class NavBar extends React.Component<any, any> {
       modalHeader: "Log in with Facebook"
     };
 
-    this.sendEmail = this.sendEmail.bind(this);
-    this.chooseModal = this.chooseModal.bind(this);
-    this.checkVerified = this.checkVerified.bind(this);
-    this.initializeNavbarFade = this.initializeNavbarFade.bind(this);
+    autoBind(this);
   }
 
   public componentDidMount() {

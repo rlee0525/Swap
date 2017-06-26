@@ -1,4 +1,5 @@
 import React from 'react';
+import autoBind from 'react-autobind';
 import { IUser } from 'common/interfaces';
 
 declare var $;
@@ -21,8 +22,7 @@ class AlertForm extends React.Component<Props, State> {
       errors: []
     }
 
-    this.submitForm = this.submitForm.bind(this);
-    this.updateState = this.updateState.bind(this);
+    autoBind(this);
   }
 
   public submitForm(e) {

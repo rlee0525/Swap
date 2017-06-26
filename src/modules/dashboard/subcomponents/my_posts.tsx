@@ -1,5 +1,6 @@
 import React from 'react';
 import { cloneDeep } from 'lodash';
+import autoBind from 'react-autobind';
 import { IPost, IUser } from 'common/interfaces';
 import { shortenString, timeFromNow } from 'helpers';
 import { TableHeaders, LoadingSpinner, Button } from 'common/components';
@@ -34,9 +35,7 @@ class MyPosts extends React.Component<Props, State> {
       updated_at: -1
     };
 
-    this.editPost = this.editPost.bind(this);
-    this.deletePost = this.deletePost.bind(this);
-    this.toggleActivation = this.toggleActivation.bind(this);
+    autoBind(this);
   }
 
   public componentWillReceiveProps(newProps) {

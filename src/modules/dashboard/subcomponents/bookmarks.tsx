@@ -1,5 +1,6 @@
 import React from 'react';
 import Clipboard from 'clipboard';
+import autoBind from 'react-autobind';
 import { IUser, IPost } from 'common/interfaces';
 import { shortenString, timeFromNow } from 'helpers';
 import { TableHeaders, LoadingSpinner, Button } from 'common/components';
@@ -34,7 +35,7 @@ class Bookmarks extends React.Component<Props, State> {
       updated_at: -1
     }
 
-    this.initializeClipboard = this.initializeClipboard.bind(this);
+    autoBind(this);
   }
 
   public deleteBookmark(e, id) {

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import autoBind from 'react-autobind';
 
 interface Header {
   title: string;
@@ -24,7 +25,7 @@ class DashboardHeaders extends React.Component<Props, State> {
       headerTitle: "Posts"
     };
 
-    this.changeTab = this.changeTab.bind(this);
+    autoBind(this);
   }
 
   changeTab(headerTitle) {
