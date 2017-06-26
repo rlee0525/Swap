@@ -33,6 +33,7 @@ class Dashboard extends React.Component<Props, {}> {
     switch (page) {
       case 'bookmarks':
       let { fetchBookmarks, deleteBookmark } = this.props;
+      
         return (
           <Bookmarks
             bookmarks={dashboard.bookmarks}
@@ -43,6 +44,7 @@ class Dashboard extends React.Component<Props, {}> {
         );
       case 'rfps':
         let { fetchRfps, deleteRfps } = this.props;
+
         return (
           <Rfps
             user={user}
@@ -54,6 +56,7 @@ class Dashboard extends React.Component<Props, {}> {
       case 'mycourses':
       const { fetchMyCourses, deleteMyCourse,
         fetchCourses, postMyCourse } = this.props;
+
         return (
           <MyCourses
             user={user}
@@ -67,6 +70,7 @@ class Dashboard extends React.Component<Props, {}> {
         )
       default:
         let { fetchMyPosts, deleteMyPost } = this.props;
+
         return (
           <MyPosts
             user={user}
@@ -85,7 +89,6 @@ class Dashboard extends React.Component<Props, {}> {
   render() {
     let page = this.props.location.search.slice(1);
     let { user } = this.props;
-
     let button = null;
 
     if (page === 'rfps') {
