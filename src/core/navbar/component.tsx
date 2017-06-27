@@ -109,6 +109,7 @@ class NavBar extends React.Component<any, any> {
     };
 
     let address = e.currentTarget.id + "?posts";
+    if (e.currentTarget.id === "chat") address = "chat";
     const accessToken = this.props.user.auth.accessToken;
 
     $.ajax({
@@ -138,6 +139,7 @@ class NavBar extends React.Component<any, any> {
           <ul className="nav navbar-nav navbar-right">
             <li><a href="/#/recent">Browse</a></li>
             <li><a id="dashboard" onClick={(e) => this.checkVerified(e)}>Dashboard</a></li>
+            <li><a id="chat" onClick={(e) => this.checkVerified(e)}>Chat</a></li>
             <li><a onClick={this.chooseModal}>{this.props.user.userFB.name}</a></li>
           </ul>
         </div>
