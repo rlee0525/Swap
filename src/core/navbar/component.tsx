@@ -1,6 +1,7 @@
 import React from 'react';
 import autoBind from 'react-autobind';
 import { withRouter } from 'react-router';
+import { LargeButton } from 'common/components';
 
 declare var $;
 declare var FB;
@@ -28,7 +29,7 @@ class NavBar extends React.Component<any, any> {
       cookie     : true,
       xfbml      : true,
       version    : 'v2.8'
-    })
+    });
   }
 
   public initializeNavbarFade() {
@@ -269,20 +270,16 @@ class NavBar extends React.Component<any, any> {
                     />
                     <span className="input-group-addon" id="basic-addon2">ex) swap@berkeley.edu</span>
                   </div>
-                  <button 
-                    type="button" 
-                    className="btn btn-primary btn-lg btn-block" 
-                    onClick={ this.sendEmail }
-                  >
-                    Submit
-                  </button>
-                  <button 
-                    type="button" 
-                    className="btn btn-secondary btn-lg btn-block" 
-                    onClick={ this.loginStatus }
-                  >
-                    Logout
-                  </button>
+                  <LargeButton 
+                    type="Submit"
+                    class="btn-primary" 
+                    click={ this.sendEmail }
+                  />
+                  <LargeButton 
+                    type="Logout" 
+                    class="btn-secondary" 
+                    click={ this.loginStatus }
+                  />
                 </form>
               </div>
               <br/>
@@ -310,20 +307,16 @@ class NavBar extends React.Component<any, any> {
               <div className="modal-body text-center" id="fb-modal-body">
                 <h4>Please check your email for the verification link</h4>
                 <br/>
-                <button 
-                  type="button" 
-                  className="btn btn-warning btn-lg btn-block" 
-                  onClick={ this.resendVerificationEmail }
-                >
-                  Re-send verification email
-                </button>
-                <button 
-                  type="button" 
-                  className="btn btn-secondary btn-lg btn-block" 
-                  onClick={ this.loginStatus }
-                >
-                  Logout
-                </button>
+                <LargeButton 
+                  type="Re-send verification email" 
+                  class="btn-warning" 
+                  click={ this.resendVerificationEmail }
+                />
+                <LargeButton 
+                  type="Logout" 
+                  class="btn-secondary" 
+                  click={ this.loginStatus }
+                />
               </div>
               <br/>
               <div className="modal-footer"></div>

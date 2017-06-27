@@ -3,7 +3,7 @@ import { cloneDeep } from 'lodash';
 import autoBind from 'react-autobind';
 import { IPost, IUser } from 'common/interfaces';
 import { shortenString, timeFromNow } from 'helpers';
-import { TableHeaders, LoadingSpinner, Button } from 'common/components';
+import { TableHeaders, LoadingSpinner, SmallButton } from 'common/components';
 
 interface Props {
   user: IUser;
@@ -112,21 +112,21 @@ class MyPosts extends React.Component<Props, State> {
           <td className="hidden-xs">${Number(myPost.price).toLocaleString()}</td>
           <td className="hidden-xs">{timeFromNow(myPost.updated_at)}</td>
           <td>
-            <Button
+            <SmallButton
               type="Edit"
               class="btn-primary"
               click={(e) => this.editPost(e, myPost.id)}
             />
           </td>
           <td>
-            <Button
+            <SmallButton
               type={myPost.active ? "Active" : "Inactive"}
               class={`${myPost.active ? "btn-primary" : "btn-warning"}`}
               click={(e) => this.toggleActivation(e, myPost.id, myPost.active, statePostId)}
             />
           </td>
           <td>
-            <Button 
+            <SmallButton 
               type="Delete" 
               class="btn-secondary" 
               click={(e) => this.deletePost(e, myPost.id)}

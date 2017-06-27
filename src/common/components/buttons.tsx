@@ -6,7 +6,7 @@ interface Props {
   click: any;
 }
 
-class Button extends React.Component<Props, {}> {
+class SmallButton extends React.Component<Props, {}> {
   render() {
     return (
       <button
@@ -21,4 +21,18 @@ class Button extends React.Component<Props, {}> {
   }
 }
 
-export { Button };
+class LargeButton extends React.Component<Props, {}> {
+  render() {
+    return (
+      <button
+        type="button"
+        className={`btn btn-lg btn-block ${this.props.class}`}
+        onClick={this.props.click}
+      >
+        {this.props.type}
+      </button>
+    );
+  }
+}
+
+export { SmallButton, LargeButton };

@@ -5,6 +5,7 @@ import autoBind from 'react-autobind';
 import 'react-dates/lib/css/_datepicker.css';
 import { IState, _defaultState } from './typings';
 import { ImageDropzone, RadioButtons } from './subcomponents';
+import { LargeButton } from 'common/components';
 import { DateRangePicker, 
          SingleDatePicker, 
          DayPickerRangeController } from 'react-dates';
@@ -404,9 +405,11 @@ class PostForm extends React.Component<any, IState> {
           {/* Submit button */}
           <div className="form-group">
             <div className="col-sm-9 col-sm-offset-2">
-              <button onClick={this.submitForm} type="button" className="btn btn-primary btn-lg btn-block">
-                {this.props.params.id ? "Update" : "Create"}
-              </button>
+              <LargeButton
+                type={this.props.params.id ? "Update" : "Create"}
+                class="btn-primary"
+                click={this.submitForm}
+              />
               <br/>
             </div>
           </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import autoBind from 'react-autobind';
 import { IUser } from 'common/interfaces';
+import { LargeButton } from 'common/components';
 
 declare var $;
 
@@ -93,13 +94,11 @@ class AlertForm extends React.Component<Props, State> {
                       &nbsp;{this.state.description.length} / 50
                     </span>
                   </div>
-                  <button 
-                    type="button" 
-                    className="btn btn-primary btn-lg btn-block" 
-                    onClick={ this.submitForm }
-                  >
-                    Create
-                  </button>
+                  <LargeButton 
+                    type="Create" 
+                    class="btn-primary" 
+                    click={ this.submitForm }
+                  />
                 </form>
               </div>
               <br/>

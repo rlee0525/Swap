@@ -2,7 +2,9 @@ import React from 'react';
 import autoBind from 'react-autobind';
 import { IUser } from 'common/interfaces';
 import { shortenString, timeFromNow } from 'helpers';
-import { LoadingSpinner, Button } from 'common/components';
+import { LoadingSpinner, 
+         SmallButton, 
+         LargeButton } from 'common/components';
 
 declare var $;
 
@@ -129,7 +131,7 @@ class MyCourses extends React.Component<Props, State> {
           <td>{course.course_number}</td>
           <td className="hidden-xs">{course.course_name}</td>
           <td>
-            <Button 
+            <SmallButton 
               type="Delete" 
               class="btn-secondary"
               click={(e) => this.deleteCourse(e, course.id)}
@@ -175,13 +177,11 @@ class MyCourses extends React.Component<Props, State> {
                       &nbsp;{this.state.courseDescription.length} / 50
                     </span>
                   </div>
-                  <button 
-                    type="button" 
-                    className="btn btn-primary btn-lg btn-block" 
-                    onClick={ this.submitForm }
-                  >
-                    Create
-                  </button>
+                  <LargeButton
+                    type="Create"
+                    class="btn-primary"
+                    click={this.submitForm}
+                  />
                 </form>
               </div>
               <br/>

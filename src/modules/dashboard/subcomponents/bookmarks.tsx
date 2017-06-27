@@ -3,7 +3,7 @@ import Clipboard from 'clipboard';
 import autoBind from 'react-autobind';
 import { IUser, IPost } from 'common/interfaces';
 import { shortenString, timeFromNow } from 'helpers';
-import { TableHeaders, LoadingSpinner, Button } from 'common/components';
+import { TableHeaders, LoadingSpinner, SmallButton } from 'common/components';
 
 declare var window;
 
@@ -101,7 +101,7 @@ class Bookmarks extends React.Component<Props, State> {
           </td>
 
           <td>
-            <Button 
+            <SmallButton 
               type="Delete" 
               class="btn-secondary" 
               click={(e) => this.deleteBookmark(e, bookmarkedPost.id)}
