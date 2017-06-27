@@ -58,7 +58,7 @@ const Root: React.SFC<RootProps> = ({ store }) => {
           <Route path="/dashboard" component={Dashboard} />
 
           {/* Chat routes */}
-          <Route path="/chat" component={Chat} />
+          <Route path="/messages" component={Chat} />
 
         </Route>
       </Router>
