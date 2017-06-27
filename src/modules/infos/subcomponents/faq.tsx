@@ -10,14 +10,35 @@ class FAQ extends React.Component<any, any> {
       <div className="container">
         <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
           <div className="panel panel-default">
-            <div className="panel-heading collapsed pointer-cursor" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <div 
+              className="panel-heading collapsed pointer-cursor" 
+              role="tab" 
+              id="headingOne" 
+              data-toggle="collapse" 
+              data-parent="#accordion" 
+              href="#collapseOne" 
+              aria-expanded="true" 
+              aria-controls="collapseOne"
+            >
               <h4 className="panel-title">
-                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <a 
+                  role="button" 
+                  data-toggle="collapse" 
+                  data-parent="#accordion" 
+                  href="#collapseOne" 
+                  aria-expanded="true" 
+                  aria-controls="collapseOne"
+                >
                   FAQ
                 </a>
               </h4>
             </div>
-            <div id="collapseOne" className="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+            <div 
+              id="collapseOne" 
+              className="panel-collapse collapse in" 
+              role="tabpanel" 
+              aria-labelledby="headingOne"
+            >
               <div className="panel-body">
                 <h4>"My Account is Frozen/ I can't Sign In anymore"</h4>
                 <p>Please drop us a line at swapnowio[at]gmail.com, and we will take care of it!</p>
@@ -27,14 +48,36 @@ class FAQ extends React.Component<any, any> {
             </div>
           </div>
           <div className="panel panel-default">
-            <div className="panel-heading collapsed pointer-cursor" role="tab" id="headingTwo" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            <div 
+              className="panel-heading collapsed pointer-cursor" 
+              role="tab" 
+              id="headingTwo" 
+              data-toggle="collapse" 
+              data-parent="#accordion" 
+              href="#collapseTwo" 
+              aria-expanded="false" 
+              aria-controls="collapseTwo"
+            >
               <h4 className="panel-title">
-                <a className="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                <a 
+                  className="collapsed" 
+                  role="button" 
+                  data-toggle="collapse" 
+                  data-parent="#accordion" 
+                  href="#collapseTwo" 
+                  aria-expanded="false" 
+                  aria-controls="collapseTwo"
+                >
                   Prohibited Items
                 </a>
               </h4>
             </div>
-            <div id="collapseTwo" className="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+            <div 
+              id="collapseTwo" 
+              className="panel-collapse collapse" 
+              role="tabpanel" 
+              aria-labelledby="headingTwo"
+            >
               <div className="panel-body">
                 <ul>
                   <li>Adult Only category</li>
@@ -79,14 +122,36 @@ class FAQ extends React.Component<any, any> {
             </div>
           </div>
           <div className="panel panel-default">
-            <div className="panel-heading collapsed pointer-cursor" role="tab" id="headingThree"  data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            <div 
+              className="panel-heading collapsed pointer-cursor" 
+              role="tab" 
+              id="headingThree"  
+              data-toggle="collapse" 
+              data-parent="#accordion" 
+              href="#collapseThree" 
+              aria-expanded="false" 
+              aria-controls="collapseThree"
+            >
               <h4 className="panel-title">
-                <a className="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                <a 
+                  className="collapsed" 
+                  role="button" 
+                  data-toggle="collapse" 
+                  data-parent="#accordion" 
+                  href="#collapseThree" 
+                  aria-expanded="false" 
+                  aria-controls="collapseThree"
+                >
                   Terms of Use
                 </a>
               </h4>
             </div>
-            <div id="collapseThree" className="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+            <div 
+              id="collapseThree" 
+              className="panel-collapse collapse" 
+              role="tabpanel" 
+              aria-labelledby="headingThree"
+            >
               <div className="panel-body">
                 <p>
                   <strong>WELCOME TO</strong> Swap. We hope you find it useful. By accessing our servers, websites, or content therefrom (together, "SW"), you agree to these Terms of Use ("TOU"), last updated May 18, 2017.

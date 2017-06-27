@@ -73,14 +73,24 @@ class SearchGridView extends React.Component<Props, State> {
 
     let carouselControls = (
       <div>
-        <a className="left carousel-control" href={`#carousel-example-generic-${post.id}`} role="button" data-slide="prev"
-         onClick={this.preventPropagation}>
-          <span className="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <a 
+          className="left carousel-control" 
+          href={`#carousel-example-generic-${post.id}`} 
+          role="button" 
+          data-slide="prev"
+          onClick={this.preventPropagation}
+        >
+          <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
           <span className="sr-only">Previous</span>
         </a>
-        <a className="right carousel-control" href={`#carousel-example-generic-${post.id}`} role="button" data-slide="next"
-          onClick={this.preventPropagation}>
-          <span className="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <a 
+          className="right carousel-control" 
+          href={`#carousel-example-generic-${post.id}`} 
+          role="button" 
+          data-slide="next"
+          onClick={this.preventPropagation}
+        >
+          <span className="glyphicon glyphicon-chevron-right" aria-hidden="true" />
           <span className="sr-only">Next</span>
         </a>
       </div>
@@ -90,20 +100,17 @@ class SearchGridView extends React.Component<Props, State> {
 
     const carousel = (
       <div id={`carousel-example-generic-${post.id}`} className="carousel slide" data-ride="carousel">
-
         <div className="carousel-inner" role="listbox">
           {carouselFrames}
         </div>
-
         {carouselControls}
       </div>
     )
 
     let updatedDate: number | string= Date.parse(post.updated_at);
     updatedDate = Date.now() - updatedDate <= 86400000 ? timeFromNow(post.updated_at) : "";
-
     let seller = post.seller_name.split(" ");
-    let sellerName = shortenString(seller[0], 10) + ` ${seller[1][0]}.`
+    let sellerName = shortenString(seller[0], 10) + ` ${seller[1][0]}.`;
 
     return (
       <div className="col-sm-4 col-md-3 hover-show" key={Math.random() * post.id}
@@ -127,6 +134,7 @@ class SearchGridView extends React.Component<Props, State> {
   private translateSortLabels() {
     const label = this.props.currentQuery.sort_by;
     const polarity = this.props.currentQuery.polarity;
+
     if (label == "views") {
       return "Popularity";
     } else if (label == "updated_at") {
@@ -136,6 +144,7 @@ class SearchGridView extends React.Component<Props, State> {
     } else if (label == "price" && polarity === 1) {
       return "Price: High to Low"
     }
+
     return null
   }
 
@@ -155,7 +164,14 @@ class SearchGridView extends React.Component<Props, State> {
         <div className="row">
           <div className="sort-by-panel">
             <div className="btn-group">
-              <button type="button" className="btn btn-default btn-md dropdown-toggle btn-special-size" id="special-absolute" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <button 
+                type="button" 
+                className="btn btn-default btn-md dropdown-toggle btn-special-size" 
+                id="special-absolute" 
+                data-toggle="dropdown" 
+                aria-haspopup="true" 
+                aria-expanded="false"
+              >
                  {this.translateSortLabels()}&nbsp;&nbsp;<span className="caret"></span>
               </button>
               <ul className="dropdown-menu dropdown-menu-right" id="special-absolute-2">

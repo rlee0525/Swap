@@ -1,7 +1,11 @@
 import * as React from 'react';
 import { Provider } from 'react-redux';
 import { Store } from 'redux';
-import { Router, Route, IndexRoute, hashHistory } from 'react-router';
+import { Router, 
+         Route, 
+         IndexRoute, 
+         hashHistory } from 'react-router';
+
 import App from 'core';
 import Home from 'modules/home';
 import Search from 'modules/search';

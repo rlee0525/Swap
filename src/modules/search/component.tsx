@@ -37,6 +37,7 @@ class Search extends React.Component<Props, State> {
         "Lost & Found", "My Course Material"
       ]
     }
+
     this.renderCategoryMenu = this.renderCategoryMenu.bind(this);
   }
 
@@ -80,6 +81,7 @@ class Search extends React.Component<Props, State> {
 
   private changeView(viewType: string) {
     const currentQuery = this.props.currentQuery;
+
     this.props.saveQuery({viewType});
 
     let nextQuery = merge({}, currentQuery, {viewType})
@@ -119,6 +121,7 @@ class Search extends React.Component<Props, State> {
   private renderCategoryMenu(label) {
     const currentQuery = this.props.currentQuery;
     const nextQuery = merge({}, currentQuery, {category: label, page_idx: 1, query: ""});
+
     this.props.saveQuery(nextQuery);
     this.props.search(nextQuery);
 
@@ -161,12 +164,26 @@ class Search extends React.Component<Props, State> {
             <div className="col-md-12">
               <div id="nav-tools">
                 <nav className="breadcrumb" id="breadcrumb-container">
-                  <a onClick={() => this.renderCategoryMenu("All")} className="breadcrumb-item" href="#/recent">All</a>
-                  {label && <a onClick={() => this.renderCategoryMenu(category)} className="breadcrumb-item" href={`#/${path}`}>{label}</a>}
+                  <a 
+                    onClick={() => this.renderCategoryMenu("All")} 
+                    className="breadcrumb-item" 
+                    href="#/recent"
+                  >
+                    All
+                  </a>
+                  {label && 
+                    <a 
+                      onClick={() => this.renderCategoryMenu(category)} 
+                      className="breadcrumb-item" 
+                      href={`#/${path}`}
+                    >
+                      {label}
+                    </a>
+                  }
                   <span className="breadcrumb-item active" id="result-count">
                     {minResult} - {maxResult} of {totalResults} result(s)
                   </span>
-                  <span className="breadcrumb-item active" id="result-count-2"></span>
+                  <span className="breadcrumb-item active" id="result-count-2" />
                 </nav>
 
                 <div className="search-icons">

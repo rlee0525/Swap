@@ -1,5 +1,4 @@
 /* global $ */
-
 export const createConversation = (conversation_id : string, user_id : string) : JQueryPromise<any> => (
   $.ajax({
     method: 'POST',
