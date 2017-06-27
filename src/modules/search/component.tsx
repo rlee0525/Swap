@@ -64,10 +64,9 @@ class Search extends React.Component<Props, State> {
         (nextProps.location.pathname === "/mycoursematerial" && nextProps.user)) {      
         const access_token = this.props.user.auth.accessToken;
         nextQuery = merge({}, nextQuery, {access_token});
-        this.props.search(nextQuery);
-      } else {
-        this.props.search(nextQuery);
       }
+      
+      this.props.search(nextQuery);
     }
   }
 

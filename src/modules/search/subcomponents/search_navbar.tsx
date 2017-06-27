@@ -1,21 +1,23 @@
 import React from 'react';
-import { searchParams } from 'helpers';
 import { merge } from 'lodash';
-import { getCategory } from 'helpers';
+import autoBind from 'react-autobind';
 import { hashHistory } from 'react-router';
+import { searchParams, getCategory } from 'helpers';
+import { IUser, ISearchResult, ICurrentQuery } from 'common/interfaces';
+
 declare var window;
 
 interface Props {
   search(query: object) : void;
-  searchResult: any;
-  currentQuery: any;
+  searchResult: ISearchResult;
+  currentQuery: ICurrentQuery;
   saveQuery: any;
-  home: any;
-  user: any;
+  home: boolean;
+  user: IUser;
 }
 
 interface State {
-  category: any;
+  category: string;
 }
 
 class SearchNavbar extends React.Component<Props, State> {
@@ -26,10 +28,7 @@ class SearchNavbar extends React.Component<Props, State> {
       category: null 
     };
 
-    this.checkKey = this.checkKey.bind(this);
-    this.renderCategoryMenu = this.renderCategoryMenu.bind(this);
-    this.enterSearchQuery = this.enterSearchQuery.bind(this);
-    this.onChange = this.onChange.bind(this);
+    autoBind(this);
   }
 
   private checkKey(e: any) {
@@ -102,6 +101,7 @@ class SearchNavbar extends React.Component<Props, State> {
   }
 
   public render() {
+    console.log(this.props);
     return (
       <div className="container" id="search-navbar-container">
         <div className="row">
