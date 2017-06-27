@@ -172,7 +172,7 @@ class MyCourses extends React.Component<Props, State> {
                       aria-describedby="basic-addon2"
                     />
                     <span className="input-group-addon" id="basic-addon1">
-                      &nbsp;{50 - this.state.courseDescription.length} characters left
+                      &nbsp;{this.state.courseDescription.length} / 50
                     </span>
                   </div>
                   <button 
