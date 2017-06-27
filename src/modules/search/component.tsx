@@ -1,7 +1,7 @@
 import React from 'react';
 import { merge } from 'lodash';
 import { IPost } from 'common/interfaces';
-import { withRouter, hashHistory } from 'react-router';
+import { withRouter, hashHistory, Link } from 'react-router';
 import { shortenString,
          capitalize,
          searchParams,
@@ -45,7 +45,8 @@ class Search extends React.Component<Props, State> {
 
     let category = getCategory(this.props.location);    
     const currentQuery = this.props.currentQuery;
-    const nextQuery = merge({}, currentQuery, {category, page_idx: 1});
+    const access_token = this.props.user.auth.accessToken;
+    const nextQuery = merge({}, currentQuery, {category, page_idx: 1, access_token });
 
     this.props.search(nextQuery);
     this.props.saveQuery(nextQuery);
@@ -53,19 +54,18 @@ class Search extends React.Component<Props, State> {
 
   public componentWillReceiveProps(nextProps: any){
     let category = getCategory(nextProps.location);
-
+    
     if (this.state.categories.includes(category) &&
         nextProps.location !== this.props.location) {
       const currentQuery = this.props.currentQuery;
       this.props.saveQuery({category});
       let nextQuery = merge({}, currentQuery, {category});
-
       if ((this.props.currentQuery.category === "My Course Material" && this.props.user) || 
         (nextProps.location.pathname === "/mycoursematerial" && nextProps.user)) {      
         const access_token = this.props.user.auth.accessToken;
         nextQuery = merge({}, nextQuery, {access_token});
       }
-      
+
       this.props.search(nextQuery);
     }
   }
@@ -111,7 +111,7 @@ class Search extends React.Component<Props, State> {
     $('#search-query').focus();
   }
 
-  public render() {
+  public render() {    
     let path = this.props.location.pathname.slice(1);
     let category = this.props.currentQuery.category;
     let label = category;
@@ -147,21 +147,21 @@ class Search extends React.Component<Props, State> {
             <div className="col-md-12">
               <div id="nav-tools">
                 <nav className="breadcrumb" id="breadcrumb-container">
-                  <a 
+                  <Link 
                     onClick={() => this.renderCategoryMenu("All")} 
                     className="breadcrumb-item" 
-                    href="#/recent"
+                    to="recent"
                   >
                     All
-                  </a>
+                  </Link>
                   {label && 
-                    <a 
+                    <Link 
                       onClick={() => this.renderCategoryMenu(category)} 
                       className="breadcrumb-item" 
-                      href={`#/${path}`}
+                      to={`${path}`}
                     >
                       {label}
-                    </a>
+                    </Link>
                   }
                   <span className="breadcrumb-item active" id="result-count">
                     {minResult} - {maxResult} of {totalResults} result(s)

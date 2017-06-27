@@ -100,8 +100,7 @@ class SearchNavbar extends React.Component<Props, State> {
     $('#search-query').focus();
   }
 
-  public render() {
-    console.log(this.props);
+  public render() {    
     return (
       <div className="container" id="search-navbar-container">
         <div className="row">
