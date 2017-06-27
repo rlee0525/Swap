@@ -28,46 +28,40 @@ interface Props {
 class Search extends React.Component<Props, State> {
   constructor(props) {
     super(props);
+
     this.state = {
       categories: [
         "All", "Course Material", "Furniture", "Clothing",
         "Electronics", "Housing", "Bikes", "Games", "Others",
         "Lost & Found", "My Course Material"
       ]
-    }
+    };
 
     this.renderCategoryMenu = this.renderCategoryMenu.bind(this);
   }
 
   public componentWillMount() {
-    let category = this.props.location.pathname;
+    hashHistory.push(this.props.location.pathname);
 
-    hashHistory.push(category);
-
-    if (category === "mycoursematerial" || category === "/mycoursematerial") {
-      category = "My Course Material";
-    }
-
+    let category = getCategory(this.props.location);    
     const currentQuery = this.props.currentQuery;
     const nextQuery = merge({}, currentQuery, {category, page_idx: 1});
+
     this.props.search(nextQuery);
     this.props.saveQuery(nextQuery);
   }
 
   public componentWillReceiveProps(nextProps: any){
     let category = getCategory(nextProps.location);
-    
-    if (category === "Mycoursematerial") {
-      category = 'My Course Material';
-    }
 
     if (this.state.categories.includes(category) &&
         nextProps.location !== this.props.location) {
       const currentQuery = this.props.currentQuery;
       this.props.saveQuery({category});
+      let nextQuery = merge({}, currentQuery, {category});
 
-      let nextQuery = merge({}, currentQuery, {category})
-      if (this.props.currentQuery.category === "My Course Material" && this.props.user) {
+      if ((this.props.currentQuery.category === "My Course Material" && this.props.user) || 
+        (nextProps.location.pathname === "/mycoursematerial" && nextProps.user)) {      
         const access_token = this.props.user.auth.accessToken;
         nextQuery = merge({}, nextQuery, {access_token});
         this.props.search(nextQuery);
