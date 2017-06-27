@@ -267,7 +267,7 @@ class NavBar extends React.Component<any, any> {
                       placeholder="Your email" 
                       aria-describedby="basic-addon2"
                     />
-                    <span className="input-group-addon" id="basic-addon2">Ex: me@email.com</span>
+                    <span className="input-group-addon" id="basic-addon2">ex) swap@berkeley.edu</span>
                   </div>
                   <button 
                     type="button" 
@@ -278,7 +278,7 @@ class NavBar extends React.Component<any, any> {
                   </button>
                   <button 
                     type="button" 
-                    className="btn btn-danger btn-lg btn-block" 
+                    className="btn btn-secondary btn-lg btn-block" 
                     onClick={ this.loginStatus }
                   >
                     Logout
@@ -319,7 +319,7 @@ class NavBar extends React.Component<any, any> {
                 </button>
                 <button 
                   type="button" 
-                  className="btn btn-danger btn-lg btn-block" 
+                  className="btn btn-secondary btn-lg btn-block" 
                   onClick={ this.loginStatus }
                 >
                   Logout

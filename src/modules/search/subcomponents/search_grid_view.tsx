@@ -17,17 +17,9 @@ interface Props {
   user: any;
 }
 
-interface State {
-  isLoading: boolean
-}
-
-class SearchGridView extends React.Component<Props, State> {
+class SearchGridView extends React.Component<Props, {}> {
   constructor(props) {
     super(props);
-
-    this.state = {
-      isLoading: true
-    };
 
     this.sort_by = this.sort_by.bind(this);
     this.translateSortLabels = this.translateSortLabels.bind(this);
@@ -110,7 +102,7 @@ class SearchGridView extends React.Component<Props, State> {
         </div>
         {carouselControls}
       </div>
-    )
+    );
 
     let updatedDate: number | string= Date.parse(post.updated_at);
     updatedDate = Date.now() - updatedDate <= 86400000 ? timeFromNow(post.updated_at) : "";
