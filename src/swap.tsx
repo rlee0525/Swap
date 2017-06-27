@@ -4,10 +4,10 @@ import { Store } from 'redux';
 import configureStore from './core/store';
 import Root from './core/root';
 import * as firebase from 'firebase';
+
 declare var window;
 
 window.start = user => {
-  // document.addEventListener('DOMContentLoaded', () => {
   const root: HTMLElement = document.getElementById('root');
 
   $.ajax({

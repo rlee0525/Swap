@@ -18,11 +18,16 @@ interface Props {
 }
 
 interface State {
+  isLoading: boolean
 }
 
 class SearchGridView extends React.Component<Props, State> {
   constructor(props) {
     super(props);
+
+    this.state = {
+      isLoading: true
+    };
 
     this.sort_by = this.sort_by.bind(this);
     this.translateSortLabels = this.translateSortLabels.bind(this);
@@ -138,25 +143,22 @@ class SearchGridView extends React.Component<Props, State> {
     if (label == "views") {
       return "Popularity";
     } else if (label == "updated_at") {
-      return "Posting Date"
+      return "Posting Date";
     } else if (label == "price" && polarity === -1) {
-      return "Price: Low to High"
+      return "Price: Low to High";
     } else if (label == "price" && polarity === 1) {
-      return "Price: High to Low"
+      return "Price: High to Low";
     }
 
-    return null
+    return null;
   }
 
 
   render() {
     let results;
+
     if (this.props.searchResult.posts) {
       results = this.props.searchResult.posts.map((post, idx) => this.renderGridItem(post));
-    } else {
-      results = (
-        <LoadingSpinner />
-      );
     }
 
     return (

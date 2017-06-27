@@ -4,7 +4,7 @@ import Clipboard from 'clipboard';
 import * as moment from 'moment';
 import { hashHistory } from 'react-router';
 import { shortenString, timeFromNow } from 'helpers';
-import { MapItem } from 'common/components';
+import { MapItem, LoadingSpinner } from 'common/components';
 import { SearchNavbar } from 'modules/search/subcomponents';
 import { createConversation } from 'modules/chat/utils';
 
@@ -18,8 +18,9 @@ class PostDetail extends React.Component<any, any> {
       authorFB: null,
       address: "",
       center: null,
-      view: "photo"
-    }
+      view: "photo",
+      isLoading: true
+    };
 
     autoBind(this);
   }
@@ -231,7 +232,10 @@ class PostDetail extends React.Component<any, any> {
 
   public fetchAuthor() {
     (window as any).FB.api(`/${this.props.post.fb_id}?fields=email,name,link,picture`, response => {
-      this.setState({ authorFB: response });
+      this.setState({ 
+        authorFB: response,
+        isLoading: false
+      });
     });
   }
 
@@ -441,6 +445,7 @@ class PostDetail extends React.Component<any, any> {
 
   public render() {
     if (!this.props.post) return null;
+    if (this.state.isLoading) return <LoadingSpinner />;
 
     let { link, category, title } = this.props.post;
     link = category.toLowerCase();
