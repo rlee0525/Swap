@@ -1,11 +1,13 @@
-declare var Promise;
 import React from 'react';
 import * as firebase from 'firebase';
 import autoBind from 'react-autobind';
 import { keyBy, values } from 'lodash';
 
-import { Messages, ConversationItem } from './subcomponents';
 import { fetchConversations } from './utils';
+import { LoadingSpinner } from 'common/components';
+import { Messages, ConversationItem } from './subcomponents';
+
+declare var Promise;
 
 interface Props {
   user: any;
@@ -184,11 +186,7 @@ class Chat extends React.Component<Props, State> {
   }
 
   render() : JSX.Element {
-    if (this.state.loading) {
-      return (
-        <div>Loading</div>
-      );
-    }
+    if (this.state.loading) return <LoadingSpinner />
 
     let { currentConversation, conversations } = this.state;
     let { user } = this.props;

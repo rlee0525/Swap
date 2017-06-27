@@ -139,7 +139,7 @@ class SearchNavbar extends React.Component<Props, State> {
           </div>
           <div className="input-group col-md-10 col-sm-10" id="phone-search-nav">
             <input 
-              id="search-query" 
+              id="search-query"
               type="text" 
               className="form-control" 
               placeholder="Search" 
