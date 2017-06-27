@@ -2,12 +2,10 @@ import React from 'react';
 import { merge } from 'lodash';
 import { IPost } from 'common/interfaces';
 import { withRouter, hashHistory } from 'react-router';
-
 import { shortenString,
          capitalize,
          searchParams,
          getCategory } from 'helpers';
-
 import { SearchGridView,
          SearchListView,
          SearchNavbar,
@@ -95,26 +93,18 @@ class Search extends React.Component<Props, State> {
   }
 
   private renderView() {
+    let props = {
+      user: this.props.user,
+      searchResult: this.props.searchResult,
+      search: this.props.search,
+      currentQuery: this.props.currentQuery,
+      saveQuery: this.props.saveQuery
+    };
+
     if (this.props.currentQuery.viewType === 'grid') {
-      return (
-        <SearchGridView
-          user={this.props.user}
-          searchResult={this.props.searchResult}
-          search={this.props.search}
-          currentQuery={this.props.currentQuery}
-          saveQuery={this.props.saveQuery}
-        />
-      );
+      return <SearchGridView {...props} />;
     } else {
-      return (
-        <SearchListView
-          user={this.props.user}
-          searchResult={this.props.searchResult}
-          search={this.props.search}
-          currentQuery={this.props.currentQuery}
-          saveQuery={this.props.saveQuery}
-        />
-      );
+      return <SearchListView {...props} />;
     }
   }
 
