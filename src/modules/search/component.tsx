@@ -45,8 +45,12 @@ class Search extends React.Component<Props, State> {
 
     let category = getCategory(this.props.location);    
     const currentQuery = this.props.currentQuery;
-    const access_token = this.props.user.auth.accessToken;
-    const nextQuery = merge({}, currentQuery, {category, page_idx: 1, access_token });
+    let nextQuery = merge({}, currentQuery, { category, page_idx: 1 });
+
+    if (this.props.user) {
+      const access_token = this.props.user.auth.accessToken;
+      nextQuery = merge({}, nextQuery, { access_token });
+    }
 
     this.props.search(nextQuery);
     this.props.saveQuery(nextQuery);

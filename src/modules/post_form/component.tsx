@@ -394,7 +394,7 @@ class PostForm extends React.Component<any, IState> {
           </div>
 
           {/* Price input */}
-          <div className="form-group">
+          <div className={`form-group ${this.state.category === "Lost & Found" && "hidden"}`}>
             <label style={labelStyle} htmlFor="inputPrice3" className="col-sm-2 control-label-custom">
               {this.state.category === "Housing" ? "Monthly Rent" : "Price"}
             </label>

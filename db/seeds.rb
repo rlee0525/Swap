@@ -63,6 +63,7 @@ User.create!(
   lat = nil
   lng = nil
   address = nil
+  price = rand(100) + 1
 
   if category == "Course Material"
     course = Course.find(rand(1..Course.count))
@@ -76,11 +77,15 @@ User.create!(
     end_date = Time.now + rand(1000000..10000000)
   end
 
+  if category == "Lost & Found"
+    price = nil
+  end
+  
   Post.create!(
     user: User.find(rand(1..User.count)),
     title: Posts::DATA[idx % 29][:title],
     description: Posts::DATA[idx % 29][:description],
-    price: rand(100) + 1,
+    price: price,
     img_url1: Posts::DATA[idx % 29][:img_url1],
     img_url2: Posts::DATA[idx % 29][:img_url2],
     img_url3: Posts::DATA[idx % 29][:img_url3],
