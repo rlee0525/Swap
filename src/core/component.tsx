@@ -44,6 +44,7 @@ class App extends React.Component<Props, State> {
         url: `api/users/${access_token}`
       }).then(res => {
         let conversations = res.conversations;
+        console.log(conversations);
       });
     }
   }

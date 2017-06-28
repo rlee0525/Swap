@@ -41,7 +41,7 @@ class Api::UsersController < ApplicationController
   end
 
   def show
-    @user = fb_auth_user(params[:id]).includes(:conversations)
+    @user = fb_auth_user(params[:id])
 
     if @user
       render "api/users/show", status: 200

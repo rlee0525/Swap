@@ -200,7 +200,7 @@ class Chat extends React.Component<Props, State> {
 
         <div className="chat-messages">
           { Object.keys(conversations).length === 0 ? (
-            <div>You don't have any conversations.</div>
+            <div id="messages-warning">You don't have any conversations.</div>
           ) :(
             <Messages
               conversation={conversations[currentConversation]}
