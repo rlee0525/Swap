@@ -163,7 +163,8 @@ class MyCourses extends React.Component<Props, State> {
   render() {
     $('#new-course-q').qtip({
       content: {
-        text: "Don't see your course? Send us an email to swapnowio@gmail.com with the course number and we'll add it to the system as soon as possible!"
+        text: `Don't see your course? Send us an email to swapnowio@gmail.com with 
+               the course number and we'll add it to the system as soon as possible!`
       }
     });
 

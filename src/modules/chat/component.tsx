@@ -7,7 +7,7 @@ import { fetchConversations } from './utils';
 import { LoadingSpinner } from 'common/components';
 import { Messages, ConversationItem } from './subcomponents';
 
-declare var Promise;
+declare var Promise, $;
 
 interface Props {
   user: any;
@@ -191,11 +191,21 @@ class Chat extends React.Component<Props, State> {
     let { currentConversation, conversations } = this.state;
     let { user } = this.props;
 
+    $('#message-q').qtip({
+      content: {
+        text: `Messages feature is not real-time yet. Refresh the page to check for updates.`
+      }
+    });
+
     return (
       <div className="container chat-container">
         <div className="chat-conversations">
           <div className='chat-conversations-title'>
-            Conversations
+            Messages                  
+            <span 
+              className="glyphicon glyphicon-question-sign" 
+              id="message-q"
+            />
           </div>
           { values(conversations).map((conversation : any) => (
             <ConversationItem

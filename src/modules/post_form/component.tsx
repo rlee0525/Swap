@@ -2,7 +2,6 @@ import React from 'react';
 import request from 'superagent';
 import Dropzone from 'react-dropzone';
 import autoBind from 'react-autobind';
-import { hashHistory } from 'react-router';
 import 'react-dates/lib/css/_datepicker.css';
 import { IState, _defaultState } from './typings';
 import { ImageDropzone, RadioButtons } from './subcomponents';
@@ -188,28 +187,6 @@ class PostForm extends React.Component<any, IState> {
 
   public radioButtonsUpdate(type) {
     return e => { this.setState({ [type]: e.currentTarget.textContent, errors: [] }) };
-  }
-
-  public cancelForm(e) {
-    e.preventDefault();
-
-    $(function() {
-      $("#dialog-confirm").dialog({
-        resizable: false,
-        height: "auto",
-        width: 400,
-        modal: true,
-        buttons: {
-          "Yes": function() {
-            $(this).dialog("close");
-            hashHistory.goBack();
-          },
-          Cancel: function() {
-            $(this).dialog("close");
-          }
-        }
-      });
-    });
   }
 
   public submitForm(e) {
@@ -432,11 +409,6 @@ class PostForm extends React.Component<any, IState> {
                 type={this.props.params.id ? "Update" : "Create"}
                 class="btn-primary"
                 click={this.submitForm}
-              />
-              <LargeButton
-                type="Cancel"
-                class="btn-secondary"
-                click={this.cancelForm}
               />
               <br/>
             </div>
