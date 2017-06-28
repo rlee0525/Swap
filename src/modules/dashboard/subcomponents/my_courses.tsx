@@ -160,17 +160,13 @@ class MyCourses extends React.Component<Props, State> {
     );
   }
 
-  private displayQuestion() {
-    let that = this;
-
-    $(function() {
-      $("#new-course-q").tooltip({
-        content: "Don't see your course? Send us an email to swapnowio@gmail.com with the course number and we'll add it to the system as soon as possible!"
-      });
-    });
-  }
-
   render() {
+    $('#new-course-q').qtip({
+      content: {
+        text: "Don't see your course? Send us an email to swapnowio@gmail.com with the course number and we'll add it to the system as soon as possible!"
+      }
+    });
+
     return (
       <div>
         <a 
@@ -191,7 +187,6 @@ class MyCourses extends React.Component<Props, State> {
                   <span 
                     className="glyphicon glyphicon-question-sign" 
                     id="new-course-q"
-                    onClick={this.displayQuestion}
                   />
                 </h3>
               </div>
