@@ -1,13 +1,17 @@
 import * as React from 'react';
 import NavBar from 'core/navbar';
 import Footer from 'core/footer';
+import * as firebase from 'firebase';
 import receiveUSER from 'core/navbar/actions';
+import { fetchConversations } from 'modules/chat/utils';
+
 declare var $;
 declare var window;
 
 interface Props {
   children: any;
   receiveUser: any;
+  user: any;
 }
 
 interface State {
@@ -17,15 +21,31 @@ interface State {
 }
 
 class App extends React.Component<Props, State> {
+  ref;
   constructor(props: Props) {
     super(props);
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
     this.checkFbStatus = this.checkFbStatus.bind(this);
 
-    FB.Event.subscribe('auth.logout', this.logout)
-    FB.Event.subscribe('auth.login', this.login)
-    FB.Event.subscribe('auth.statusChange ', this.checkFbStatus)
+    FB.Event.subscribe('auth.logout', this.logout);
+    FB.Event.subscribe('auth.login', this.login);
+    FB.Event.subscribe('auth.statusChange ', this.checkFbStatus);
+
+    this.ref = null;
+  }
+
+  public componentDidMount() {
+    if (this.props.user) {
+      const access_token = this.props.user.auth.accessToken;
+      
+      $.ajax({
+        method: 'GET',
+        url: `api/users/${access_token}`
+      }).then(res => {
+        let conversations = res.conversations;
+      });
+    }
   }
 
   public checkFbStatus() {
