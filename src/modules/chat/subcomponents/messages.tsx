@@ -48,6 +48,8 @@ class Messages extends React.Component<Props, {}> {
             </div>
           )
         })}
+
+        <div id="messages-warning">Messages feature is not real-time yet. Refresh the page to check for updates.</div>
       </div>
     );
   }

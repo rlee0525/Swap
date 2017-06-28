@@ -7,7 +7,7 @@ import { fetchConversations } from './utils';
 import { LoadingSpinner } from 'common/components';
 import { Messages, ConversationItem } from './subcomponents';
 
-declare var Promise, $;
+declare var $, Promise;
 
 interface Props {
   user: any;
@@ -44,12 +44,10 @@ class Chat extends React.Component<Props, State> {
 
   componentDidMount() : void {
     let { user } = this.props;
-
     let conversationId = this.props.location.query.id;
 
     fetchConversations(user.auth.accessToken).then(
       res => {
-
         let currentConversation;
 
         if (res.length === 0) {
@@ -74,30 +72,22 @@ class Chat extends React.Component<Props, State> {
         this.ref = firebase.database().ref(`conversations/${currentConversation}`); 
 
         let conversations : object = keyBy<object>(res, "conversation_id");
-
         let ids = Object.keys(conversations);
-
         let dataNeeded = [];
 
         for (let i = 0; i < ids.length; i++) {
-          
           let data = firebase.database().ref(`conversations/${ids[i]}`).once('value', snapshot => {
-            
             let messages = snapshot.val() || {};
-
             conversations[ids[i]].messages = messages;
-
             let timestamps = Object.keys(messages);
-
+            
             if (timestamps.length === 0) {
               conversations[ids[i]].hasUnreadMessages = false;
               return;
             }
             
             let hasUnreadMessages = messages[timestamps[timestamps.length - 1]].sender !== user.userFB.id;
-
             conversations[ids[i]].hasUnreadMessages = hasUnreadMessages;
-            
           });
 
           dataNeeded.push(data);
@@ -122,7 +112,6 @@ class Chat extends React.Component<Props, State> {
   sendMessage(message : string) : void {
     let { currentConversation } = this.state;
     let { user } = this.props;
-
     let time = Date.now();
     let messageObj = {
       message,
@@ -149,7 +138,7 @@ class Chat extends React.Component<Props, State> {
   }
 
   handleKeyPress(e) : void {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && this.state.message !== "") {
       this.sendMessage(this.state.message);
     }
   }
@@ -180,6 +169,7 @@ class Chat extends React.Component<Props, State> {
             messages: messages
           }
         },
+
         loading: false
       }); 
     });
@@ -191,21 +181,11 @@ class Chat extends React.Component<Props, State> {
     let { currentConversation, conversations } = this.state;
     let { user } = this.props;
 
-    $('#message-q').qtip({
-      content: {
-        text: `Messages feature is not real-time yet. Refresh the page to check for updates.`
-      }
-    });
-
     return (
       <div className="container chat-container">
         <div className="chat-conversations">
           <div className='chat-conversations-title'>
-            Messages                  
-            <span 
-              className="glyphicon glyphicon-question-sign" 
-              id="message-q"
-            />
+            Messages
           </div>
           { values(conversations).map((conversation : any) => (
             <ConversationItem
