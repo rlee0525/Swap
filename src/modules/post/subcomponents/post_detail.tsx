@@ -267,10 +267,20 @@ class PostDetail extends React.Component<any, any> {
   }
 
   private priceMessage() {
-    if (this.props.post.category == "Housing") {
+    if (this.props.post.category === "Housing") {
       return `I would like to rent the place at $${this.props.post.price} / month.`;
+    } else if (this.props.post.category === "Lost & Found") {
+      return `Thanks for posting it!`;
     } else {
       return `I would like to purchase it at $${this.props.post.price}.`
+    }
+  }
+
+  private availableMessage() {
+    if (this.props.post.category === "Lost & Found") {
+      return "Please let me know when would be the best time to meet."
+    } else {
+      return "Please let me know if it's still available.";
     }
   }
 
@@ -303,10 +313,10 @@ class PostDetail extends React.Component<any, any> {
                       title="click to edit"
                     >
                       Hi {name.split(" ")[0]}, <br/><br/>
-                      My name is {this.props.user && this.props.user.userFB.name.split(" ")[0]}. 
+                      My name is {this.props.user && this.props.user.userFB.name.split(" ")[0]}.<br/>
                       &nbsp;I saw your posting on {this.props.post.title} on Swap.<br/>
                       {this.priceMessage()}<br/>
-                      Please let me know if it's still available.<br/>
+                      {this.availableMessage()}<br/>
 
                       link: {(window as any).localhost_url}/#/posts/{this.props.post.id}<br/><br/>
 
