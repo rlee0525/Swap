@@ -136,7 +136,7 @@ class MyCourses extends React.Component<Props, State> {
           </div>
         </div>
       </div>
-    )
+    );
   }
 
   public renderListItem() {
@@ -160,6 +160,16 @@ class MyCourses extends React.Component<Props, State> {
     );
   }
 
+  private displayQuestion() {
+    let that = this;
+
+    $(function() {
+      $("#new-course-q").tooltip({
+        content: "Don't see your course? Send us an email to swapnowio@gmail.com with the course number and we'll add it to the system as soon as possible!"
+      });
+    });
+  }
+
   render() {
     return (
       <div>
@@ -176,7 +186,14 @@ class MyCourses extends React.Component<Props, State> {
             <div className="modal-content">
               <div className="modal-header" id="auth-modal-header">
                 <button type="button" className="close" data-dismiss="modal">&times;</button>
-                <h3 className="modal-title" id="authModalLabel">Add a new course</h3>
+                <h3 className="modal-title" id="authModalLabel">
+                  Add a new course&nbsp;&nbsp;
+                  <span 
+                    className="glyphicon glyphicon-question-sign" 
+                    id="new-course-q"
+                    onClick={this.displayQuestion}
+                  />
+                </h3>
               </div>
               <div className="modal-body text-center" id="fb-modal-body">
                 <form onSubmit={ this.submitForm }>
@@ -211,7 +228,7 @@ class MyCourses extends React.Component<Props, State> {
 
         <div className="no-display" id="dialog-confirm">
           Delete this course?
-        </div> 
+        </div>
       </div>
     )
   }
