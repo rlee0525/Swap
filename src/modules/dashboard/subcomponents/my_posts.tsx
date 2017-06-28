@@ -5,6 +5,8 @@ import { IPost, IUser } from 'common/interfaces';
 import { shortenString, timeFromNow } from 'helpers';
 import { TableHeaders, LoadingSpinner, SmallButton } from 'common/components';
 
+declare var $;
+
 interface Props {
   user: IUser;
   myPosts: {
@@ -56,13 +58,30 @@ class MyPosts extends React.Component<Props, State> {
 
   public deletePost(e, id) {
     e.stopPropagation();
+    let that = this;
 
-    let { deleteMyPost, user } = this.props;
-    const access_token = this.props.user.auth.accessToken;
+    $(function() {
+      $("#dialog-confirm").dialog({
+        resizable: false,
+        height: "auto",
+        width: 400,
+        modal: true,
+        buttons: {
+          "Yes": function() {
+            $(this).dialog("close");
+            let { deleteMyPost, user } = that.props;
+            const access_token = that.props.user.auth.accessToken;
 
-    deleteMyPost(id, user.auth.accessToken).then(
-      () => this.setState({ myPosts: this.props.myPosts.list })
-    );
+            deleteMyPost(id, user.auth.accessToken).then(
+              () => that.setState({ myPosts: that.props.myPosts.list })
+            );
+          },
+          Cancel: function() {
+            $(this).dialog("close");
+          }
+        }
+      });
+    });
   }
 
   public loadPost(id) {
@@ -153,6 +172,10 @@ class MyPosts extends React.Component<Props, State> {
             </tbody>
           </table>
         </div>
+
+        <div className="no-display" id="dialog-confirm">
+          Delete this post?
+        </div> 
       </div>
     );
   }

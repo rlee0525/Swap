@@ -3,6 +3,8 @@ import { IUser } from 'common/interfaces';
 import { shortenString, timeFromNow } from 'helpers';
 import { TableHeaders, LoadingSpinner, SmallButton } from 'common/components';
 
+declare var $;
+
 interface IRfps {
   id: number;
   description: string;
@@ -35,12 +37,29 @@ class Rfps extends React.Component <Props, State> {
 
   public deleteRfp(e, id) {
     e.stopPropagation();
+    let that = this;
 
-    let { deleteRfps, user } = this.props;
-    
-    deleteRfps(id, user.auth.accessToken).then(
-      () => this.setState({ rfps: this.props.rfps.list })
-    );
+    $(function() {
+      $("#dialog-confirm").dialog({
+        resizable: false,
+        height: "auto",
+        width: 400,
+        modal: true,
+        buttons: {
+          "Yes": function() {
+            $(this).dialog("close");
+            let { deleteRfps, user } = that.props;
+            
+            deleteRfps(id, user.auth.accessToken).then(
+              () => that.setState({ rfps: that.props.rfps.list })
+            );
+          },
+          Cancel: function() {
+            $(this).dialog("close");
+          }
+        }
+      });
+    });
   }
 
   public componentDidMount() {
@@ -102,6 +121,10 @@ class Rfps extends React.Component <Props, State> {
             </table>
           </div>
         </div>
+
+        <div className="no-display" id="dialog-confirm">
+          Delete this alert?
+        </div> 
       </div>
     );
   }

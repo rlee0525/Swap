@@ -58,7 +58,25 @@ class MyCourses extends React.Component<Props, State> {
   public deleteCourse(e, id) {
     e.stopPropagation();
     
-    this.props.deleteMyCourse(id, this.props.user.auth.accessToken);
+    let that = this;
+
+    $(function() {
+      $("#dialog-confirm").dialog({
+        resizable: false,
+        height: "auto",
+        width: 400,
+        modal: true,
+        buttons: {
+          "Yes": function() {
+            $(this).dialog("close");
+            that.props.deleteMyCourse(id, that.props.user.auth.accessToken);
+          },
+          Cancel: function() {
+            $(this).dialog("close");
+          }
+        }
+      });
+    });
   }
 
   public updateState(e) {
@@ -190,6 +208,10 @@ class MyCourses extends React.Component<Props, State> {
           </div>
         </div>
         {this.renderMyCourses()}
+
+        <div className="no-display" id="dialog-confirm">
+          Delete this course?
+        </div> 
       </div>
     )
   }

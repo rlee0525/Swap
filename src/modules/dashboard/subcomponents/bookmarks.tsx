@@ -5,7 +5,7 @@ import { IUser, IPost } from 'common/interfaces';
 import { shortenString, timeFromNow } from 'helpers';
 import { TableHeaders, LoadingSpinner, SmallButton } from 'common/components';
 
-declare var window;
+declare var $, window;
 
 interface State {
   bookmarks: IPost [];
@@ -40,12 +40,29 @@ class Bookmarks extends React.Component<Props, State> {
 
   public deleteBookmark(e, id) {
     e.stopPropagation();
+    let that = this;
 
-    let { deleteBookmark, user } = this.props;
+    $(function() {
+      $("#dialog-confirm").dialog({
+        resizable: false,
+        height: "auto",
+        width: 400,
+        modal: true,
+        buttons: {
+          "Yes": function() {
+            $(this).dialog("close");
+            let { deleteBookmark, user } = that.props;
 
-    deleteBookmark(id, user.auth.accessToken).then(
-      () => this.setState({ bookmarks: this.props.bookmarks.list })
-    );
+            deleteBookmark(id, user.auth.accessToken).then(
+              () => that.setState({ bookmarks: that.props.bookmarks.list })
+            );
+          },
+          Cancel: function() {
+            $(this).dialog("close");
+          }
+        }
+      });
+    });
   }
 
   public componentDidMount() {
@@ -129,6 +146,10 @@ class Bookmarks extends React.Component<Props, State> {
             </tbody>
           </table>
         </div>
+
+        <div className="no-display" id="dialog-confirm">
+          Delete this post?
+        </div> 
       </div>
     );
   }
