@@ -2,7 +2,6 @@ import * as React from 'react';
 import NavBar from 'core/navbar';
 import Footer from 'core/footer';
 import * as firebase from 'firebase';
-import receiveUSER from 'core/navbar/actions';
 import { fetchConversations } from 'modules/chat/utils';
 
 declare var $;
@@ -33,14 +32,14 @@ class App extends React.Component<Props, State> {
       unreadMessage: false
     };
 
-    FB.Event.subscribe('auth.logout', this.logout);
-    FB.Event.subscribe('auth.login', this.login);
-    FB.Event.subscribe('auth.statusChange ', this.checkFbStatus);
-
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
     this.checkFbStatus = this.checkFbStatus.bind(this);
     this.ref = null;
+
+    FB.Event.subscribe('auth.logout', this.logout);
+    FB.Event.subscribe('auth.login', this.login);
+    FB.Event.subscribe('auth.statusChange ', this.checkFbStatus);
   }
 
   public componentDidMount() {
@@ -132,6 +131,7 @@ class App extends React.Component<Props, State> {
           }
         }
       });
+    }
   }
 
   public componentWillUnmount() : void {

@@ -163,12 +163,7 @@ class NavBar extends React.Component<any, any> {
     }
   }
 
-  public componentWillReceiveProps(newProps) {
-    console.log(newProps);
-  }
-
   public render() {
-    console.log(this.props.unreadMessage);
     $('.navbar-collapse a').click(function(){
       $(".navbar-collapse").collapse('hide');
     });
