@@ -85,9 +85,13 @@ class Chat extends React.Component<Props, State> {
               conversations[ids[i]].hasUnreadMessages = false;
               return;
             }
-            
-            let hasUnreadMessages = messages[timestamps[timestamps.length - 1]].sender !== user.userFB.id;
-            conversations[ids[i]].hasUnreadMessages = hasUnreadMessages;
+
+            let lastMessage = messages[timestamps[timestamps.length - 1]]
+
+            if (lastMessage.sender !== user.userFB.id && !lastMessage.seen) {
+              conversations[ids[i]].hasUnreadMessages = true;
+              return;
+            }
           });
 
           dataNeeded.push(data);

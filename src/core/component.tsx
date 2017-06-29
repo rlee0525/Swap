@@ -18,35 +18,72 @@ interface State {
   userFB: number;
   accessToken: string;
   status: string;
+  unreadMessage: boolean;
 }
 
 class App extends React.Component<Props, State> {
   ref;
   constructor(props: Props) {
     super(props);
-    this.login = this.login.bind(this);
-    this.logout = this.logout.bind(this);
-    this.checkFbStatus = this.checkFbStatus.bind(this);
 
     FB.Event.subscribe('auth.logout', this.logout);
     FB.Event.subscribe('auth.login', this.login);
     FB.Event.subscribe('auth.statusChange ', this.checkFbStatus);
 
+    this.login = this.login.bind(this);
+    this.logout = this.logout.bind(this);
+    this.checkFbStatus = this.checkFbStatus.bind(this);
     this.ref = null;
   }
 
   public componentDidMount() {
     if (this.props.user) {
-      const access_token = this.props.user.auth.accessToken;
+      let { user } = this.props;
+      const access_token = user.auth.accessToken;
       
       $.ajax({
         method: 'GET',
         url: `api/users/${access_token}`
       }).then(res => {
         let conversations = res.conversations;
-        console.log(conversations);
+        let ids = [];
+
+        for (var i = 0; i < conversations.length; i++) {
+          var element = conversations[i].conversation_id;
+          ids.push(element)
+        }
+
+        if (ids.length === 0) {
+          return;
+        } else {
+          this.ref = firebase.database().ref(`conversations/${ids[0]}`); 
+          
+          for (let i = 0; i < ids.length; i++) {
+            let data = firebase.database().ref(`conversations/${ids[i]}`).once('value', snapshot => {
+              let messages = snapshot.val() || {};
+              
+              let timestamps = Object.keys(messages);
+
+              if (timestamps.length === 0) {
+                this.setState({ unreadMessage: false });
+                return;
+              }
+
+              let lastMessage = messages[timestamps[timestamps.length - 1]]
+
+              if (lastMessage.sender !== user.userFB.id && !lastMessage.seen) {
+                this.setState({ unreadMessage: true });
+                return;
+              }
+            });
+          }
+        }
       });
     }
+  }
+
+  public componentWillUnmount() : void {
+    if (this.ref) this.ref.off();
   }
 
   public checkFbStatus() {
