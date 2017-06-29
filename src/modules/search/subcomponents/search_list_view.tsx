@@ -1,10 +1,12 @@
 import React from 'react';
+import { IPost } from 'common/interfaces';
+import { LoadingSpinner } from 'common/components';
+import { Pagination } from './';
+import { merge } from 'lodash';
 import { shortenString,
          timeFromNow,
          getCategory } from 'helpers';
-import { IPost } from 'common/interfaces';
-import { Pagination } from './';
-import { merge } from 'lodash';
+
 declare var $;
 
 interface Props {
@@ -13,9 +15,6 @@ interface Props {
   saveQuery: any;
   currentQuery: any;
   user: any;
-}
-
-interface State {
 }
 
 class SearchListView extends React.Component<Props, any> {
@@ -32,6 +31,7 @@ class SearchListView extends React.Component<Props, any> {
 
   public componentWillMount() {
     let nextQuery = this.props.currentQuery;
+    
     if (this.props.currentQuery.category === "My Course Material" && this.props.user) {
       const access_token = this.props.user.auth.accessToken;
       nextQuery = merge({}, nextQuery, {access_token});
@@ -44,21 +44,21 @@ class SearchListView extends React.Component<Props, any> {
   renderListItem(post: IPost, idx: number) {
     return (
       <tr key={idx} onClick={() => window.location.href = `#/posts/${post.id}`}>
-        <td>{post.title}</td>
+        <td>{shortenString(post.title, 30)}</td>
         <td className="hidden-xs hidden-sm">{shortenString(post.description, 30)}</td>
         <td>${Number(post.price).toLocaleString()}</td>
         <td className="hidden-xs">{timeFromNow(post.updated_at)}</td>
         <td className="hidden-xs">{post.views}</td>
       </tr>
-    )
+    );
   }
 
   public sort_by(sort_by: string) {
     const polarity = this.state[sort_by] * -1;
-
     const currentQuery = this.props.currentQuery;
     this.props.saveQuery({sort_by, polarity});
     let nextQuery = merge({}, currentQuery, {sort_by, polarity})
+
     if (this.props.currentQuery.category === "My Course Material" && this.props.user) {
       const access_token = this.props.user.auth.accessToken;
       nextQuery = merge({}, nextQuery, {access_token});
@@ -67,22 +67,17 @@ class SearchListView extends React.Component<Props, any> {
       this.props.search(nextQuery);
     }
 
-    this.setState({[sort_by]: polarity})
+    this.setState({[sort_by]: polarity});
   }
 
   render() {
     let results;
+    
     if (this.props.searchResult.posts) {
       results = this.props.searchResult.posts.map((post, idx) => this.renderListItem(post, idx));
     } else {
       results = (
-        <div className="showbox">
-          <div className="loader">
-            <svg className="circular" viewBox="25 25 50 50">
-              <circle className="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
-            </svg>
-          </div>
-        </div>
+        <LoadingSpinner />
       );
     }
 
@@ -93,9 +88,24 @@ class SearchListView extends React.Component<Props, any> {
             <tr>
               <th>Title</th>
               <th className="hidden-xs hidden-sm">Description</th>
-              <th onClick={() => this.sort_by("price")}>Price<a className="btn btn-xs" id="caret-container" ><span className="caret" /></a></th>
-              <th onClick={() => this.sort_by("updated_at")} className="hidden-xs">Posted<a className="btn btn-xs" id="caret-container" ><span className="caret" /></a></th>
-              <th onClick={() => this.sort_by("views")} className="hidden-xs">Views<a className="btn btn-xs" id="caret-container" ><span className="caret" /></a></th>
+              <th onClick={() => this.sort_by("price")}>
+                Price
+                <a className="btn btn-xs" id="caret-container">
+                  <span className="caret" />
+                </a>
+              </th>
+              <th onClick={() => this.sort_by("updated_at")} className="hidden-xs">
+                Posted
+                <a className="btn btn-xs" id="caret-container">
+                  <span className="caret" />
+                </a>
+              </th>
+              <th onClick={() => this.sort_by("views")} className="hidden-xs">
+                Views
+                <a className="btn btn-xs" id="caret-container">
+                  <span className="caret" />
+                </a>
+              </th>
             </tr>
           </thead>
           <tbody>

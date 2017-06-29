@@ -1,13 +1,11 @@
 import React from 'react';
 import { merge } from 'lodash';
 import { IPost } from 'common/interfaces';
-import { withRouter, hashHistory } from 'react-router';
-
+import { withRouter, hashHistory, Link } from 'react-router';
 import { shortenString,
          capitalize,
          searchParams,
          getCategory } from 'helpers';
-
 import { SearchGridView,
          SearchListView,
          SearchNavbar,
@@ -30,60 +28,55 @@ interface Props {
 class Search extends React.Component<Props, State> {
   constructor(props) {
     super(props);
+
     this.state = {
       categories: [
         "All", "Course Material", "Furniture", "Clothing",
         "Electronics", "Housing", "Bikes", "Games", "Others",
         "Lost & Found", "My Course Material"
       ]
-    }
+    };
+
     this.renderCategoryMenu = this.renderCategoryMenu.bind(this);
   }
 
   public componentWillMount() {
-    let category = this.props.location.pathname;
+    hashHistory.push(this.props.location.pathname);
 
-    hashHistory.push(category);
+    let category = getCategory(this.props.location);    
+    const currentQuery = this.props.currentQuery;
+    let nextQuery = merge({}, currentQuery, { category, page_idx: 1 });
 
-    if (category === "mycoursematerial" || category === "/mycoursematerial") {
-      category = "My Course Material";
+    if (this.props.user) {
+      const access_token = this.props.user.auth.accessToken;
+      nextQuery = merge({}, nextQuery, { access_token });
     }
 
-    console.log(category)
-
-    const currentQuery = this.props.currentQuery;
-    const nextQuery = merge({}, currentQuery, {category, page_idx: 1});
     this.props.search(nextQuery);
     this.props.saveQuery(nextQuery);
-
-    console.log(nextQuery);
   }
 
   public componentWillReceiveProps(nextProps: any){
     let category = getCategory(nextProps.location);
     
-    if (category === "Mycoursematerial") {
-      category = 'My Course Material';
-    }
-
     if (this.state.categories.includes(category) &&
         nextProps.location !== this.props.location) {
       const currentQuery = this.props.currentQuery;
       this.props.saveQuery({category});
-
-      let nextQuery = merge({}, currentQuery, {category})
-      if (this.props.currentQuery.category === "My Course Material" && this.props.user) {
+      let nextQuery = merge({}, currentQuery, {category});
+      if ((this.props.currentQuery.category === "My Course Material" && this.props.user) || 
+        (nextProps.location.pathname === "/mycoursematerial" && nextProps.user)) {      
         const access_token = this.props.user.auth.accessToken;
         nextQuery = merge({}, nextQuery, {access_token});
-        this.props.search(nextQuery);
-      } else {
-        this.props.search(nextQuery);
       }
+
+      this.props.search(nextQuery);
     }
   }
 
   private changeView(viewType: string) {
     const currentQuery = this.props.currentQuery;
+
     this.props.saveQuery({viewType});
 
     let nextQuery = merge({}, currentQuery, {viewType})
@@ -97,39 +90,32 @@ class Search extends React.Component<Props, State> {
   }
 
   private renderView() {
+    let props = {
+      user: this.props.user,
+      searchResult: this.props.searchResult,
+      search: this.props.search,
+      currentQuery: this.props.currentQuery,
+      saveQuery: this.props.saveQuery
+    };
+
     if (this.props.currentQuery.viewType === 'grid') {
-      return (
-        <SearchGridView
-          user={this.props.user}
-          searchResult={this.props.searchResult}
-          search={this.props.search}
-          currentQuery={this.props.currentQuery}
-          saveQuery={this.props.saveQuery}
-        />
-      );
+      return <SearchGridView {...props} />;
     } else {
-      return (
-        <SearchListView
-          user={this.props.user}
-          searchResult={this.props.searchResult}
-          search={this.props.search}
-          currentQuery={this.props.currentQuery}
-          saveQuery={this.props.saveQuery}
-        />
-      );
+      return <SearchListView {...props} />;
     }
   }
 
   private renderCategoryMenu(label) {
     const currentQuery = this.props.currentQuery;
     const nextQuery = merge({}, currentQuery, {category: label, page_idx: 1, query: ""});
+
     this.props.saveQuery(nextQuery);
     this.props.search(nextQuery);
 
     $('#search-query').focus();
   }
 
-  public render() {
+  public render() {    
     let path = this.props.location.pathname.slice(1);
     let category = this.props.currentQuery.category;
     let label = category;
@@ -165,12 +151,26 @@ class Search extends React.Component<Props, State> {
             <div className="col-md-12">
               <div id="nav-tools">
                 <nav className="breadcrumb" id="breadcrumb-container">
-                  <a onClick={() => this.renderCategoryMenu("All")} className="breadcrumb-item" href="#/recent">All</a>
-                  {label && <a onClick={() => this.renderCategoryMenu(category)} className="breadcrumb-item" href={`#/${path}`}>{label}</a>}
+                  <Link 
+                    onClick={() => this.renderCategoryMenu("All")} 
+                    className="breadcrumb-item" 
+                    to="recent"
+                  >
+                    All
+                  </Link>
+                  {label && 
+                    <Link 
+                      onClick={() => this.renderCategoryMenu(category)} 
+                      className="breadcrumb-item" 
+                      to={`${path}`}
+                    >
+                      {label}
+                    </Link>
+                  }
                   <span className="breadcrumb-item active" id="result-count">
                     {minResult} - {maxResult} of {totalResults} result(s)
                   </span>
-                  <span className="breadcrumb-item active" id="result-count-2"></span>
+                  <span className="breadcrumb-item active" id="result-count-2" />
                 </nav>
 
                 <div className="search-icons">

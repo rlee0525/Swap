@@ -1,6 +1,9 @@
 import React from 'react';
+import { IUser } from 'common/interfaces';
 import { shortenString, timeFromNow } from 'helpers';
-import { TableHeaders } from 'common/components';
+import { TableHeaders, LoadingSpinner, SmallButton } from 'common/components';
+
+declare var $;
 
 interface IRfps {
   id: number;
@@ -13,7 +16,7 @@ interface State {
 }
 
 interface Props {
-  user: any;
+  user: IUser;
   rfps: {
     fetched: boolean;
     list: IRfps[];
@@ -25,6 +28,7 @@ interface Props {
 class Rfps extends React.Component <Props, State> {
   constructor(props : any) {
     super(props);
+
     this.state = {
       rfps: [],
       description: -1
@@ -33,16 +37,34 @@ class Rfps extends React.Component <Props, State> {
 
   public deleteRfp(e, id) {
     e.stopPropagation();
+    let that = this;
 
-    let { deleteRfps, user } = this.props;
-
-    deleteRfps(id, user.auth.accessToken).then(
-      () => this.setState({ rfps: this.props.rfps.list })
-    );
+    $(function() {
+      $("#dialog-confirm").dialog({
+        resizable: false,
+        height: "auto",
+        width: 400,
+        modal: true,
+        buttons: {
+          "Yes": function() {
+            $(this).dialog("close");
+            let { deleteRfps, user } = that.props;
+            
+            deleteRfps(id, user.auth.accessToken).then(
+              () => that.setState({ rfps: that.props.rfps.list })
+            );
+          },
+          Cancel: function() {
+            $(this).dialog("close");
+          }
+        }
+      });
+    });
   }
 
   public componentDidMount() {
     let { rfps, user, fetchRfps } = this.props;
+
     if (!rfps.fetched) {
       fetchRfps(user.auth.accessToken).then(
         () => this.setState({ rfps: this.props.rfps.list })
@@ -59,38 +81,19 @@ class Rfps extends React.Component <Props, State> {
   }
 
   public renderListItems() {
-    if (this.props.rfps.fetched === false) {
-      return (
-        <div className="showbox">
-          <div className="loader">
-            <svg className="circular" viewBox="25 25 50 50">
-              <circle className="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
-            </svg>
-          </div>
-        </div>
-      );
-    };
-
-    if (this.props.rfps.list.length === 0) {
-      return (
-        <tr>
-          <td>Currently, you do not have any alerts setup.  Please add alerts.</td>
-        </tr>
-      );
-    };
+    if (!this.props.rfps.fetched) return <LoadingSpinner />;
+    if (this.props.rfps.list.length === 0) return <tr><td>No alerts added.</td></tr>;
 
     return (
       this.state.rfps.map((rfp : IRfps) => (
         <tr key={`post${rfp.id}`}>
           <td>{shortenString(rfp.description, 30)}</td>
           <td id="rfp-delete">
-            <button
-              type="button"
-              className="btn btn-xs btn-danger"
-              onClick={(e) => this.deleteRfp(e, rfp.id)}
-            >
-              Delete
-            </button>
+            <SmallButton 
+              type="Delete" 
+              class="btn-secondary" 
+              click={(e) => this.deleteRfp(e, rfp.id)}
+            />
           </td>
         </tr>
       ))
@@ -98,24 +101,30 @@ class Rfps extends React.Component <Props, State> {
   }
 
   public render() {
-    let headers = ["description"];
-
     return (
       <div>
         <div className="panel panel-default">
-          <div className="rfp-description">
+          <div className="dashboard-description">
             Add custom alerts to get emails whenever a post related to the created keywords is created.
           </div>
           <div className="panel-body">
             <table className="table table-hover">
-              <TableHeaders context={this} array={this.state.rfps} headers={headers} isFirstColumnPlaceholder={false} />
-
+              <TableHeaders 
+                context={this} 
+                array={this.state.rfps} 
+                headers={["description"]} 
+                isFirstColumnPlaceholder={false} 
+              />
               <tbody>
                 {this.renderListItems()}
               </tbody>
             </table>
           </div>
         </div>
+
+        <div className="no-display" id="dialog-confirm">
+          Delete this alert?
+        </div> 
       </div>
     );
   }

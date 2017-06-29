@@ -114,20 +114,24 @@
 @media screen and (max-width: 992px) {
   #special-absolute {
     position: absolute;
-    top: 22px;
+    top: 0;
     right: 10px;
   }
 
   #special-absolute-2 {
     position: absolute;
-    top: 57px;
-    right: 0;
+    top: 34px;
   }
 }
 
 @media screen and (min-width: 992px) {
   #special-absolute {
     margin-right: 9px !important;
+  }
+
+  #special-absolute-2 {
+    position: absolute;
+    top: 34px;
   }
 }
 

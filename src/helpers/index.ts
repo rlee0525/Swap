@@ -53,6 +53,8 @@ export const getCategory = (location: any) : string => {
       category = "Lost & Found";
     } else if (category === "coursematerial") {
       category = "Course Material";
+    } else if (category === "mycoursematerial") {
+      category = "My Course Material";
     } else {
       category = capitalize(category);
     }

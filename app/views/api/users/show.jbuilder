@@ -6,3 +6,4 @@ json.extract! @user,
               :marketing_opt_in,
               :fb_email,
               :edu_email_confirmed
+json.conversations @user.conversations

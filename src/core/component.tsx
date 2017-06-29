@@ -1,31 +1,141 @@
 import * as React from 'react';
 import NavBar from 'core/navbar';
 import Footer from 'core/footer';
-import receiveUSER from 'core/navbar/actions';
+import * as firebase from 'firebase';
+import { fetchConversations } from 'modules/chat/utils';
+
 declare var $;
 declare var window;
 
 interface Props {
   children: any;
   receiveUser: any;
+  user: any;
 }
 
 interface State {
   userFB: number;
   accessToken: string;
   status: string;
+  unreadMessage: boolean;
 }
 
 class App extends React.Component<Props, State> {
+  ref;
   constructor(props: Props) {
     super(props);
+
+    this.state = {
+      userFB: null,
+      accessToken: null,
+      status: "",
+      unreadMessage: false
+    };
+
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
     this.checkFbStatus = this.checkFbStatus.bind(this);
+    this.ref = null;
 
-    FB.Event.subscribe('auth.logout', this.logout)
-    FB.Event.subscribe('auth.login', this.login)
-    FB.Event.subscribe('auth.statusChange ', this.checkFbStatus)
+    FB.Event.subscribe('auth.logout', this.logout);
+    FB.Event.subscribe('auth.login', this.login);
+    FB.Event.subscribe('auth.statusChange ', this.checkFbStatus);
+  }
+
+  public componentDidMount() {
+    if (this.props.user) {
+      let { user } = this.props;
+      const access_token = user.auth.accessToken;
+      
+      $.ajax({
+        method: 'GET',
+        url: `api/users/${access_token}`
+      }).then(res => {
+        let conversations = res.conversations;
+        let ids = [];
+
+        for (var i = 0; i < conversations.length; i++) {
+          var element = conversations[i].conversation_id;
+          ids.push(element)
+        }
+
+        if (ids.length === 0) {
+          return;
+        } else {
+          this.ref = firebase.database().ref(`conversations/${ids[0]}`); 
+          
+          for (let i = 0; i < ids.length; i++) {
+            let data = firebase.database().ref(`conversations/${ids[i]}`).once('value', snapshot => {
+              let messages = snapshot.val() || {};              
+              let timestamps = Object.keys(messages);
+
+              if (timestamps.length === 0) {
+                this.setState({ unreadMessage: false });
+                return;
+              }
+
+              let lastMessage = messages[timestamps[timestamps.length - 1]];
+
+              if (lastMessage.sender !== user.userFB.id && !lastMessage.seen) {
+                this.setState({ unreadMessage: true });
+                return;
+              }
+            });
+          }
+        }
+      });
+    }
+  }
+
+  public componentWillReceiveProps(newProps) {
+    if (newProps.user) {
+      let { user } = newProps;
+      const access_token = user.auth.accessToken;    
+      
+      $.ajax({
+        method: 'GET',
+        url: `api/users/${access_token}`
+      }).then(res => {
+        let conversations = res.conversations;
+        let ids = [];
+
+        for (var i = 0; i < conversations.length; i++) {
+          var element = conversations[i].conversation_id;
+          ids.push(element)
+        }
+
+        if (ids.length === 0) {
+          return;
+        } else {
+          this.ref = firebase.database().ref(`conversations/${ids[0]}`); 
+          
+          for (let i = 0; i < ids.length; i++) {
+            let data = firebase.database().ref(`conversations/${ids[i]}`).once('value', snapshot => {
+              let messages = snapshot.val() || {};              
+              let timestamps = Object.keys(messages);
+
+              if (timestamps.length === 0) {
+                this.setState({ unreadMessage: false });
+                return;
+              }
+
+              let lastMessage = messages[timestamps[timestamps.length - 1]];
+
+              if (lastMessage.sender !== user.userFB.id && !lastMessage.seen) {
+                this.setState({ unreadMessage: true });
+                return;
+              } else {
+                this.setState({ unreadMessage: false });
+              }
+            });
+          }
+        }
+      });
+    }
+  }
+
+  public componentWillUnmount() : void {
+    if (this.ref) this.ref.off();
   }
 
   public checkFbStatus() {
@@ -76,7 +186,7 @@ class App extends React.Component<Props, State> {
   public render() {
     return (
       <div className='home'>
-        <NavBar />
+        <NavBar unreadMessage={this.state.unreadMessage} />
           {this.props.children}
         <Footer />
       </div>

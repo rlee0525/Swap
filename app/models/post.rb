@@ -26,10 +26,10 @@
 
 class Post < ApplicationRecord
   validates :user, :description,
-            :price, :img_url1,
-            :title, :category,
-            presence: true
+            :img_url1, :title, 
+            :category, presence: true
 
+  validates_presence_of :price, :if => Proc.new { |post| post.category != 'Lost & Found' }
   validates_presence_of :address, :lat, :lng, :start_date, :end_date, :if => Proc.new { |post| post.category == 'Housing' }
 
   has_many :bookmarks

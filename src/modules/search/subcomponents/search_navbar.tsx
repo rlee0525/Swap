@@ -1,21 +1,23 @@
 import React from 'react';
-import { searchParams } from 'helpers';
 import { merge } from 'lodash';
-import { getCategory } from 'helpers';
+import autoBind from 'react-autobind';
 import { hashHistory } from 'react-router';
+import { searchParams, getCategory } from 'helpers';
+import { IUser, ISearchResult, ICurrentQuery } from 'common/interfaces';
+
 declare var window;
 
 interface Props {
   search(query: object) : void;
-  searchResult: any;
-  currentQuery: any;
+  searchResult: ISearchResult;
+  currentQuery: ICurrentQuery;
   saveQuery: any;
-  home: any;
-  user: any;
+  home: boolean;
+  user: IUser;
 }
 
 interface State {
-  category: any;
+  category: string;
 }
 
 class SearchNavbar extends React.Component<Props, State> {
@@ -26,10 +28,7 @@ class SearchNavbar extends React.Component<Props, State> {
       category: null 
     };
 
-    this.checkKey = this.checkKey.bind(this);
-    this.renderCategoryMenu = this.renderCategoryMenu.bind(this);
-    this.enterSearchQuery = this.enterSearchQuery.bind(this);
-    this.onChange = this.onChange.bind(this);
+    autoBind(this);
   }
 
   private checkKey(e: any) {
@@ -101,15 +100,22 @@ class SearchNavbar extends React.Component<Props, State> {
     $('#search-query').focus();
   }
 
-  public render() {
+  public render() {    
     return (
       <div className="container" id="search-navbar-container">
         <div className="row">
           <div className="col-md-2 col-sm-2 row" id="no-padding-left">
             <div className="dropdown search-dropdown">
-              <button className="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              <button 
+                className="btn btn-default dropdown-toggle" 
+                type="button" 
+                id="dropdownMenu1" 
+                data-toggle="dropdown" 
+                aria-haspopup="true" 
+                aria-expanded="true"
+              >
                 {this.state.category || this.props.currentQuery.category}
-                <span className="caret" id="special-caret"></span>
+                <span className="caret" id="special-caret" />
               </button>
               <ul className="dropdown-menu category-dropdown" aria-labelledby="dropdownMenu1">
                 <li><a onClick={() => this.renderCategoryMenu("All")}>All</a></li>
@@ -122,14 +128,31 @@ class SearchNavbar extends React.Component<Props, State> {
                 <li><a onClick={() => this.renderCategoryMenu("Games")}>Games</a></li>
                 <li><a onClick={() => this.renderCategoryMenu("Others")}>Others</a></li>
                 <li><a onClick={() => this.renderCategoryMenu("Lost & Found")}>Lost & Found</a></li>
-                <li className={this.props.user ? "" : "hidden"}><a onClick={() => this.renderCategoryMenu("My Course Material")}>My Course Material</a></li>
+                <li className={this.props.user ? "" : "hidden"}>
+                  <a onClick={() => this.renderCategoryMenu("My Course Material")}>
+                    My Course Material
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
           <div className="input-group col-md-10 col-sm-10" id="phone-search-nav">
-            <input id="search-query" type="text" className="form-control" placeholder="Search" onChange={e => this.onChange(e)}
-                  onKeyDown={e => this.checkKey(e)} value={this.props.currentQuery.query} />
-            <span className="input-group-addon search-icon" id="basic-addon2" onClick={this.enterSearchQuery}><span className="glyphicon glyphicon-search" aria-hidden="true" /></span>
+            <input 
+              id="search-query"
+              type="text" 
+              className="form-control" 
+              placeholder="Search" 
+              onChange={e => this.onChange(e)}
+              onKeyDown={e => this.checkKey(e)} 
+              value={this.props.currentQuery.query} 
+            />
+            <span 
+              className="input-group-addon search-icon" 
+              id="basic-addon2" 
+              onClick={this.enterSearchQuery}
+            >
+              <span className="glyphicon glyphicon-search" aria-hidden="true" />
+            </span>
           </div>
         </div>
       </div>

@@ -14,7 +14,7 @@
   color: #777777 !important;
 }
 
-.rfp-description {
+.dashboard-description {
   width: 100%;
   padding: 22px 15px 0 22px !important;
   color: #777777 !important;
@@ -87,4 +87,28 @@
   font-size: 17px;
   font-weight: 300;
   color: #777;
+}
+
+.no-pointer {
+  cursor: default !important;
+}
+
+.dashboard-dropdown {
+  padding-bottom: 10px;
+  z-index: 55;
+}
+
+#dropdownMenu2 {
+  width: 100%;
+}
+
+#new-course-q {
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#message-q {
+  font-size: 12px;
+  margin-left: 5px;
+  cursor: pointer;
 }

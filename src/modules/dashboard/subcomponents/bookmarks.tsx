@@ -1,9 +1,11 @@
 import React from 'react';
 import Clipboard from 'clipboard';
+import autoBind from 'react-autobind';
 import { IUser, IPost } from 'common/interfaces';
-import { TableHeaders } from 'common/components';
 import { shortenString, timeFromNow } from 'helpers';
-declare var window;
+import { TableHeaders, LoadingSpinner, SmallButton } from 'common/components';
+
+declare var $, window;
 
 interface State {
   bookmarks: IPost [];
@@ -33,18 +35,34 @@ class Bookmarks extends React.Component<Props, State> {
       updated_at: -1
     }
 
-    this.initializeClipboard = this.initializeClipboard.bind(this);
-    // this.deleteBookmarkedPost = this.deleteBookmarkedPost.bind(this);
+    autoBind(this);
   }
 
   public deleteBookmark(e, id) {
     e.stopPropagation();
+    let that = this;
 
-    let { deleteBookmark, user } = this.props;
+    $(function() {
+      $("#dialog-confirm").dialog({
+        resizable: false,
+        height: "auto",
+        width: 400,
+        modal: true,
+        buttons: {
+          "Yes": function() {
+            $(this).dialog("close");
+            let { deleteBookmark, user } = that.props;
 
-    deleteBookmark(id, user.auth.accessToken).then(
-      () => this.setState({ bookmarks: this.props.bookmarks.list })
-    );
+            deleteBookmark(id, user.auth.accessToken).then(
+              () => that.setState({ bookmarks: that.props.bookmarks.list })
+            );
+          },
+          Cancel: function() {
+            $(this).dialog("close");
+          }
+        }
+      });
+    });
   }
 
   public componentDidMount() {
@@ -52,17 +70,14 @@ class Bookmarks extends React.Component<Props, State> {
 
     let { bookmarks, user, fetchBookmarks } = this.props;
 
-    if (!bookmarks.fetched) {
-      fetchBookmarks(user.auth.accessToken).then(
-        () => this.setState({ bookmarks: this.props.bookmarks.list })
-      );
-    } else {
-      this.setState({ bookmarks: this.props.bookmarks.list });
-    }
+    fetchBookmarks(user.auth.accessToken).then(
+      () => this.setState({ bookmarks: this.props.bookmarks.list })
+    );
   }
 
   public initializeClipboard() {
     var clipboard = new Clipboard('.btn');
+    
     clipboard.on('success', function(e) {
       $(e.trigger).text("copied!");
       setTimeout(function(){ $(e.trigger).text("Copy Link"); }, 1000);
@@ -75,25 +90,8 @@ class Bookmarks extends React.Component<Props, State> {
   }
 
   private renderListItems() {
-    if (this.props.bookmarks.fetched === false) {
-      return (
-        <div className="showbox">
-          <div className="loader">
-            <svg className="circular" viewBox="25 25 50 50">
-              <circle className="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
-            </svg>
-          </div>
-        </div>
-      );
-    };
-
-    if (this.props.bookmarks.list.length === 0) {
-      return (
-        <tr>
-          <td colSpan={6}>Currently, you haven't added any bookmarks.  Add bookmarks directly on any postings you like. It's an easy way to keep track of items you like and to share them with others.</td>
-        </tr>
-      );
-    }
+    if (!this.props.bookmarks.fetched) return <LoadingSpinner />;
+    if (this.props.bookmarks.list.length === 0) return <tr><td colSpan={6}>No bookmarks added.</td></tr>;
 
     return (
       this.state.bookmarks.map(bookmarkedPost => (
@@ -109,15 +107,22 @@ class Bookmarks extends React.Component<Props, State> {
           <td className="hidden-xs">{timeFromNow(bookmarkedPost.updated_at)}</td>
 
           <td>
-            <button type="button" className="btn btn-xs btn-primary" data-clipboard-text={window.localhost_url + `/#/posts/${bookmarkedPost.id}`} onClick={e => e.stopPropagation()}>
+            <button 
+              type="button" 
+              className="btn btn-xs btn-primary" 
+              data-clipboard-text={window.localhost_url + `/#/posts/${bookmarkedPost.id}`} 
+              onClick={e => e.stopPropagation()}
+            >
               Copy Link
             </button>
           </td>
 
           <td>
-            <button type="button" className="btn btn-xs btn-secondary" onClick={(e) => this.deleteBookmark(e, bookmarkedPost.id)}>
-              Delete
-            </button>
+            <SmallButton 
+              type="Delete" 
+              class="btn-secondary" 
+              click={(e) => this.deleteBookmark(e, bookmarkedPost.id)}
+            />
           </td>
         </tr>
       ))
@@ -129,15 +134,22 @@ class Bookmarks extends React.Component<Props, State> {
 
     return (
       <div className="panel panel-default">
+        <div className="dashboard-description">
+          Add bookmarks to keep track of items you like and to share them with others.
+        </div>
+
         <div className="panel-body">
           <table className="table table-hover">
             <TableHeaders context={this} array={this.state.bookmarks} headers={headers} />
-
             <tbody>
               {this.renderListItems()}
             </tbody>
           </table>
         </div>
+
+        <div className="no-display" id="dialog-confirm">
+          Delete this post?
+        </div> 
       </div>
     );
   }

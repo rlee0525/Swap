@@ -1,8 +1,11 @@
 import React from 'react';
 import { cloneDeep } from 'lodash';
-import { shortenString, timeFromNow } from 'helpers';
+import autoBind from 'react-autobind';
 import { IPost, IUser } from 'common/interfaces';
-import { TableHeaders } from 'common/components';
+import { shortenString, timeFromNow } from 'helpers';
+import { TableHeaders, LoadingSpinner, SmallButton } from 'common/components';
+
+declare var $;
 
 interface Props {
   user: IUser;
@@ -34,9 +37,7 @@ class MyPosts extends React.Component<Props, State> {
       updated_at: -1
     };
 
-    this.editPost = this.editPost.bind(this);
-    this.deletePost = this.deletePost.bind(this);
-    this.toggleActivation = this.toggleActivation.bind(this);
+    autoBind(this);
   }
 
   public componentWillReceiveProps(newProps) {
@@ -45,6 +46,7 @@ class MyPosts extends React.Component<Props, State> {
 
   public componentDidMount() {
     let { myPosts, user, fetchMyPosts } = this.props;
+
     if (!myPosts.fetched) {
       fetchMyPosts(user.auth.accessToken).then(
         () => this.setState({ myPosts: this.props.myPosts.list })
@@ -56,14 +58,30 @@ class MyPosts extends React.Component<Props, State> {
 
   public deletePost(e, id) {
     e.stopPropagation();
+    let that = this;
 
-    let { deleteMyPost, user } = this.props;
+    $(function() {
+      $("#dialog-confirm").dialog({
+        resizable: false,
+        height: "auto",
+        width: 400,
+        modal: true,
+        buttons: {
+          "Yes": function() {
+            $(this).dialog("close");
+            let { deleteMyPost, user } = that.props;
+            const access_token = that.props.user.auth.accessToken;
 
-    const access_token = this.props.user.auth.accessToken;
-
-    deleteMyPost(id, user.auth.accessToken).then(
-      () => this.setState({ myPosts: this.props.myPosts.list })
-    );
+            deleteMyPost(id, user.auth.accessToken).then(
+              () => that.setState({ myPosts: that.props.myPosts.list })
+            );
+          },
+          Cancel: function() {
+            $(this).dialog("close");
+          }
+        }
+      });
+    });
   }
 
   public loadPost(id) {
@@ -72,6 +90,7 @@ class MyPosts extends React.Component<Props, State> {
 
   public editPost(e, id) {
     e.stopPropagation();
+
     window.location.href = `#/posts/edit/${id}`;
   }
 
@@ -79,7 +98,6 @@ class MyPosts extends React.Component<Props, State> {
     e.stopPropagation();
 
     let myPosts = cloneDeep(this.state.myPosts);
-
     let method = polarity == true ? "deactivate" : "activate";
     const access_token = this.props.user.auth.accessToken;
 
@@ -96,52 +114,42 @@ class MyPosts extends React.Component<Props, State> {
   }
 
   public renderListItem() {
-    if (this.props.myPosts.fetched === false) {
-      return (
-        <div className="showbox">
-          <div className="loader">
-            <svg className="circular" viewBox="25 25 50 50">
-              <circle className="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
-            </svg>
-          </div>
-        </div>
-      );
-    };
-
-    if (this.props.myPosts.list.length === 0) {
-      return (
-        <tr>
-          <td colSpan={7}>Currently, you haven't created any posts.  Creating a new post is easy!  Just click on the "Create Post" button or Icon to the top right of this box to get started!</td>
-        </tr>
-      );
-    };
+    if (!this.props.myPosts.fetched) return <LoadingSpinner />;
+    if (this.props.myPosts.list.length === 0) return <tr><td colSpan={7}>No posts created.</td></tr>;
 
     return (
       this.state.myPosts.map((myPost, statePostId) => (
-        <tr key={myPost.id} onClick={() => myPost.active ? this.loadPost(myPost.id) : null} className={myPost.active ? "" : "disabled"}>
+        <tr 
+          key={myPost.id} 
+          onClick={() => myPost.active ? this.loadPost(myPost.id) : null} 
+          className={myPost.active ? "" : "disabled"}
+        >
           <td>
             <img className="img img-responsive img-thumbnail-size" src={myPost.img_url1}/>
           </td>
           <td className="hidden-xs">{shortenString(myPost.title, 30)}</td>
           <td className="hidden-xs">${Number(myPost.price).toLocaleString()}</td>
           <td className="hidden-xs">{timeFromNow(myPost.updated_at)}</td>
-
           <td>
-            <button type="button" id="action-button" className="btn btn-xs btn-primary" onClick={(e) => this.editPost(e, myPost.id)}>
-              Edit
-            </button>
+            <SmallButton
+              type="Edit"
+              class="btn-primary"
+              click={(e) => this.editPost(e, myPost.id)}
+            />
           </td>
-
           <td>
-            <button type="button" id="action-button" className={`btn btn-xs ${myPost.active ? "btn-primary" : "btn-warning"}`} onClick={(e) => this.toggleActivation(e, myPost.id, myPost.active, statePostId)}>
-              {myPost.active ? "Active" : "Inactive"}
-            </button>
+            <SmallButton
+              type={myPost.active ? "Active" : "Inactive"}
+              class={`${myPost.active ? "btn-primary" : "btn-warning"}`}
+              click={(e) => this.toggleActivation(e, myPost.id, myPost.active, statePostId)}
+            />
           </td>
-
           <td>
-            <button type="button" id="action-button" className="btn btn-xs btn-secondary" onClick={(e) => this.deletePost(e, myPost.id)}>
-              Delete
-            </button>
+            <SmallButton 
+              type="Delete" 
+              class="btn-secondary" 
+              click={(e) => this.deletePost(e, myPost.id)}
+            />
           </td>
         </tr>
       ))
@@ -150,8 +158,12 @@ class MyPosts extends React.Component<Props, State> {
 
   render() {
     let headers = ['title', 'price', 'updated_at'];
+    
     return (
       <div className="panel panel-default">
+        <div className="dashboard-description">
+          Create posts to sell your items.
+        </div>
         <div className="panel-body">
           <table className="table table-hover">
             <TableHeaders context={this} array={this.state.myPosts} headers={headers} />
@@ -160,6 +172,10 @@ class MyPosts extends React.Component<Props, State> {
             </tbody>
           </table>
         </div>
+
+        <div className="no-display" id="dialog-confirm">
+          Delete this post?
+        </div> 
       </div>
     );
   }

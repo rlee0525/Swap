@@ -12,6 +12,7 @@
       window.fb_id = <%= ENV["FB_APP_ID"] %>
       window.localhost_url = "<%= ENV["LOCALHOST_URL"] %>"
     </script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <!--  google-analytics -->
     <script type="text/javascript">
@@ -22,14 +23,6 @@
 
       ga('create', 'UA-99335514-1', 'auto');
       ga('send', 'pageview');
-    </script>
-    
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <script>
-      (adsbygoogle = window.adsbygoogle || []).push({
-        google_ad_client: "ca-pub-1087802719177852",
-        enable_page_level_ads: true
-      });
     </script>
 
     <script src= <%="https://maps.googleapis.com/maps/api/js?key=#{ENV["GOOGLE_MAPS_API"]}&libraries=places"%> charset="utf-8"></script>

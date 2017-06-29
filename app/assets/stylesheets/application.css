@@ -240,6 +240,12 @@ ul.nav {
   padding-top: 100%;
 }
 
+@media screen and (max-width: 450px) {
+  .circular {
+    width: 30% !important;
+  }
+}
+
 .circular {
   animation: rotate 2s linear infinite;
   height: 100%;

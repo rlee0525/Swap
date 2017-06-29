@@ -1,15 +1,14 @@
 import React from 'react';
-import Dropzone from 'react-dropzone';
 import request from 'superagent';
-
+import Dropzone from 'react-dropzone';
+import autoBind from 'react-autobind';
 import 'react-dates/lib/css/_datepicker.css';
-
 import { IState, _defaultState } from './typings';
 import { ImageDropzone, RadioButtons } from './subcomponents';
+import { LargeButton } from 'common/components';
 import { DateRangePicker, 
          SingleDatePicker, 
          DayPickerRangeController } from 'react-dates';
-
 import { borderStyle, 
          noBorder, 
          labelStyle, 
@@ -32,18 +31,10 @@ class PostForm extends React.Component<any, IState> {
     };
 
     if (props.params.id) {
-      this.fetchPost(props.params.id)
+      this.fetchPost(props.params.id);
     }
 
-    this.updateState = this.updateState.bind(this);
-    this.onImageDrop = this.onImageDrop.bind(this);
-    this.submitForm = this.submitForm.bind(this);
-    this.radioButtonsUpdate = this.radioButtonsUpdate.bind(this);
-    this.fetchAllCourses = this.fetchAllCourses.bind(this);
-    this.initializeDropzone = this.initializeDropzone.bind(this);
-    this.renderErrors = this.renderErrors.bind(this);
-    this.autoComplete = this.autoComplete.bind(this);
-    this.checkKey = this.checkKey.bind(this);
+    autoBind(this);
   }
 
   public checkKey(e) {
@@ -67,6 +58,7 @@ class PostForm extends React.Component<any, IState> {
   public autoComplete() {
     let that = this;
     let input = function () { return  { search: $('#course').val() }};
+
     $('#course').devbridgeAutocomplete({
       lookup: function (query, done) {
         $.ajax({
@@ -76,7 +68,7 @@ class PostForm extends React.Component<any, IState> {
         }).then(data => done({ "suggestions": data }))
       },
       onSelect: function (suggestion) {
-        that.setState({course: suggestion.value})
+        that.setState({course: suggestion.value});
       }
     });
   }
@@ -163,7 +155,7 @@ class PostForm extends React.Component<any, IState> {
       url: `api/posts/${id}`,
       data: { access_token, edit: true }
     }).then(post => {
-      this.setState({ ...post })
+      this.setState({ ...post });
     });
   }
 
@@ -172,10 +164,10 @@ class PostForm extends React.Component<any, IState> {
       method: "GET",
       url: "api/courses"
     }).then(courses => {
-      this.setState({ courses })
-      this.autoComplete()
+      this.setState({ courses });
+      this.autoComplete();
     }).fail(errors => {
-      this.setState({ errors: errors.responseJSON })
+      this.setState({ errors: errors.responseJSON });
     });
   }
 
@@ -236,7 +228,7 @@ class PostForm extends React.Component<any, IState> {
       }
     }).then(post => this.props.router.replace(`posts/${post.id}`))
       .fail(errors => {
-        this.setState({ errors: errors.responseJSON })
+        this.setState({ errors: errors.responseJSON });
       });
   }
 
@@ -245,7 +237,6 @@ class PostForm extends React.Component<any, IState> {
       $(".has-error").removeClass("has-error")
     } else {
       this.state.errors.map((error, key) => {
-        console.log(error);
         let fieldName = error.split(" ")[0].toLowerCase() + "-error";
         let inputField = document.getElementsByClassName(fieldName)[0];
 
@@ -322,7 +313,9 @@ class PostForm extends React.Component<any, IState> {
 
           {/* Post description textarea */}
           <div className="form-group">
-            <label style={labelStyle} htmlFor="inputDescription3" className="col-sm-2 control-label-custom">Description</label>
+            <label style={labelStyle} htmlFor="inputDescription3" className="col-sm-2 control-label-custom">
+              Description
+            </label>
             <div className="col-sm-9 input-group description-error" style={morePadding}>
               <textarea
                 maxLength={250}
@@ -378,7 +371,7 @@ class PostForm extends React.Component<any, IState> {
           </div>
 
           {/* Price input */}
-          <div className="form-group">
+          <div className={`form-group ${this.state.category === "Lost & Found" && "hidden"}`}>
             <label style={labelStyle} htmlFor="inputPrice3" className="col-sm-2 control-label-custom">
               {this.state.category === "Housing" ? "Monthly Rent" : "Price"}
             </label>
@@ -412,12 +405,18 @@ class PostForm extends React.Component<any, IState> {
           {/* Submit button */}
           <div className="form-group">
             <div className="col-sm-9 col-sm-offset-2">
-              <button onClick={this.submitForm} type="button" className="btn btn-primary btn-lg btn-block">
-                {this.props.params.id ? "Update" : "Create"}
-              </button>
+              <LargeButton
+                type={this.props.params.id ? "Update" : "Create"}
+                class="btn-primary"
+                click={this.submitForm}
+              />
               <br/>
             </div>
           </div>
+
+          <div className="no-display" id="dialog-confirm">
+            Delete this form?
+          </div> 
         </form>
       </div>
     );

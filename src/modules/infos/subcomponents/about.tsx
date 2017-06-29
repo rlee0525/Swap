@@ -19,7 +19,10 @@ class About extends React.Component<any, any> {
           <div className="row">
             <div className="col-sm-4 p-x m-b-lg">
               <div className="p-x">
-                <img className="m-b img-circle" src="http://s3-us-west-2.amazonaws.com/aa-progress-tracker/students/avatars/000/001/691/medium/Raymond_Lee.jpg?1479426917"/>
+                <img 
+                  className="m-b img-circle" 
+                  src="http://s3-us-west-2.amazonaws.com/aa-progress-tracker/students/avatars/000/001/691/medium/Raymond_Lee.jpg?1479426917"
+                />
                 <h6 className="text-muted text-uppercase m-b">Raymond Lee</h6>
                 <p></p>
               </div>
@@ -39,7 +42,10 @@ class About extends React.Component<any, any> {
 
             <div className="col-sm-4 p-x m-b-lg">
               <div className="p-x">
-                <img className="m-b img-circle" src="http://s3-us-west-2.amazonaws.com/aa-progress-tracker/students/avatars/000/001/697/medium/Randy_Jap.jpg?1479426910"/>
+                <img 
+                  className="m-b img-circle" 
+                  src="http://s3-us-west-2.amazonaws.com/aa-progress-tracker/students/avatars/000/001/697/medium/Randy_Jap.jpg?1479426910"
+                />
                 <h6 className="text-muted text-uppercase m-b">Randy Jap</h6>
                 <p></p>
               </div>
@@ -59,7 +65,10 @@ class About extends React.Component<any, any> {
 
             <div className="col-sm-4 p-x m-b-lg">
               <div className="p-x">
-                <img className="m-b img-circle" src="http://s3-us-west-2.amazonaws.com/aa-progress-tracker/students/avatars/000/001/683/medium/David_Hu.jpg?1479424778"/>
+                <img 
+                  className="m-b img-circle" 
+                  src="http://s3-us-west-2.amazonaws.com/aa-progress-tracker/students/avatars/000/001/683/medium/David_Hu.jpg?1479424778"
+                />
                 <h6 className="text-muted text-uppercase m-b">David Hu</h6>
                 <p></p>
               </div>

@@ -4,9 +4,10 @@ import Clipboard from 'clipboard';
 import * as moment from 'moment';
 import { hashHistory } from 'react-router';
 import { shortenString, timeFromNow } from 'helpers';
-import { MapItem } from 'common/components';
+import { MapItem, LoadingSpinner } from 'common/components';
 import { SearchNavbar } from 'modules/search/subcomponents';
 import { createConversation } from 'modules/chat/utils';
+
 declare var $;
 
 class PostDetail extends React.Component<any, any> {
@@ -17,8 +18,9 @@ class PostDetail extends React.Component<any, any> {
       authorFB: null,
       address: "",
       center: null,
-      view: "photo"
-    }
+      view: "photo",
+      isLoading: true
+    };
 
     autoBind(this);
   }
@@ -52,12 +54,15 @@ class PostDetail extends React.Component<any, any> {
 
   public initializePost() {
     let accessToken;
+
     if (this.props.user) {
       accessToken = this.props.user.auth.accessToken;
     } else {
       accessToken = null;
     }
+
     const id = this.props.id;
+
     this.props.getPost(id, accessToken).then(
       res => { this.fetchAuthor() }
     );
@@ -176,7 +181,7 @@ class PostDetail extends React.Component<any, any> {
     if (!this.props.post) return null;
 
     let { img_url1, img_url2, img_url3 } = this.props.post;
-    let imageArray = [img_url1, img_url2, img_url3].filter(el => (el !== "" && el !== null))
+    let imageArray = [img_url1, img_url2, img_url3].filter(el => (el !== "" && el !== null));
 
     imageArray = imageArray.map((el, idx) => (
       <li key={idx} data-target="#carousel-example-generic-2"
@@ -190,8 +195,9 @@ class PostDetail extends React.Component<any, any> {
 
   public renderCarousel() {
     if (!this.props.post) return null;
+
     let { img_url1, img_url2, img_url3 } = this.props.post;
-    let imageArray = [img_url1, img_url2, img_url3].filter(el => (el !== "" && el !== null))
+    let imageArray = [img_url1, img_url2, img_url3].filter(el => (el !== "" && el !== null));
 
     if (imageArray.length !== 1) {
       $('.carousel-control').removeClass("hide");
@@ -211,13 +217,13 @@ class PostDetail extends React.Component<any, any> {
           </div>
         </div>
       </div>
-    ))
+    ));
 
     return (
       <div className="carousel-inner" role="listbox">
         {imageArray}
       </div>
-    )
+    );
   }
 
   public contactPerson() {
@@ -226,13 +232,15 @@ class PostDetail extends React.Component<any, any> {
 
   public fetchAuthor() {
     (window as any).FB.api(`/${this.props.post.fb_id}?fields=email,name,link,picture`, response => {
-      this.setState({ authorFB: response });
+      this.setState({ 
+        authorFB: response,
+        isLoading: false
+      });
     });
   }
 
   public startConversation() {
     let { post, user } = this.props;
-    
     let firstId = post.fb_id;
     let secondId = user.userFB.id;
 
@@ -248,30 +256,44 @@ class PostDetail extends React.Component<any, any> {
     createConversation(conversationId, user.userFB.id).then(
       () => {
         $('#contactModal').modal('hide');
-        hashHistory.push(`chat?id=${conversationId}`);
+        hashHistory.push(`messages?id=${conversationId}`);
       },
       err => {
         console.log(err)
         $('#contactModal').modal('hide');
-        hashHistory.push(`chat?id=${conversationId}`);
+        hashHistory.push(`messages?id=${conversationId}`);
       }
     );
   }
 
   private priceMessage() {
-    if (this.props.post.category == "Housing") {
+    if (this.props.post.category === "Housing") {
       return `I would like to rent the place at $${this.props.post.price} / month.`;
+    } else if (this.props.post.category === "Lost & Found") {
+      return `Thanks for posting it!`;
     } else {
       return `I would like to purchase it at $${this.props.post.price}.`
     }
   }
 
+  private availableMessage() {
+    if (this.props.post.category === "Lost & Found") {
+      return "Please let me know when would be the best time to meet."
+    } else {
+      return "Please let me know if it's still available.";
+    }
+  }
+
   public renderModal() {
     if (!this.state.authorFB || this.state.authorFB.error) return null;
+
     let { name, link, picture } = this.state.authorFB;
+
     return (
       <div>
-        <a id="contactModalTrigger" className="hidden" data-toggle="modal" data-target="#contactModal">Contact Modal Trigger</a>
+        <a id="contactModalTrigger" className="hidden" data-toggle="modal" data-target="#contactModal">
+          Contact Modal Trigger
+        </a>
         <div className="modal fade" id="contactModal" tabIndex={-1} role="dialog"
             aria-labelledby="contactModalLabel" aria-hidden="true">
           <div className="modal-dialog" role="document">
@@ -283,11 +305,18 @@ class PostDetail extends React.Component<any, any> {
               <div className="modal-body text-center" id="contact-modal-body">
                 <div className="modal-body text-center">
                   <div>
-                    <div id="purchase-msg-template" contentEditable={true} data-toggle="tooltip" data-placement="bottom" title="click to edit">
+                    <div 
+                      id="purchase-msg-template" 
+                      contentEditable={true} 
+                      data-toggle="tooltip" 
+                      data-placement="bottom" 
+                      title="click to edit"
+                    >
                       Hi {name.split(" ")[0]}, <br/><br/>
-                      My name is {this.props.user && this.props.user.userFB.name.split(" ")[0]}. I saw your posting on {this.props.post.title} on Swap.<br/>
+                      My name is {this.props.user && this.props.user.userFB.name.split(" ")[0]}.<br/>
+                      &nbsp;I saw your posting on {this.props.post.title} on Swap.<br/>
                       {this.priceMessage()}<br/>
-                      Please let me know if it's still available.<br/>
+                      {this.availableMessage()}<br/>
 
                       link: {(window as any).localhost_url}/#/posts/{this.props.post.id}<br/><br/>
 
@@ -295,7 +324,14 @@ class PostDetail extends React.Component<any, any> {
                       {this.props.user && this.props.user.userFB.name}
                     </div>
                   </div>
-                  <button type="button" className="btn btn-sm btn-primary" data-clipboard-target="#purchase-msg-template" id="copy-template">Copy Message</button>
+                  <button 
+                    type="button" 
+                    className="btn btn-sm btn-primary" 
+                    data-clipboard-target="#purchase-msg-template" 
+                    id="copy-template"
+                  >
+                    Copy Message
+                  </button>
                 </div>
               </div>
               <div className="modal-footer" id="fb-footer">
@@ -315,9 +351,23 @@ class PostDetail extends React.Component<any, any> {
 
   public housingViews() {
     if (this.state.view === "photo") {
-      return (<p className="change-view"> <span onClick={this.changeView} id="change-view-button">View Map</span> &nbsp;&nbsp;&nbsp;{this.dateRange()}</p>)
+      return (
+        <p className="change-view">
+          <span onClick={this.changeView} id="change-view-button">
+            View Map
+          </span>
+          &nbsp;&nbsp;&nbsp;{this.dateRange()}
+        </p>
+      );
     } else {
-      return (<p className="change-view"> <span onClick={this.changeView} id="change-view-button">View Photos</span> &nbsp;&nbsp;&nbsp;{this.dateRange()}</p>)
+      return (
+        <p className="change-view">
+          <span onClick={this.changeView} id="change-view-button">
+            View Photos
+          </span>
+          &nbsp;&nbsp;&nbsp;{this.dateRange()}
+        </p>
+      );
     };
   }
 
@@ -333,38 +383,58 @@ class PostDetail extends React.Component<any, any> {
       marginBottom: 10,
       fontWeight: 300
     };
-
     let { id, title, description, price, created_at, views, condition, category } = this.props.post;
     let buttons;
     const isAuthor = this.props.post.is_author;
     const isBookmarked = this.props.post.is_bookmarked;
+
     if (isAuthor) {
       buttons = (
         <div>
-          <a className="btn btn-primary btn-lg col-md-6 col-sm-6 col-xs-6" id="ownPost-edit" onClick={() => this.editPost(id)}>Edit Post</a>
-          <a className="btn btn-secondary btn-lg col-md-5 col-sm-5 col-xs-5" id="ownPost-delete" onClick={() => this.deletePost(id)}>Delete Post</a>
+          <a 
+            className="btn btn-primary btn-lg col-md-6 col-sm-6 col-xs-6" 
+            id="ownPost-edit" 
+            onClick={() => this.editPost(id)}
+          >
+            Edit Post
+          </a>
+          <a 
+            className="btn btn-secondary btn-lg col-md-5 col-sm-5 col-xs-5" 
+            id="ownPost-delete" 
+            onClick={() => this.deletePost(id)}
+          >
+            Delete Post
+          </a>
         </div>
-      )
+      );
     } else {
       buttons = (
         <div>
-          <span disabled={isBookmarked} className="btn btn-warning btn-lg col-md-2 col-sm-2 col-xs-2 bottom-margin-spacing glyphicon glyphicon-bookmark" id="bookmark-btn" onClick={() => this.checkVerifiedBookmark(id)}></span>
-          <a className="btn btn-primary btn-lg col-md-9 col-sm-9 col-xs-9" id="contact-the-seller-btn" onClick={this.checkVerifiedContact}>Contact the Seller</a>
+          <span 
+            disabled={isBookmarked} 
+            className="btn btn-warning btn-lg col-md-2 col-sm-2 col-xs-2 bottom-margin-spacing glyphicon glyphicon-bookmark" 
+            id="bookmark-btn" 
+            onClick={() => this.checkVerifiedBookmark(id)} 
+          />
+          <a 
+            className="btn btn-primary btn-lg col-md-9 col-sm-9 col-xs-9" 
+            id="contact-the-seller-btn" 
+            onClick={this.checkVerifiedContact}
+          >
+            Contact the Seller
+          </a>
         </div>
-      )
+      );
     }
     return (
       <div className="col-lg-6 col-md-6 col-sm-6 absolute-height" id="detail-body">
         <h3 style={titleMargin as any}>{title}</h3>
-
         {
           views < 15 ?
             <p><span className="glyphicon glyphicon-eye-open"></span>&nbsp;&nbsp; {views} Views </p> :
             <p className="red"><span className="glyphicon glyphicon-fire"></span>&nbsp;&nbsp; {views} Views </p>
         }
-
         { category == "Housing" && this.housingViews() }
-
         <p id="post-description">{description}</p>
         <div className="footer" id="post-detail-right-bottom">
           <h3 className="text-left">${Number(price).toLocaleString()}{ category == "Housing" && " / month" }</h3>
@@ -374,7 +444,7 @@ class PostDetail extends React.Component<any, any> {
           </div>
         </div>
       </div>
-    )
+    );
   }
 
   private renderCategoryMenu(label) {
@@ -385,8 +455,10 @@ class PostDetail extends React.Component<any, any> {
 
   public render() {
     if (!this.props.post) return null;
+    if (this.state.isLoading) return <LoadingSpinner />;
+
     let { link, category, title } = this.props.post;
-    link = category.toLowerCase()
+    link = category.toLowerCase();
 
     if (category === "Lost & Found") {
       link = "lostandfound";
@@ -428,7 +500,7 @@ class PostDetail extends React.Component<any, any> {
         </div>
         {this.renderDetail()}
       </div>
-    )
+    );
   }
 }
 
