@@ -2,7 +2,6 @@ import * as React from 'react';
 import NavBar from 'core/navbar';
 import Footer from 'core/footer';
 import * as firebase from 'firebase';
-import { fetchConversations } from 'modules/chat/utils';
 
 declare var $;
 declare var window;
@@ -11,6 +10,7 @@ interface Props {
   children: any;
   receiveUser: any;
   user: any;
+  checkConversations: any;
 }
 
 interface State {
@@ -45,6 +45,8 @@ class App extends React.Component<Props, State> {
   public componentDidMount() {
     if (this.props.user) {
       let { user } = this.props;
+      this.props.checkConversations(user);
+      
       const access_token = user.auth.accessToken;
       
       $.ajax({
