@@ -88,6 +88,52 @@ class App extends React.Component<Props, State> {
     }
   }
 
+  public componentWillReceiveProps(newProps) {
+    if (newProps.user) {
+      let { user } = newProps;
+      const access_token = user.auth.accessToken;    
+      
+      $.ajax({
+        method: 'GET',
+        url: `api/users/${access_token}`
+      }).then(res => {
+        let conversations = res.conversations;
+        let ids = [];
+
+        for (var i = 0; i < conversations.length; i++) {
+          var element = conversations[i].conversation_id;
+          ids.push(element)
+        }
+
+        if (ids.length === 0) {
+          return;
+        } else {
+          this.ref = firebase.database().ref(`conversations/${ids[0]}`); 
+          
+          for (let i = 0; i < ids.length; i++) {
+            let data = firebase.database().ref(`conversations/${ids[i]}`).once('value', snapshot => {
+              let messages = snapshot.val() || {};              
+              let timestamps = Object.keys(messages);
+
+              if (timestamps.length === 0) {
+                this.setState({ unreadMessage: false });
+                return;
+              }
+
+              let lastMessage = messages[timestamps[timestamps.length - 1]];
+
+              if (lastMessage.sender !== user.userFB.id && !lastMessage.seen) {
+                this.setState({ unreadMessage: true });
+                return;
+              } else {
+                this.setState({ unreadMessage: false });
+              }
+            });
+          }
+        }
+      });
+  }
+
   public componentWillUnmount() : void {
     if (this.ref) this.ref.off();
   }
