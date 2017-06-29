@@ -1,6 +1,8 @@
-import * as ChatAPI from './utils';
-import * as firebase from 'firebase';
 declare var Promise;
+import * as firebase from 'firebase';
+import { values } from 'lodash';
+
+import * as ChatAPI from './utils';
 
 export const CHAT = {
   CHECK_RECEIPT: "chat/CHECK_RECEIPT",
@@ -33,7 +35,19 @@ export const fetchFirebaseConversations = user => dispatch => (
       });
       
       Promise.all(dataNeeded).then(() => {
-        
+        let receipt = false;
+
+        values(conversationObj).forEach((conversation : any) => {
+          let { messages } = conversation;
+          
+          let latestTime = Math.max(... Object.keys(messages).map(time => Number(time)));
+
+          if (messages[latestTime].sender !== user.userFB.id && !messages[latestTime].seen) {
+            receipt = true;
+            return;
+          }
+        });
+        dispatch(receiveReceipt(receipt));
         dispatch(receiveConversations(conversationObj));
       }); 
       
