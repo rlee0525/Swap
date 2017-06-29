@@ -9,14 +9,14 @@ export const CHAT = {
   RECEIVE_CONVERSATIONS: 'chat/RECEIVE_CONVERSATIONS'
 }
 
-export const receiveReceipt = receipt => ({
+export const receiveReceipt = unreadMessage => ({
   type: CHAT.CHECK_RECEIPT,
-  receipt
+  unreadMessage
 });
 
-export const receiveConversations = payload => ({
+export const receiveConversations = conversations => ({
   type: CHAT.RECEIVE_CONVERSATIONS,
-  payload
+  conversations
 });
 
 export const fetchFirebaseConversations = user => dispatch => (
@@ -35,7 +35,7 @@ export const fetchFirebaseConversations = user => dispatch => (
       });
       
       Promise.all(dataNeeded).then(() => {
-        let receipt = false;
+        let unreadMessage = false;
 
         values(conversationObj).forEach((conversation : any) => {
           let { messages } = conversation;
@@ -43,11 +43,12 @@ export const fetchFirebaseConversations = user => dispatch => (
           let latestTime = Math.max(... Object.keys(messages).map(time => Number(time)));
 
           if (messages[latestTime].sender !== user.userFB.id && !messages[latestTime].seen) {
-            receipt = true;
+            unreadMessage = true;
             return;
           }
         });
-        dispatch(receiveReceipt(receipt));
+
+        dispatch(receiveReceipt(unreadMessage));
         dispatch(receiveConversations(conversationObj));
       }); 
       

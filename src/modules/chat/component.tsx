@@ -1,3 +1,5 @@
+declare var $, Promise;
+
 import React from 'react';
 import * as firebase from 'firebase';
 import autoBind from 'react-autobind';
@@ -6,8 +8,6 @@ import { keyBy, values } from 'lodash';
 import { fetchConversations, fetchFirebaseConversations } from './utils';
 import { LoadingSpinner } from 'common/components';
 import { Messages, ConversationItem } from './subcomponents';
-
-declare var $, Promise;
 
 interface Props {
   user: any;

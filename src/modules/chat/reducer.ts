@@ -2,19 +2,19 @@ import { merge } from 'lodash';
 import { CHAT } from "./actions";
 
 let _defaultState = {
-  receipt: false,
+  unreadMessage: false,
   conversations: {}
 };
 
 const chatReducer = (state = _defaultState, action) => {
   Object.freeze(state);
-  console.log(action);
+
   switch (action.type) {
     case CHAT.CHECK_RECEIPT:
-      return merge({}, state, { receipt: action.receipt });
+      return merge({}, state, { unreadMessage: action.unreadMessage });
     case CHAT.RECEIVE_CONVERSATIONS:
       return merge({}, state, {
-        conversations: action.payload
+        conversations: action.conversations
       });
     default:
       return state;
