@@ -26,6 +26,13 @@ class App extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
+    this.state = {
+      userFB: null,
+      accessToken: null,
+      status: "",
+      unreadMessage: false
+    };
+
     FB.Event.subscribe('auth.logout', this.logout);
     FB.Event.subscribe('auth.login', this.login);
     FB.Event.subscribe('auth.statusChange ', this.checkFbStatus);
@@ -60,8 +67,7 @@ class App extends React.Component<Props, State> {
           
           for (let i = 0; i < ids.length; i++) {
             let data = firebase.database().ref(`conversations/${ids[i]}`).once('value', snapshot => {
-              let messages = snapshot.val() || {};
-              
+              let messages = snapshot.val() || {};              
               let timestamps = Object.keys(messages);
 
               if (timestamps.length === 0) {
@@ -69,7 +75,7 @@ class App extends React.Component<Props, State> {
                 return;
               }
 
-              let lastMessage = messages[timestamps[timestamps.length - 1]]
+              let lastMessage = messages[timestamps[timestamps.length - 1]];
 
               if (lastMessage.sender !== user.userFB.id && !lastMessage.seen) {
                 this.setState({ unreadMessage: true });
@@ -134,7 +140,7 @@ class App extends React.Component<Props, State> {
   public render() {
     return (
       <div className='home'>
-        <NavBar />
+        <NavBar unreadMessage={this.state.unreadMessage} />
           {this.props.children}
         <Footer />
       </div>

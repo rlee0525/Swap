@@ -139,7 +139,13 @@ class NavBar extends React.Component<any, any> {
           <ul className="nav navbar-nav navbar-right">
             <li><a href="/#/recent">Browse</a></li>
             <li><a id="dashboard" onClick={(e) => this.checkVerified(e)}>Dashboard</a></li>
-            <li><a id="messages" onClick={(e) => this.checkVerified(e)}>Messages</a></li>
+            <li>
+              <a id="messages" onClick={(e) => this.checkVerified(e)}>
+                Messages
+                {this.props.unreadMessage && 
+                  <div className='noti unread' id='unread-noti' />}
+              </a>
+            </li>
             <li><a onClick={this.chooseModal}>{this.props.user.userFB.name}</a></li>
           </ul>
         </div>
@@ -158,6 +164,7 @@ class NavBar extends React.Component<any, any> {
   }
 
   public render() {
+    console.log(this.props.unreadMessage);
     $('.navbar-collapse a').click(function(){
       $(".navbar-collapse").collapse('hide');
     });

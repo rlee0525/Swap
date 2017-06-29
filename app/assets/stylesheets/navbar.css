@@ -99,3 +99,9 @@
   left: -1px !important;
   cursor: pointer;
 }
+
+#unread-noti {
+  position: absolute;
+  top: 9px;
+  left: 74px;
+}
