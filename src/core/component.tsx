@@ -10,7 +10,7 @@ interface Props {
   children: any;
   receiveUser: any;
   user: any;
-  checkConversations: any;
+  fetchFirebaseConversations: any;
 }
 
 interface State {
@@ -45,7 +45,7 @@ class App extends React.Component<Props, State> {
   public componentDidMount() {
     if (this.props.user) {
       let { user } = this.props;
-      this.props.checkConversations(user);
+      this.props.fetchFirebaseConversations(user);
       
       const access_token = user.auth.accessToken;
       

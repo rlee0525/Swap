@@ -8,13 +8,13 @@ let _defaultState = {
 
 const chatReducer = (state = _defaultState, action) => {
   Object.freeze(state);
-
+  console.log(action);
   switch (action.type) {
     case CHAT.CHECK_RECEIPT:
       return merge({}, state, { receipt: action.receipt });
     case CHAT.RECEIVE_CONVERSATIONS:
       return merge({}, state, {
-        conversations: action.conversations
+        conversations: action.payload
       });
     default:
       return state;

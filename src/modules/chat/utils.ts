@@ -27,25 +27,7 @@ export const fetchConversations = (access_token : string) : JQueryPromise<any> =
 );
 
 export const fetchFirebaseConversations = (user : IUser) : any => {
-  fetchConversations(user.auth.accessToken).then(
+  return fetchConversations(user.auth.accessToken).then(
     conversationArray => keyBy<object>(conversationArray, 'conversation_id')
-  ).then(
-    (conversationObj : any) => {
-      let dataNeeded = [];
-      let conversationIds = Object.keys(conversationObj);
-      let firebaseDB = firebase.database();
-
-      conversationIds.forEach(id => {
-        let data = firebaseDB.ref(`conversations/${id}`).once('value', snapshot => {
-          conversationObj[id].messages = snapshot.val() || {};
-        });
-
-        dataNeeded.push(data);
-      });
-      
-      Promise.all(dataNeeded).then(() => {
-        return conversationObj;
-      });
-    }
-  )
+  );
 }
