@@ -3,7 +3,7 @@ import * as firebase from 'firebase';
 import autoBind from 'react-autobind';
 import { keyBy, values } from 'lodash';
 
-import { fetchConversations } from './utils';
+import { fetchConversations, fetchFirebaseConversations } from './utils';
 import { LoadingSpinner } from 'common/components';
 import { Messages, ConversationItem } from './subcomponents';
 
@@ -44,6 +44,8 @@ class Chat extends React.Component<Props, State> {
 
   componentDidMount() : void {
     let { user } = this.props;
+    fetchFirebaseConversations(user);
+    
     let conversationId = this.props.location.query.id;
 
     fetchConversations(user.auth.accessToken).then(
