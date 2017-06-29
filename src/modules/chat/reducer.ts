@@ -1,17 +1,21 @@
 import { merge } from 'lodash';
-import { CHECK_RECEIPT } from "./actions";
+import { CHAT } from "./actions";
 
 let _defaultState = {
-  receipt: false
+  receipt: false,
+  conversations: {}
 };
 
 const chatReducer = (state = _defaultState, action) => {
   Object.freeze(state);
 
   switch (action.type) {
-    case CHECK_RECEIPT:
-      console.log(state);
-      return { receipt: state.receipt };
+    case CHAT.CHECK_RECEIPT:
+      return merge({}, state, { receipt: action.receipt });
+    case CHAT.RECEIVE_CONVERSATIONS:
+      return merge({}, state, {
+        conversations: action.conversations
+      });
     default:
       return state;
   }

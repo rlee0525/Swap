@@ -1,10 +1,13 @@
 import * as ChatAPI from './utils';
 import * as firebase from 'firebase';
 
-export const CHECK_RECEIPT = "CHECK_RECEIPT";
+export const CHAT = {
+  CHECK_RECEIPT: "chat/CHECK_RECEIPT",
+  RECEIVE_CONVERSATIONS: 'chat/RECEIVE_CONVERSATIONS'
+}
 
 export const receiveReceipt = receipt => ({
-  type: CHECK_RECEIPT,
+  type: CHAT.CHECK_RECEIPT,
   receipt
 });
 
