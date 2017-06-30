@@ -25,6 +25,7 @@ interface State {
   message: string;
   conversations: any;
   currentConversation: string;
+  intervalId: any;
 }
 
 class Chat extends React.Component<Props, State> {
@@ -37,7 +38,8 @@ class Chat extends React.Component<Props, State> {
       conversations: {},
       currentConversation: null,
       message: '',
-      unreadMessage: false
+      unreadMessage: false,
+      intervalId: null
     }
 
     autoBind(this);
@@ -49,10 +51,16 @@ class Chat extends React.Component<Props, State> {
     let { user } = this.props;
     let conversationId = this.props.location.query.id;
 
-    this.props.fetchFirebaseConversations(user);
+    let intervalId = setInterval((this.loadData), 600000);
+    this.setState({ intervalId });
+  }
+
+  private loadData() {
+    this.props.user && this.props.fetchFirebaseConversations(this.props.user);
   }
 
   public componentWillUnmount() : void {
+    clearInterval(this.state.intervalId);
     if (this.ref) this.ref.off();
   }
 
