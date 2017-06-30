@@ -25,11 +25,13 @@ interface Props {
 class SearchListView extends React.Component<Props, any> {
   constructor(props: Props) {
     super(props);
+
     this.state = {
       price: -1,
       updated_at: 1,
-      views: 1
-    }
+      views: 1,
+      isLoading: true
+    };
 
     this.sort_by = this.sort_by.bind(this);
   }
@@ -40,9 +42,13 @@ class SearchListView extends React.Component<Props, any> {
     if (this.props.currentQuery.category === "My Course Material" && this.props.user) {
       const access_token = this.props.user.auth.accessToken;
       nextQuery = merge({}, nextQuery, {access_token});
-      this.props.search(nextQuery);
+      this.props.search(nextQuery).then(
+        res => this.setState({ isLoading: false })
+      );
     } else {
-      this.props.search(nextQuery);
+      this.props.search(nextQuery).then(
+        res => this.setState({ isLoading: false })
+      );
     }
 
     this.props.user && this.props.fetchFirebaseConversations(this.props.user);
@@ -78,6 +84,8 @@ class SearchListView extends React.Component<Props, any> {
   }
 
   render() {
+    if (this.state.isLoading) return <LoadingSpinner />;
+
     let results;
     
     if (this.props.searchResult.posts) {

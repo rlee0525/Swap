@@ -51,7 +51,7 @@ class Chat extends React.Component<Props, State> {
     let { user } = this.props;
     let conversationId = this.props.location.query.id;
 
-    let intervalId = setInterval((this.loadData), 600000);
+    let intervalId = setInterval((this.loadData), 300000);
     this.setState({ intervalId });
   }
 
