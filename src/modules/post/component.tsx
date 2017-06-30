@@ -1,11 +1,8 @@
 import React from 'react';
+
 import { PostDetail } from './subcomponents';
 
 class Post extends React.Component<any, any> {
-  constructor(props: any) {
-    super(props);
-  }
-
   public render() {
     let paddingBot = {
       paddingBottom: 20

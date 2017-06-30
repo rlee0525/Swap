@@ -5,12 +5,13 @@ import * as firebase from 'firebase';
 import autoBind from 'react-autobind';
 import { keyBy, values } from 'lodash';
 
+import { IUser } from 'common/interfaces';
 import { fetchConversations } from './utils';
 import { LoadingSpinner } from 'common/components';
 import { Messages, ConversationItem } from './subcomponents';
 
 interface Props {
-  user: any;
+  user: IUser;
   location: {
     query: {
       id: string;

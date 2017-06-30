@@ -1,13 +1,15 @@
 import { connect } from 'react-redux';
+
 import Post from './component';
 import { getPost, receivePost } from './actions';
 import { search, saveQuery } from 'modules/search/actions';
+import { IUser, IPost, ISearchResult, ICurrentQuery } from 'common/interfaces';
 
 interface StateProps {
-  user: any;
-  post: object;
-  searchResult: any;
-  currentQuery: any;
+  user: IUser;
+  post: IPost;
+  searchResult: ISearchResult;
+  currentQuery: ICurrentQuery;
 }
 
 interface DispatchProps {

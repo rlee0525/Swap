@@ -1,9 +1,10 @@
 /* global $ */
-import * as firebase from 'firebase';
-import { keyBy } from 'lodash';
-import { IUser } from 'common/interfaces';
-
 declare var Promise;
+
+import { keyBy } from 'lodash';
+import * as firebase from 'firebase';
+
+import { IUser } from 'common/interfaces';
 
 export const createConversation = (conversation_id : string, user_id : string) : JQueryPromise<any> => (
   $.ajax({

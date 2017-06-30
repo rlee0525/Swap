@@ -1,4 +1,5 @@
 import { merge } from 'lodash';
+
 import { SearchAction, RECEIVE_SEARCH } from "./actions";
 
 let _defaultState: any = { posts: null, max_pages: 1 };

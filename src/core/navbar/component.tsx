@@ -3,9 +3,10 @@ declare var FB;
 declare var window;
 
 import React from 'react';
+import { values } from 'lodash';
 import autoBind from 'react-autobind';
 import { withRouter } from 'react-router';
-import { values } from 'lodash';
+
 import { LargeButton } from 'common/components';
 
 class NavBar extends React.Component<any, any> {

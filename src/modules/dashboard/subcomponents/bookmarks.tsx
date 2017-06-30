@@ -1,11 +1,12 @@
+declare var $, window;
+
 import React from 'react';
 import Clipboard from 'clipboard';
 import autoBind from 'react-autobind';
+
 import { IUser, IPost } from 'common/interfaces';
 import { shortenString, timeFromNow } from 'helpers';
 import { TableHeaders, LoadingSpinner, SmallButton } from 'common/components';
-
-declare var $, window;
 
 interface State {
   bookmarks: IPost [];

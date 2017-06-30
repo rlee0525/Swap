@@ -3,10 +3,6 @@ import React from 'react';
 import { About, Careers, Contact, FAQ } from './subcomponents';
 
 class Infos extends React.Component<any, any> {
-  constructor(props) {
-    super(props)
-  }
-
   public render() {
     let page = this.props.location.search.slice(1);
 

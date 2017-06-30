@@ -1,8 +1,11 @@
+declare var $, google;
+
 import React from 'react';
 import request from 'superagent';
 import Dropzone from 'react-dropzone';
 import autoBind from 'react-autobind';
 import 'react-dates/lib/css/_datepicker.css';
+
 import { IState, _defaultState } from './typings';
 import { ImageDropzone, RadioButtons } from './subcomponents';
 import { LargeButton } from 'common/components';
@@ -18,7 +21,6 @@ import { borderStyle,
          paddingBottom,
          paddingAll } from './styles';
 
-declare var $, google;
 const CLOUDINARY_UPLOAD_PRESET = 'xmfenamw';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/dkympkwdz/upload';
 

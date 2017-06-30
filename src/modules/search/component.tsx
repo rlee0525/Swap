@@ -1,7 +1,8 @@
 import React from 'react';
 import { merge } from 'lodash';
-import { IPost } from 'common/interfaces';
 import { withRouter, hashHistory, Link } from 'react-router';
+
+import { IPost } from 'common/interfaces';
 import { shortenString,
          capitalize,
          searchParams,

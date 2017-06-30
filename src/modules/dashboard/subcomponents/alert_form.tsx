@@ -1,9 +1,10 @@
+declare var $;
+
 import React from 'react';
 import autoBind from 'react-autobind';
+
 import { IUser } from 'common/interfaces';
 import { LargeButton } from 'common/components';
-
-declare var $;
 
 interface State {
   description: string;

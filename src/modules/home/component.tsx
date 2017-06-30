@@ -1,8 +1,9 @@
 import React from 'react';
-import { IUser } from 'common/interfaces';
-import { SearchNavbar } from 'modules/search/subcomponents';
-import { CategoryBox } from './subcomponents';
 import { merge } from 'lodash';
+
+import { IUser } from 'common/interfaces';
+import { CategoryBox } from './subcomponents';
+import { SearchNavbar } from 'modules/search/subcomponents';
 
 const categories = require('./categories.json');
 

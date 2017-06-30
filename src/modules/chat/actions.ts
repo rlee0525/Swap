@@ -1,7 +1,7 @@
 declare var Promise;
 
-import * as firebase from 'firebase';
 import { values } from 'lodash';
+import * as firebase from 'firebase';
 
 import * as ChatAPI from './utils';
 

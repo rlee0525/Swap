@@ -1,7 +1,7 @@
-import { connect } from 'react-redux';
-import { Dispatch } from 'react-redux';
-import { IUser, IStoreState } from 'common/interfaces';
+import { connect, Dispatch } from 'react-redux';
+
 import Home from './component';
+import { IUser, IStoreState } from 'common/interfaces';
 import { search, saveQuery } from 'modules/search/actions';
 
 interface StateProps {

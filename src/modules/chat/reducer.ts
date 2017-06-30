@@ -1,9 +1,10 @@
 import { merge } from 'lodash';
+
 import { CHAT } from "./actions";
 
 let _defaultState = {
-  unreadMessage: false,
-  conversations: {}
+  conversations: {},
+  unreadMessage: false
 };
 
 const chatReducer = (state = _defaultState, action) => {

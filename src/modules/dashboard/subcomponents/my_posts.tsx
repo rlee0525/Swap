@@ -1,11 +1,12 @@
+declare var $;
+
 import React from 'react';
 import { cloneDeep } from 'lodash';
 import autoBind from 'react-autobind';
+
 import { IPost, IUser } from 'common/interfaces';
 import { shortenString, timeFromNow } from 'helpers';
 import { TableHeaders, LoadingSpinner, SmallButton } from 'common/components';
-
-declare var $;
 
 interface Props {
   user: IUser;

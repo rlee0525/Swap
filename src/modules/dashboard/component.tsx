@@ -1,9 +1,11 @@
+declare var $;
+
 import React from 'react';
 import { hashHistory } from 'react-router';
+
 import { IUser, IDashboard } from 'common/interfaces';
 import { DashboardHeaders, Bookmarks, MyPosts, Rfps, AlertForm, MyCourses } from './subcomponents';
 
-declare var $;
 const data = require('./dashboard_data.json');
 
 interface Props {

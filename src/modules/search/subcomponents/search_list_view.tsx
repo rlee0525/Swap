@@ -1,20 +1,23 @@
+declare var $;
+
 import React from 'react';
-import { IPost } from 'common/interfaces';
-import { LoadingSpinner } from 'common/components';
-import { Pagination } from './';
 import { merge } from 'lodash';
+
+import { Pagination } from './';
+import { LoadingSpinner } from 'common/components';
+import { IPost, ISearchResult, 
+         IUser, ICurrentQuery } from 'common/interfaces';
 import { shortenString,
          timeFromNow,
          getCategory } from 'helpers';
 
-declare var $;
 
 interface Props {
-  searchResult: any;
+  searchResult: ISearchResult;
   search: (query: object) => JQueryXHR;
   saveQuery: any;
-  currentQuery: any;
-  user: any;
+  currentQuery: ICurrentQuery;
+  user: IUser;
 }
 
 class SearchListView extends React.Component<Props, any> {

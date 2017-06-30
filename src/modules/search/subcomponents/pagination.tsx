@@ -1,7 +1,8 @@
-import React from 'react';
-import _ from 'lodash';
-import { merge } from 'lodash';
 declare var $;
+
+import _ from 'lodash';
+import React from 'react';
+import { merge } from 'lodash';
 
 class Pagination extends React.Component<any, any> {
   constructor(props) {

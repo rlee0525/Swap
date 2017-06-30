@@ -1,18 +1,17 @@
 import { connect } from 'react-redux';
 import { Dispatch } from 'react-redux';
-import { IUser, IStoreState } from 'common/interfaces';
+
 import Dashboard from './component';
-import {
-  fetchBookmarks, deleteBookmark,
-  fetchMyPosts, deleteMyPost,
-  fetchRfps, deleteRfps, receiveRfps,
-  fetchMyCourses, deleteMyCourse,
-  fetchCourses, postMyCourse
-} from './actions';
+import { IUser, IStoreState } from 'common/interfaces';
+import { fetchBookmarks, deleteBookmark,
+         fetchMyPosts, deleteMyPost,
+         fetchRfps, deleteRfps, receiveRfps,
+         fetchMyCourses, deleteMyCourse,
+         fetchCourses, postMyCourse } from './actions';
 
 interface StateProps {
   user : IUser;
-  dashboard: any; // TODO: update
+  dashboard: any;
 }
 
 interface DispatchProps {

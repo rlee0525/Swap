@@ -1,10 +1,10 @@
+declare var $, window;
+
 import * as React from 'react';
-import NavBar from 'core/navbar';
-import Footer from 'core/footer';
 import * as firebase from 'firebase';
 
-declare var $;
-declare var window;
+import NavBar from 'core/navbar';
+import Footer from 'core/footer';
 
 interface Props {
   children: any;
