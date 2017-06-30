@@ -3,7 +3,7 @@ declare var $, FB, window;
 import React from 'react';
 import { values } from 'lodash';
 import autoBind from 'react-autobind';
-import { withRouter } from 'react-router';
+import { Link, withRouter } from 'react-router';
 
 import { LargeButton } from 'common/components';
 
@@ -117,6 +117,7 @@ class NavBar extends React.Component<any, any> {
       url: `api/users/${accessToken}`
     }).then(obj => {
       if (obj.edu_email_confirmed) {
+        this.fetchConversation();
         this.props.router.push(address);
       } else if (obj.edu_email === null) {
         $('#emailInputModal').modal('show');
@@ -137,7 +138,7 @@ class NavBar extends React.Component<any, any> {
       return (
         <div className="navbar-collapse collapse" id={id}>
           <ul className="nav navbar-nav navbar-right">
-            <li><a href="/#/recent">Browse</a></li>
+            <li><Link to="/recent">Browse</Link></li>
             <li><a id="dashboard" onClick={(e) => this.checkVerified(e)}>Dashboard</a></li>
             <li>
               <a id="messages" onClick={(e) => this.checkVerified(e)}>
@@ -154,13 +155,17 @@ class NavBar extends React.Component<any, any> {
       return (
         <div className="navbar-collapse collapse" id={id}>
           <ul className="nav navbar-nav navbar-right">
-            <li><a href="/#/recent">Browse</a></li>
+            <li><Link to="/recent">Browse</Link></li>
             <li><a onClick={this.chooseModal}>Sign Up</a></li>
             <li><a onClick={this.chooseModal}>Log In</a></li>
           </ul>
         </div>
       );
     }
+  }
+
+  private fetchConversation() {
+    this.props.user && this.props.fetchFirebaseConversations(this.props.user);
   }
 
   public render() {
@@ -187,9 +192,9 @@ class NavBar extends React.Component<any, any> {
                 <span className="icon-bar" />
                 <span className="icon-bar" />
               </button>
-              <a className="navbar-brand" href="#">
+              <Link to="/" className="navbar-brand" onClick={this.fetchConversation}>
                 <span>Swap</span>
-              </a>
+              </Link>
             </div>
             {this.checkUserStatus("navbar-collapse")}
           </div>
@@ -208,9 +213,9 @@ class NavBar extends React.Component<any, any> {
                 <span className="icon-bar" />
                 <span className="icon-bar" />
               </button>
-              <a className="navbar-brand" href="#">
+              <Link to="/" className="navbar-brand" onClick={this.fetchConversation}>
                 <span>Swap</span>
-              </a>
+              </Link>
             </div>
             {this.checkUserStatus("navbar-collapse2")}
           </div>
