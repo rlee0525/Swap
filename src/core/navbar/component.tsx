@@ -25,6 +25,10 @@ class NavBar extends React.Component<any, any> {
     this.reinitializeFB();
   }
 
+  // public componentWillReceiveProps(newProps) {
+  //   this.props.fetchFirebaseConversations(newProps.user);
+  // }
+
   // necessary for getting the FB button to load
   public reinitializeFB() {
     FB.init({
@@ -144,7 +148,7 @@ class NavBar extends React.Component<any, any> {
             <li>
               <a id="messages" onClick={(e) => this.checkVerified(e)}>
                 Messages
-                {this.checkUnreadMessages() && 
+                {this.props.chat && this.props.chat.unreadMessage &&
                   <div className='noti unread' id='unread-noti' />}
               </a>
             </li>
@@ -164,13 +168,6 @@ class NavBar extends React.Component<any, any> {
       );
     }
   }
-
-  private checkUnreadMessages() {
-    let { chat } = this.props;
-    let { conversations } = chat;
-    
-    return values(conversations).filter((conversation : any) => conversation.hasUnreadMessages).length > 0;
-  } 
 
   public render() {
     $('.navbar-collapse a').click(function(){

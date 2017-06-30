@@ -5,11 +5,12 @@ import * as firebase from 'firebase';
 
 import NavBar from 'core/navbar';
 import Footer from 'core/footer';
+import { IUser } from 'common/interfaces';
 
 interface Props {
   children: any;
   receiveUser: any;
-  user: any;
+  user: IUser;
   fetchFirebaseConversations: any;
 }
 
@@ -17,7 +18,6 @@ interface State {
   userFB: number;
   accessToken: string;
   status: string;
-  unreadMessage: boolean;
 }
 
 class App extends React.Component<Props, State> {
@@ -28,8 +28,7 @@ class App extends React.Component<Props, State> {
     this.state = {
       userFB: null,
       accessToken: null,
-      status: "",
-      unreadMessage: false
+      status: ""
     };
 
     this.login = this.login.bind(this);
@@ -45,94 +44,7 @@ class App extends React.Component<Props, State> {
   public componentDidMount() {
     if (this.props.user) {
       let { user } = this.props;
-      this.props.fetchFirebaseConversations(user);
-      
-      const access_token = user.auth.accessToken;
-      
-      $.ajax({
-        method: 'GET',
-        url: `api/users/${access_token}`
-      }).then(res => {
-        let conversations = res.conversations;
-        let ids = [];
-
-        for (var i = 0; i < conversations.length; i++) {
-          var element = conversations[i].conversation_id;
-          ids.push(element)
-        }
-
-        if (ids.length === 0) {
-          return;
-        } else {
-          this.ref = firebase.database().ref(`conversations/${ids[0]}`); 
-          
-          for (let i = 0; i < ids.length; i++) {
-            let data = firebase.database().ref(`conversations/${ids[i]}`).once('value', snapshot => {
-              let messages = snapshot.val() || {};              
-              let timestamps = Object.keys(messages);
-
-              if (timestamps.length === 0) {
-                this.setState({ unreadMessage: false });
-                return;
-              }
-
-              let lastMessage = messages[timestamps[timestamps.length - 1]];
-
-              if (lastMessage.sender !== user.userFB.id && !lastMessage.seen) {
-                this.setState({ unreadMessage: true });
-                return;
-              }
-            });
-          }
-        }
-      });
-    }
-  }
-
-  public componentWillReceiveProps(newProps) {
-    if (newProps.user) {
-      let { user } = newProps;
-      const access_token = user.auth.accessToken;    
-      
-      $.ajax({
-        method: 'GET',
-        url: `api/users/${access_token}`
-      }).then(res => {
-        let conversations = res.conversations;
-        let ids = [];
-
-        for (var i = 0; i < conversations.length; i++) {
-          var element = conversations[i].conversation_id;
-          ids.push(element)
-        }
-
-        if (ids.length === 0) {
-          return;
-        } else {
-          this.ref = firebase.database().ref(`conversations/${ids[0]}`); 
-          
-          for (let i = 0; i < ids.length; i++) {
-            let data = firebase.database().ref(`conversations/${ids[i]}`).once('value', snapshot => {
-              let messages = snapshot.val() || {};              
-              let timestamps = Object.keys(messages);
-
-              if (timestamps.length === 0) {
-                this.setState({ unreadMessage: false });
-                return;
-              }
-
-              let lastMessage = messages[timestamps[timestamps.length - 1]];
-
-              if (lastMessage.sender !== user.userFB.id && !lastMessage.seen) {
-                this.setState({ unreadMessage: true });
-                return;
-              } else {
-                this.setState({ unreadMessage: false });
-              }
-            });
-          }
-        }
-      });
+      this.props.fetchFirebaseConversations(user);      
     }
   }
 
@@ -188,7 +100,7 @@ class App extends React.Component<Props, State> {
   public render() {
     return (
       <div className='home'>
-        <NavBar unreadMessage={this.state.unreadMessage} />
+        <NavBar />
           {this.props.children}
         <Footer />
       </div>

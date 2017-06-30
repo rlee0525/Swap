@@ -126,7 +126,7 @@ class Chat extends React.Component<Props, State> {
     this.ref.off();
 
     firebase.database().ref(`conversations/${conversation_id}`).once('value', snapshot => {
-      let messages = snapshot.val();
+      let messages = snapshot.val() || {};
 
       Object.keys(messages).forEach(time => {
         firebase.database().ref(`conversations/${conversation_id}/${time}/seen`).set(true);
@@ -144,14 +144,9 @@ class Chat extends React.Component<Props, State> {
       });
       this.props.fetchFirebaseConversations(this.props.user);
     })
-
-    
-
   }
 
   public render() : JSX.Element {
-    console.log(this.state);
-    
     if (this.state.loading) return <LoadingSpinner />
 
     let { currentConversation, conversations } = this.state;
