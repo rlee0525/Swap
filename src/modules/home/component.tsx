@@ -7,11 +7,6 @@ import { SearchNavbar } from 'modules/search/subcomponents';
 
 const categories = require('./categories.json');
 
-interface Props {
-  user : IUser;
-  search : (query : string) => void;
-}
-
 class Home extends React.Component<any, {}> {
   constructor(props) {
     super(props);
@@ -82,6 +77,9 @@ class Home extends React.Component<any, {}> {
                   viewDescription={this.viewDescription}
                   hideDescription={this.hideDescription}
                   category={category}
+                  user={this.props.user}
+                  chat={this.props.chat}
+                  fetchFirebaseConversations={this.props.fetchFirebaseConversations}
                 />
               ))}
             </div>
