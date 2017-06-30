@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router';
 import autoBind from 'react-autobind';
 
+import { IUser } from 'common/interfaces';
+
 interface Header {
   title: string;
   link: string;
@@ -9,8 +11,10 @@ interface Header {
 
 interface Props {
   headers: Header[];
+  user: IUser;
   active: string;
-  button: null | { title: string; action: any }
+  button: null | { title: string; action: any };
+  fetchFirebaseConversations: any;
 }
 
 interface State {
@@ -29,6 +33,7 @@ class DashboardHeaders extends React.Component<Props, State> {
   }
 
   changeTab(headerTitle) {
+    this.props.fetchFirebaseConversations(this.props.user);
     this.setState({ headerTitle });
   }
 

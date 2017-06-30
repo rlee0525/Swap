@@ -1,6 +1,7 @@
 export interface IStoreState {
   user : IUser | null;
   post : IPost | null;
+  chat: IChat | null;
   searchResult : ISearchResult;
   dashboard : IDashboard;
   currentQuery : ICurrentQuery;

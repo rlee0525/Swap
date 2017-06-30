@@ -2,7 +2,8 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'react-redux';
 
 import Dashboard from './component';
-import { IUser, IStoreState } from 'common/interfaces';
+import { IUser, IStoreState, IChat } from 'common/interfaces';
+import { fetchFirebaseConversations } from 'common/actions';
 import { fetchBookmarks, deleteBookmark,
          fetchMyPosts, deleteMyPost,
          fetchRfps, deleteRfps, receiveRfps,
@@ -11,6 +12,7 @@ import { fetchBookmarks, deleteBookmark,
 
 interface StateProps {
   user : IUser;
+  chat: IChat;
   dashboard: any;
 }
 
@@ -25,12 +27,14 @@ interface DispatchProps {
   fetchMyCourses: (accessToken: string) => void;
   deleteMyCourse: (id: number, accessToken: string) => void;
   fetchCourses: () => void;
-  postMyCourse : (description: string, accessToken: string) => JQueryPromise<void>;
+  postMyCourse: (description: string, accessToken: string) => JQueryPromise<void>;
+  fetchFirebaseConversations: (user: object) => void;
 }
 
 const mapStateToProps = (state: IStoreState, ownProp?: any): StateProps => ({
   user: state.user,
-  dashboard: state.dashboard
+  dashboard: state.dashboard,
+  chat: state.chat
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<IStoreState>): DispatchProps => ({
@@ -44,7 +48,8 @@ const mapDispatchToProps = (dispatch: Dispatch<IStoreState>): DispatchProps => (
   fetchMyCourses: accessToken => dispatch(fetchMyCourses(accessToken)),
   deleteMyCourse: (id, accessToken) => dispatch(deleteMyCourse(id, accessToken)),
   fetchCourses: () => dispatch(fetchCourses()),
-  postMyCourse: (description, accessToken) => dispatch(postMyCourse(description, accessToken))
+  postMyCourse: (description, accessToken) => dispatch(postMyCourse(description, accessToken)),
+  fetchFirebaseConversations: user => dispatch(fetchFirebaseConversations(user))
 });
 
 export default connect(

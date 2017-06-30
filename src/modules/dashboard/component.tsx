@@ -3,7 +3,7 @@ declare var $;
 import React from 'react';
 import { hashHistory } from 'react-router';
 
-import { IUser, IDashboard } from 'common/interfaces';
+import { IUser, IDashboard, IChat } from 'common/interfaces';
 import { DashboardHeaders, Bookmarks, MyPosts, Rfps, AlertForm, MyCourses } from './subcomponents';
 
 const data = require('./dashboard_data.json');
@@ -13,18 +13,20 @@ interface Props {
     search: string;
   },
   user: IUser;
+  chat: IChat;
   dashboard: IDashboard;
-  fetchBookmarks : (accessToken: string) => JQueryPromise<void>;
-  deleteBookmark : (id: number, accessToken: string) => JQueryPromise<void>;
-  fetchMyPosts : (accessToken: string) => JQueryPromise<void>;
-  deleteMyPost : (id: number, accessToken: string) => JQueryPromise<void>;
-  fetchRfps : (accessToken: string) => JQueryPromise<void>;
-  deleteRfps : (id: number, accessToken: string) => JQueryPromise<void>;
-  receiveRfps : (rfps: any) => void;
-  fetchMyCourses : (accessToken: string) => JQueryPromise<void>;
-  deleteMyCourse : (id: number, accessToken: string) => JQueryPromise<void>;
-  fetchCourses : () => JQueryPromise<void>;
-  postMyCourse : (description: string, accessToken: string) => JQueryPromise<void>;
+  fetchBookmarks: (accessToken: string) => JQueryPromise<void>;
+  deleteBookmark: (id: number, accessToken: string) => JQueryPromise<void>;
+  fetchMyPosts: (accessToken: string) => JQueryPromise<void>;
+  deleteMyPost: (id: number, accessToken: string) => JQueryPromise<void>;
+  fetchRfps: (accessToken: string) => JQueryPromise<void>;
+  deleteRfps: (id: number, accessToken: string) => JQueryPromise<void>;
+  receiveRfps: (rfps: any) => void;
+  fetchMyCourses: (accessToken: string) => JQueryPromise<void>;
+  deleteMyCourse: (id: number, accessToken: string) => JQueryPromise<void>;
+  fetchCourses: () => JQueryPromise<void>;
+  postMyCourse: (description: string, accessToken: string) => JQueryPromise<void>;
+  fetchFirebaseConversations: (user: object) => JQueryPromise<void>;
 }
 
 class Dashboard extends React.Component<Props, {}> {
@@ -107,6 +109,8 @@ class Dashboard extends React.Component<Props, {}> {
           headers={data.dashboardHeaders}
           active={page}
           button={button}
+          user={this.props.user}
+          fetchFirebaseConversations={this.props.fetchFirebaseConversations}
         />
         <AlertForm user={user} receiveRfps={this.props.receiveRfps} />
         { this.renderSubcomponent() }
