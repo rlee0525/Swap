@@ -1,8 +1,10 @@
 import { connect } from 'react-redux';
+
 import Infos from './component';
+import { IUser } from 'common/interfaces';
 
 interface StateProps {
-  user: any;
+  user: IUser;
 }
 
 const mapStateToProps = (state: any): StateProps => ({

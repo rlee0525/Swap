@@ -1,8 +1,10 @@
 import { connect } from 'react-redux';
+
 import PostForm from './component';
+import { IUser } from 'common/interfaces';
 
 interface StateProps {
-  user: any;
+  user: IUser;
 }
 
 const mapStateToProps = (state: any, ownProp?: any): StateProps => ({

@@ -1,12 +1,13 @@
+declare var $;
+
 import React from 'react';
 import autoBind from 'react-autobind';
+
 import { IUser } from 'common/interfaces';
 import { shortenString, timeFromNow } from 'helpers';
 import { LoadingSpinner, 
          SmallButton, 
          LargeButton } from 'common/components';
-
-declare var $;
 
 interface ICourse {
   id: number;

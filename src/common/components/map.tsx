@@ -1,5 +1,6 @@
-import React from 'react';
 declare var google;
+
+import React from 'react';
 
 interface MapItem {
   map: any;

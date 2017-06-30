@@ -1,11 +1,8 @@
 import React from 'react';
+
 import { PostDetail } from './subcomponents';
 
 class Post extends React.Component<any, any> {
-  constructor(props: any) {
-    super(props);
-  }
-
   public render() {
     let paddingBot = {
       paddingBottom: 20
@@ -23,6 +20,7 @@ class Post extends React.Component<any, any> {
           post={this.props.post}
           user={this.props.user}
           receivePost={this.props.receivePost}
+          fetchFirebaseConversations={this.props.fetchFirebaseConversations}
         />
       </div>
     );

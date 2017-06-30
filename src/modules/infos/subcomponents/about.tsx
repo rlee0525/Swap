@@ -1,10 +1,6 @@
 import React from 'react';
 
 class About extends React.Component<any, any> {
-  constructor(props) {
-    super(props);
-  }
-
   public render() {
     return (
       <div className="block app-price-plans">

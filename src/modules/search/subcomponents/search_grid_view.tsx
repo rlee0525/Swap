@@ -1,20 +1,24 @@
+declare var $;
+
 import React from 'react';
-import { IPost } from 'common/interfaces';
-import { Pagination } from './';
 import { merge } from 'lodash';
+
+import { Pagination } from './';
 import { LoadingSpinner } from 'common/components';
+import { IPost, IChat, IUser, 
+         ISearchResult, ICurrentQuery } from 'common/interfaces';
 import { shortenString,
          timeFromNow,
          getCategory } from 'helpers';
 
-declare var $;
-
 interface Props {
-  searchResult: any;
+  searchResult: ISearchResult;
   search: (query: object) => JQueryXHR;
   saveQuery: any;
-  currentQuery: any;
-  user: any;
+  currentQuery: ICurrentQuery;
+  user: IUser;
+  chat: IChat;
+  fetchFirebaseConversations: any;
 }
 
 class SearchGridView extends React.Component<Props, {}> {
@@ -26,10 +30,12 @@ class SearchGridView extends React.Component<Props, {}> {
   }
 
   public componentDidMount() {
-    $('.carousel').carousel('cycle')
+    $('.carousel').carousel('cycle');
     $('.carousel').carousel({
       interval: 2000
-    })
+    });
+    
+    this.props.user && this.props.fetchFirebaseConversations(this.props.user);
   }
 
   public componentWillMount() {

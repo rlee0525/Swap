@@ -1,4 +1,5 @@
 import { merge } from 'lodash';
+
 import { QueryAction, RECEIVE_QUERY } from "./actions";
 
 let _defaultState: object = {

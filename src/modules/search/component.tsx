@@ -1,7 +1,9 @@
 import React from 'react';
 import { merge } from 'lodash';
-import { IPost } from 'common/interfaces';
 import { withRouter, hashHistory, Link } from 'react-router';
+
+import { IUser, IPost, IChat, 
+         ISearchResult, ICurrentQuery } from 'common/interfaces';
 import { shortenString,
          capitalize,
          searchParams,
@@ -16,13 +18,15 @@ interface State {
 }
 
 interface Props {
-  user: any;
+  user: IUser;
+  chat: IChat;
   searchResult: any;
   search: (query: object) => JQueryXHR;
   location: any;
-  post: any;
-  currentQuery: any;
+  post: IPost;
+  currentQuery: ICurrentQuery;
   saveQuery: any;
+  fetchFirebaseConversations: any;
 }
 
 class Search extends React.Component<Props, State> {
@@ -90,13 +94,11 @@ class Search extends React.Component<Props, State> {
   }
 
   private renderView() {
-    let props = {
-      user: this.props.user,
-      searchResult: this.props.searchResult,
-      search: this.props.search,
-      currentQuery: this.props.currentQuery,
-      saveQuery: this.props.saveQuery
-    };
+    let { user, chat, searchResult, search, currentQuery, 
+          saveQuery, fetchFirebaseConversations } = this.props;
+
+    let props = { user, chat, searchResult, search, currentQuery, 
+                  saveQuery, fetchFirebaseConversations };
 
     if (this.props.currentQuery.viewType === 'grid') {
       return <SearchGridView {...props} />;
@@ -192,11 +194,13 @@ class Search extends React.Component<Props, State> {
               </div>
               { this.renderView() }
               <Pagination
+                user={this.props.user}
                 search={this.props.search}
                 saveQuery={this.props.saveQuery}
                 maxPages={this.props.searchResult.max_pages}
                 currentPage={this.props.currentQuery.page_idx}
                 currentQuery={this.props.currentQuery}
+                fetchFirebaseConversations={this.props.fetchFirebaseConversations}
               />
             </div>
           </div>

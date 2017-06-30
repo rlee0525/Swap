@@ -1,6 +1,7 @@
 export interface IStoreState {
   user : IUser | null;
   post : IPost | null;
+  chat: IChat | null;
   searchResult : ISearchResult;
   dashboard : IDashboard;
   currentQuery : ICurrentQuery;
@@ -51,6 +52,11 @@ export interface IUser {
   }
 }
 
+export interface IChat {
+  conversations : any;
+  unreadMessages : boolean;
+}
+
 export interface IDashboard {
   bookmarks : {
     fetched : boolean;
@@ -86,4 +92,5 @@ export interface ICurrentQuery {
 export interface ISearchResult {
   max_pages : number;
   posts : IPost[];
+  result_count: number;
 }

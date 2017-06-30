@@ -1,9 +1,10 @@
+declare var $;
+
 import React from 'react';
+
 import { IUser } from 'common/interfaces';
 import { shortenString, timeFromNow } from 'helpers';
 import { TableHeaders, LoadingSpinner, SmallButton } from 'common/components';
-
-declare var $;
 
 interface IRfps {
   id: number;

@@ -1,15 +1,11 @@
 import React from 'react';
-import { IUser } from 'common/interfaces';
-import { SearchNavbar } from 'modules/search/subcomponents';
-import { CategoryBox } from './subcomponents';
 import { merge } from 'lodash';
 
-const categories = require('./categories.json');
+import { IUser } from 'common/interfaces';
+import { CategoryBox } from './subcomponents';
+import { SearchNavbar } from 'modules/search/subcomponents';
 
-interface Props {
-  user : IUser;
-  search : (query : string) => void;
-}
+const categories = require('./categories.json');
 
 class Home extends React.Component<any, {}> {
   constructor(props) {
@@ -81,6 +77,9 @@ class Home extends React.Component<any, {}> {
                   viewDescription={this.viewDescription}
                   hideDescription={this.hideDescription}
                   category={category}
+                  user={this.props.user}
+                  chat={this.props.chat}
+                  fetchFirebaseConversations={this.props.fetchFirebaseConversations}
                 />
               ))}
             </div>

@@ -1,16 +1,19 @@
 import { combineReducers } from 'redux';
+
 import userReducer from 'core/navbar/reducer';
+import chatReducer from 'common/chatReducer';
 import postReducer from 'modules/post/reducer';
-import dashboardReducer from 'modules/dashboard/reducer';
 import queryReducer from 'modules/search/queryReducer';
+import dashboardReducer from 'modules/dashboard/reducer';
 import searchResultReducer from 'modules/search/searchResultReducer';
 
 const rootReducer = combineReducers({
-  searchResult: searchResultReducer,
-  post: postReducer,
-  user: userReducer,
+  chat: chatReducer,
+  currentQuery: queryReducer,
   dashboard: dashboardReducer,
-  currentQuery: queryReducer
+  post: postReducer,
+  searchResult: searchResultReducer,
+  user: userReducer
 });
 
 export default rootReducer;

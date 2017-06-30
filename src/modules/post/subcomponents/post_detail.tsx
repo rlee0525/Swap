@@ -1,14 +1,15 @@
+declare var $;
+
 import React from 'react';
-import autoBind from 'react-autobind';
-import Clipboard from 'clipboard';
 import * as moment from 'moment';
+import Clipboard from 'clipboard';
+import autoBind from 'react-autobind';
 import { hashHistory } from 'react-router';
+
 import { shortenString, timeFromNow } from 'helpers';
 import { MapItem, LoadingSpinner } from 'common/components';
 import { SearchNavbar } from 'modules/search/subcomponents';
-import { createConversation } from 'modules/chat/utils';
-
-declare var $;
+import { createConversation } from 'common/utils';
 
 class PostDetail extends React.Component<any, any> {
   constructor(props) {
@@ -32,6 +33,7 @@ class PostDetail extends React.Component<any, any> {
   public componentDidMount() {
     this.initializeClipboard();
     this.initializePost();
+    this.props.user && this.props.fetchFirebaseConversations(this.props.user);
   }
 
   public componentWillReceiveProps(nextProps) {

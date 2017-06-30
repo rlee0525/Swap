@@ -1,11 +1,12 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import { Store } from 'redux';
-import configureStore from './core/store';
-import Root from './core/root';
-import * as firebase from 'firebase';
-
 declare var window;
+
+import { Store } from 'redux';
+import * as React from 'react';
+import * as firebase from 'firebase';
+import * as ReactDOM from 'react-dom';
+
+import Root from './core/root';
+import configureStore from './core/store';
 
 window.start = user => {
   const root: HTMLElement = document.getElementById('root');

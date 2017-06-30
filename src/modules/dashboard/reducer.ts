@@ -1,4 +1,5 @@
 import { merge } from 'lodash';
+
 import { DASHBOARD } from "./actions";
 
 let _defaultState = {

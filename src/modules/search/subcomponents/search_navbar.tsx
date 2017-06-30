@@ -1,11 +1,12 @@
+declare var window;
+
 import React from 'react';
 import { merge } from 'lodash';
 import autoBind from 'react-autobind';
 import { hashHistory } from 'react-router';
+
 import { searchParams, getCategory } from 'helpers';
 import { IUser, ISearchResult, ICurrentQuery } from 'common/interfaces';
-
-declare var window;
 
 interface Props {
   search(query: object) : void;

@@ -1,4 +1,5 @@
 import { merge } from 'lodash';
+
 import { Action, RECEIVE_USER } from "./actions";
 
 let _defaultState = null;

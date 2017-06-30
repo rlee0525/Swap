@@ -1,11 +1,11 @@
-import React from 'react';
-import autoBind from 'react-autobind';
-import { withRouter } from 'react-router';
-import { LargeButton } from 'common/components';
+declare var $, FB, window;
 
-declare var $;
-declare var FB;
-declare var window;
+import React from 'react';
+import { values } from 'lodash';
+import autoBind from 'react-autobind';
+import { Link, withRouter } from 'react-router';
+
+import { LargeButton } from 'common/components';
 
 class NavBar extends React.Component<any, any> {
   constructor(props: any) {
@@ -117,13 +117,29 @@ class NavBar extends React.Component<any, any> {
       url: `api/users/${accessToken}`
     }).then(obj => {
       if (obj.edu_email_confirmed) {
+        this.fetchConversation();
         this.props.router.push(address);
       } else if (obj.edu_email === null) {
         $('#emailInputModal').modal('show');
       } else {
         $('#emailVerificationModal').modal('show');
       }
-    }).fail(() => FB.logout(res => console.log(res)))
+    }).fail(() => FB.logout(res => console.log(res)));
+  }
+
+  private checkBrowseVerified(e: any) {
+    if (this.props.user) {
+      const accessToken = this.props.user.auth.accessToken;
+
+      $.ajax({
+        method: "GET",
+        url: `api/users/${accessToken}`
+      }).then(obj => {
+        if (obj.edu_email_confirmed) {
+          this.fetchConversation();
+        }
+      }).fail(() => FB.logout(res => console.log(res)));
+    }
   }
 
   public loginStatus() {
@@ -137,12 +153,12 @@ class NavBar extends React.Component<any, any> {
       return (
         <div className="navbar-collapse collapse" id={id}>
           <ul className="nav navbar-nav navbar-right">
-            <li><a href="/#/recent">Browse</a></li>
+            <li><Link to="/recent" onClick={this.checkBrowseVerified}>Browse</Link></li>
             <li><a id="dashboard" onClick={(e) => this.checkVerified(e)}>Dashboard</a></li>
             <li>
               <a id="messages" onClick={(e) => this.checkVerified(e)}>
                 Messages
-                {this.props.unreadMessage && 
+                {this.props.chat && this.props.chat.unreadMessage &&
                   <div className='noti unread' id='unread-noti' />}
               </a>
             </li>
@@ -154,13 +170,17 @@ class NavBar extends React.Component<any, any> {
       return (
         <div className="navbar-collapse collapse" id={id}>
           <ul className="nav navbar-nav navbar-right">
-            <li><a href="/#/recent">Browse</a></li>
+            <li><Link to="/recent">Browse</Link></li>
             <li><a onClick={this.chooseModal}>Sign Up</a></li>
             <li><a onClick={this.chooseModal}>Log In</a></li>
           </ul>
         </div>
       );
     }
+  }
+
+  private fetchConversation() {
+    this.props.user && this.props.fetchFirebaseConversations(this.props.user);
   }
 
   public render() {
@@ -187,9 +207,9 @@ class NavBar extends React.Component<any, any> {
                 <span className="icon-bar" />
                 <span className="icon-bar" />
               </button>
-              <a className="navbar-brand" href="#">
+              <Link to="/" className="navbar-brand" onClick={this.fetchConversation}>
                 <span>Swap</span>
-              </a>
+              </Link>
             </div>
             {this.checkUserStatus("navbar-collapse")}
           </div>
@@ -208,9 +228,9 @@ class NavBar extends React.Component<any, any> {
                 <span className="icon-bar" />
                 <span className="icon-bar" />
               </button>
-              <a className="navbar-brand" href="#">
+              <Link to="/" className="navbar-brand" onClick={this.fetchConversation}>
                 <span>Swap</span>
-              </a>
+              </Link>
             </div>
             {this.checkUserStatus("navbar-collapse2")}
           </div>

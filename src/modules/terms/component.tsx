@@ -1,10 +1,6 @@
 import React from 'react';
 
 class Terms extends React.Component<any, any> {
-  constructor(props) {
-    super(props);
-  }
-
   public render() {
     return (
       <div>
