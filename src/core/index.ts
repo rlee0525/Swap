@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import App from './component';
 import { receiveUser } from './navbar/actions';
 import { IUser, IPost, IChat } from 'common/interfaces';
-import { fetchFirebaseConversations } from 'modules/chat/actions';
+import { fetchFirebaseConversations } from 'common/actions';
 
 interface StateProps {
   user: IUser;

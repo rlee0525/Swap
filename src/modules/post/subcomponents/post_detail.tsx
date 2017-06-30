@@ -9,7 +9,7 @@ import { hashHistory } from 'react-router';
 import { shortenString, timeFromNow } from 'helpers';
 import { MapItem, LoadingSpinner } from 'common/components';
 import { SearchNavbar } from 'modules/search/subcomponents';
-import { createConversation } from 'modules/chat/utils';
+import { createConversation } from 'common/utils';
 
 class PostDetail extends React.Component<any, any> {
   constructor(props) {

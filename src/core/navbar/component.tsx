@@ -1,6 +1,4 @@
-declare var $;
-declare var FB;
-declare var window;
+declare var $, FB, window;
 
 import React from 'react';
 import { values } from 'lodash';
@@ -24,10 +22,6 @@ class NavBar extends React.Component<any, any> {
     this.initializeNavbarFade();
     this.reinitializeFB();
   }
-
-  // public componentWillReceiveProps(newProps) {
-  //   this.props.fetchFirebaseConversations(newProps.user);
-  // }
 
   // necessary for getting the FB button to load
   public reinitializeFB() {

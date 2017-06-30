@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import Chat from './component';
-import { fetchFirebaseConversations } from './actions';
+import { fetchFirebaseConversations } from 'common/actions';
 import { IUser, IPost, IChat } from 'common/interfaces';
 
 interface StateProps {
