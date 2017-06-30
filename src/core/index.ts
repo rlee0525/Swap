@@ -1,12 +1,14 @@
 import { connect } from 'react-redux';
-import App from './component';
 
+import App from './component';
 import { receiveUser } from './navbar/actions';
 import { fetchFirebaseConversations } from 'modules/chat/actions';
+import { IUser, IPost, IChat } from 'common/interfaces';
 
 interface StateProps {
-  user: any;
-  post: object;
+  user: IUser;
+  post: IPost;
+  chat: IChat;
 }
 
 interface DispatchProps {
@@ -15,6 +17,7 @@ interface DispatchProps {
 }
 
 const mapStateToProps = (state: any, ownProp?: any): StateProps => ({
+  chat: state.chat,
   user: state.user,
   post: state.post
 });

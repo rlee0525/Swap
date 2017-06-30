@@ -51,6 +51,11 @@ export interface IUser {
   }
 }
 
+export interface IChat {
+  conversations : any;
+  unreadMessages : boolean;
+}
+
 export interface IDashboard {
   bookmarks : {
     fetched : boolean;
