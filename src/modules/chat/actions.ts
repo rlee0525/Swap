@@ -1,4 +1,5 @@
 declare var Promise;
+
 import * as firebase from 'firebase';
 import { values } from 'lodash';
 
@@ -42,10 +43,13 @@ export const fetchFirebaseConversations = user => dispatch => (
           let messages = conversationObj[conversationId].messages;
           let latestTime = Math.max(... Object.keys(messages).map(time => Number(time)));
           
-          if (messages[latestTime].sender !== user.userFB.id && !messages[latestTime].seen) {
-            unreadMessage = true;
-            conversationObj[conversationId].hasUnreadMessages = true;
-          }
+          if (messages[latestTime] && 
+              messages[latestTime].sender !== user.userFB.id && 
+              !messages[latestTime].seen) 
+              {
+                unreadMessage = true;
+                conversationObj[conversationId].hasUnreadMessages = true;
+              }
         })
 
         dispatch(receiveReceipt(unreadMessage));

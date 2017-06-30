@@ -167,6 +167,7 @@ class NavBar extends React.Component<any, any> {
   private checkUnreadMessages() {
     let { chat } = this.props;
     let { conversations } = chat;
+    
     return values(conversations).filter((conversation : any) => conversation.hasUnreadMessages).length > 0;
   } 
 
