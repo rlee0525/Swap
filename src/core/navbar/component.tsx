@@ -124,7 +124,22 @@ class NavBar extends React.Component<any, any> {
       } else {
         $('#emailVerificationModal').modal('show');
       }
-    }).fail(() => FB.logout(res => console.log(res)))
+    }).fail(() => FB.logout(res => console.log(res)));
+  }
+
+  private checkBrowseVerified(e: any) {
+    if (this.props.user) {
+      const accessToken = this.props.user.auth.accessToken;
+
+      $.ajax({
+        method: "GET",
+        url: `api/users/${accessToken}`
+      }).then(obj => {
+        if (obj.edu_email_confirmed) {
+          this.fetchConversation();
+        }
+      }).fail(() => FB.logout(res => console.log(res)));
+    }
   }
 
   public loginStatus() {
@@ -138,7 +153,7 @@ class NavBar extends React.Component<any, any> {
       return (
         <div className="navbar-collapse collapse" id={id}>
           <ul className="nav navbar-nav navbar-right">
-            <li><Link to="/recent">Browse</Link></li>
+            <li><Link to="/recent" onClick={this.checkBrowseVerified}>Browse</Link></li>
             <li><a id="dashboard" onClick={(e) => this.checkVerified(e)}>Dashboard</a></li>
             <li>
               <a id="messages" onClick={(e) => this.checkVerified(e)}>
