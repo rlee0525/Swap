@@ -29,6 +29,7 @@ export const fetchFirebaseConversations = user => dispatch => (
       conversationIds.forEach(id => {
         let data = firebaseDB.ref(`conversations/${id}`).once('value', snapshot => {
           conversationObj[id].messages = snapshot.val() || {};
+          conversationObj[id].hasUnreadMessages = false;
         });
 
         dataNeeded.push(data);
@@ -37,16 +38,15 @@ export const fetchFirebaseConversations = user => dispatch => (
       Promise.all(dataNeeded).then(() => {
         let unreadMessage = false;
 
-        values(conversationObj).forEach((conversation : any) => {
-          let { messages } = conversation;
-          
+        Object.keys(conversationObj).forEach((conversationId) => {
+          let messages = conversationObj[conversationId].messages;
           let latestTime = Math.max(... Object.keys(messages).map(time => Number(time)));
-
+          
           if (messages[latestTime].sender !== user.userFB.id && !messages[latestTime].seen) {
             unreadMessage = true;
-            return;
+            conversationObj[conversationId].hasUnreadMessages = true;
           }
-        });
+        })
 
         dispatch(receiveReceipt(unreadMessage));
         dispatch(receiveConversations(conversationObj));

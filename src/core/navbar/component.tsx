@@ -1,11 +1,12 @@
-import React from 'react';
-import autoBind from 'react-autobind';
-import { withRouter } from 'react-router';
-import { LargeButton } from 'common/components';
-
 declare var $;
 declare var FB;
 declare var window;
+
+import React from 'react';
+import autoBind from 'react-autobind';
+import { withRouter } from 'react-router';
+import { values } from 'lodash';
+import { LargeButton } from 'common/components';
 
 class NavBar extends React.Component<any, any> {
   constructor(props: any) {
@@ -142,7 +143,7 @@ class NavBar extends React.Component<any, any> {
             <li>
               <a id="messages" onClick={(e) => this.checkVerified(e)}>
                 Messages
-                {this.props.unreadMessage && 
+                {this.checkUnreadMessages() && 
                   <div className='noti unread' id='unread-noti' />}
               </a>
             </li>
@@ -162,6 +163,12 @@ class NavBar extends React.Component<any, any> {
       );
     }
   }
+
+  private checkUnreadMessages() {
+    let { chat } = this.props;
+    let { conversations } = chat;
+    return values(conversations).filter((conversation : any) => conversation.hasUnreadMessages).length > 0;
+  } 
 
   public render() {
     $('.navbar-collapse a').click(function(){

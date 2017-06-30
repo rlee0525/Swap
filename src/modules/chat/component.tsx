@@ -21,7 +21,7 @@ interface Props {
 
 interface State {
   loading: boolean;
-  unreadMessages: boolean;
+  unreadMessage: boolean;
   message: string;
   conversations: any;
   currentConversation: string;
@@ -37,7 +37,7 @@ class Chat extends React.Component<Props, State> {
       conversations: {},
       currentConversation: null,
       message: '',
-      unreadMessages: false
+      unreadMessage: false
     }
 
     autoBind(this);
@@ -59,15 +59,22 @@ class Chat extends React.Component<Props, State> {
   public componentWillReceiveProps(newProps) {
     if (newProps.chat.conversations) {
       let conversations = newProps.chat.conversations;
-      let unreadMessages = newProps.chat.unreadMessages;
-      let currentConversation = Object.keys(conversations)[0];
+      let unreadMessage = newProps.chat.unreadMessage;
+      let currentConversation;
+
+      if (!this.state.currentConversation) {
+        currentConversation = Object.keys(conversations)[0];
+      } else {
+        currentConversation = this.state.currentConversation;
+      }
+      
       this.ref = firebase.database().ref(`conversations/${currentConversation}`); 
 
       this.setState({
         conversations,
         currentConversation,
         loading: false,
-        unreadMessages
+        unreadMessage
       });
     }
   }
@@ -117,25 +124,28 @@ class Chat extends React.Component<Props, State> {
   private changeConversation(conversation_id) {
     this.ref.off();
 
-    // connect to firebase and listens for messages
-    this.ref = firebase.database().ref(`conversations/${conversation_id}`); 
-    
-    this.ref.once('value', snapshot => {
-      let messages = snapshot.val() || {};
+    firebase.database().ref(`conversations/${conversation_id}`).once('value', snapshot => {
+      let messages = snapshot.val();
 
-      this.setState({ 
+      Object.keys(messages).forEach(time => {
+        firebase.database().ref(`conversations/${conversation_id}/${time}/seen`).set(true);
+      });
+
+      this.setState({
         currentConversation: conversation_id,
         conversations: {
           ...this.state.conversations,
           [conversation_id]: {
             ...this.state.conversations[conversation_id],
-            messages: messages
+            hasUnreadMessages: false
           }
-        },
+        }
+      });
+      this.props.fetchFirebaseConversations(this.props.user);
+    })
 
-        loading: false
-      }); 
-    });
+    
+
   }
 
   public render() : JSX.Element {

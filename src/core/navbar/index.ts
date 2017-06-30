@@ -1,9 +1,11 @@
 import { connect } from 'react-redux';
 import NavBar from './component';
 import { receiveUser } from './actions';
+import { IUser, IChat } from 'common/interfaces';
 
 interface StateProps {
-  user: any;
+  user: IUser;
+  chat: IChat;
 }
 
 interface DispatchProps {
@@ -11,7 +13,8 @@ interface DispatchProps {
 }
 
 const mapStateToProps = (state: any, ownProp?: any): StateProps => ({
-  user: state.user
+  user: state.user,
+  chat: state.chat
 });
 
 const mapDispatchToProps = (dispatch: any): DispatchProps => ({
