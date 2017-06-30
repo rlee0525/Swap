@@ -5,8 +5,8 @@ import { merge } from 'lodash';
 
 import { Pagination } from './';
 import { LoadingSpinner } from 'common/components';
-import { IPost, ISearchResult, 
-         IUser, ICurrentQuery } from 'common/interfaces';
+import { IPost, IChat, IUser, 
+         ISearchResult, ICurrentQuery } from 'common/interfaces';
 import { shortenString,
          timeFromNow,
          getCategory } from 'helpers';
@@ -17,6 +17,8 @@ interface Props {
   saveQuery: any;
   currentQuery: ICurrentQuery;
   user: IUser;
+  chat: IChat;
+  fetchFirebaseConversations: any;
 }
 
 class SearchGridView extends React.Component<Props, {}> {
@@ -28,10 +30,12 @@ class SearchGridView extends React.Component<Props, {}> {
   }
 
   public componentDidMount() {
-    $('.carousel').carousel('cycle')
+    $('.carousel').carousel('cycle');
     $('.carousel').carousel({
       interval: 2000
-    })
+    });
+    
+    this.props.user && this.props.fetchFirebaseConversations(this.props.user);
   }
 
   public componentWillMount() {

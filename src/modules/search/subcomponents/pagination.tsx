@@ -3,13 +3,23 @@ declare var $;
 import _ from 'lodash';
 import React from 'react';
 import { merge } from 'lodash';
+import autoBind from 'react-autobind';
 
 class Pagination extends React.Component<any, any> {
   constructor(props) {
     super(props);
 
-    this.setCurrentPage = this.setCurrentPage.bind(this)
-    this.goPrevNext = this.goPrevNext.bind(this)
+    autoBind(this);
+  }
+
+  public componentDidMount() {
+    this.props.user && this.props.fetchFirebaseConversations(this.props.user);
+  }
+
+  public componentWillReceiveProps(newProps) {
+    if (this.props.currentPage != newProps.currentPage) {
+      this.props.user && this.props.fetchFirebaseConversations(this.props.user);
+    }
   }
 
   public goPrevNext(polarity) {

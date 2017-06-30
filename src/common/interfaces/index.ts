@@ -92,4 +92,5 @@ export interface ICurrentQuery {
 export interface ISearchResult {
   max_pages : number;
   posts : IPost[];
+  result_count: number;
 }

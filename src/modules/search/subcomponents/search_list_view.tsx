@@ -5,8 +5,8 @@ import { merge } from 'lodash';
 
 import { Pagination } from './';
 import { LoadingSpinner } from 'common/components';
-import { IPost, ISearchResult, 
-         IUser, ICurrentQuery } from 'common/interfaces';
+import { IPost, IUser, IChat,
+         ISearchResult, ICurrentQuery } from 'common/interfaces';
 import { shortenString,
          timeFromNow,
          getCategory } from 'helpers';
@@ -18,6 +18,8 @@ interface Props {
   saveQuery: any;
   currentQuery: ICurrentQuery;
   user: IUser;
+  chat: IChat;
+  fetchFirebaseConversations: any;
 }
 
 class SearchListView extends React.Component<Props, any> {
@@ -42,6 +44,8 @@ class SearchListView extends React.Component<Props, any> {
     } else {
       this.props.search(nextQuery);
     }
+
+    this.props.user && this.props.fetchFirebaseConversations(this.props.user);
   }
 
   renderListItem(post: IPost, idx: number) {

@@ -1,15 +1,16 @@
 import { connect, Dispatch } from 'react-redux';
 
 import Home from './component';
-import { IUser, IStoreState, IChat } from 'common/interfaces';
+import { IUser, IStoreState, IChat, 
+         ISearchResult, ICurrentQuery } from 'common/interfaces';
 import { search, saveQuery } from 'modules/search/actions';
 import { fetchFirebaseConversations } from 'common/actions';
 
 interface StateProps {
   user: IUser;
   chat: IChat;
-  searchResult: any;
-  currentQuery: any;
+  searchResult: ISearchResult;
+  currentQuery: ICurrentQuery;
 }
 
 interface DispatchProps {
