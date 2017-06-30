@@ -33,6 +33,7 @@ class PostDetail extends React.Component<any, any> {
   public componentDidMount() {
     this.initializeClipboard();
     this.initializePost();
+    this.props.user && this.props.fetchFirebaseConversations(this.props.user);
   }
 
   public componentWillReceiveProps(nextProps) {

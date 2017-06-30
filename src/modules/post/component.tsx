@@ -20,6 +20,7 @@ class Post extends React.Component<any, any> {
           post={this.props.post}
           user={this.props.user}
           receivePost={this.props.receivePost}
+          fetchFirebaseConversations={this.props.fetchFirebaseConversations}
         />
       </div>
     );
