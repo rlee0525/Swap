@@ -1,7 +1,9 @@
 import React from 'react';
 import { merge } from 'lodash';
+import autoBind from 'react-autobind';
 import { withRouter, hashHistory, Link } from 'react-router';
 
+import { LoadingSpinner } from 'common/components';
 import { IUser, IPost, IChat, 
          ISearchResult, ICurrentQuery } from 'common/interfaces';
 import { shortenString,
@@ -15,6 +17,7 @@ import { SearchGridView,
 
 interface State {
   categories: any;
+  isLoading: boolean;
 }
 
 interface Props {
@@ -38,10 +41,11 @@ class Search extends React.Component<Props, State> {
         "All", "Course Material", "Furniture", "Clothing",
         "Electronics", "Housing", "Bikes", "Games", "Others",
         "Lost & Found", "My Course Material"
-      ]
+      ],
+      isLoading: true
     };
 
-    this.renderCategoryMenu = this.renderCategoryMenu.bind(this);
+    autoBind(this);
   }
 
   public componentWillMount() {
@@ -56,7 +60,9 @@ class Search extends React.Component<Props, State> {
       nextQuery = merge({}, nextQuery, { access_token });
     }
 
-    this.props.search(nextQuery);
+    this.props.search(nextQuery).then(
+      res => this.setState({ isLoading: false })
+    );
     this.props.saveQuery(nextQuery);
   }
 
@@ -117,7 +123,9 @@ class Search extends React.Component<Props, State> {
     $('#search-query').focus();
   }
 
-  public render() {    
+  public render() {
+    if (this.state.isLoading) return <LoadingSpinner />;
+
     let path = this.props.location.pathname.slice(1);
     let category = this.props.currentQuery.category;
     let label = category;

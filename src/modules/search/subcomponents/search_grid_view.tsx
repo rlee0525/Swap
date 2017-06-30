@@ -2,6 +2,7 @@ declare var $;
 
 import React from 'react';
 import { merge } from 'lodash';
+import autoBind from 'react-autobind';
 
 import { Pagination } from './';
 import { LoadingSpinner } from 'common/components';
@@ -21,12 +22,19 @@ interface Props {
   fetchFirebaseConversations: any;
 }
 
-class SearchGridView extends React.Component<Props, {}> {
+interface State {
+  isLoading: boolean;
+}
+
+class SearchGridView extends React.Component<Props, State> {
   constructor(props) {
     super(props);
 
-    this.sort_by = this.sort_by.bind(this);
-    this.translateSortLabels = this.translateSortLabels.bind(this);
+    this.state = {
+      isLoading: true
+    };
+
+    autoBind(this);
   }
 
   public componentDidMount() {
@@ -40,12 +48,17 @@ class SearchGridView extends React.Component<Props, {}> {
 
   public componentWillMount() {
     let nextQuery = this.props.currentQuery;
+
     if (this.props.currentQuery.category === "My Course Material" && this.props.user) {
       const access_token = this.props.user.auth.accessToken;
       nextQuery = merge({}, nextQuery, {access_token});
-      this.props.search(nextQuery);
+      this.props.search(nextQuery).then(
+        res => this.setState({ isLoading: false })
+      );
     } else {
-      this.props.search(nextQuery);
+      this.props.search(nextQuery).then(
+        res => this.setState({ isLoading: false })
+      );
     }
   }
 
@@ -153,6 +166,8 @@ class SearchGridView extends React.Component<Props, {}> {
 
 
   render() {
+    if (this.state.isLoading) return <LoadingSpinner />;
+
     let results;
 
     if (this.props.searchResult.posts) {
