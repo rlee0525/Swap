@@ -169,7 +169,7 @@ class Chat extends React.Component<Props, State> {
           <div className={width > 414 ? 'chat-conversations-title' : 'hidden'}>
             Messages
           </div>
-          { values(conversations).map((conversation : any) => (
+          {values(conversations).map((conversation : any) => (
             <ConversationItem
               key={conversation.conversation_id}
               hasUnreadMessages={conversation.hasUnreadMessages}

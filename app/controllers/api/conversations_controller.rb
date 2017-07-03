@@ -15,8 +15,9 @@ class Api::ConversationsController < ApplicationController
   end
 
   def create
-    conversation = Conversation.find_by(conversation_id: params[:conversation][:conversation_id])
-    if conversation
+    conversations = Conversation.where(conversation_id: params[:conversation][:conversation_id])
+    if conversations
+      conversations.update_all(archived: false)
       render json: ['already exists']
       return
     end
