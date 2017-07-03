@@ -25,7 +25,9 @@ class Messages extends React.Component<Props, {}> {
           let receipt = null;
 
           if (!isMyMessage && !currentMessage.seen) {
-            firebase.database().ref(`conversations/${conversation.conversation_id}/${timestamp}/seen`).set(true); 
+            firebase.database()
+                    .ref(`conversations/${conversation.conversation_id}/${timestamp}/seen`)
+                    .set(true); 
           }
 
           if (isMyMessage && !currentMessage.seen && !renderedDelivered) {
@@ -42,7 +44,10 @@ class Messages extends React.Component<Props, {}> {
             <div className={`chat-message`}>
               <div className={`chat-message-body ${isMyMessage ? 'mine-message' : 'other-message'}`}>
                 <span>{ conversation.messages[timestamp].message }</span>
-                <img src={isMyMessage ? user.userFB.picture.data.url : conversation.other_user_info.fb_picture } />
+                <img src={isMyMessage ? 
+                            user.userFB.picture.data.url : 
+                            conversation.other_user_info.fb_picture } 
+                />
               </div>
 
               { receipt }
@@ -50,7 +55,9 @@ class Messages extends React.Component<Props, {}> {
           )
         })}
 
-        <div id="messages-warning">Real-time messaging isn't available yet. Refresh the page to check for updates.</div>
+        <div id="messages-warning">
+          Conversation with {`${conversation.other_user_info.first_name} ${conversation.other_user_info.last_name}`}
+        </div>
       </div>
     );
   }
