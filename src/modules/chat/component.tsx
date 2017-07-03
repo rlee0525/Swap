@@ -161,9 +161,9 @@ class Chat extends React.Component<Props, State> {
     let width = window.innerWidth;
 
     return (
-      <div className="container chat-container">
-        <div className={width > 414 ? "chat-conversations" : "chat-conversations hidden"}>
-          <div className='chat-conversations-title'>
+      <div className={`container chat-container ${width <= 414 && 'mobile-chat-container'}`}>
+        <div className={`chat-conversations ${width <= 414 && 'mobile-conversations'}`}>
+          <div className={width > 414 ? 'chat-conversations-title' : 'hidden'}>
             Messages
           </div>
           { values(conversations).map((conversation : any) => (
@@ -198,7 +198,7 @@ class Chat extends React.Component<Props, State> {
           </div>
         </div>
       </div>
-    );
+    )
   }
 }
 
