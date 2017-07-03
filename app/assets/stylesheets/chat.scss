@@ -159,6 +159,35 @@
   padding: 0 10px 10px 10px;
 }
 
+// Responsive chat conversations
+@keyframes slideOut {
+  0% {
+    left: 0px;
+  }
+  100% {
+    left: -240px;
+  }
+}
+
+.offscreen {
+  z-index: 110 !important;
+  animation-name: slideOut;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  animation-duration: 0.2s;
+}
+
+@keyframes slideIn {
+  0% {
+    left: -240px;
+  }
+  100% {
+    left: 0px;
+  }
+}
+
+
+
 @media screen and (max-width: 768px) {
   .chat-name-1 {
     display: none !important;

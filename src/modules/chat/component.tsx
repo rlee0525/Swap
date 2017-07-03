@@ -158,10 +158,11 @@ class Chat extends React.Component<Props, State> {
 
     let { currentConversation, conversations } = this.state;
     let { user } = this.props;
+    let width = window.innerWidth;
 
     return (
       <div className="container chat-container">
-        <div className="chat-conversations">
+        <div className={width > 414 ? "chat-conversations" : "chat-conversations hidden"}>
           <div className='chat-conversations-title'>
             Messages
           </div>
