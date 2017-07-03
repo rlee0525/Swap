@@ -1,6 +1,7 @@
 declare var $, Promise;
 
 import React from 'react';
+import autosize from 'autosize';
 import * as firebase from 'firebase';
 import autoBind from 'react-autobind';
 import { keyBy, values } from 'lodash';
@@ -159,6 +160,8 @@ class Chat extends React.Component<Props, State> {
     let { currentConversation, conversations } = this.state;
     let { user } = this.props;
     let width = window.innerWidth;
+
+    autosize($('textarea'));
 
     return (
       <div className={`container chat-container ${width <= 414 && 'mobile-chat-container'}`}>
