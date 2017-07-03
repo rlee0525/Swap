@@ -7,6 +7,7 @@ import autoBind from 'react-autobind';
 import { keyBy, values } from 'lodash';
 
 import { IUser } from 'common/interfaces';
+import { createConversation } from 'common/utils';
 import { LoadingSpinner } from 'common/components';
 import { Messages, ConversationItem } from './subcomponents';
 
@@ -113,6 +114,7 @@ class Chat extends React.Component<Props, State> {
       }
     });
 
+    createConversation(currentConversation, user.userFB.id);
     firebase.database().ref(`conversations/${currentConversation}/${time}`).set(messageObj);
   }
 
@@ -159,10 +161,10 @@ class Chat extends React.Component<Props, State> {
 
     let { currentConversation, conversations } = this.state;
     let { user } = this.props;
-    let width = window.innerWidth;
+    let width = window.innerWidth;    
 
     autosize($('textarea'));
-
+  
     return (
       <div className={`container chat-container ${width <= 414 && 'mobile-chat-container'}`}>
         <div className={`chat-conversations ${width <= 414 && 'mobile-conversations'}`}>
@@ -174,8 +176,11 @@ class Chat extends React.Component<Props, State> {
               key={conversation.conversation_id}
               hasUnreadMessages={conversation.hasUnreadMessages}
               active={currentConversation === conversation.conversation_id}
-              user={conversation.other_user_info}
+              otherUser={conversation.other_user_info}
+              user={user}
               changeConversation={() => this.changeConversation(conversation.conversation_id)}
+              conversationId={conversation.conversation_id}
+              fetchFirebaseConversations={this.props.fetchFirebaseConversations}
             />
           ))}
         </div>

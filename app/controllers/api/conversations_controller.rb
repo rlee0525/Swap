@@ -3,7 +3,7 @@ class Api::ConversationsController < ApplicationController
     user = fb_auth_user(params[:access_token])
     user_id = user.fb_id
 
-    @conversations = user.conversations.as_json
+    @conversations = user.conversations.where(archived: false).as_json
 
     @conversations.each_with_index do |conversation, idx|
       other_user_id = conversation['conversation_id'].sub(user_id, '').sub('-','')
@@ -16,7 +16,7 @@ class Api::ConversationsController < ApplicationController
 
   def create
     conversations = Conversation.where(conversation_id: params[:conversation][:conversation_id])
-    if conversations
+    unless conversations.empty?
       conversations.update_all(archived: false)
       render json: ['already exists']
       return
@@ -31,7 +31,7 @@ class Api::ConversationsController < ApplicationController
   end
 
   def destroy
-    @conversation = Conversation.find_by(id: params[:id], user_id: params[:user_id])
+    @conversation = Conversation.find_by(conversation_id: params[:conversation_id], user_id: params[:user_id])
     @conversation.archived = true
     @conversation.save
     render json: ['success']
@@ -40,6 +40,6 @@ class Api::ConversationsController < ApplicationController
   private
 
   def conversation_params 
-    params.require(:conversation).permit(:conversation_id, :user_id, :achived)
+    params.require(:conversation).permit(:conversation_id, :user_id, :archived)
   end
 end
