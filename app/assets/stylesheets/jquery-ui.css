@@ -596,3 +596,9 @@ a.ui-button:active,
 #dialog-confirm {
 	display: none;
 }
+@media screen and (max-width: 414px) {
+	.ui-dialog {
+		width: 95% !important;
+		margin: 0 auto;
+	}
+}
