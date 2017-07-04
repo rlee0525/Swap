@@ -72,8 +72,12 @@ class ConversationItem extends React.Component<Props, any> {
         className={`conversation-item ${active ? 'active-chat' : ''} ${width <= 414 && 'mobile-c-item'}`} 
         onClick={changeConversation}
       >
-        { hasUnreadMessages ? <div className='noti unread noti-size' /> : <div className='noti noti-size' /> }
-        <img src={otherUser.fb_picture} alt='Profile Picture' />
+        <div className={width > 414 ? `noti-container` : `mobile-noti-container`}>
+          { hasUnreadMessages ? <div className='noti unread' /> : <div className='noti' /> }
+        </div>
+        <div className="img-container">
+          <img src={otherUser.fb_picture} alt='Profile Picture' />
+        </div>
         <div className={`chat-info-container ${width <= 414 && "mobile-i-container"}`}>
           <span className="chat-name-1">
             {shortenString(name, 15)}
@@ -93,11 +97,13 @@ class ConversationItem extends React.Component<Props, any> {
             onClick={e => this.archiveMessage(e, conversationId)}
           />
         </div>
-        <span 
-          className={`glyphicon glyphicon-remove ${width > 414 ? "hidden" : "mobile-archive"}`}
-          aria-hidden="true"
-          onClick={e => this.archiveMessage(e, conversationId)}
-        />
+        <div className="archive-container">
+          <span 
+            className={`glyphicon glyphicon-remove ${width > 414 ? "hidden" : "mobile-archive"}`}
+            aria-hidden="true"
+            onClick={e => this.archiveMessage(e, conversationId)}
+          />
+        </div>
 
         <div className="no-display" id="dialog-confirm">
           Archive this message?

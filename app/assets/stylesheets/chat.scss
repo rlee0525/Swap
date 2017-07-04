@@ -9,8 +9,7 @@
   flex: 1;
   flex-direction: column;
   justify-content: flex-start;
-  min-width: 100px;
-  // padding: 15px;
+  min-width: 200px;
 
   .chat-conversations-title {
     font-size: 16px;
@@ -164,9 +163,6 @@
   .chat-name-1 {
     display: none !important;
   }
-  .chat-name-2 {
-    display: none !important;
-  }
 }
 
 @media screen and (min-width: 769px) {
@@ -253,20 +249,9 @@
   border-top: none !important;
 }
 
-@media screen and (min-width: 707px) {
-  .noti-size {
-    width: 21px !important;
-  }
-}
-
-@media screen and (min-width: 992px) {
-  .noti-size {
-    width: 17px !important;
-  }
-}
-
-@media screen and (min-width: 1200px) {
-  .noti-size {
-    width: 15px !important;
-  }
+.mobile-noti-container {
+  display: flex;
+  position: relative;
+  top: -5px;
+  right: 32px;
 }
