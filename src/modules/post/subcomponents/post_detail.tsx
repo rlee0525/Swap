@@ -387,7 +387,7 @@ class PostDetail extends React.Component<any, any> {
     };
     let { id, title, description, price, created_at, views, condition, category } = this.props.post;
     let buttons;
-    const isAuthor = this.props.post.is_author;
+    const isAuthor = this.props.post.is_owner;
     const isBookmarked = this.props.post.is_bookmarked;
 
     if (isAuthor) {
