@@ -1,8 +1,9 @@
 import { connect } from 'react-redux';
 
 import Chat from './component';
-import { fetchFirebaseConversations } from 'common/actions';
 import { IUser, IPost, IChat } from 'common/interfaces';
+import { fetchFirebaseConversations,
+         deleteConversation } from 'common/actions';
 
 interface StateProps {
   user: IUser;
@@ -11,6 +12,7 @@ interface StateProps {
 
 interface DispatchProps {
   fetchFirebaseConversations: (user: object) => void;
+  deleteConversation: (id: string) => void;
 }
 
 const mapStateToProps = (state: any): StateProps => ({
@@ -19,7 +21,8 @@ const mapStateToProps = (state: any): StateProps => ({
 });
 
 const mapDispatchToProps = (dispatch: any): DispatchProps => ({
-  fetchFirebaseConversations: user => dispatch(fetchFirebaseConversations(user))
+  fetchFirebaseConversations: user => dispatch(fetchFirebaseConversations(user)),
+  deleteConversation: id => dispatch(deleteConversation(id))
 });
 
 export default connect(

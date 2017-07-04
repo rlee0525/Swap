@@ -6,7 +6,7 @@ import * as firebase from 'firebase';
 import autoBind from 'react-autobind';
 import { keyBy, values } from 'lodash';
 
-import { IUser } from 'common/interfaces';
+import { IUser, IChat } from 'common/interfaces';
 import { createConversation } from 'common/utils';
 import { LoadingSpinner } from 'common/components';
 import { Messages, ConversationItem } from './subcomponents';
@@ -18,7 +18,9 @@ interface Props {
       id: string;
     }
   };
+  chat: IChat;
   fetchFirebaseConversations: any;
+  deleteConversation: any;
 }
 
 interface State {
@@ -53,6 +55,7 @@ class Chat extends React.Component<Props, State> {
     let { user } = this.props;
     let conversationId = this.props.location.query.id;
 
+    this.loadData();
     let intervalId = setInterval((this.loadData), 300000);
     this.setState({ intervalId });
   }
@@ -160,7 +163,7 @@ class Chat extends React.Component<Props, State> {
     if (this.state.loading) return <LoadingSpinner />
 
     let { currentConversation, conversations } = this.state;
-    let { user } = this.props;
+    let { user, chat } = this.props;
     let width = window.innerWidth;    
 
     autosize($('textarea'));
@@ -173,14 +176,15 @@ class Chat extends React.Component<Props, State> {
           </div>
           {values(conversations).map((conversation : any) => (
             <ConversationItem
+              user={user}
+              chat={chat}
               key={conversation.conversation_id}
               hasUnreadMessages={conversation.hasUnreadMessages}
               active={currentConversation === conversation.conversation_id}
               otherUser={conversation.other_user_info}
-              user={user}
               changeConversation={() => this.changeConversation(conversation.conversation_id)}
               conversationId={conversation.conversation_id}
-              fetchFirebaseConversations={this.props.fetchFirebaseConversations}
+              deleteConversation={this.props.deleteConversation}
             />
           ))}
         </div>

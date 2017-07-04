@@ -4,15 +4,17 @@ import React from 'react';
 import autoBind from 'react-autobind';
 
 import { shortenString } from 'helpers';
+import { IUser, IChat } from 'common/interfaces';
 
 interface Props {
-  user: any;
+  user: IUser;
+  chat: IChat;
   otherUser: any;
   active: boolean;
   hasUnreadMessages: boolean;
   conversationId: string;
   changeConversation: () => void;
-  fetchFirebaseConversations: any;
+  deleteConversation: any;
 }
 
 class ConversationItem extends React.Component<Props, any> {
@@ -49,7 +51,7 @@ class ConversationItem extends React.Component<Props, any> {
               method: 'DELETE',
               url: `api/conversations/${id}`,
               data
-            }).then(res => that.props.fetchFirebaseConversations(user));
+            }).then(res => that.props.deleteConversation(id))
           },
           Cancel: function() {
             $(this).dialog("close");
@@ -59,7 +61,7 @@ class ConversationItem extends React.Component<Props, any> {
     });
   }
 
-  public render() {
+  public render() {    
     let { otherUser, changeConversation, hasUnreadMessages, 
           active, conversationId } = this.props;
     let name = `${otherUser.first_name} ${otherUser.last_name}`;
