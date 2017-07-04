@@ -593,7 +593,11 @@ a.ui-button:active,
 	-webkit-box-shadow: 0px 0px 5px #666666;
 	box-shadow: 0px 0px 5px #666666;
 }
-#dialog-confirm {
+#dialog-confirm-bookmarks,
+#dialog-confirm-conv-item,
+#dialog-confirm-my-courses,
+#dialog-confirm-my-posts,
+#dialog-confirm-rfps {
 	display: none;
 }
 @media screen and (max-width: 414px) {

@@ -44,7 +44,7 @@ class Bookmarks extends React.Component<Props, State> {
     let that = this;
 
     $(function() {
-      $("#dialog-confirm").dialog({
+      $("#dialog-confirm-bookmarks").dialog({
         resizable: false,
         height: "auto",
         width: 400,
@@ -63,8 +63,8 @@ class Bookmarks extends React.Component<Props, State> {
           }
         }
       });
-      
-      deleteClickOutside();
+
+      deleteClickOutside("#dialog-confirm-bookmarks");
     });
   }
 
@@ -150,7 +150,7 @@ class Bookmarks extends React.Component<Props, State> {
           </table>
         </div>
 
-        <div className="no-display" id="dialog-confirm">
+        <div className="no-display" id="dialog-confirm-bookmarks">
           Delete this post?
         </div> 
       </div>

@@ -31,7 +31,7 @@ class ConversationItem extends React.Component<Props, any> {
     let that = this;
 
     $(function() {      
-      $("#dialog-confirm").dialog({
+      $("#dialog-confirm-conv-item").dialog({
         resizable: false,
         height: "auto",
         width: 400,
@@ -60,8 +60,8 @@ class ConversationItem extends React.Component<Props, any> {
           }
         }
       });
-    
-      deleteClickOutside();
+
+      deleteClickOutside("#dialog-confirm-conv-item");
     });    
   }
 
@@ -70,7 +70,7 @@ class ConversationItem extends React.Component<Props, any> {
           active, conversationId } = this.props;
     let name = `${otherUser.first_name} ${otherUser.last_name}`;
     let width = window.innerWidth;
- 
+
     return (
       <div 
         className={`conversation-item ${active ? 'active-chat' : ''} ${width <= 414 && 'mobile-c-item'}`} 
@@ -109,7 +109,7 @@ class ConversationItem extends React.Component<Props, any> {
           />
         </div>
 
-        <div className="no-display" id="dialog-confirm">
+        <div className="no-display" id="dialog-confirm-conv-item">
           Archive this message?
         </div> 
       </div>

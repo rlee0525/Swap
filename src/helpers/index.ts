@@ -65,12 +65,12 @@ export const getCategory = (location: any) : string => {
   return category;
 }
 
-export const deleteClickOutside = () => {
+export const deleteClickOutside = (id) => {
   $(".ui-widget-overlay").click (function () {
-    $("#dialog-confirm").dialog( "close" );
+    $(id).dialog( "close" );
   });
 
   $(".navbar").click(function () {
-    $("#dialog-confirm").dialog( "close" );
+    $(id).dialog( "close" );
   });
 }

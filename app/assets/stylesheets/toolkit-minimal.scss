@@ -3611,7 +3611,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
 }
 .navbar-static-top {
-  z-index: 1000;
+  z-index: 100;
   border-width: 0 0 1px;
 }
 @media (min-width: 768px) {

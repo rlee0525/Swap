@@ -62,7 +62,7 @@ class MyPosts extends React.Component<Props, State> {
     let that = this;
 
     $(function() {
-      $("#dialog-confirm").dialog({
+      $("#dialog-confirm-my-posts").dialog({
         resizable: false,
         height: "auto",
         width: 400,
@@ -82,8 +82,8 @@ class MyPosts extends React.Component<Props, State> {
           }
         }
       });
-      
-      deleteClickOutside();
+
+      deleteClickOutside("#dialog-confirm-my-posts");
     });
   }
 
@@ -176,7 +176,7 @@ class MyPosts extends React.Component<Props, State> {
           </table>
         </div>
 
-        <div className="no-display" id="dialog-confirm">
+        <div className="no-display" id="dialog-confirm-my-posts">
           Delete this post?
         </div> 
       </div>
