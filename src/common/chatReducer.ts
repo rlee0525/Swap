@@ -1,4 +1,4 @@
-import { merge } from 'lodash';
+import { merge, omit } from 'lodash';
 
 import { CHAT } from "./actions";
 
@@ -17,6 +17,10 @@ const chatReducer = (state = _defaultState, action) => {
       return merge({}, state, {
         conversations: action.conversations
       });
+    case CHAT.DELETE_CONVERSATION:
+      let newState = merge({}, state);
+      delete newState.conversations[action.conversationId];      
+      return newState;
     default:
       return state;
   }

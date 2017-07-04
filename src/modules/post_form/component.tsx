@@ -258,7 +258,7 @@ class PostForm extends React.Component<any, IState> {
       <div className="container">
         {this.renderErrors()}
         <h1 style={paddingLeft} id="heading-custom">
-          {this.props.params.id ? `Edit post ${this.state.id}` : "Create a new post"}
+          {this.props.params.id ? `Edit post` : "Create a new post"}
         </h1>
         <br/><br/>
         <form className="form-horizontal">
@@ -415,10 +415,6 @@ class PostForm extends React.Component<any, IState> {
               <br/>
             </div>
           </div>
-
-          <div className="no-display" id="dialog-confirm">
-            Delete this form?
-          </div> 
         </form>
       </div>
     );

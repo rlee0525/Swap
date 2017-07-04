@@ -3,7 +3,7 @@ declare var $;
 import React from 'react';
 
 import { IUser } from 'common/interfaces';
-import { shortenString, timeFromNow } from 'helpers';
+import { shortenString, timeFromNow, deleteClickOutside } from 'helpers';
 import { TableHeaders, LoadingSpinner, SmallButton } from 'common/components';
 
 interface IRfps {
@@ -41,7 +41,7 @@ class Rfps extends React.Component <Props, State> {
     let that = this;
 
     $(function() {
-      $("#dialog-confirm").dialog({
+      $("#dialog-confirm-rfps").dialog({
         resizable: false,
         height: "auto",
         width: 400,
@@ -60,6 +60,8 @@ class Rfps extends React.Component <Props, State> {
           }
         }
       });
+
+      deleteClickOutside("#dialog-confirm-rfps");
     });
   }
 
@@ -123,7 +125,7 @@ class Rfps extends React.Component <Props, State> {
           </div>
         </div>
 
-        <div className="no-display" id="dialog-confirm">
+        <div className="no-display" id="dialog-confirm-rfps">
           Delete this alert?
         </div> 
       </div>

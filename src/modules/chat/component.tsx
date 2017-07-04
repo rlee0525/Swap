@@ -1,11 +1,13 @@
 declare var $, Promise;
 
 import React from 'react';
+import autosize from 'autosize';
 import * as firebase from 'firebase';
 import autoBind from 'react-autobind';
 import { keyBy, values } from 'lodash';
 
-import { IUser } from 'common/interfaces';
+import { IUser, IChat } from 'common/interfaces';
+import { createConversation } from 'common/utils';
 import { LoadingSpinner } from 'common/components';
 import { Messages, ConversationItem } from './subcomponents';
 
@@ -16,7 +18,9 @@ interface Props {
       id: string;
     }
   };
+  chat: IChat;
   fetchFirebaseConversations: any;
+  deleteConversation: any;
 }
 
 interface State {
@@ -43,7 +47,7 @@ class Chat extends React.Component<Props, State> {
     }
 
     autoBind(this);
-
+    
     this.ref = null;
   }
 
@@ -51,6 +55,7 @@ class Chat extends React.Component<Props, State> {
     let { user } = this.props;
     let conversationId = this.props.location.query.id;
 
+    this.loadData();
     let intervalId = setInterval((this.loadData), 300000);
     this.setState({ intervalId });
   }
@@ -112,6 +117,7 @@ class Chat extends React.Component<Props, State> {
       }
     });
 
+    createConversation(currentConversation, user.userFB.id);
     firebase.database().ref(`conversations/${currentConversation}/${time}`).set(messageObj);
   }
 
@@ -157,30 +163,38 @@ class Chat extends React.Component<Props, State> {
     if (this.state.loading) return <LoadingSpinner />
 
     let { currentConversation, conversations } = this.state;
-    let { user } = this.props;
+    let { user, chat } = this.props;
+    let width = window.innerWidth;    
 
+    autosize($('textarea'));
+  
     return (
-      <div className="container chat-container">
-        <div className="chat-conversations">
-          <div className='chat-conversations-title'>
+      <div className={`container chat-container ${width <= 414 && 'mobile-chat-container'}`}>
+        <div className={`chat-conversations ${width <= 414 && 'mobile-conversations'}`}>
+          <div className={width > 414 ? 'chat-conversations-title' : 'hidden'}>
             Messages
           </div>
-          { values(conversations).map((conversation : any) => (
+          {values(conversations).map((conversation : any) => (
             <ConversationItem
+              user={user}
+              chat={chat}
               key={conversation.conversation_id}
               hasUnreadMessages={conversation.hasUnreadMessages}
               active={currentConversation === conversation.conversation_id}
-              user={conversation.other_user_info}
+              otherUser={conversation.other_user_info}
               changeConversation={() => this.changeConversation(conversation.conversation_id)}
+              conversationId={conversation.conversation_id}
+              deleteConversation={this.props.deleteConversation}
             />
           ))}
         </div>
 
-        <div className="chat-messages">
-          { Object.keys(conversations).length === 0 ? (
+        <div className={`chat-messages ${width > 414 ? 'no-border-left' : 'no-border-top'}`}>
+          {Object.keys(conversations).length === 0 ? (
             <div id="messages-warning">You don't have any conversations.</div>
           ) :(
             <Messages
+              conversations={conversations}
               conversation={conversations[currentConversation]}
               user={user}
             />
@@ -197,7 +211,7 @@ class Chat extends React.Component<Props, State> {
           </div>
         </div>
       </div>
-    );
+    )
   }
 }
 

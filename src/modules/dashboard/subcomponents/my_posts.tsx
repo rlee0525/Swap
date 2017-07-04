@@ -5,7 +5,7 @@ import { cloneDeep } from 'lodash';
 import autoBind from 'react-autobind';
 
 import { IPost, IUser } from 'common/interfaces';
-import { shortenString, timeFromNow } from 'helpers';
+import { shortenString, timeFromNow, deleteClickOutside } from 'helpers';
 import { TableHeaders, LoadingSpinner, SmallButton } from 'common/components';
 
 interface Props {
@@ -62,7 +62,7 @@ class MyPosts extends React.Component<Props, State> {
     let that = this;
 
     $(function() {
-      $("#dialog-confirm").dialog({
+      $("#dialog-confirm-my-posts").dialog({
         resizable: false,
         height: "auto",
         width: 400,
@@ -82,6 +82,8 @@ class MyPosts extends React.Component<Props, State> {
           }
         }
       });
+
+      deleteClickOutside("#dialog-confirm-my-posts");
     });
   }
 
@@ -174,7 +176,7 @@ class MyPosts extends React.Component<Props, State> {
           </table>
         </div>
 
-        <div className="no-display" id="dialog-confirm">
+        <div className="no-display" id="dialog-confirm-my-posts">
           Delete this post?
         </div> 
       </div>

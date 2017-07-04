@@ -5,7 +5,7 @@ import Clipboard from 'clipboard';
 import autoBind from 'react-autobind';
 
 import { IUser, IPost } from 'common/interfaces';
-import { shortenString, timeFromNow } from 'helpers';
+import { shortenString, timeFromNow, deleteClickOutside } from 'helpers';
 import { TableHeaders, LoadingSpinner, SmallButton } from 'common/components';
 
 interface State {
@@ -38,13 +38,13 @@ class Bookmarks extends React.Component<Props, State> {
 
     autoBind(this);
   }
-
+  
   public deleteBookmark(e, id) {
     e.stopPropagation();
     let that = this;
 
     $(function() {
-      $("#dialog-confirm").dialog({
+      $("#dialog-confirm-bookmarks").dialog({
         resizable: false,
         height: "auto",
         width: 400,
@@ -63,6 +63,8 @@ class Bookmarks extends React.Component<Props, State> {
           }
         }
       });
+
+      deleteClickOutside("#dialog-confirm-bookmarks");
     });
   }
 
@@ -148,7 +150,7 @@ class Bookmarks extends React.Component<Props, State> {
           </table>
         </div>
 
-        <div className="no-display" id="dialog-confirm">
+        <div className="no-display" id="dialog-confirm-bookmarks">
           Delete this post?
         </div> 
       </div>

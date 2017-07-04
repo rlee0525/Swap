@@ -4,7 +4,9 @@ import React from 'react';
 import autoBind from 'react-autobind';
 
 import { IUser } from 'common/interfaces';
-import { shortenString, timeFromNow } from 'helpers';
+import { shortenString, 
+         timeFromNow, 
+         deleteClickOutside } from 'helpers';
 import { LoadingSpinner, 
          SmallButton, 
          LargeButton } from 'common/components';
@@ -62,7 +64,7 @@ class MyCourses extends React.Component<Props, State> {
     let that = this;
 
     $(function() {
-      $("#dialog-confirm").dialog({
+      $("#dialog-confirm-my-courses").dialog({
         resizable: false,
         height: "auto",
         width: 400,
@@ -77,6 +79,8 @@ class MyCourses extends React.Component<Props, State> {
           }
         }
       });
+
+      deleteClickOutside("#dialog-confirm-my-courses");
     });
   }
 
@@ -223,7 +227,7 @@ class MyCourses extends React.Component<Props, State> {
         </div>
         {this.renderMyCourses()}
 
-        <div className="no-display" id="dialog-confirm">
+        <div className="no-display" id="dialog-confirm-my-courses">
           Delete this course?
         </div>
       </div>

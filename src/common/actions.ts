@@ -7,7 +7,8 @@ import * as ChatAPI from './utils';
 
 export const CHAT = {
   CHECK_RECEIPT: "chat/CHECK_RECEIPT",
-  RECEIVE_CONVERSATIONS: 'chat/RECEIVE_CONVERSATIONS'
+  RECEIVE_CONVERSATIONS: 'chat/RECEIVE_CONVERSATIONS',
+  DELETE_CONVERSATION: 'chat/DELETE_CONVERSATION'
 }
 
 export const receiveReceipt = unreadMessage => ({
@@ -18,6 +19,11 @@ export const receiveReceipt = unreadMessage => ({
 export const receiveConversations = conversations => ({
   type: CHAT.RECEIVE_CONVERSATIONS,
   conversations
+});
+
+export const deleteConversation = conversationId => ({
+  type: CHAT.DELETE_CONVERSATION,
+  conversationId
 });
 
 export const fetchFirebaseConversations = user => dispatch => (
