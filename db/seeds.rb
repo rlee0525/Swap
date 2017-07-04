@@ -55,7 +55,7 @@ User.create!(
   last_name: ENV['DAVID_LAST_NAME']
 )
 
-50.times do |idx|
+200.times do |idx|
   category = categories.sample
   course = nil
   start_date = nil
