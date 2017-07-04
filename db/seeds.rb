@@ -30,7 +30,8 @@ end
 
 User.create!(
   fb_id: ENV["RAYMOND_FB_ID"],
-  edu_email: "bob@berkeley.edu",
+  edu_email: "raylee0525@gmail.com",
+  edu_email_confirmed: true,
   university: University.first,
   fb_picture: ENV['RAYMOND_FB_PICTURE'],
   first_name: ENV['RAYMOND_FIRST_NAME'],
@@ -39,7 +40,8 @@ User.create!(
 
 User.create!(
   fb_id: ENV['RANDY_FB_ID'],
-  edu_email: "bobby@berkeley.edu",
+  edu_email: "randyjap@gmail.com",
+  edu_email_confirmed: true,
   university: University.first,
   fb_picture: ENV['RANDY_FB_PICTURE'],
   first_name: ENV['RANDY_FIRST_NAME'],
@@ -48,7 +50,8 @@ User.create!(
 
 User.create!(
   fb_id: ENV['DAVID_FB_ID'],
-  edu_email: "bobbybobby@berkeley.edu",
+  edu_email: "davidhu2000@gmail.com",
+  edu_email_confirmed: true,
   university: University.first,
   fb_picture: ENV['DAVID_FB_PICTURE'],
   first_name: ENV['DAVID_FIRST_NAME'],
