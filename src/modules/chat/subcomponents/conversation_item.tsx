@@ -3,8 +3,8 @@ declare var $;
 import React from 'react';
 import autoBind from 'react-autobind';
 
-import { shortenString } from 'helpers';
 import { IUser, IChat } from 'common/interfaces';
+import { shortenString, deleteClickOutside } from 'helpers';
 
 interface Props {
   user: IUser;
@@ -61,13 +61,7 @@ class ConversationItem extends React.Component<Props, any> {
         }
       });
     
-      $(".ui-widget-overlay").click (function () {
-        $("#dialog-confirm").dialog( "close" );
-      });
-
-      $(".navbar").click(function () {
-        $("#dialog-confirm").dialog( "close" );
-      });
+      deleteClickOutside();
     });    
   }
 

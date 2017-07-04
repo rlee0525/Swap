@@ -4,7 +4,9 @@ import React from 'react';
 import autoBind from 'react-autobind';
 
 import { IUser } from 'common/interfaces';
-import { shortenString, timeFromNow } from 'helpers';
+import { shortenString, 
+         timeFromNow, 
+         deleteClickOutside } from 'helpers';
 import { LoadingSpinner, 
          SmallButton, 
          LargeButton } from 'common/components';
@@ -78,13 +80,7 @@ class MyCourses extends React.Component<Props, State> {
         }
       });
       
-      $(".ui-widget-overlay").click (function () {
-        $("#dialog-confirm").dialog( "close" );
-      });
-
-      $(".navbar").click(function () {
-        $("#dialog-confirm").dialog( "close" );
-      });
+      deleteClickOutside();
     });
   }
 

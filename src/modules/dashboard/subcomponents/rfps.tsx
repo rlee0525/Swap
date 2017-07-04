@@ -3,7 +3,7 @@ declare var $;
 import React from 'react';
 
 import { IUser } from 'common/interfaces';
-import { shortenString, timeFromNow } from 'helpers';
+import { shortenString, timeFromNow, deleteClickOutside } from 'helpers';
 import { TableHeaders, LoadingSpinner, SmallButton } from 'common/components';
 
 interface IRfps {
@@ -61,13 +61,7 @@ class Rfps extends React.Component <Props, State> {
         }
       });
 
-      $(".ui-widget-overlay").click (function () {
-        $("#dialog-confirm").dialog( "close" );
-      });
-
-      $(".navbar").click(function () {
-        $("#dialog-confirm").dialog( "close" );
-      });
+      deleteClickOutside();
     });
   }
 

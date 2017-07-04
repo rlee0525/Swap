@@ -1,3 +1,5 @@
+declare var $;
+
 export const timeFromNow = (date: string) : string => {
   let durationsInSeconds: object = {
     year: 31536000,
@@ -61,4 +63,14 @@ export const getCategory = (location: any) : string => {
   }
 
   return category;
+}
+
+export const deleteClickOutside = () => {
+  $(".ui-widget-overlay").click (function () {
+    $("#dialog-confirm").dialog( "close" );
+  });
+
+  $(".navbar").click(function () {
+    $("#dialog-confirm").dialog( "close" );
+  });
 }
