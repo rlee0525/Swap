@@ -84,7 +84,13 @@ class SearchListView extends React.Component<Props, any> {
   }
 
   render() {
-    if (this.state.isLoading) return <LoadingSpinner />;
+    if (this.state.isLoading) {
+      return (
+        <div className="loading-grid-list">
+          <LoadingSpinner />
+        </div>
+      )
+    };
 
     let results;
     

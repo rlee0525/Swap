@@ -219,6 +219,10 @@ ul.nav {
 }
 
 /*Loader*/
+.loading-grid-list {
+  height: 50vh;
+}
+
 .showbox {
   position: absolute;
   top: 0;
