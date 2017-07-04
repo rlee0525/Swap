@@ -597,6 +597,7 @@ a.ui-button:active,
 #dialog-confirm-conv-item,
 #dialog-confirm-my-courses,
 #dialog-confirm-my-posts,
+#dialog-confirm-my-post,
 #dialog-confirm-rfps {
 	display: none;
 }

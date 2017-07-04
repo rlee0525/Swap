@@ -6,10 +6,10 @@ import Clipboard from 'clipboard';
 import autoBind from 'react-autobind';
 import { hashHistory } from 'react-router';
 
-import { shortenString, timeFromNow } from 'helpers';
-import { MapItem, LoadingSpinner } from 'common/components';
-import { SearchNavbar } from 'modules/search/subcomponents';
 import { createConversation } from 'common/utils';
+import { SearchNavbar } from 'modules/search/subcomponents';
+import { MapItem, LoadingSpinner } from 'common/components';
+import { shortenString, timeFromNow, deleteClickOutside } from 'helpers';
 
 class PostDetail extends React.Component<any, any> {
   constructor(props) {
@@ -380,6 +380,34 @@ class PostDetail extends React.Component<any, any> {
     return <span id="date-range-housing">Available: {startDate} - {endDate}</span>;
   }
 
+  private deleteAlert(e, id) {
+    e.stopPropagation();
+    let that = this;
+
+    $(function() {
+      $("#dialog-confirm-my-post").dialog({
+        resizable: false,
+        height: "auto",
+        width: 400,
+        modal: true,
+        buttons: {
+          "Yes": function() {
+            $(this).dialog("close");
+            let { deleteMyPost, user } = that.props;
+            const access_token = that.props.user.auth.accessToken;
+
+            that.deletePost(id);
+          },
+          Cancel: function() {
+            $(this).dialog("close");
+          }
+        }
+      });
+
+      deleteClickOutside("#dialog-confirm-my-post");
+    });
+  }
+
   public renderDetail() {
     let titleMargin = {
       marginBottom: 10,
@@ -403,7 +431,7 @@ class PostDetail extends React.Component<any, any> {
           <a 
             className="btn btn-secondary btn-lg col-md-5 col-sm-5 col-xs-5" 
             id="ownPost-delete" 
-            onClick={() => this.deletePost(id)}
+            onClick={(e) => this.deleteAlert(e, id)}
           >
             Delete Post
           </a>
@@ -501,6 +529,10 @@ class PostDetail extends React.Component<any, any> {
           </div>
         </div>
         {this.renderDetail()}
+
+        <div className="no-display" id="dialog-confirm-my-post">
+          Delete this post?
+        </div> 
       </div>
     );
   }
