@@ -51,7 +51,9 @@ class ConversationItem extends React.Component<Props, any> {
               method: 'DELETE',
               url: `api/conversations/${id}`,
               data
-            }).then(res => that.props.deleteConversation(id))
+            }).then(res => {
+              that.props.deleteConversation(id)
+            })
           },
           Cancel: function() {
             $(this).dialog("close");

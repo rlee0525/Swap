@@ -194,6 +194,7 @@ class Chat extends React.Component<Props, State> {
             <div id="messages-warning">You don't have any conversations.</div>
           ) :(
             <Messages
+              conversations={conversations}
               conversation={conversations[currentConversation]}
               user={user}
             />

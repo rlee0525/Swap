@@ -4,21 +4,51 @@ import firebase from 'firebase';
 import { IUser } from 'common/interfaces';
 
 interface Props {
+  conversations: any;
   conversation : any;
   user : IUser;
 }
 
-class Messages extends React.Component<Props, {}> {
+interface State {
+  conversation: any;
+}
+
+class Messages extends React.Component<Props, State> {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      conversation: this.props.conversation
+    };
+  }
+  
+  componentWillReceiveProps(newProps) {
+    if (newProps.conversations !== this.props.conversations) {
+      if (newProps.conversations) {
+        let currentConversation = Object.keys(newProps.conversations)[0];
+        this.setState({
+          conversation: newProps.conversations[currentConversation]
+        });
+      } else {
+        this.setState({
+          conversation: null
+        });
+      }
+    }
+  }
 
   render() {
-    let { conversation, user } = this.props;
+    if (!this.state.conversation) return <div id="messages-warning">You don't have any conversations.</div>;
+
+    let { conversation } = this.state;
+    let { user } = this.props;
     let timestamps = Object.keys(conversation.messages).reverse();
     let renderedDelivered = false;
     let renderedSeen = false;
     
     return (
       <div className="chat-body">
-        { timestamps.map(timestamp => {
+        {timestamps.map(timestamp => {
           let currentMessage = conversation.messages[timestamp];
           let isMyMessage = currentMessage.sender === user.userFB.id;
           let receipt = null;
