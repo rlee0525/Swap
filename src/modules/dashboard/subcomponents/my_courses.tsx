@@ -77,6 +77,14 @@ class MyCourses extends React.Component<Props, State> {
           }
         }
       });
+      
+      $(".ui-widget-overlay").click (function () {
+        $("#dialog-confirm").dialog( "close" );
+      });
+
+      $(".navbar").click(function () {
+        $("#dialog-confirm").dialog( "close" );
+      });
     });
   }
 

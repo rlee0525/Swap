@@ -30,7 +30,7 @@ class ConversationItem extends React.Component<Props, any> {
 
     let that = this;
 
-    $(function() {
+    $(function() {      
       $("#dialog-confirm").dialog({
         resizable: false,
         height: "auto",
@@ -60,7 +60,15 @@ class ConversationItem extends React.Component<Props, any> {
           }
         }
       });
-    });
+    
+      $(".ui-widget-overlay").click (function () {
+        $("#dialog-confirm").dialog( "close" );
+      });
+
+      $(".navbar").click(function () {
+        $("#dialog-confirm").dialog( "close" );
+      });
+    });    
   }
 
   public render() {    
@@ -68,7 +76,7 @@ class ConversationItem extends React.Component<Props, any> {
           active, conversationId } = this.props;
     let name = `${otherUser.first_name} ${otherUser.last_name}`;
     let width = window.innerWidth;
-  
+ 
     return (
       <div 
         className={`conversation-item ${active ? 'active-chat' : ''} ${width <= 414 && 'mobile-c-item'}`} 

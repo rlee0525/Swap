@@ -415,10 +415,6 @@ class PostForm extends React.Component<any, IState> {
               <br/>
             </div>
           </div>
-
-          <div className="no-display" id="dialog-confirm">
-            Delete this form?
-          </div> 
         </form>
       </div>
     );

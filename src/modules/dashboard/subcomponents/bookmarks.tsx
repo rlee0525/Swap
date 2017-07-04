@@ -38,7 +38,7 @@ class Bookmarks extends React.Component<Props, State> {
 
     autoBind(this);
   }
-
+  
   public deleteBookmark(e, id) {
     e.stopPropagation();
     let that = this;
@@ -62,6 +62,14 @@ class Bookmarks extends React.Component<Props, State> {
             $(this).dialog("close");
           }
         }
+      });
+      
+      $(".ui-widget-overlay").click (function () {
+        $("#dialog-confirm").dialog( "close" );
+      });
+
+      $(".navbar").click(function () {
+        $("#dialog-confirm").dialog( "close" );
       });
     });
   }

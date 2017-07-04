@@ -47,7 +47,7 @@ class Chat extends React.Component<Props, State> {
     }
 
     autoBind(this);
-
+    
     this.ref = null;
   }
 
