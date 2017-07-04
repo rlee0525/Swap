@@ -72,7 +72,7 @@ class ConversationItem extends React.Component<Props, any> {
         className={`conversation-item ${active ? 'active-chat' : ''} ${width <= 414 && 'mobile-c-item'}`} 
         onClick={changeConversation}
       >
-        { hasUnreadMessages ? <div className='noti unread' /> : <div className='noti' /> }
+        { hasUnreadMessages ? <div className='noti unread noti-size' /> : <div className='noti noti-size' /> }
         <img src={otherUser.fb_picture} alt='Profile Picture' />
         <div className={`chat-info-container ${width <= 414 && "mobile-i-container"}`}>
           <span className="chat-name-1">

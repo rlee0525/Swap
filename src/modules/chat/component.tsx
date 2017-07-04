@@ -189,8 +189,8 @@ class Chat extends React.Component<Props, State> {
           ))}
         </div>
 
-        <div className="chat-messages">
-          { Object.keys(conversations).length === 0 ? (
+        <div className={`chat-messages ${width > 414 ? 'no-border-left' : 'no-border-top'}`}>
+          {Object.keys(conversations).length === 0 ? (
             <div id="messages-warning">You don't have any conversations.</div>
           ) :(
             <Messages

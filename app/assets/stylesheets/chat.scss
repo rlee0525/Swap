@@ -195,7 +195,6 @@
   display: flex;
   flex-direction: row;
   flex: none;
-  border-bottom: 0;
 }
 
 .mobile-c-item {
@@ -243,4 +242,30 @@
 
 .mobile-i-container {
   width: initial;
+}
+
+.no-border-left {
+  border-left: none !important;
+}
+
+.no-border-top {
+  border-top: none !important;
+}
+
+@media screen and (min-width: 707px) {
+  .noti-size {
+    width: 21px !important;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .noti-size {
+    width: 17px !important;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .noti-size {
+    width: 15px !important;
+  }
 }
