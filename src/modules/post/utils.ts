@@ -1,5 +1,5 @@
 /* global $ */
-export const fetchPost = (id: number, accessToken: string) => (
+export const fetchPost = (id: string, accessToken: string) => (
   $.ajax({
     method: 'GET',
     url: `api/posts/${id}`,

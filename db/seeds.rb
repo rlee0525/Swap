@@ -117,8 +117,9 @@ end
 
 User.all.each do |user|
   user.courses.each do |course|
+    index = rand(10)
     20.times do
-      course.posts << Post.find(rand(1..200))
+      course.posts << Post.where(category: "Course Material")[index]
     end
   end
 end

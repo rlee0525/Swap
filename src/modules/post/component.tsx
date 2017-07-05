@@ -8,6 +8,9 @@ class Post extends React.Component<any, any> {
       paddingBottom: 20
     };
 
+    console.log(this.props);
+    
+
     return (
       <div className="container" style={paddingBot}>
         <PostDetail
