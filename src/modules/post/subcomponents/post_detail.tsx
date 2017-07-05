@@ -315,12 +315,11 @@ class PostDetail extends React.Component<any, any> {
                       title="click to edit"
                     >
                       Hi {name.split(" ")[0]}, <br/><br/>
-                      My name is {this.props.user && this.props.user.userFB.name.split(" ")[0]}.<br/>
-                      &nbsp;I saw your posting on {this.props.post.title} on Swap.<br/>
-                      {this.priceMessage()}<br/>
-                      {this.availableMessage()}<br/>
+                      My name is {this.props.user && this.props.user.userFB.name.split(" ")[0]}.
+                      I saw your posting on <strong>{this.props.post.title}</strong> and {this.priceMessage()}
+                      &nbsp;{this.availableMessage()}<br/><br />
 
-                      link: {(window as any).localhost_url}/#/posts/{this.props.post.id}<br/><br/>
+                      Link: {(window as any).localhost_url}/#/posts/{this.props.post.id}<br/><br/>
 
                       Thanks,<br/>
                       {this.props.user && this.props.user.userFB.name}
@@ -332,7 +331,7 @@ class PostDetail extends React.Component<any, any> {
                     data-clipboard-target="#purchase-msg-template" 
                     id="copy-template"
                   >
-                    Copy Message
+                    Copy Template
                   </button>
                 </div>
               </div>
