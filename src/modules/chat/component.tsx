@@ -54,10 +54,15 @@ class Chat extends React.Component<Props, State> {
   public componentDidMount() : void {
     let { user } = this.props;
     let conversationId = this.props.location.query.id;
+    let currentConversation;
 
+    if (conversationId) {
+      currentConversation = conversationId;
+    }
+    
     this.loadData();
     let intervalId = setInterval((this.loadData), 300000);
-    this.setState({ intervalId });
+    this.setState({ intervalId, currentConversation });
   }
 
   private loadData() {
