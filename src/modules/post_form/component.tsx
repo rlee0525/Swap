@@ -188,7 +188,15 @@ class PostForm extends React.Component<any, IState> {
   }
 
   public radioButtonsUpdate(type) {
-    return e => { this.setState({ [type]: e.currentTarget.textContent, errors: [] }) };
+    return e => {
+      let price = this.state.price;
+
+      if (e.currentTarget.textContent === "Lost & Found") {
+        price = 0;
+      }
+      
+      this.setState({ [type]: e.currentTarget.textContent, price, errors: [] }) 
+    };
   }
 
   public submitForm(e) {

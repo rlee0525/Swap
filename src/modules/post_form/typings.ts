@@ -4,7 +4,7 @@ export interface IState {
   description: string;
   category: string;
   course?: string;
-  price: string;
+  price: number;
   img_url1?: string;
   img_url2?: string;
   img_url3?: string;
@@ -24,7 +24,7 @@ export const _defaultState = {
   description: "",
   category: "Course Material",
   course: "",
-  price: "",
+  price: null,
   img_url1: "",
   img_url2: "",
   img_url3: "",
