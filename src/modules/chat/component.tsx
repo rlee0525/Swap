@@ -60,9 +60,6 @@ class Chat extends React.Component<Props, State> {
       currentConversation = conversationId;
     }
 
-    console.log(currentConversation);
-    
-    
     this.loadData();
     let intervalId = setInterval((this.loadData), 300000);
     this.setState({ intervalId, currentConversation });
@@ -78,16 +75,16 @@ class Chat extends React.Component<Props, State> {
   }
 
   public componentWillReceiveProps(newProps) {
-    console.log(this.props);
-    console.log(newProps);
-    
-    
+    console.log(newProps.chat.conversations);
+     
     if (newProps.chat.conversations) {
       let conversations = newProps.chat.conversations;
       let unreadMessage = newProps.chat.unreadMessage;
       let currentConversation;
 
-      if (!this.state.currentConversation) {
+      if (this.props.location.query.id) {
+        currentConversation = this.props.location.query.id;
+      } else if (!this.state.currentConversation) {
         currentConversation = Object.keys(conversations)[0];
       } else {
         currentConversation = this.state.currentConversation;

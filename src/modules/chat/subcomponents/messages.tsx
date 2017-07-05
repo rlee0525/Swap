@@ -2,6 +2,7 @@ import React from 'react';
 import firebase from 'firebase';
 
 import { IUser } from 'common/interfaces';
+import { LoadingSpinner } from 'common/components';
 
 interface Props {
   conversations: any;
@@ -12,6 +13,8 @@ interface Props {
 class Messages extends React.Component<Props, {}> {
   
   render() {
+    if (!this.props.conversation) return <LoadingSpinner />
+    
     let { conversation, user } = this.props;
     let timestamps = Object.keys(conversation.messages).reverse();
     let renderedDelivered = false;
