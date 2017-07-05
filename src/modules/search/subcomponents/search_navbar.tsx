@@ -81,14 +81,14 @@ class SearchNavbar extends React.Component<Props, State> {
     const category = this.state.category;
 
     if (this.state.category) {
-      nextQuery = merge({}, currentQuery, {category});
+      nextQuery = merge({}, currentQuery, {category, page_idx: 1});      
     }
     
     this.props.saveQuery(nextQuery);
     
     if (this.props.currentQuery.category === "My Course Material" && this.props.user) {
       const access_token = this.props.user.auth.accessToken;
-      nextQuery = merge({}, nextQuery, {category, access_token});
+      nextQuery = merge({}, nextQuery, {category, access_token, page_idx: 1});
       this.props.search(nextQuery);
     } else {
       this.props.search(nextQuery);
