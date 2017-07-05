@@ -1,5 +1,5 @@
 module Posts
-  url_prefix = "http://res.cloudinary.com/dkympkwdz/image/upload/ar_3,c_fill,g_auto,h_700,q_80,w_700/f_jpg/"
+  url_prefix = "//res.cloudinary.com/dkympkwdz/image/upload/ar_3,c_fill,g_auto,h_700,q_80,w_700/f_jpg/"
   DATA = [
     { title: "Crate & Barrel Braiden Coffee Table", description: "Excellent condition, we bought another style coffee table, so selling it.  Local pick up. Cash only.",
       img_url1: "#{url_prefix}/1.jpg", img_url2: "#{url_prefix}/2.jpg", img_url3: "#{url_prefix}/3.jpg" },
