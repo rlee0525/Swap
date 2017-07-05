@@ -54,11 +54,14 @@ class Chat extends React.Component<Props, State> {
   public componentDidMount() : void {
     let { user } = this.props;
     let conversationId = this.props.location.query.id;
-    let currentConversation;
+    let currentConversation = null;
 
     if (conversationId) {
       currentConversation = conversationId;
     }
+
+    console.log(currentConversation);
+    
     
     this.loadData();
     let intervalId = setInterval((this.loadData), 300000);
@@ -75,6 +78,10 @@ class Chat extends React.Component<Props, State> {
   }
 
   public componentWillReceiveProps(newProps) {
+    console.log(this.props);
+    console.log(newProps);
+    
+    
     if (newProps.chat.conversations) {
       let conversations = newProps.chat.conversations;
       let unreadMessage = newProps.chat.unreadMessage;
@@ -164,7 +171,7 @@ class Chat extends React.Component<Props, State> {
     })
   }
 
-  public render() : JSX.Element {
+  public render() : JSX.Element {    
     if (this.state.loading) return <LoadingSpinner />
 
     let { currentConversation, conversations } = this.state;

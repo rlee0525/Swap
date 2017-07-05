@@ -2,6 +2,7 @@ declare var $;
 
 import React from 'react';
 import autoBind from 'react-autobind';
+import { hashHistory } from 'react-router';
 
 import { IUser, IChat } from 'common/interfaces';
 import { shortenString, deleteClickOutside } from 'helpers';
@@ -52,7 +53,8 @@ class ConversationItem extends React.Component<Props, any> {
               url: `api/conversations/${id}`,
               data
             }).then(res => {
-              that.props.deleteConversation(id)
+              hashHistory.push('messages');
+              that.props.deleteConversation(id);
             })
           },
           Cancel: function() {
@@ -65,7 +67,7 @@ class ConversationItem extends React.Component<Props, any> {
     });    
   }
 
-  public render() {    
+  public render() {
     let { otherUser, changeConversation, hasUnreadMessages, 
           active, conversationId } = this.props;
     let name = `${otherUser.first_name} ${otherUser.last_name}`;
