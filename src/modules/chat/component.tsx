@@ -5,6 +5,7 @@ import autosize from 'autosize';
 import * as firebase from 'firebase';
 import autoBind from 'react-autobind';
 import { keyBy, values } from 'lodash';
+import { hashHistory } from 'react-router';
 
 import { IUser, IChat } from 'common/interfaces';
 import { createConversation } from 'common/utils';
@@ -75,21 +76,20 @@ class Chat extends React.Component<Props, State> {
   }
 
   public componentWillReceiveProps(newProps) {
-    console.log(newProps.chat.conversations);
-     
     if (newProps.chat.conversations) {
       let conversations = newProps.chat.conversations;
       let unreadMessage = newProps.chat.unreadMessage;
+      let stateConversation = this.state.currentConversation;
       let currentConversation;
-
+      
       if (this.props.location.query.id) {
         currentConversation = this.props.location.query.id;
-      } else if (!this.state.currentConversation) {
+      } else if (!stateConversation || !Object.keys(conversations).includes(stateConversation)) {
         currentConversation = Object.keys(conversations)[0];
       } else {
-        currentConversation = this.state.currentConversation;
+        currentConversation = stateConversation;
       }
-      
+
       this.ref = firebase.database().ref(`conversations/${currentConversation}`); 
 
       this.setState({
@@ -145,6 +145,7 @@ class Chat extends React.Component<Props, State> {
   }
 
   private changeConversation(conversation_id) {
+    hashHistory.push('messages');
     this.ref.off();
 
     firebase.database().ref(`conversations/${conversation_id}`).once('value', snapshot => {
@@ -164,6 +165,7 @@ class Chat extends React.Component<Props, State> {
           }
         }
       });
+
       this.props.fetchFirebaseConversations(this.props.user);
     })
   }
