@@ -9,39 +9,10 @@ interface Props {
   user : IUser;
 }
 
-interface State {
-  conversation: any;
-}
-
-class Messages extends React.Component<Props, State> {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      conversation: this.props.conversation
-    };
-  }
+class Messages extends React.Component<Props, {}> {
   
-  componentWillReceiveProps(newProps) {
-    if (newProps.conversations !== this.props.conversations) {
-      if (newProps.conversations) {
-        let currentConversation = Object.keys(newProps.conversations)[0];
-        this.setState({
-          conversation: newProps.conversations[currentConversation]
-        });
-      } else {
-        this.setState({
-          conversation: null
-        });
-      }
-    }
-  }
-
   render() {
-    if (!this.state.conversation) return <div id="messages-warning">You don't have any conversations.</div>;
-
-    let { conversation } = this.state;
-    let { user } = this.props;
+    let { conversation, user } = this.props;
     let timestamps = Object.keys(conversation.messages).reverse();
     let renderedDelivered = false;
     let renderedSeen = false;
