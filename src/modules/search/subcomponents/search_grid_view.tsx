@@ -129,7 +129,7 @@ class SearchGridView extends React.Component<Props, State> {
     let sellerName = shortenString(seller[0], 10) + ` ${seller[1][0]}.`;
 
     return (
-      <div className="col-sm-4 col-md-3 hover-show" key={Math.random() * post.id}
+      <div className="col-sm-4 col-md-3 hover-show" key={post.id}
         onClick={() => window.location.href = `#/posts/${post.id}`}>
         <div className="thumbnail thumbnail-post col-md-12">
           {carousel}
@@ -166,7 +166,13 @@ class SearchGridView extends React.Component<Props, State> {
 
 
   render() {
-    if (this.state.isLoading) return <LoadingSpinner />;
+    if (this.state.isLoading) {
+      return (
+        <div className="loading-grid-list">
+          <LoadingSpinner />
+        </div>
+      )
+    };
 
     let results;
 

@@ -69,8 +69,4 @@ export const deleteClickOutside = (id) => {
   $(".ui-widget-overlay").click (function () {
     $(id).dialog( "close" );
   });
-
-  $(".navbar").click(function () {
-    $(id).dialog( "close" );
-  });
 }

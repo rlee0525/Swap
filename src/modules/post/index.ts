@@ -16,7 +16,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  getPost: (id: number, access_token: string) => void;
+  getPost: (id: string, access_token: string) => void;
   search: (query: object, access_token: string) => void;
   saveQuery: (query: string) => void;
   receivePost: (post: any) => void;
