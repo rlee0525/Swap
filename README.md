@@ -1,3 +1,7 @@
 # SWAP
 
-Currently in development.
+Currently in development. 
+
+[Live](http://www.swapnow.io)
+
+[Demo Page](https://swapnow.herokuapp.com)
