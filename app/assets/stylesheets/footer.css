@@ -22,3 +22,17 @@ h6.text-uppercase {
   position: relative;
   min-height: calc(100vh - 100px);
 }
+
+.about-title {
+  margin-bottom: 30px !important;
+}
+
+.about-text {
+  letter-spacing: .1em;
+  color: #777777 !important;
+  font-size: 14px !important;
+  font-weight: 300 !important;
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  margin-bottom: 100px !important;
+}
+
