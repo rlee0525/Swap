@@ -15,7 +15,7 @@ class About extends React.Component<any, any> {
           <div className="row">
             <p className="about-text"> 
               Swap is a free online platform that allows students to connect 
-              with fellow classmates and exchange goods.<br/><br/> 
+              with fellow classmates and exchange goods.<br/><br/>
               
               Swap allows students to post items they don’t need while giving others the opportunity to find exactly what they want. 
               We offer exclusivity, convenience, and specialized features 
