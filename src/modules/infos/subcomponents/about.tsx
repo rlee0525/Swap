@@ -1,12 +1,16 @@
 import React from 'react';
 
 class About extends React.Component<any, any> {
+  public componentWillMount() {
+    window.scrollTo(0, 0);
+  }
+
   public render() {
     return (
       <div className="block app-price-plans">
         <div className="container text-center">
 
-          <div className="row about-title">
+          <div className="row m-b-lg">
             <div className="col-sm-8 col-sm-offset-2 col-lg-6 col-lg-offset-3">
               <h3 className="m-t-0 text-uppercase letter-spacing">About Swap</h3>
             </div>

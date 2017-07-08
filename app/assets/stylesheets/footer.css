@@ -23,10 +23,6 @@ h6.text-uppercase {
   min-height: calc(100vh - 100px);
 }
 
-.about-title {
-  margin-bottom: 50px !important;
-}
-
 .about-text {
   letter-spacing: .1em;
   color: #111 !important;
@@ -36,4 +32,3 @@ h6.text-uppercase {
   margin-bottom: 110px !important;
   text-align: justify !important;
 }
-
