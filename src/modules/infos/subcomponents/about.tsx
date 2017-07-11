@@ -32,7 +32,7 @@ class About extends React.Component<any, any> {
               a platform where students can connect and add to their school life.
               As an exclusive marketplace for Berkeley students, it is safer, more local, and more convenient.
               <br/><br/>
-              For more information, send an email to swapnowio[at]gmail.com.
+              For more information, send an email to <strong>swapnowio@gmail.com.</strong>
             </p>
           </div>
 
