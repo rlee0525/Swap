@@ -287,8 +287,6 @@ class PostDetail extends React.Component<any, any> {
   }
 
   public renderModal() {
-    console.log(this.state);
-    
     if (!this.state.authorFB || this.state.authorFB.error) return null;
 
     let { name, link, picture } = this.state.authorFB;    
