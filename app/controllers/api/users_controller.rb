@@ -11,23 +11,15 @@
 
 class Api::UsersController < ApplicationController
   def create
-    p params
     fb_id = fb_id(params[:accessToken])
-    p fb_id
     @user = fb_auth_user(params[:accessToken])
-    p @user
     if @user
-      p "hi"
       return render "api/users/show", status: 200
     else
       @user = User.new(fb_id: fb_id)
-      p @user
       if @user.save
-        p "hi2"
-        @user.mail
         return render "api/users/show", status: 200
       else
-        p @user.errors.full_messages
         return render json: ["invalid token"], status: 401
       end
     end
