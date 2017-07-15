@@ -9,13 +9,11 @@ class About extends React.Component<any, any> {
     return (
       <div className="block app-price-plans">
         <div className="container text-center">
-
           <div className="row m-b-lg">
             <div className="col-sm-8 col-sm-offset-2 col-lg-6 col-lg-offset-3">
               <h3 className="m-t-0 text-uppercase letter-spacing">About Swap</h3>
             </div>
           </div>
-
           <div className="row">
             <p className="about-text"> 
               Swap is a free online platform that allows students to connect 
@@ -35,7 +33,6 @@ class About extends React.Component<any, any> {
               For more information, send an email to <strong>swapnowio@gmail.com.</strong>
             </p>
           </div>
-
         </div>
       </div>
     );
