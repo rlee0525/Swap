@@ -19,7 +19,7 @@
 
 class User < ApplicationRecord
   validates :fb_id, :marketing_opt_in, presence: true
-  validates :edu_email, uniqueness: true
+  validates :edu_email, uniqueness: true, allow_nil: true
   validates_uniqueness_of :fb_id, case_sensitive: false
   has_many :posts
   has_many :bookmarks
