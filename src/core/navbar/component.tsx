@@ -43,7 +43,7 @@ class NavBar extends React.Component<any, any> {
   }
 
   private isEmailAddress(str) {
-    let pattern =/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    let pattern =/^\w+([\.-]?\w+)*@berkeley.edu$/;
     return pattern.test(str);
   }
 
