@@ -27,14 +27,3 @@ course_objects.each do |course_object|
     course_number: course_object[:course_number]
   )
 end
-
-User.create!(
-  fb_id: ENV["RAYMOND_FB_ID"],
-  edu_email: "raylee0525@gmail.com",
-  edu_email_confirmed: true,
-  university: University.first,
-  fb_picture: ENV['RAYMOND_FB_PICTURE'],
-  first_name: ENV['RAYMOND_FIRST_NAME'],
-  last_name: ENV['RAYMOND_LAST_NAME']
-)
-
