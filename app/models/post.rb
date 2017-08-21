@@ -68,5 +68,4 @@ class Post < ApplicationRecord
 
     score
   end
-
 end
