@@ -178,32 +178,29 @@ end
 - This app is built with responsiveness in mind. Multiple break points are set to render different ontents at different window widths including mobile views.
 
 ## Technology
-Swap utilized multiple technologies.
+
+Swap is a single page app built using multiple technologies.
 
 ### Languages
+
+* **Ruby**
 * **TypeScript**
 * **JavaScript**
-* **Ruby**
 
 ### Frontend
-Swap is a single page app.
 
-The following is a list of some of the technologies used to create the Swap frontend.
-
-* **React.js** was the framework used for the entirety of the front end.
+* **React.js** was the framework used for the entirety of the frontend.
 * **Redux** was utilized to store the bulk of the data needed on the client-side, and to trigger API calls as needed.
 * **Sass** was used to better organize the CSS.
 * **jQuery** was used for ajax calls.
 * **Webpack** was used to bundle and minify javascript files.
 * **Babel** was used to translate jsx into javascript.
 * **Bootstrap** was used to construct skeleton desgin.
+* **OAuth** was used to authenticate users using their Facebook accounts.
 
 ### Backend
-Swap makes asynchronous http requests to the back end to create, fetch, update, and delete data.
 
-The following is a list of some of the technologies used to create the Swap backend.
-
-* **Ruby on Rails** was the framework used for the back end, creating models that interact with the database, controllers that contain methods to respond to http requests, a router that maps routes to those controller methods, and jbuilder views to respond to requests with JSON data.
-* **PostgreSQL, Firebase** were used to store data.
+* **Ruby on Rails** was the framework used for the backend, creating models that interact with the database, controllers that contain methods to respond to http requests, a router that maps routes to those controller methods, and jbuilder views to respond to requests with JSON data.
+* **PostgreSQL and Firebase** were used to store data.
 * **Heroku** was used to host Swap.
 * **Cloudinary** was used to store images.
