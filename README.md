@@ -175,7 +175,7 @@ end
 <img src="https://res.cloudinary.com/rlee0525/image/upload/v1503340813/Screen_Shot_2017-08-21_at_11.39.10_AM_v08xij.png" alt="messages2" style="width: 42%; height: 400px" />
 
 **Responsive Design**
-- This app is built with responsiveness in mind. Multiple break points are set to render different ontents at different window widths including mobile views.
+- This app is built with responsiveness in mind. Multiple break points are set to render different contents at different window widths including mobile views.
 
 ## Technology
 
